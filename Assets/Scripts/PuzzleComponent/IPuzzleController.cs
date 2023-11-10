@@ -4,6 +4,9 @@
     {
         string Brief { get; }
         Schema[] Schema { get; }
-        PuzzleResult GetResult(string sql);
+        string[][] PlayerTableResult { get; }
+        bool IsPass { get; }
+        ExecuteResult GetExecuteResult(string sql);
+        bool GetPuzzleResult();
     }
 }

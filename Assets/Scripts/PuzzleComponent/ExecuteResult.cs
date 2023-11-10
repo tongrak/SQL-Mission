@@ -1,9 +1,9 @@
 ﻿namespace Assets.Scripts.PuzzleComponent
 {
-    public class PuzzleResult
+    public class ExecuteResult
     {
-        public bool IsCorrect { get; private set; }
         public string[][] TableResult { get; private set; }
+        //public string[][] TableResult { get; private set; }
         public bool IsError { get; private set; }
         public string ErrorMessage { get; private set; }
 
@@ -11,9 +11,8 @@
         /// For create error result.
         /// </summary>
         /// <param name="errMsg">Error message.</param>
-        public PuzzleResult(string errMsg)
+        public ExecuteResult(string errMsg)
         {
-            IsCorrect = false;
             IsError = true;
             ErrorMessage = errMsg;
         }
@@ -23,11 +22,10 @@
         /// </summary>
         /// <param name="tableResult">Record result from query execute.</param>
         /// <param name="isCorrect">Correctness from query execute.</param>
-        public PuzzleResult(string[][] tableResult, bool isCorrect)
+        public ExecuteResult(string[][] tableResult)
         {
-            IsCorrect = isCorrect;
-            IsError = false;
             TableResult = tableResult;
+            IsError = false;
         }
     }
 }
