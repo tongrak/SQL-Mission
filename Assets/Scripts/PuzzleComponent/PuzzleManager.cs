@@ -19,7 +19,6 @@ namespace Assets.Scripts.PuzzleComponent
         /// <summary>
         /// Get Puzzle Controller from given index.
         /// </summary>
-        /// <param name="index"></param>
         public IPuzzleController GetPC(int index)
         {
             return _allPC[index];
