@@ -2,8 +2,8 @@
 {
     public struct Schema
     {
-        public string TableName { get; private set; }
-        public string[] Attributes { get; private set; }
+        public readonly string TableName;
+        public readonly string[] Attributes;
 
         public Schema(string tableName, string[] attributes)
         {
