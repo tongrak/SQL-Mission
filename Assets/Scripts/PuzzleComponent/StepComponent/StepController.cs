@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.PuzzleComponent.StepComponent
 {
@@ -21,6 +16,11 @@ namespace Assets.Scripts.PuzzleComponent.StepComponent
         public Step GetNextStep()
         {
             return _allGameStep[_gameStepIndex + 1].CurrStep;
+        }
+
+        public void SetAllGameStep(GameStep[] allGameStep)
+        {
+            _allGameStep = allGameStep;
         }
     }
 }

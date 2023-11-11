@@ -17,7 +17,7 @@ namespace Assets.Scripts.PuzzleComponent
         public string[][] PlayerTableResult { get; private set; }
         public bool IsPass { get; private set; }
 
-        public PuzzleController(string dbPath, string answerSQL,string brief, Schema[] schema, ISQLService sqlService, PuzzleType puzzleType)
+        public PuzzleController(string dbPath, string answerSQL, string brief, Schema[] schema, ISQLService sqlService, PuzzleType puzzleType)
         {
             _dbPath = dbPath;
             Brief = brief;

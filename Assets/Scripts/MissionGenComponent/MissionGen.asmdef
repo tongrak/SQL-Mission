@@ -1,3 +1,16 @@
 {
-	"name": "MissionGen"
+    "name": "MissionGen",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f620261b49f709647926935d1f050f2b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
