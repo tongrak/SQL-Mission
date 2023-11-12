@@ -156,10 +156,10 @@ namespace Assets.Scripts.PuzzleComponent.SQLComponent
         }
 
         /// <summary>
-        /// Insert i
+        /// Insert image column to query command.
         /// </summary>
         /// <param name="sql"></param>
-        /// <returns></returns>
+        /// <returns>Query command that have image column.</returns>
         private string _InsertImgColumn(string sql)
         {
             const string imgColumn = "MockImgColumn";
@@ -177,6 +177,41 @@ namespace Assets.Scripts.PuzzleComponent.SQLComponent
             {
                 return sql;
             }
+        }
+
+        public Schema[] GetSchemas(string dbConn, string[] tables)
+        {
+            Schema[] schemas = new Schema[tables.Length];
+
+            // Connect to database
+            using (SqliteConnection connection = new SqliteConnection(dbConn))
+            {
+                connection.Open();
+
+                foreach(string table in tables)
+                {
+                    string sql = $"SELECT * FROM {table} LIMIT 1";
+                    // Query to database
+                    using (SqliteCommand command = new SqliteCommand(sql, connection))
+                    {
+                        // Read data from query
+                        using (IDataReader reader = command.ExecuteReader())
+                        {
+                            string[] attributes = new string[reader.FieldCount];
+
+                            // get all attribute
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                attributes[i] = reader.GetName(i);
+                            }
+
+                            schemas.Append(new Schema(table, attributes));
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return schemas;
         }
     }
 }

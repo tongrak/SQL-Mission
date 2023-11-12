@@ -17,6 +17,14 @@ namespace Assets.Scripts.PuzzleComponent.SQLComponent
         /// <param name="puzzleType">Type of puzzle that want to execute.</param>
         /// <exception cref="SqliteException">If sql have banned word, it will throw exception</exception>
         /// <returns>Result after execute SQL and first row is attribute. If puzzle type is "A" then first column must be image column</returns>
-        string[][] GetTableResult(string dbPath, string sql, PuzzleType puzzleType);
+        string[][] GetTableResult(string dbConn, string sql, PuzzleType puzzleType);
+
+        /// <summary>
+        /// Get group of schema from given tables.
+        /// </summary>
+        /// <param name="dbConn">Must be full path for connecting to Database example "URI=file:folder/database.db</param>
+        /// <param name="tables">Group of table</param>
+        /// <returns>Group of schema.</returns>
+        Schema[] GetSchemas(string dbConn, string[] tables);
     }
 }
