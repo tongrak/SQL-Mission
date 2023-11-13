@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.MissionGenComponent.JSON_Class;
 using Assets.Scripts.PuzzleComponent;
+using Assets.Scripts.PuzzleComponent.SQLComponent;
 using Assets.Scripts.PuzzleComponent.StepComponent;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace Assets.Scripts.MissionGenComponent
         [SerializeField] private GameObject _puzzleManagerGameObject;
 
         private MissionConfig _missionConfig;
+        private ISQLService _sqlService = new SQLService();
 
         private void LoadConfigFile()
         {
@@ -57,14 +59,21 @@ namespace Assets.Scripts.MissionGenComponent
         private void LoadPuzzleManager()
         {
             PuzzleManager puzzleManager = _puzzleManagerGameObject.GetComponent<PuzzleManager>();
+            IEnumerable<StepDetail> allStepDetail = _missionConfig.MissionDetail.Where(x => x.Step == Step.Puzzle);
+            PuzzleController[] allPuzzleController = new PuzzleController[allStepDetail.Count()];
 
-            // 1) Create dbPath
-
-            // 2) Get schema from SQLService
-
-            // 3) Create PuzzleController
-
+            foreach (StepDetail stepDetail in allStepDetail)
+            {
+                // 1) Create dbPath
+                string mockDBfolder = "/databaseFolder/";
+                string dbConn = "URI=file:" + Application.dataPath + mockDBfolder + stepDetail.Detail.DB;
+                // 2) Get schema from SQLService
+                Schema[] schemas = _sqlService.GetSchemas(dbConn, stepDetail.Detail.Tables);
+                // 3) Create PuzzleController
+                PuzzleController puzzleController = new PuzzleController(dbConn, stepDetail.Detail.AnswerSQL, stepDetail.Dialog, schemas, _sqlService, stepDetail.Detail.PuzzleType);
+            }
             // 4) Insert all PuzzleController to PuzzleManager
+            puzzleManager.SetAllPC(allPuzzleController);
         }
 
         // Use this for initialization

@@ -7,31 +7,31 @@ namespace Assets.Scripts.PuzzleComponent
 {
     public class PuzzleController : IPuzzleController
     {
-        private string _dbPath;
+        private string _dbConn;
         private ISQLService _sqlService;
         private string[][] _answerTableResult;
         private readonly PuzzleType _puzzleType;
 
         public string Brief { get; private set; }
-        public Schema[] Schema { get; private set; }
+        public Schema[] Schemas { get; private set; }
         public string[][] PlayerTableResult { get; private set; }
         public bool IsPass { get; private set; }
 
-        public PuzzleController(string dbPath, string answerSQL, string brief, Schema[] schema, ISQLService sqlService, PuzzleType puzzleType)
+        public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, PuzzleType puzzleType)
         {
-            _dbPath = dbPath;
+            _dbConn = dbConn;
             Brief = brief;
-            Schema = schema;
+            Schemas = schemas;
             _sqlService = sqlService;
             _puzzleType = puzzleType;
-            _answerTableResult = _sqlService.GetTableResult(dbPath, answerSQL, puzzleType);
+            _answerTableResult = _sqlService.GetTableResult(dbConn, answerSQL, puzzleType);
         }
 
         public ExecuteResult GetExecuteResult(string playerSQL)
         {
             try
             {
-                PlayerTableResult = _sqlService.GetTableResult(_dbPath, playerSQL, _puzzleType);
+                PlayerTableResult = _sqlService.GetTableResult(_dbConn, playerSQL, _puzzleType);
                 return new ExecuteResult(PlayerTableResult);
             }
             catch (SqliteException e)

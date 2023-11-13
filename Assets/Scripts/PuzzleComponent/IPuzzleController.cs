@@ -3,7 +3,7 @@
     public interface IPuzzleController
     {
         string Brief { get; }
-        Schema[] Schema { get; }
+        Schema[] Schemas { get; }
         string[][] PlayerTableResult { get; }
         bool IsPass { get; }
         ExecuteResult GetExecuteResult(string sql);
