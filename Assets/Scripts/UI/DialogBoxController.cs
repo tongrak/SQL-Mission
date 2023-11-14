@@ -8,62 +8,43 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Gameplay.UI { 
-    interface IDialogBox
+    interface ITextBox
     {
-        
-        void setDisplayedText(string dialog);
+        string displayedText { get; set; }
     }
 }
 
-public class DialogBoxController : MonoBehaviour, IDialogBox
+public class DialogBoxController : MonoBehaviour, ITextBox
 {
-    [SerializeField]
-    private bool _dislayDefeatText = false;
-    [SerializeField]
-    private string _defeatText = "Simple text";
-    [SerializeField]
-    private int _maxCharsDisplay = 1000;
-    [SerializeField]
-    private Scrollbar _scrollBar;
-    [SerializeField]
-    private TextMeshProUGUI _textComponent;
-    [SerializeField]
-    private RectTransform _displayedZoneRect;
-    [SerializeField]
-    private RectTransform _currRectTransform;
+    [SerializeField] private bool _displayDefaultText = false;
+    [SerializeField] private string _defeatText = "Simple text";
+    private string _currText = string.Empty;
+    [SerializeField] private int _maxCharsDisplay = 1000;
+    //[SerializeField] private Scrollbar _scrollBar;
+    [SerializeField] private TextMeshProUGUI _textComponent;
+    [SerializeField] private RectTransform _displayedZoneRect;
+    [SerializeField] private RectTransform _currRectTransform;
 
-    public void setDisplayedText(string dialog)
-    {
-        if (dialog.Length > _maxCharsDisplay) {
-            Debug.LogWarning(dialog + " : have more chars than configured max (" + _maxCharsDisplay + ") ");
-            return;
+    public string displayedText {
+        get { return _currText; }
+        set
+        {
+            if (value.Length > _maxCharsDisplay)
+            {
+                Debug.LogWarning("Given text exsee configure max chars(" + _maxCharsDisplay + ") ");
+                return;
+            }
+
+            _currText = value;
+            _textComponent.text = value;
+            setHeight();
         }
-
-        _textComponent.text = dialog;
-        setHeight();
-        setScrollable();
     }
 
     private void setHeight() => _currRectTransform.sizeDelta = new Vector2(_currRectTransform.sizeDelta.x, _textComponent.preferredHeight);
 
-    private void setScrollable()
-    {
-        if (_currRectTransform.sizeDelta.y > _displayedZoneRect.sizeDelta.y) _scrollBar.interactable = false;
-        else _scrollBar.interactable = true;
-    }
-
-    //private set
-
     void Start()
     {
-       if (_dislayDefeatText) setDisplayedText(_defeatText);
-       setHeight();
-       setScrollable();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+       if (_displayDefaultText) this.displayedText = _defeatText;
     }
 }
