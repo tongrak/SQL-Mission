@@ -1,0 +1,39 @@
+{
+  "MissionDetail": [
+    {
+      "Dialog": "Dialog for dialog step.",
+      "Step": "0",
+      "Detail": null
+    },
+    {
+      "Dialog": "Brief for puzzle",
+      "Step": "1",
+      "Detail": {
+        "DB": "<Database_file>.db",
+        "Tables": [
+          "table1",
+          "table2",
+          "table3"
+        ],
+        "AnswerSQL": "SELECT * FROM table1, table2, table3",
+        "ImgFolder": "<Root img folder for unity asset>/ImgFolder",
+        "PuzzleType": "0"
+      }
+    },
+    {
+      "Dialog": "Brief for puzzle",
+      "Step": "1",
+      "Detail": {
+        "DB": "<Database_file>.db",
+        "Tables": [
+          "table1",
+          "table2"
+        ],
+        "AnswerSQL": "SELECT * FROM table1, table2",
+        "ImgFolder": "<Root img folder for unity asset>/ImgFolder",
+        "PuzzleType": "1"
+      }
+    }
+  ],
+  "MissionType": "1"
+}
