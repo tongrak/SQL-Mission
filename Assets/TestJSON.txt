@@ -10,7 +10,7 @@
       "Step": "1",
       "Detail": {
         "DB": "<Database_file>.db",
-        "Table": [
+        "Tables": [
           "table1",
           "table2",
           "table3"
@@ -25,7 +25,7 @@
       "Step": "1",
       "Detail": {
         "DB": "<Database_file>.db",
-        "Table": [
+        "Tables": [
           "table1",
           "table2"
         ],
