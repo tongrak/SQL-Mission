@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace Gameplay.UI.Table
 {
-    interface ITableCont
+    interface ITableController
     {
         void setTable(string[][] data);
     }
 
-    public class TableController : MonoBehaviour, ITableCont
+    public class TableController : MonoBehaviour, ITableController
     {
         [Header("Column Configuration")]
         [SerializeField] private GameObject _columnPrefab;
@@ -23,6 +23,7 @@ namespace Gameplay.UI.Table
         {
             deleteExistedChilds();
 
+            //TODO: ignore col[1] //cause it record image
             foreach (var col in data)
             {
                 GameObject colRef = Instantiate(_columnPrefab, this.transform);
