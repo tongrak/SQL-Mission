@@ -1,0 +1,23 @@
+{
+  "MissionDetail": [
+    {
+      "Dialog": "Dialog for dialog step.",
+      "Step": "0",
+      "Detail": null
+    },
+    {
+      "Dialog": "Select all people.",
+      "Step": "1",
+      "Detail": {
+        "DB": "TestConfig.db",
+        "Tables": [
+          "People"
+        ],
+        "AnswerSQL": "SELECT * FROM People",
+        "ImgFolder": "ImgFolder",
+        "PuzzleType": "1"
+      }
+    }
+  ],
+  "MissionType": "1"
+}
