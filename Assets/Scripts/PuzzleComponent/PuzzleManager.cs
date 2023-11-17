@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.PuzzleComponent
 {
-    public class PuzzleManager : MonoBehaviour
+    public class PuzzleManager : MonoBehaviour, IPuzzleManager
     {
         private IPuzzleController[] _allPC;
 

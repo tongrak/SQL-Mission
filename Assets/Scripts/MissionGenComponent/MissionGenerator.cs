@@ -65,7 +65,7 @@ namespace Assets.Scripts.MissionGenComponent
             foreach (StepDetail stepDetail in allStepDetail)
             {
                 // 1) Create dbPath
-                string mockDBfolder = "/databaseFolder/";
+                string mockDBfolder = "/Data/Database/";
                 string dbConn = "URI=file:" + Application.dataPath + mockDBfolder + stepDetail.Detail.DB;
                 // 2) Get schema from SQLService
                 Schema[] schemas = _sqlService.GetSchemas(dbConn, stepDetail.Detail.Tables);

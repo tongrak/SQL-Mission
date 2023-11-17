@@ -221,6 +221,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _configFile: {fileID: 4900000, guid: 57637050663ed3242b284eb356a466fa, type: 3}
+  _dialogConGameObject: {fileID: 0}
+  _stepControllerGameObject: {fileID: 0}
+  _puzzleManagerGameObject: {fileID: 0}
 --- !u!1 &189711523
 GameObject:
   m_ObjectHideFlags: 0
