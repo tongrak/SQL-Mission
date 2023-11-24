@@ -70,7 +70,7 @@ namespace Assets.Scripts.MissionGenComponent
                 // 2) Get schema from SQLService
                 Schema[] schemas = _sqlService.GetSchemas(dbConn, stepDetail.Detail.Tables);
                 // 3) Create PuzzleController
-                PuzzleController puzzleController = new PuzzleController(dbConn, stepDetail.Detail.AnswerSQL, stepDetail.Dialog, schemas, _sqlService, stepDetail.Detail.PuzzleType);
+                PuzzleController puzzleController = new PuzzleController(dbConn, stepDetail.Detail.AnswerSQL, stepDetail.Dialog, schemas, _sqlService, stepDetail.Detail.ImgType);
             }
             // 4) Insert all PuzzleController to PuzzleManager
             puzzleManager.SetAllPC(allPuzzleController);

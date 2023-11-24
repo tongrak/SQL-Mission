@@ -17,13 +17,13 @@ namespace Assets.Scripts.PuzzleComponent.SQLComponent
         /// <param name="puzzleType">Type of puzzle that want to execute.</param>
         /// <exception cref="SqliteException">If sql have banned word, it will throw exception</exception>
         /// <returns>Result after execute SQL and first row is attribute. If puzzle type is "A" then first column must be image column</returns>
-        public string[][] GetTableResult(string dbConn, string sql, PuzzleType puzzleType)
+        public string[][] GetTableResult(string dbConn, string sql, ImgType puzzleType)
         {
             // 1) Check banned word & validate sql
             _ValidateSQL(dbConn, sql);
 
             // 2) If puzzle type is float image, insert img column to sql command.
-            if (puzzleType == PuzzleType.A)
+            if (puzzleType == ImgType.A)
             {
                 sql = _InsertImgColumn(sql);
             }
