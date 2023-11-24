@@ -13,9 +13,14 @@ namespace Assets.Scripts.PuzzleComponent.StepComponent
             return _allGameStep[_gameStepIndex];
         }
 
-        public Step GetNextStep()
+        public GameStep GetCurrentStep()
         {
-            return _allGameStep[_gameStepIndex + 1].CurrStep;
+            return _allGameStep[_gameStepIndex];
+        }
+
+        public GameStep GetNextStep()
+        {
+            return _allGameStep[_gameStepIndex + 1];
         }
 
         public void SetAllGameStep(GameStep[] allGameStep)
