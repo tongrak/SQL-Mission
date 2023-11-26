@@ -42,14 +42,13 @@ namespace Gameplay
             {
                 case Step.EndStep:
                     Debug.Log("Reaching end step");
-                    // wrap thing up
                     _gameplayIsStarted = false;
+                    _canAdvanceAStep = false;
                     break;
                 case Step.Puzzle:
                     Debug.Log("Reaching puzzle step");
                     _currPC = _currPM.GetPC(gStep.PCIndex);
                     _canAdvanceAStep = false;
-                    // begin the puzzle solving sequence
                     _dialogBoxController.displayedText = _currPC.Brief;
                     break;
                 case Step.Dialog:
@@ -57,7 +56,6 @@ namespace Gameplay
                     string dialog = _currDC.GetDialog(gStep.DialogIndex);
                     _dialogBoxController.displayedText = dialog;
                     _canAdvanceAStep = true;
-                    // When
                     break;
             }
         }
