@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.PuzzleComponent
 {
-    public class DialogController : MonoBehaviour
+    public class DialogController : MonoBehaviour, IDialogController
     {
         private string[] _allDialog;
 
