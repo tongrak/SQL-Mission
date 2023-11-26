@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 143968583}
   - component: {fileID: 143968582}
   - component: {fileID: 143968581}
+  - component: {fileID: 143968584}
   m_Layer: 5
   m_Name: Dialog text
   m_TagString: Untagged
@@ -188,8 +189,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -255,9 +256,23 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000015258789}
-  m_SizeDelta: {x: 0, y: -0.007286072}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.00012207031, y: -0.000030517578}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &143968584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143968579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
 --- !u!1 &223361415
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,7 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ae3b6bff455ae94e8dcfb5e1fe73869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultQuery: Deez
+  _defaultQuery: 
 --- !u!1 &279119445
 GameObject:
   m_ObjectHideFlags: 0
@@ -2113,6 +2128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57a40135b1a79a34ca927949430dfc56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _backEndHolderName: Backend
   _dialogBoxControllerObject: {fileID: 957630300}
   _mainConsoleControllerObject: {fileID: 1724651449}
 --- !u!1 &945159751
@@ -2369,7 +2385,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 701860460}
   m_HandleRect: {fileID: 701860458}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

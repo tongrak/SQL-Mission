@@ -16,12 +16,33 @@ namespace Gameplay
 
     public class GameplayController : MonoBehaviour
     {
-        protected T mustGetComponent<T>() => this.mustGetComponent<T>(this.gameObject);
+        /// <summary>
+        /// Get a first component of given or child of the given
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="interestedGO"></param>
+        /// <returns></returns>
+        /// <exception cref="System.Exception"></exception>
         protected T mustGetComponent<T>(GameObject interestedGO)
         {
-            var contr = interestedGO.GetComponent<T>();
+            T contr = interestedGO.GetComponent<T>();
             if (contr != null) return contr;
-            else throw new System.Exception("Cannot get component with type(" + nameof(T) + ")");
+            contr = interestedGO.GetComponentInChildren<T>();
+            if (contr != null) return contr;
+            throw new System.Exception("Cannot get component with type(" + nameof(T) + ")");
+        }
+        /// <summary>
+        /// Get a first component of the object with a given name
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        /// <exception cref="System.Exception"></exception>
+        protected T mustFindComponentOfName<T>(string name)
+        {
+            var contrGO = GameObject.Find(name);
+            if(contrGO == null) throw new System.Exception("Cannot get component of null gammobject with name:" + name);
+            return mustGetComponent<T>(contrGO);
         }
     }
 }
