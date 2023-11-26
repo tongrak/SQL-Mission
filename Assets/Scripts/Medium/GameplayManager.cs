@@ -23,7 +23,7 @@ namespace Gameplay
         [SerializeField] private GameObject _dialogBoxControllerObject;
         [SerializeField] private GameObject _mainConsoleControllerObject;
 
-        private IDialogBoxController _dialogBoxController => mustGetComponent<IDialogBoxController>();
+        private IDialogBoxController _dialogBoxController => mustGetComponent<IDialogBoxController>(_dialogBoxControllerObject);
         private IMainConsoleController _mainConsoleController => mustGetComponent<IMainConsoleController>(_mainConsoleControllerObject);
 
         private IStepController _currStepCon => mustGetComponent<IStepController>();
