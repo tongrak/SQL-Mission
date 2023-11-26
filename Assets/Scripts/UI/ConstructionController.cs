@@ -13,7 +13,7 @@ namespace Gameplay.UI
     {
         [SerializeField] private string _defaultQuery;
         private string _query;
-        private string _currentQuery
+        public string queryString
         {
             get
             {
@@ -22,11 +22,6 @@ namespace Gameplay.UI
             }
 
             set { _query = value; }
-        }
-
-        public string queryString
-        {
-            get { return _currentQuery; }
         }
     }
 }

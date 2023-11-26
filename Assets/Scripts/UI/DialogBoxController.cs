@@ -8,43 +8,48 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Gameplay.UI { 
-    interface ITextBox
+    public interface ITextBox
     {
         string displayedText { get; set; }
     }
-}
 
-public class DialogBoxController : MonoBehaviour, ITextBox
-{
-    [SerializeField] private bool _displayDefaultText = false;
-    [SerializeField] private string _defeatText = "Simple text";
-    private string _currText = string.Empty;
-    [SerializeField] private int _maxCharsDisplay = 1000;
-    //[SerializeField] private Scrollbar _scrollBar;
-    [SerializeField] private TextMeshProUGUI _textComponent;
-    [SerializeField] private RectTransform _displayedZoneRect;
-    [SerializeField] private RectTransform _currRectTransform;
+    public interface IDialogBoxController : ITextBox { }
 
-    public string displayedText {
-        get { return _currText; }
-        set
+    public class DialogBoxController : MonoBehaviour, IDialogBoxController
+    {
+        [SerializeField] private bool _displayDefaultText = false;
+        [SerializeField] private string _defeatText = "Simple text";
+        private string _currText = string.Empty;
+        [SerializeField] private int _maxCharsDisplay = 1000;
+        //[SerializeField] private Scrollbar _scrollBar;
+        [SerializeField] private TextMeshProUGUI _textComponent;
+        [SerializeField] private RectTransform _displayedZoneRect;
+        [SerializeField] private RectTransform _currRectTransform;
+
+        public string displayedText
         {
-            if (value.Length > _maxCharsDisplay)
+            get { return _currText; }
+            set
             {
-                Debug.LogWarning("Given text exsee configure max chars(" + _maxCharsDisplay + ") ");
-                return;
-            }
+                if (value.Length > _maxCharsDisplay)
+                {
+                    Debug.LogWarning("Given text exsee configure max chars(" + _maxCharsDisplay + ") ");
+                    return;
+                }
 
-            _currText = value;
-            _textComponent.text = value;
-            setHeight();
+                _currText = value;
+                _textComponent.text = value;
+                setHeight();
+            }
+        }
+
+        private void setHeight() => _currRectTransform.sizeDelta = new Vector2(_currRectTransform.sizeDelta.x, _textComponent.preferredHeight);
+
+        void Start()
+        {
+            if (_displayDefaultText) this.displayedText = _defeatText;
         }
     }
-
-    private void setHeight() => _currRectTransform.sizeDelta = new Vector2(_currRectTransform.sizeDelta.x, _textComponent.preferredHeight);
-
-    void Start()
-    {
-       if (_displayDefaultText) this.displayedText = _defeatText;
-    }
 }
+
+

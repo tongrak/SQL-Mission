@@ -17,6 +17,7 @@ namespace Assets.Scripts.PuzzleComponent.StepComponent
         /// <summary>
         /// Get next step
         /// </summary>
-        Step GetNextStep();
+        GameStep GetNextStep();
+        GameStep GetCurrentStep();
     }
 }
