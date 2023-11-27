@@ -33,25 +33,29 @@ namespace Assets.Scripts.MissionGenComponent
         private void LoadStepController()
         {
             StepController stepController = _stepControllerGameObject.GetComponent<StepController>();
-            IEnumerable<Step> allConfigStep = _missionConfig.MissionDetail.Select(x => x.Step);
+            Step[] allConfigStep = _missionConfig.MissionDetail.Select(x => x.Step).ToArray();
 
             int dialogIndex = 0;
             int puzzleIndex = 0;
-            GameStep[] allGameStep = new GameStep[allConfigStep.Count() + 1];
-            foreach (Step step in allConfigStep)
+            GameStep[] allGameStep = new GameStep[allConfigStep.Length + 1];
+            for(int i = 0; i < allConfigStep.Length; i++)
             {
-                if (step == Step.Dialog)
+                Step step = allConfigStep[i];
+                switch (step)
                 {
-                    allGameStep.Append(new GameStep(Step.Dialog, dialogIndex, -1));
-                    dialogIndex++;
-                }
-                else if (step == Step.Puzzle)
-                {
-                    allGameStep.Append(new GameStep(Step.Puzzle, -1, puzzleIndex));
-                    puzzleIndex++;
+                    case Step.Dialog:
+                        allGameStep[i] = new GameStep(Step.Dialog, dialogIndex, -1);
+                        dialogIndex++;
+                        break;
+                    case Step.Puzzle:
+                        allGameStep[i] = new GameStep(Step.Puzzle, -1, puzzleIndex);
+                        puzzleIndex++;
+                        break;
+                    default:
+                        break;
                 }
             }
-            allGameStep.Append(new GameStep(Step.EndStep, -1, -1));
+            allGameStep[allGameStep.Length - 1] = new GameStep(Step.EndStep, -1, -1);
 
             stepController.SetAllGameStep(allGameStep);
         }
@@ -59,20 +63,24 @@ namespace Assets.Scripts.MissionGenComponent
         private void LoadPuzzleManager()
         {
             PuzzleManager puzzleManager = _puzzleManagerGameObject.GetComponent<PuzzleManager>();
-            IEnumerable<StepDetail> allStepDetail = _missionConfig.MissionDetail.Where(x => x.Step == Step.Puzzle);
-            PuzzleController[] allPuzzleController = new PuzzleController[allStepDetail.Count()];
+            StepDetail[] allStepDetail = _missionConfig.MissionDetail.Where(x => x.Step == Step.Puzzle).ToArray();
+            PuzzleController[] allPuzzleController = new PuzzleController[allStepDetail.Length];
 
-            foreach (StepDetail stepDetail in allStepDetail)
+            for(int i = 0; i < allStepDetail.Length; i++)
             {
+                StepDetail stepDetail = allStepDetail[i];
                 // 1) Create dbPath
-                string mockDBfolder = "/Data/Database/";
-                string dbConn = "URI=file:" + Application.dataPath + mockDBfolder + stepDetail.Detail.DB;
+                string dbFolder = "/Data/Database/";
+                string dbConn = "URI=file:" + Application.dataPath + dbFolder + stepDetail.Detail.DB;
                 // 2) Get schema from SQLService
                 Schema[] schemas = _sqlService.GetSchemas(dbConn, stepDetail.Detail.Tables);
                 // 3) Create PuzzleController
-                PuzzleController puzzleController = new PuzzleController(dbConn, stepDetail.Detail.AnswerSQL, stepDetail.Dialog, schemas, _sqlService, stepDetail.Detail.PuzzleType);
+                PuzzleController puzzleController = new PuzzleController(dbConn, stepDetail.Detail.AnswerSQL, stepDetail.Dialog, schemas, _sqlService, stepDetail.Detail.ImgType);
+                // 4) Insert PuzzleController to array.
+                allPuzzleController[i] = puzzleController;
+
             }
-            // 4) Insert all PuzzleController to PuzzleManager
+            // 5) Insert all PuzzleController to PuzzleManager
             puzzleManager.SetAllPC(allPuzzleController);
         }
 

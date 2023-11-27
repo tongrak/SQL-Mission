@@ -10,14 +10,14 @@ namespace Assets.Scripts.PuzzleComponent
         private string _dbConn;
         private ISQLService _sqlService;
         private string[][] _answerTableResult;
-        private readonly PuzzleType _puzzleType;
+        private readonly ImgType _puzzleType;
 
         public string Brief { get; private set; }
         public Schema[] Schemas { get; private set; }
         public string[][] PlayerTableResult { get; private set; }
         public bool IsPass { get; private set; }
 
-        public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, PuzzleType puzzleType)
+        public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, ImgType puzzleType)
         {
             _dbConn = dbConn;
             Brief = brief;

@@ -1,23 +1,44 @@
 {
+  "MissionName": "Mission1",
+  "MissionType": "Normal",
   "MissionDetail": [
     {
       "Dialog": "Dialog for dialog step.",
-      "Step": "0",
+      "Step": "Dialog",
+      "ImgFolder": null,
       "Detail": null
     },
     {
-      "Dialog": "Select all people.",
-      "Step": "1",
+      "Dialog": "Brief for puzzle",
+      "Step": "Puzzle",
+      "ImgFolder": "<Root img folder for unity asset>/ImgFolder",
       "Detail": {
-        "DB": "TestConfig.db",
+        "DB": "<Database_file>.db",
         "Tables": [
-          "People"
+          "table1",
+          "table2",
+          "table3"
         ],
-        "AnswerSQL": "SELECT * FROM People",
-        "ImgFolder": "ImgFolder",
-        "PuzzleType": "1"
+        "AnswerSQL": "SELECT * \\n FROM <<Special>>, table2, <<Special>> \\n WHERE Att1 <<OperatorsSymbol>> 500",
+        "ImgType": "A",
+        "PuzzleType": "FillBlank",
+        "SpecialBlankOptions": [
+          [
+            "Table1",
+            "Table2",
+            "Table3"
+          ],
+          [
+            "Option1",
+            "Option2",
+            "Option3"
+          ]
+        ]
       }
     }
   ],
-  "MissionType": "1"
+  "MissionDependencies": [
+    "Mission0",
+    "Mission00"
+  ]
 }

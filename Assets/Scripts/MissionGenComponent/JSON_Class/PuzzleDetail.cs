@@ -8,7 +8,8 @@ namespace Assets.Scripts.MissionGenComponent.JSON_Class
         public string DB; //Path to Database file.
         public string[] Tables; // Group of used table.
         public string AnswerSQL;
-        public string ImgFolder; // Relative path for object's image
-        public PuzzleType PuzzleType; // PuzzleType will be "Enum".
+        public ImgType ImgType; // PuzzleType will be "Enum".
+        public PuzzleType PuzzleType;
+        public string[][] SpecialBlankOptions;
     }
 }
