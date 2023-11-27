@@ -6,8 +6,7 @@
         /// <summary>
         /// Change to next step and get that step
         /// </summary>
-        /// <returns>step after change</returns>
-        GameStep ChangeStep();
+        void ChangeStep();
         /// <summary>
         /// Get next step
         /// </summary>
