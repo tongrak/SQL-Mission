@@ -7,10 +7,9 @@ namespace Assets.Scripts.PuzzleComponent.StepComponent
         private GameStep[] _allGameStep;
         private int _gameStepIndex = 0;
 
-        public GameStep ChangeStep()
+        public void ChangeStep()
         {
             _gameStepIndex++;
-            return _allGameStep[_gameStepIndex];
         }
 
         public GameStep GetCurrentStep()

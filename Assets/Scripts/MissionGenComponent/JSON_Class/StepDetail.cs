@@ -7,6 +7,7 @@ namespace Assets.Scripts.MissionGenComponent.JSON_Class
     {
         public string Dialog;
         public Step Step; // IStep will be "Enum".
+        public string ImgFolder;
         public PuzzleDetail Detail;
     }
 }
