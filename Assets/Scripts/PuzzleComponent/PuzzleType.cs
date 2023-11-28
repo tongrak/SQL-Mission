@@ -2,6 +2,7 @@
 {
     public enum PuzzleType
     {
+        ExecuteOnly,
         FillBlank,
         OnYourOwn
     }
