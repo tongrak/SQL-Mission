@@ -87,7 +87,7 @@ namespace Gameplay
             {
                 var result = _currPC.GetExecuteResult(_mainConsoleController.getCurrentQueryString());
                 _mainConsoleController.setResultDisplay(_currPC.IsPass, result);
-                _canAdvanceAStep = _currPC.IsPass;
+                _canAdvanceAStep = _currPC.GetPuzzleResult();
                 return;
             }
             //If player can, let them advance.
@@ -101,8 +101,8 @@ namespace Gameplay
                 return;
             }
 
-            var gameStep =  _currStepCon.ChangeStep();
-            actAccordingToStep(gameStep);
+            _currStepCon.ChangeStep();
+            actAccordingToStep(_currStepCon.GetCurrentStep());
         }
         public void clickSendResult()
         {
