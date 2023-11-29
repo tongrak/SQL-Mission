@@ -1,0 +1,25 @@
+{
+  "MissionName": "Mission3",
+  "MissionType": 0,
+  "MissionDetail": [
+    {
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Animal",
+      "Step": 1,
+      "ImgFolder": "Chapter1/Animal",
+      "Detail": {
+        "DB": "Chapter1.db",
+        "Tables": [
+          "People"
+        ],
+        "PreSQL": "SELECT * \n FROM <<Blank>>",
+        "AnswerSQL": "SELECT * FROM Animal",
+        "ImgType": 0,
+        "PuzzleType": 1,
+        "SpecialBlankOptions": null
+      }
+    }
+  ],
+  "MissionDependencies": [
+    "Mission2"
+  ]
+}

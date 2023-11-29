@@ -17,14 +17,14 @@ namespace Assets.Scripts.PuzzleComponent
         public string[][] PlayerTableResult { get; private set; }
         public bool IsPass { get; private set; }
 
-        public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, ImgType puzzleType)
+        public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, ImgType imgType)
         {
             _dbConn = dbConn;
             Brief = brief;
             Schemas = schemas;
             _sqlService = sqlService;
-            _puzzleType = puzzleType;
-            _answerTableResult = _sqlService.GetTableResult(dbConn, answerSQL, puzzleType);
+            _puzzleType = imgType;
+            _answerTableResult = _sqlService.GetTableResult(dbConn, answerSQL, imgType);
         }
 
         public ExecuteResult GetExecuteResult(string playerSQL)
