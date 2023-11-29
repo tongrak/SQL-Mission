@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8243eec9cdb67a241b3c60d80dbe23ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _configFile: {fileID: 4900000, guid: 7e49b71c045781a48a9a80ae8789a81f, type: 3}
+  _configFile: {fileID: 4900000, guid: 556081fe15fad5941a09f29e12533ea6, type: 3}
   _dialogConGameObject: {fileID: 1766792557}
   _stepControllerGameObject: {fileID: 1130035343}
   _puzzleManagerGameObject: {fileID: 575188709}
