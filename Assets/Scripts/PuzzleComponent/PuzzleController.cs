@@ -42,13 +42,13 @@ namespace Assets.Scripts.PuzzleComponent
 
         public bool GetPuzzleResult()
         {
-            bool currIsPass = IsEqualQueryResult(_answerTableResult, PlayerTableResult);
-            if(!IsPass && currIsPass)
+            bool isCorrect = IsEqualQueryResult(_answerTableResult, PlayerTableResult);
+            if(!IsPass && isCorrect)
             {
                 IsPass = true;
             }
 
-            return currIsPass;
+            return isCorrect;
         }
 
         private bool IsEqualQueryResult(string[][] query1, string[][] query2)
