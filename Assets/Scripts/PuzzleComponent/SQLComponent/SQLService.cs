@@ -213,5 +213,37 @@ namespace Assets.Scripts.PuzzleComponent.SQLComponent
             }
             return schemas;
         }
+
+        public string[] GetAllTable(string dbConn)
+        {
+            string[] tables;
+
+            // Connect to database
+            using (SqliteConnection connection = new SqliteConnection(dbConn))
+            {
+                connection.Open();
+
+                string sql = "SELECT name FROM sqlite_master WHERE type = 'table' ORDER BY 1";
+                // Query to database
+                using (SqliteCommand command = new SqliteCommand(sql, connection))
+                {
+                    // Read data from query
+                    using (IDataReader reader = command.ExecuteReader())
+                    {
+                        tables = new string[reader.FieldCount];
+
+                        // get all table
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            tables[i] = reader.GetName(i);
+                        }
+                    }
+                }
+                
+                connection.Close();
+            }
+
+            return tables;
+        }
     }
 }
