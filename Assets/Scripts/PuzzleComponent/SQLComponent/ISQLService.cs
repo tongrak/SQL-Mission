@@ -26,5 +26,7 @@ namespace Assets.Scripts.PuzzleComponent.SQLComponent
         /// <param name="tables">Group of table</param>
         /// <returns>Group of schema.</returns>
         Schema[] GetSchemas(string dbConn, string[] tables);
+
+        string[] GetAllTable(string dbConn);
     }
 }

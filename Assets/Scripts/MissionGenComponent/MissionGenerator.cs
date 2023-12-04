@@ -1,9 +1,8 @@
 ﻿using Assets.Scripts.MissionGenComponent.JSON_Class;
 using Assets.Scripts.PuzzleComponent;
+using Assets.Scripts.PuzzleComponent.BlankBlockComponent;
 using Assets.Scripts.PuzzleComponent.SQLComponent;
 using Assets.Scripts.PuzzleComponent.StepComponent;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -18,6 +17,8 @@ namespace Assets.Scripts.MissionGenComponent
 
         private MissionConfig _missionConfig;
         private ISQLService _sqlService = new SQLService();
+        private IFixedTemplateService _fixTemplateService = new FixedTemplateService();
+        private IUpToConfigTemplateService _upToConfigTemplateService;
 
         private void LoadConfigFile()
         {
@@ -75,7 +76,7 @@ namespace Assets.Scripts.MissionGenComponent
                 // 2) Get schema from SQLService
                 Schema[] schemas = _sqlService.GetSchemas(dbConn, stepDetail.Detail.Tables);
                 // 3) Create PuzzleController
-                PuzzleController puzzleController = new PuzzleController(dbConn, stepDetail.Detail.AnswerSQL, stepDetail.Dialog, schemas, _sqlService, stepDetail.Detail.ImgType);
+                PuzzleController puzzleController = new PuzzleController(dbConn, stepDetail.Detail.AnswerSQL, stepDetail.Dialog, schemas, _sqlService, stepDetail.Detail.ImgType, _fixTemplateService, _upToConfigTemplateService, stepDetail.Detail.SpecialBlankOptions);
                 // 4) Insert PuzzleController to array.
                 allPuzzleController[i] = puzzleController;
 
@@ -87,6 +88,7 @@ namespace Assets.Scripts.MissionGenComponent
         // Use this for initialization
         void Start()
         {
+            _upToConfigTemplateService = new UpToConfigTemplateService(_sqlService);
             LoadConfigFile();
             LoadDialogController();
             LoadStepController();

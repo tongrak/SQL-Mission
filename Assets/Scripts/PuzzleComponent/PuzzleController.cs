@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.PuzzleComponent.SQLComponent;
+﻿using Assets.Scripts.PuzzleComponent.BlankBlockComponent;
+using Assets.Scripts.PuzzleComponent.SQLComponent;
 using Mono.Data.Sqlite;
 using System;
 using System.Linq;
@@ -11,13 +12,16 @@ namespace Assets.Scripts.PuzzleComponent
         private ISQLService _sqlService;
         private string[][] _answerTableResult;
         private readonly ImgType _puzzleType;
+        private IFixedTemplateService _fixedTemplateService;
+        private IUpToConfigTemplateService _upToConfigTemplateService;
+        private readonly string[][] _specialBlanks;
 
         public string Brief { get; private set; }
         public Schema[] Schemas { get; private set; }
         public string[][] PlayerTableResult { get; private set; }
         public bool IsPass { get; private set; }
 
-        public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, ImgType imgType)
+        public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, ImgType imgType, IFixedTemplateService fixedTemplateService, IUpToConfigTemplateService upToConfigTemplateService, string[][] specialBlanks)
         {
             _dbConn = dbConn;
             Brief = brief;
@@ -25,6 +29,9 @@ namespace Assets.Scripts.PuzzleComponent
             _sqlService = sqlService;
             _puzzleType = imgType;
             _answerTableResult = _sqlService.GetTableResult(dbConn, answerSQL, imgType);
+            _fixedTemplateService = fixedTemplateService;
+            _upToConfigTemplateService = upToConfigTemplateService;
+            _specialBlanks = specialBlanks;
         }
 
         public ExecuteResult GetExecuteResult(string playerSQL)
@@ -42,13 +49,13 @@ namespace Assets.Scripts.PuzzleComponent
 
         public bool GetPuzzleResult()
         {
-            bool currIsPass = IsEqualQueryResult(_answerTableResult, PlayerTableResult);
-            if(!IsPass && currIsPass)
+            bool isCorrect = IsEqualQueryResult(_answerTableResult, PlayerTableResult);
+            if(!IsPass && isCorrect)
             {
                 IsPass = true;
             }
 
-            return currIsPass;
+            return isCorrect;
         }
 
         private bool IsEqualQueryResult(string[][] query1, string[][] query2)
@@ -70,6 +77,34 @@ namespace Assets.Scripts.PuzzleComponent
                 }
                 return true;
             }
+        }
+
+        public string[] GetTemplateBlank(string templateType, string table)
+        {
+            switch (templateType)
+            {
+                case "OperatorsSymbol":
+                    return _fixedTemplateService.OperatorsSymbol;
+                case "OperatorsWord":
+                    return _fixedTemplateService.OperatorsWord;
+                case "Function":
+                    return _fixedTemplateService.Function;
+                case "Command":
+                    return _fixedTemplateService.Command;
+                case "Tables":
+                    return _upToConfigTemplateService.GetTablesTemplate(_dbConn);
+                case "Schema":
+                    return _upToConfigTemplateService.GetSchemaTemplate(_dbConn, table);
+                case "Attributes":
+                    return _upToConfigTemplateService.GetAttributesTemplate(_dbConn, table);
+                default:
+                    return null;
+            }
+        }
+
+        public string[] GetSpecialBlank(int index)
+        {
+            return _specialBlanks[index];
         }
     }
 }
