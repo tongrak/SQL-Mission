@@ -1,0 +1,32 @@
+{
+  "MissionName": "Mission4",
+  "MissionType": 0,
+  "MissionDetail": [
+    {
+      "Dialog": "Brief for puzzle",
+      "Step": 1,
+      "ImgFolder": "Chapter1/PeopleOccupation",
+      "ImgList": [
+        "PeopleOc1.png",
+        "PeopleOc2.png",
+        "PeopleOc3.png",
+        "PeopleOc4.png",
+        "PeopleOc5.png",
+        "PeopleOc6.png",
+        "PeopleOc7.png"
+      ],
+      "Detail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "PeopleOccupation"
+        ],
+        "PreSQL": "SELECT * \n FROM <<Tables>>",
+        "AnswerSQL": "SELECT * FROM PeopleOccupation",
+        "ImgType": 0,
+        "PuzzleType": 1,
+        "SpecialBlankOptions": null
+      }
+    }
+  ],
+  "MissionDependencies": null
+}
