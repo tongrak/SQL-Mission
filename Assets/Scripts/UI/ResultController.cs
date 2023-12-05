@@ -2,33 +2,51 @@ using Assets.Scripts.PuzzleComponent;
 using Gameplay.UI.Table;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace Gameplay.UI
 {
     public interface IResultTabController
     {
-        void setDisplayResult(ExecuteResult result);
+        void setDisplayResult(bool isPass, ExecuteResult result);
     }
 
-    public class ResultController : MonoBehaviour, IResultTabController
+    public class ResultController : GameplayController, IResultTabController
     {
+        [Header("Table generator")]
         [SerializeField] private GameObject _tableGenerator;
-        private ITableController _tableController
+        private ITableController _tableController => mustGetComponent<ITableController>(_tableGenerator);
+
+
+        [Header("UI component")]
+        [SerializeField] private GameObject _proceedButton;
+        [SerializeField] private GameObject _errorText;
+        private TextMeshProUGUI _errorTextMesh => mustGetComponent<TextMeshProUGUI>(_errorText);
+
+        private bool _isPass;
+
+        public override void activateController()
         {
-            get
-            {
-                var contr = _tableGenerator.GetComponent<ITableController>();
-                if (contr != null) return contr;
-                else throw new System.Exception("Cannot get table controller");
-            }
+            _isPass = false;
+            Debug.Log("Activate result controller");
         }
 
-        public void setDisplayResult(ExecuteResult result)
+        public void setDisplayResult(bool isPass, ExecuteResult result)
         {
-            //TODO: Check error
+            if (!_isPass) _isPass = isPass;
+
+            _tableGenerator.SetActive(false);
+            _errorText.SetActive(false);
+
+            if (result.IsError)
+            {
+                _errorTextMesh.text = result.ErrorMessage;
+                _errorText.SetActive(true);
+                return;
+            }
+            _tableGenerator.SetActive(true);
             _tableController.setTable(result.TableResult);
-            throw new System.NotImplementedException();
         }
 
     }

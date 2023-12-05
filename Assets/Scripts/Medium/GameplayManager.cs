@@ -86,7 +86,7 @@ namespace Gameplay
             if (!_canAdvanceAStep)
             {
                 var result = _currPC.GetExecuteResult(_mainConsoleController.getCurrentQueryString());
-                _mainConsoleController.setResultDisplay(_currPC.IsPass, result);
+                _mainConsoleController.setResultDisplay(_currPC.GetPuzzleResult(), result);
                 _canAdvanceAStep = _currPC.GetPuzzleResult();
                 return;
             }
@@ -115,6 +115,13 @@ namespace Gameplay
             Debug.Log("result passing request received");
             advanceAStep();
         }
+
+        public override void activateController() => Debug.Log("Actiate: gameplay manager");
         #endregion
+
+        private void Start()
+        {
+            _mainConsoleController.setDisplayTab(TabType.CONSTRUCT);
+        }
     }
 }
