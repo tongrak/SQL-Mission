@@ -5,13 +5,25 @@
     {
       "Dialog": "จงแสดงข้อมูลทั้งหมดของ Animal",
       "Step": 1,
-      "ImgFolder": "Chapter1/Animal",
+      "ImgFolder": "Starter/Animal",
+      "ImgList": [
+        "Animal1.png",
+        "Animal2.png",
+        "Animal3.png",
+        "Animal4.png",
+        "Animal5.png",
+        "Animal6.png",
+        "Animal7.png",
+        "Animal8.png",
+        "Animal9.png",
+        "Animal10.png"
+      ],
       "Detail": {
-        "DB": "Chapter1.db",
+        "DB": "Starter.db",
         "Tables": [
-          "People"
+          "Animal"
         ],
-        "PreSQL": "SELECT * \n FROM <<Blank>>",
+        "PreSQL": "SELECT * \n FROM <<Tables>>",
         "AnswerSQL": "SELECT * FROM Animal",
         "ImgType": 0,
         "PuzzleType": 1,
