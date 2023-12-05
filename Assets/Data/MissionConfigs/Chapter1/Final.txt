@@ -1,0 +1,86 @@
+{
+  "MissionName": "Mission4",
+  "MissionType": 0,
+  "MissionDetail": [
+    {
+      "Dialog": "Brief for puzzle",
+      "Step": 1,
+      "ImgFolder": "Chapter1/PeopleOccupation",
+      "ImgList": [
+        "PeopleOc1.png",
+        "PeopleOc2.png",
+        "PeopleOc3.png",
+        "PeopleOc4.png",
+        "PeopleOc5.png",
+        "PeopleOc6.png",
+        "PeopleOc7.png"
+      ],
+      "Detail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "PeopleOccupation"
+        ],
+        "PreSQL": "SELECT * \n FROM <<Tables>>",
+        "AnswerSQL": "SELECT * FROM PeopleOccupation",
+        "ImgType": 0,
+        "PuzzleType": 1,
+        "SpecialBlankOptions": null
+      }
+    },
+    {
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Animal",
+      "Step": 1,
+      "ImgFolder": "Starter/Animal",
+      "ImgList": [
+        "Animal1.png",
+        "Animal2.png",
+        "Animal3.png",
+        "Animal4.png",
+        "Animal5.png",
+        "Animal6.png",
+        "Animal7.png",
+        "Animal8.png",
+        "Animal9.png",
+        "Animal10.png"
+      ],
+      "Detail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Animal"
+        ],
+        "PreSQL": "SELECT * \n FROM <<Tables>>",
+        "AnswerSQL": "SELECT * FROM Animal",
+        "ImgType": 0,
+        "PuzzleType": 1,
+        "SpecialBlankOptions": null
+      }
+    },
+    {
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Book",
+      "Step": 1,
+      "ImgFolder": "Starter/Book",
+      "ImgList": [
+        "Book1.png",
+        "Book2.png",
+        "Book3.png",
+        "Book4.png",
+        "Book5.png",
+        "Book6.png",
+        "Book7.png",
+        "Book8.png"
+      ],
+      "Detail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Book"
+        ],
+        "PreSQL": "SELECT * \n FROM <<Tables>>",
+        "AnswerSQL": "SELECT * FROM Book",
+        "ImgType": 0,
+        "PuzzleType": 1,
+        "SpecialBlankOptions": null
+      }
+    }
+  ],
+  "MissionDependencies": null
+}

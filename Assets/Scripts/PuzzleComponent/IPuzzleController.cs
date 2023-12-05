@@ -8,5 +8,7 @@
         bool IsPass { get; }
         ExecuteResult GetExecuteResult(string sql);
         bool GetPuzzleResult();
+        string[] GetTemplateBlank(string templateType, string table);
+        string[] GetSpecialBlank(int index);
     }
 }
