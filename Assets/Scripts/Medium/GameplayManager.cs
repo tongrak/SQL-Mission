@@ -19,6 +19,9 @@ namespace Gameplay
 
     public class GameplayManager : GameplayController, IGamePlayerManager
     {
+        [Header("BE Configuration")]
+        [SerializeField] private string _backEndHolderName;
+
         [Header("UI GameObjects")]
         [SerializeField] private GameObject _dialogBoxControllerObject;
         [SerializeField] private GameObject _mainConsoleControllerObject;
@@ -26,9 +29,9 @@ namespace Gameplay
         private IDialogBoxController _dialogBoxController => mustGetComponent<IDialogBoxController>(_dialogBoxControllerObject);
         private IMainConsoleController _mainConsoleController => mustGetComponent<IMainConsoleController>(_mainConsoleControllerObject);
 
-        private IStepController _currStepCon => mustGetComponent<IStepController>();
-        private PuzzleManager _currPM => mustGetComponent<PuzzleManager>();
-        private DialogController _currDC => mustGetComponent<DialogController>();
+        private IStepController _currStepCon => mustFindComponentOfName<IStepController>(_backEndHolderName);
+        private PuzzleManager _currPM => mustFindComponentOfName<PuzzleManager>(_backEndHolderName);
+        private IDialogController _currDC => mustFindComponentOfName<IDialogController>(_backEndHolderName);
 
         private IPuzzleController _currPC;
         private ExecuteResult _currExeResult;
@@ -83,9 +86,8 @@ namespace Gameplay
             if (!_canAdvanceAStep)
             {
                 var result = _currPC.GetExecuteResult(_mainConsoleController.getCurrentQueryString());
-                _mainConsoleController.setResultDisplay(_currPC.IsPass, result);
-                _canAdvanceAStep = _currPC.IsPass;
-
+                _mainConsoleController.setResultDisplay(_currPC.GetPuzzleResult(), result);
+                _canAdvanceAStep = _currPC.GetPuzzleResult();
                 return;
             }
             //If player can, let them advance.
@@ -113,6 +115,13 @@ namespace Gameplay
             Debug.Log("result passing request received");
             advanceAStep();
         }
+
+        public override void activateController() => Debug.Log("Actiate: gameplay manager");
         #endregion
+
+        private void Start()
+        {
+            _mainConsoleController.setDisplayTab(TabType.CONSTRUCT);
+        }
     }
 }

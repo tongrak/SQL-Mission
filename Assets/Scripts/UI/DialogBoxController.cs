@@ -21,7 +21,6 @@ namespace Gameplay.UI {
         [SerializeField] private string _defeatText = "Simple text";
         private string _currText = string.Empty;
         [SerializeField] private int _maxCharsDisplay = 1000;
-        //[SerializeField] private Scrollbar _scrollBar;
         [SerializeField] private TextMeshProUGUI _textComponent;
         [SerializeField] private RectTransform _displayedZoneRect;
         [SerializeField] private RectTransform _currRectTransform;
