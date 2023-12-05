@@ -3,7 +3,7 @@
   "MissionType": 0,
   "MissionDetail": [
     {
-      "Dialog": "Brief for puzzle",
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ PeopleOccupation",
       "Step": 1,
       "ImgFolder": "Chapter1/PeopleOccupation",
       "ImgList": [
