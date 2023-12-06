@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Mono.Data.Sqlite;
 
 namespace Assets.Scripts.PuzzleComponent.SQLComponent
 {
@@ -16,6 +13,7 @@ namespace Assets.Scripts.PuzzleComponent.SQLComponent
         /// <param name="sql">SQL command</param>
         /// <param name="imgType">Type of puzzle that want to execute.</param>
         /// <exception cref="SqliteException">If sql have banned word, it will throw exception</exception>
+        /// <exception cref="ArgumentException">If sql command is null</exception>
         /// <returns>Result after execute SQL and first row is attribute. If puzzle type is "A" then first column must be image column</returns>
         string[][] GetTableResult(string dbConn, string sql, ImgType imgType);
 

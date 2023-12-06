@@ -41,7 +41,7 @@ namespace Assets.Scripts.PuzzleComponent
                 PlayerTableResult = _sqlService.GetTableResult(_dbConn, playerSQL, _puzzleType);
                 return new ExecuteResult(PlayerTableResult);
             }
-            catch (SqliteException e)
+            catch (Exception e)
             { 
                 return new ExecuteResult(e.Message);
             }
@@ -60,22 +60,29 @@ namespace Assets.Scripts.PuzzleComponent
 
         private bool IsEqualQueryResult(string[][] query1, string[][] query2)
         {
-            if (query1.Length != query2.Length)
+            if (query1 == null || query2 == null)
             {
                 return false;
             }
-            // Check each attribute
             else
             {
-                for (int i = 0; i < query1.Length; i++)
+                if (query1.Length != query2.Length)
                 {
-                    // Check number of record from each attribute
-                    if (!query1[i].SequenceEqual(query2[i]))
-                    {
-                        return false;
-                    }
+                    return false;
                 }
-                return true;
+                // Check each attribute
+                else
+                {
+                    for (int i = 0; i < query1.Length; i++)
+                    {
+                        // Check number of record from each attribute
+                        if (!query1[i].SequenceEqual(query2[i]))
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
             }
         }
 
