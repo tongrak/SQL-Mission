@@ -1,10 +1,13 @@
-﻿using Assets.Scripts.MissionGenComponent.JSON_Class;
-using Assets.Scripts.PuzzleComponent;
-using Assets.Scripts.PuzzleComponent.BlankBlockComponent;
-using Assets.Scripts.PuzzleComponent.SQLComponent;
-using Assets.Scripts.PuzzleComponent.StepComponent;
+﻿using Assets.Scripts.MissionGenComponent.Model;
+using Assets.Scripts.BackendComponent;
+using Assets.Scripts.BackendComponent.BlankBlockComponent;
+using Assets.Scripts.BackendComponent.DialogController;
+using Assets.Scripts.BackendComponent.SQLComponent;
+using Assets.Scripts.BackendComponent.StepComponent;
 using System.Linq;
 using UnityEngine;
+using Assets.Scripts.BackendComponent.ImageController;
+using System;
 
 namespace Assets.Scripts.MissionGenComponent
 {
@@ -14,6 +17,7 @@ namespace Assets.Scripts.MissionGenComponent
         [SerializeField] private GameObject _dialogConGameObject;
         [SerializeField] private GameObject _stepControllerGameObject;
         [SerializeField] private GameObject _puzzleManagerGameObject;
+        [SerializeField] private GameObject _imageControllerGameObject;
 
         private MissionConfig _missionConfig;
         private ISQLService _sqlService = new SQLService();
@@ -27,13 +31,13 @@ namespace Assets.Scripts.MissionGenComponent
 
         private void LoadDialogController()
         {
-            DialogController dialogController = _dialogConGameObject.GetComponent<DialogController>();
+            IDialogController dialogController = _dialogConGameObject.GetComponent<IDialogController>();
             dialogController.SetAllDialog(_missionConfig.MissionDetail.Where(x => x.Step == Step.Dialog).Select(x => x.Dialog).ToArray());
         }
 
         private void LoadStepController()
         {
-            StepController stepController = _stepControllerGameObject.GetComponent<StepController>();
+            IStepController stepController = _stepControllerGameObject.GetComponent<IStepController>();
             Step[] allConfigStep = _missionConfig.MissionDetail.Select(x => x.Step).ToArray();
 
             int dialogIndex = 0;
@@ -45,33 +49,35 @@ namespace Assets.Scripts.MissionGenComponent
                 switch (step)
                 {
                     case Step.Dialog:
-                        allGameStep[i] = new GameStep(Step.Dialog, dialogIndex, -1);
+                        allGameStep[i] = new GameStep(Step.Dialog, i, dialogIndex, -1);
                         dialogIndex++;
                         break;
                     case Step.Puzzle:
-                        allGameStep[i] = new GameStep(Step.Puzzle, -1, puzzleIndex);
+                        allGameStep[i] = new GameStep(Step.Puzzle, i, -1, puzzleIndex);
                         puzzleIndex++;
                         break;
                     default:
                         break;
                 }
             }
-            allGameStep[allGameStep.Length - 1] = new GameStep(Step.EndStep, -1, -1);
+
+            int lastStepIndex = allGameStep.Length - 1;
+            allGameStep[lastStepIndex] = new GameStep(Step.EndStep, lastStepIndex, -1, -1);
 
             stepController.SetAllGameStep(allGameStep);
         }
 
         private void LoadPuzzleManager()
         {
-            PuzzleManager puzzleManager = _puzzleManagerGameObject.GetComponent<PuzzleManager>();
+            IPuzzleManager puzzleManager = _puzzleManagerGameObject.GetComponent<IPuzzleManager>();
             StepDetail[] allStepDetail = _missionConfig.MissionDetail.Where(x => x.Step == Step.Puzzle).ToArray();
             PuzzleController[] allPuzzleController = new PuzzleController[allStepDetail.Length];
 
             for(int i = 0; i < allStepDetail.Length; i++)
             {
                 StepDetail stepDetail = allStepDetail[i];
-                // 1) Create dbPath
-                string dbFolder = "/Data/Database/";
+                // 1) Create database path
+                string dbFolder = "/Resources/Database/";
                 string dbConn = "URI=file:" + Application.dataPath + dbFolder + stepDetail.Detail.DB;
                 // 2) Get schema from SQLService
                 Schema[] schemas = _sqlService.GetSchemas(dbConn, stepDetail.Detail.Tables);
@@ -85,6 +91,26 @@ namespace Assets.Scripts.MissionGenComponent
             puzzleManager.SetAllPC(allPuzzleController);
         }
 
+        private void LoadImageController()
+        {
+            IImageController imageController = _imageControllerGameObject.GetComponent<IImageController>();
+
+            string unityPath = Application.dataPath + "/Resources/PuzzleImages/";
+            string[] imgFolders = _missionConfig.MissionDetail.Select(x => x.ImgFolder).ToArray();
+            string[][] imgLists = _missionConfig.MissionDetail.Select(x => x.ImgList).ToArray();
+            string[][] imagePathLists = new string[imgFolders.Length][];
+
+            for(int i = 0; i < imgFolders.Length; i++)
+            {
+                if (imgFolders[i] != null)
+                {
+                    imagePathLists[i] = imgLists[i].Select(imageFile => unityPath + imgFolders[i] + imageFile).ToArray();
+                }
+            }
+
+            imageController.SetImagesList(imagePathLists);
+        }
+
         // Use this for initialization
         void Start()
         {
@@ -93,6 +119,7 @@ namespace Assets.Scripts.MissionGenComponent
             LoadDialogController();
             LoadStepController();
             LoadPuzzleManager();
+            LoadImageController();
         }
 
         // Update is called once per frame
