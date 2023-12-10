@@ -22,12 +22,11 @@ namespace Gameplay.UI.VisualFeedback
         private Image _itemImage => mustGetComponent<Image>(_itemObject);
         private Vector3 _itemPosition => _itemObject.transform.position;
         private float _showUpHeight => _showUpHeightRef.transform.position.y;
-        
+
         private bool _isActivate = false;
         private bool _isShowUp = false;
         private Vector3 _originPoint;
         private Vector3 _currentDestination;
-
 
         public void Activate(string imagePath)
         {
@@ -36,12 +35,10 @@ namespace Gameplay.UI.VisualFeedback
                 Debug.LogWarning("ItemController is already activated");
                 return;
             }
-
-            //Set display image
-            _itemImage.sprite = Resources.Load<Sprite>(imagePath);
             //Set origin point and initilize the currentDestination
             _currentDestination = _originPoint = this.transform.position;
-            Debug.Log("OriginPoint:" + _originPoint);
+            //Set display image
+            _itemImage.sprite = Resources.Load<Sprite>(imagePath);
 
             _isActivate = true;
         }
@@ -84,7 +81,7 @@ namespace Gameplay.UI.VisualFeedback
         #region UnityBasic
         private void Update()
         {
-            if(_itemPosition != _currentDestination && _isActivate)
+            if (_itemPosition != _currentDestination && _isActivate) 
                 _itemObject.transform.position = Vector3.Lerp(_itemPosition, _currentDestination, _showSpeed * Time.deltaTime);
         }
         #endregion
