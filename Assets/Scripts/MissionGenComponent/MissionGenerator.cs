@@ -70,8 +70,8 @@ namespace Assets.Scripts.MissionGenComponent
             for(int i = 0; i < allStepDetail.Length; i++)
             {
                 StepDetail stepDetail = allStepDetail[i];
-                // 1) Create dbPath
-                string dbFolder = "/Data/Database/";
+                // 1) Create database path
+                string dbFolder = "/Resources/Database/";
                 string dbConn = "URI=file:" + Application.dataPath + dbFolder + stepDetail.Detail.DB;
                 // 2) Get schema from SQLService
                 Schema[] schemas = _sqlService.GetSchemas(dbConn, stepDetail.Detail.Tables);
