@@ -6,6 +6,8 @@ using Assets.Scripts.BackendComponent.SQLComponent;
 using Assets.Scripts.BackendComponent.StepComponent;
 using System.Linq;
 using UnityEngine;
+using Assets.Scripts.BackendComponent.ImageController;
+using System;
 
 namespace Assets.Scripts.MissionGenComponent
 {
@@ -15,7 +17,7 @@ namespace Assets.Scripts.MissionGenComponent
         [SerializeField] private GameObject _dialogConGameObject;
         [SerializeField] private GameObject _stepControllerGameObject;
         [SerializeField] private GameObject _puzzleManagerGameObject;
-        //[SerializeField] private GameObject _imageControllerGameObject;
+        [SerializeField] private GameObject _imageControllerGameObject;
 
         private MissionConfig _missionConfig;
         private ISQLService _sqlService = new SQLService();
@@ -89,10 +91,25 @@ namespace Assets.Scripts.MissionGenComponent
             puzzleManager.SetAllPC(allPuzzleController);
         }
 
-        //private void LoadImageController()
-        //{
+        private void LoadImageController()
+        {
+            IImageController imageController = _imageControllerGameObject.GetComponent<IImageController>();
 
-        //}
+            string unityPath = Application.dataPath + "/Resources/PuzzleImages/";
+            string[] imgFolders = _missionConfig.MissionDetail.Select(x => x.ImgFolder).ToArray();
+            string[][] imgLists = _missionConfig.MissionDetail.Select(x => x.ImgList).ToArray();
+            string[][] imagePathLists = new string[imgFolders.Length][];
+
+            for(int i = 0; i < imgFolders.Length; i++)
+            {
+                if (imgFolders[i] != null)
+                {
+                    imagePathLists[i] = imgLists[i].Select(imageFile => unityPath + imgFolders[i] + imageFile).ToArray();
+                }
+            }
+
+            imageController.SetImagesList(imagePathLists);
+        }
 
         // Use this for initialization
         void Start()
@@ -102,6 +119,7 @@ namespace Assets.Scripts.MissionGenComponent
             LoadDialogController();
             LoadStepController();
             LoadPuzzleManager();
+            LoadImageController();
         }
 
         // Update is called once per frame
