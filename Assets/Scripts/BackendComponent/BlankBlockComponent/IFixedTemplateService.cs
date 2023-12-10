@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.PuzzleComponent.BlankBlockComponent
+﻿namespace Assets.Scripts.BackendComponent.BlankBlockComponent
 {
     public interface IFixedTemplateService
     {

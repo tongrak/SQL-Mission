@@ -1,4 +1,5 @@
-﻿namespace Assets.Scripts.MissionGenComponent.JSON_Class
+﻿namespace Assets.Scripts.MissionGenComponent.Model
+
 {
     [System.Serializable]
     public enum MissionType

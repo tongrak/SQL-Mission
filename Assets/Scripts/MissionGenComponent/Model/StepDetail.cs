@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.PuzzleComponent.StepComponent;
+﻿using Assets.Scripts.BackendComponent.StepComponent;
 
-namespace Assets.Scripts.MissionGenComponent.JSON_Class
+namespace Assets.Scripts.MissionGenComponent.Model
 {
     [System.Serializable]
     public class StepDetail

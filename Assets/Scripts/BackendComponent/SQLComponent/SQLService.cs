@@ -3,7 +3,7 @@ using System.Data;
 using System.Linq;
 using Mono.Data.Sqlite;
 
-namespace Assets.Scripts.PuzzleComponent.SQLComponent
+namespace Assets.Scripts.BackendComponent.SQLComponent
 {
     public class SQLService: ISQLService
     {

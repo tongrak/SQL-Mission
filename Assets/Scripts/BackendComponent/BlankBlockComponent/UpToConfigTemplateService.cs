@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.PuzzleComponent.SQLComponent;
+﻿using Assets.Scripts.BackendComponent.SQLComponent;
 using System.Linq;
 
-namespace Assets.Scripts.PuzzleComponent.BlankBlockComponent
+namespace Assets.Scripts.BackendComponent.BlankBlockComponent
 {
     public class UpToConfigTemplateService : IUpToConfigTemplateService
     {

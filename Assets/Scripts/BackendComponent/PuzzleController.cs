@@ -1,10 +1,10 @@
-﻿using Assets.Scripts.PuzzleComponent.BlankBlockComponent;
-using Assets.Scripts.PuzzleComponent.SQLComponent;
+﻿using Assets.Scripts.BackendComponent.BlankBlockComponent;
+using Assets.Scripts.BackendComponent.SQLComponent;
 using Mono.Data.Sqlite;
 using System;
 using System.Linq;
 
-namespace Assets.Scripts.PuzzleComponent
+namespace Assets.Scripts.BackendComponent
 {
     public class PuzzleController : IPuzzleController
     {

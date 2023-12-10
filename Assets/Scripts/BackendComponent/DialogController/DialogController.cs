@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Scripts.PuzzleComponent
+namespace Assets.Scripts.BackendComponent.DialogController
 {
     public class DialogController : MonoBehaviour, IDialogController
     {

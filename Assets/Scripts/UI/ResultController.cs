@@ -1,4 +1,4 @@
-using Assets.Scripts.PuzzleComponent;
+using Assets.Scripts.BackendComponent;
 using Gameplay.UI.Table;
 using System.Collections;
 using System.Collections.Generic;

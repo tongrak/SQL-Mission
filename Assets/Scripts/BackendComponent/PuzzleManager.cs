@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.PuzzleComponent
+namespace Assets.Scripts.BackendComponent
 {
     public class PuzzleManager : MonoBehaviour, IPuzzleManager
     {

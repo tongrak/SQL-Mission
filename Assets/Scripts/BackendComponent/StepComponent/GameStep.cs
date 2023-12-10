@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Scripts.PuzzleComponent.StepComponent
+namespace Assets.Scripts.BackendComponent.StepComponent
 {
     public struct GameStep
     {
@@ -12,11 +12,11 @@ namespace Assets.Scripts.PuzzleComponent.StepComponent
         public readonly int DialogIndex; // If current step isn't "Dialog", DialogIndex must be "-1"
         public readonly int PCIndex; // If current step isn't "Puzzle", PCIndex must be "-1"
 
-        public GameStep(Step step, int dialogIndex, int PCIndex)
+        public GameStep(Step step, int dialogIndex, int pcIndex)
         {
             this.CurrStep = step;
             this.DialogIndex = dialogIndex;
-            this.PCIndex = PCIndex;
+            this.PCIndex = pcIndex;
         }
     }
 }

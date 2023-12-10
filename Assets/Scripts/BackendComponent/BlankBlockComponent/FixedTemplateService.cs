@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-namespace Assets.Scripts.PuzzleComponent.BlankBlockComponent
+﻿namespace Assets.Scripts.BackendComponent.BlankBlockComponent
 {
     public class FixedTemplateService : IFixedTemplateService
     {

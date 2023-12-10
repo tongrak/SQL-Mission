@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.PuzzleComponent
+﻿namespace Assets.Scripts.BackendComponent
 {
     public enum PuzzleType
     {

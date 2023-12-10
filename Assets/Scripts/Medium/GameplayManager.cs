@@ -1,5 +1,6 @@
-﻿using Assets.Scripts.PuzzleComponent;
-using Assets.Scripts.PuzzleComponent.StepComponent;
+﻿using Assets.Scripts.BackendComponent;
+using Assets.Scripts.BackendComponent.DialogController;
+using Assets.Scripts.BackendComponent.StepComponent;
 using Gameplay.UI;
 using System.Collections;
 using UnityEngine;
