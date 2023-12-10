@@ -15,6 +15,7 @@ namespace Assets.Scripts.MissionGenComponent
         [SerializeField] private GameObject _dialogConGameObject;
         [SerializeField] private GameObject _stepControllerGameObject;
         [SerializeField] private GameObject _puzzleManagerGameObject;
+        //[SerializeField] private GameObject _imageControllerGameObject;
 
         private MissionConfig _missionConfig;
         private ISQLService _sqlService = new SQLService();
@@ -28,13 +29,13 @@ namespace Assets.Scripts.MissionGenComponent
 
         private void LoadDialogController()
         {
-            DialogController dialogController = _dialogConGameObject.GetComponent<DialogController>();
+            IDialogController dialogController = _dialogConGameObject.GetComponent<IDialogController>();
             dialogController.SetAllDialog(_missionConfig.MissionDetail.Where(x => x.Step == Step.Dialog).Select(x => x.Dialog).ToArray());
         }
 
         private void LoadStepController()
         {
-            StepController stepController = _stepControllerGameObject.GetComponent<StepController>();
+            IStepController stepController = _stepControllerGameObject.GetComponent<IStepController>();
             Step[] allConfigStep = _missionConfig.MissionDetail.Select(x => x.Step).ToArray();
 
             int dialogIndex = 0;
@@ -46,25 +47,27 @@ namespace Assets.Scripts.MissionGenComponent
                 switch (step)
                 {
                     case Step.Dialog:
-                        allGameStep[i] = new GameStep(Step.Dialog, dialogIndex, -1);
+                        allGameStep[i] = new GameStep(Step.Dialog, i, dialogIndex, -1);
                         dialogIndex++;
                         break;
                     case Step.Puzzle:
-                        allGameStep[i] = new GameStep(Step.Puzzle, -1, puzzleIndex);
+                        allGameStep[i] = new GameStep(Step.Puzzle, i, -1, puzzleIndex);
                         puzzleIndex++;
                         break;
                     default:
                         break;
                 }
             }
-            allGameStep[allGameStep.Length - 1] = new GameStep(Step.EndStep, -1, -1);
+
+            int lastStepIndex = allGameStep.Length - 1;
+            allGameStep[lastStepIndex] = new GameStep(Step.EndStep, lastStepIndex, -1, -1);
 
             stepController.SetAllGameStep(allGameStep);
         }
 
         private void LoadPuzzleManager()
         {
-            PuzzleManager puzzleManager = _puzzleManagerGameObject.GetComponent<PuzzleManager>();
+            IPuzzleManager puzzleManager = _puzzleManagerGameObject.GetComponent<IPuzzleManager>();
             StepDetail[] allStepDetail = _missionConfig.MissionDetail.Where(x => x.Step == Step.Puzzle).ToArray();
             PuzzleController[] allPuzzleController = new PuzzleController[allStepDetail.Length];
 
@@ -85,6 +88,11 @@ namespace Assets.Scripts.MissionGenComponent
             // 5) Insert all PuzzleController to PuzzleManager
             puzzleManager.SetAllPC(allPuzzleController);
         }
+
+        //private void LoadImageController()
+        //{
+
+        //}
 
         // Use this for initialization
         void Start()
