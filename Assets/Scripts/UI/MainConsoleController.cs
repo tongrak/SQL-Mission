@@ -45,7 +45,6 @@ namespace Gameplay
             return mustGetComponent<T>(contrGO);
         }
 
-        public abstract void activateController();
     }
 }
 
@@ -108,8 +107,6 @@ namespace Gameplay.UI
             }
         }
         #endregion
-
-        public override void activateController() => Debug.Log("Activate main console");
 
         public string getCurrentQueryString() => _constrCon.queryString;
         public void setResultDisplay(bool isPass, ExecuteResult result)

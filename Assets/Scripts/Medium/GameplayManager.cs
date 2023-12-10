@@ -116,7 +116,6 @@ namespace Gameplay
             advanceAStep();
         }
 
-        public override void activateController() => Debug.Log("Actiate: gameplay manager");
         #endregion
 
         private void Start()
@@ -124,4 +123,5 @@ namespace Gameplay
             _mainConsoleController.setDisplayTab(TabType.CONSTRUCT);
         }
     }
+
 }

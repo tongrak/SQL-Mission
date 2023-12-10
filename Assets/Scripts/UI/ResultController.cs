@@ -26,12 +26,6 @@ namespace Gameplay.UI
 
         private bool _isPass;
 
-        public override void activateController()
-        {
-            _isPass = false;
-            Debug.Log("Activate result controller");
-        }
-
         public void setDisplayResult(bool isPass, ExecuteResult result)
         {
             if (!_isPass) _isPass = isPass;
