@@ -7,7 +7,7 @@ using Assets.Scripts.BackendComponent.StepComponent;
 using System.Linq;
 using UnityEngine;
 using Assets.Scripts.BackendComponent.ImageController;
-using System;
+using System.IO;
 
 namespace Assets.Scripts.MissionGenComponent
 {
@@ -94,17 +94,24 @@ namespace Assets.Scripts.MissionGenComponent
         private void LoadImageController()
         {
             IImageController imageController = _imageControllerGameObject.GetComponent<IImageController>();
+            string rootImgFolderPath = "/Resources/PuzzleImages/";
+            string[][] imagePathLists = new string[_missionConfig.MissionDetail.Length][];
 
-            string unityPath = "/Resources/PuzzleImages/";
-            string[] imgFolders = _missionConfig.MissionDetail.Select(x => x.ImgDetail.ImgFolder).ToArray();
-            string[][] imgLists = _missionConfig.MissionDetail.Select(x => x.ImgDetail.ImgList).ToArray();
-            string[][] imagePathLists = new string[imgFolders.Length][];
-
-            for(int i = 0; i < imgFolders.Length; i++)
+            for (int i = 0; i < _missionConfig.MissionDetail.Length; i++)
             {
-                if (imgFolders[i] != null)
+                StepDetail stepDetail = _missionConfig.MissionDetail[i];
+
+                if(stepDetail.ImgDetail != null)
                 {
-                    imagePathLists[i] = imgLists[i].Select(imageFile => unityPath + imgFolders[i] + imageFile).ToArray();
+                    if (stepDetail.ImgDetail.ImgList.Length == 0)
+                    {
+                        FileInfo[] images = new DirectoryInfo(Application.dataPath + rootImgFolderPath + stepDetail.ImgDetail.ImgFolder).GetFiles("*.png");
+                        imagePathLists[i] = images.Select(x => x.FullName).ToArray();
+                    }
+                    else
+                    {
+                        imagePathLists[i] = stepDetail.ImgDetail.ImgList.Select(x => Application.dataPath + rootImgFolderPath + "/" + x).ToArray();
+                    }
                 }
             }
 
