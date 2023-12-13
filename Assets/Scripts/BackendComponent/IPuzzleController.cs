@@ -6,6 +6,8 @@
         Schema[] Schemas { get; }
         string[][] PlayerTableResult { get; }
         bool IsPass { get; }
+        PuzzleType PuzzleType { get; }
+        ImgType ImgType { get; }
         ExecuteResult GetExecuteResult(string sql);
         bool GetPuzzleResult();
         string[] GetTemplateBlank(string templateType, string table);

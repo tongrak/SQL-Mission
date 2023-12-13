@@ -11,7 +11,6 @@ namespace Assets.Scripts.BackendComponent
         private string _dbConn;
         private ISQLService _sqlService;
         private string[][] _answerTableResult;
-        private readonly ImgType _puzzleType;
         private IFixedTemplateService _fixedTemplateService;
         private IUpToConfigTemplateService _upToConfigTemplateService;
         private readonly string[][] _specialBlanks;
@@ -20,6 +19,8 @@ namespace Assets.Scripts.BackendComponent
         public Schema[] Schemas { get; private set; }
         public string[][] PlayerTableResult { get; private set; }
         public bool IsPass { get; private set; }
+        public PuzzleType PuzzleType { get; private set; }
+        public ImgType ImgType { get; private set; }
 
         public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, ImgType imgType, IFixedTemplateService fixedTemplateService, IUpToConfigTemplateService upToConfigTemplateService, string[][] specialBlanks)
         {
@@ -27,7 +28,7 @@ namespace Assets.Scripts.BackendComponent
             Brief = brief;
             Schemas = schemas;
             _sqlService = sqlService;
-            _puzzleType = imgType;
+            ImgType = imgType;
             _answerTableResult = _sqlService.GetTableResult(dbConn, answerSQL, imgType);
             _fixedTemplateService = fixedTemplateService;
             _upToConfigTemplateService = upToConfigTemplateService;
@@ -38,7 +39,7 @@ namespace Assets.Scripts.BackendComponent
         {
             try
             {
-                PlayerTableResult = _sqlService.GetTableResult(_dbConn, playerSQL, _puzzleType);
+                PlayerTableResult = _sqlService.GetTableResult(_dbConn, playerSQL, ImgType);
                 return new ExecuteResult(PlayerTableResult);
             }
             catch (Exception e)
