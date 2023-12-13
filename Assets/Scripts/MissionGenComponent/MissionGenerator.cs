@@ -78,11 +78,11 @@ namespace Assets.Scripts.MissionGenComponent
                 StepDetail stepDetail = allStepDetail[i];
                 // 1) Create database path
                 string dbFolder = "/Resources/Database/";
-                string dbConn = "URI=file:" + Application.dataPath + dbFolder + stepDetail.Detail.DB;
+                string dbConn = "URI=file:" + Application.dataPath + dbFolder + stepDetail.PuzzleDetail.DB;
                 // 2) Get schema from SQLService
-                Schema[] schemas = _sqlService.GetSchemas(dbConn, stepDetail.Detail.Tables);
+                Schema[] schemas = _sqlService.GetSchemas(dbConn, stepDetail.PuzzleDetail.Tables);
                 // 3) Create PuzzleController
-                PuzzleController puzzleController = new PuzzleController(dbConn, stepDetail.Detail.AnswerSQL, stepDetail.Dialog, schemas, _sqlService, stepDetail.Detail.ImgType, _fixTemplateService, _upToConfigTemplateService, stepDetail.Detail.SpecialBlankOptions);
+                PuzzleController puzzleController = new PuzzleController(dbConn, stepDetail.PuzzleDetail.AnswerSQL, stepDetail.Dialog, schemas, _sqlService, stepDetail.PuzzleDetail.VisualType, _fixTemplateService, _upToConfigTemplateService, stepDetail.PuzzleDetail.SpecialBlankOptions);
                 // 4) Insert PuzzleController to array.
                 allPuzzleController[i] = puzzleController;
 
@@ -96,8 +96,8 @@ namespace Assets.Scripts.MissionGenComponent
             IImageController imageController = _imageControllerGameObject.GetComponent<IImageController>();
 
             string unityPath = "/Resources/PuzzleImages/";
-            string[] imgFolders = _missionConfig.MissionDetail.Select(x => x.ImgFolder).ToArray();
-            string[][] imgLists = _missionConfig.MissionDetail.Select(x => x.ImgList).ToArray();
+            string[] imgFolders = _missionConfig.MissionDetail.Select(x => x.ImgDetail.ImgFolder).ToArray();
+            string[][] imgLists = _missionConfig.MissionDetail.Select(x => x.ImgDetail.ImgList).ToArray();
             string[][] imagePathLists = new string[imgFolders.Length][];
 
             for(int i = 0; i < imgFolders.Length; i++)

@@ -7,8 +7,7 @@ namespace Assets.Scripts.MissionGenComponent.Model
     {
         public string Dialog;
         public Step Step; // IStep will be "Enum".
-        public string ImgFolder;
-        public string[] ImgList;
-        public PuzzleDetail Detail;
+        public ImgDetail ImgDetail;
+        public PuzzleDetail PuzzleDetail;
     }
 }

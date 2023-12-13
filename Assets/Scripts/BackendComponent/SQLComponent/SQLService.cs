@@ -14,13 +14,13 @@ namespace Assets.Scripts.BackendComponent.SQLComponent
         /// </summary>
         /// <param name="dbConn">Must be full path for connecting to Database example "URI=file:folder/database.db"</param>
         /// <param name="sql">SQL command</param>
-        /// <param name="puzzleType">Type of puzzle that want to execute.</param>
+        /// <param name="visualType">Type of puzzle that want to execute.</param>
         /// <exception cref="SqliteException">If sql have banned word, it will throw exception</exception>
         /// <returns>Result after execute SQL and first row is attribute. If puzzle type is "A" then first column must be image column</returns>
-        public string[][] GetTableResult(string dbConn, string sql, ImgType puzzleType)
+        public string[][] GetTableResult(string dbConn, string sql, VisualType visualType)
         {
             // 2) If puzzle type is float image, insert img column to sql command.
-            if (puzzleType == ImgType.A)
+            if (visualType == VisualType.A)
             {
                 sql = _InsertImgColumn(sql);
             }
