@@ -95,7 +95,7 @@ namespace Assets.Scripts.MissionGenComponent
         {
             IImageController imageController = _imageControllerGameObject.GetComponent<IImageController>();
 
-            string unityPath = "/Resources/PuzzleImages/";
+            string unityPath = "PuzzleImages/";
             string[] imgFolders = _missionConfig.MissionDetail.Select(x => x.ImgFolder).ToArray();
             string[][] imgLists = _missionConfig.MissionDetail.Select(x => x.ImgList).ToArray();
             string[][] imagePathLists = new string[imgFolders.Length][];
@@ -104,7 +104,7 @@ namespace Assets.Scripts.MissionGenComponent
             {
                 if (imgFolders[i] != null)
                 {
-                    imagePathLists[i] = imgLists[i].Select(imageFile => unityPath + imgFolders[i] + imageFile).ToArray();
+                    imagePathLists[i] = imgLists[i].Select(imageFile => unityPath + imgFolders[i] + "/" + imageFile).ToArray();
                 }
             }
 
