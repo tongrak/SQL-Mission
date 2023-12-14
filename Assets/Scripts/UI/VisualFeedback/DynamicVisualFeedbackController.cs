@@ -32,12 +32,6 @@ namespace Gameplay.UI.VisualFeedback
             setItemObjects(_currentImagePaths);
         }
 
-        public void testInitFunc()
-        {
-            string[] simpleImagePaths = { "Sprites/Flower/Pic1", "Sprites/Flower/Pic2", "Sprites/Flower/Pic3" };
-            InitItemObjects(simpleImagePaths);
-        }
-
         public void ShowUpGivenItem(string[] imagePaths)
         {
             for (int i = 0; i < _ImageObjects.Length; i++)
@@ -48,13 +42,6 @@ namespace Gameplay.UI.VisualFeedback
                     StartCoroutine(showUpGiven(itemCon));
                 }
             }
-        }
-
-        public void textShowUpFunc()
-        {
-            string[] simpleImagePaths = { "Sprites/Flower/Pic1", "Sprites/Flower/Pic3" };
-            ShowUpGivenItem(simpleImagePaths) ;
-
         }
 
         public void ShowDownAll()
@@ -77,7 +64,6 @@ namespace Gameplay.UI.VisualFeedback
                 {
                     var itemCon = mustGetComponent<ItemController>(_ImageObjects[i]);
                     itemCon.Deactivate();
-                    _ImageObjects[i].SetActive(false);
                 }
             }
         }
@@ -91,8 +77,6 @@ namespace Gameplay.UI.VisualFeedback
                 if (!string.IsNullOrEmpty(imagePaths[i]))
                 {
                     var itemCon = mustGetComponent<ItemController>(_ImageObjects[i]);
-                    _ImageObjects[i].SetActive(true);
-
                     itemCon.Activate(imagePaths[i]);
                 }
                 else
