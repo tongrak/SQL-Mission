@@ -110,7 +110,7 @@ namespace Assets.Scripts.MissionGenComponent
                     }
                     else
                     {
-                        imagePathLists[i] = stepDetail.ImgDetail.ImgList.Select(x => Application.dataPath + rootImgFolderPath + "/" + x).ToArray();
+                        imagePathLists[i] = stepDetail.ImgDetail.ImgList.Select(x => Application.dataPath + rootImgFolderPath + stepDetail.ImgDetail.ImgFolder + "/" + x).ToArray();
                     }
                 }
             }
