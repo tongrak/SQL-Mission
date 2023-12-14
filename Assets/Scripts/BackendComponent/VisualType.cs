@@ -1,7 +1,7 @@
 ﻿namespace Assets.Scripts.BackendComponent
 {
     [System.Serializable]
-    public enum ImgType
+    public enum VisualType
     {
         A,
         B
