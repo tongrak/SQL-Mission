@@ -1,8 +1,10 @@
 ﻿using Assets.Scripts.BackendComponent;
 using Assets.Scripts.BackendComponent.DialogController;
+using Assets.Scripts.BackendComponent.ImageController;
 using Assets.Scripts.BackendComponent.StepComponent;
 using Gameplay.UI;
-using System.Collections;
+using Gameplay.UI.VisualFeedback;
+using System.Linq;
 using UnityEngine;
 
 namespace Gameplay
@@ -26,14 +28,19 @@ namespace Gameplay
         [Header("UI GameObjects")]
         [SerializeField] private GameObject _dialogBoxControllerObject;
         [SerializeField] private GameObject _mainConsoleControllerObject;
+        [SerializeField] private GameObject _dynamicVisualFeedbackObject;
 
         private IDialogBoxController _dialogBoxController => mustGetComponent<IDialogBoxController>(_dialogBoxControllerObject);
         private IMainConsoleController _mainConsoleController => mustGetComponent<IMainConsoleController>(_mainConsoleControllerObject);
+        // Visual Controller
+        private IDynamicVisualController _dynamicVisualController => mustGetComponent<IDynamicVisualController>(_dynamicVisualFeedbackObject);
 
         private IStepController _currStepCon => mustFindComponentOfName<IStepController>(_backEndHolderName);
         private PuzzleManager _currPM => mustFindComponentOfName<PuzzleManager>(_backEndHolderName);
         private IDialogController _currDC => mustFindComponentOfName<IDialogController>(_backEndHolderName);
+        private IImageController _currIC => mustFindComponentOfName<IImageController>(_backEndHolderName);
 
+        private int _currStepIndex = 0;
         private IPuzzleController _currPC;
         private ExecuteResult _currExeResult;
 
@@ -42,6 +49,8 @@ namespace Gameplay
 
         private void actAccordingToStep(GameStep gStep)
         {
+            string[] rawImagePaths = _currIC.GetImages(_currStepIndex);
+            string[] imagePaths = rawImagePaths.Select(rawImagePathConversion).ToArray();
             switch (gStep.CurrStep)
             {
                 case Step.EndStep:
@@ -52,8 +61,10 @@ namespace Gameplay
                 case Step.Puzzle:
                     Debug.Log("Reaching puzzle step");
                     _currPC = _currPM.GetPC(gStep.PCIndex);
-                    _canAdvanceAStep = false;
                     _dialogBoxController.displayedText = _currPC.Brief;
+                    //TODO: Check for visual type.
+                    _dynamicVisualController.InitItemObjects(imagePaths);
+                    _canAdvanceAStep = false;
                     break;
                 case Step.Dialog:
                     Debug.Log("Reaching dialog step");
@@ -71,22 +82,58 @@ namespace Gameplay
             actAccordingToStep(_currStepCon.GetCurrentStep());
         }
 
+        #region Aux methods
+        /// <summary>
+        /// Convert full path into a resource path.
+        /// </summary>
+        /// <param name="rawImagePath">string representing full path for a image</param>
+        /// <returns>Resource path based on given full path</returns>
+        private string rawImagePathConversion(string rawImagePath)
+        {
+            string[] pathTokens = rawImagePath.Split('\\');
+            bool foundResources = false;
+            //remove all leading folder included resources
+            //replace backslash with normal one
+            string leadlessPath = pathTokens.Aggregate((acc, x) =>
+            {
+                if (foundResources) return acc.Equals(string.Empty) ? x : acc + '/' + x;
+                else if (x.Equals("Resources"))
+                {
+                    foundResources = true;
+                    return string.Empty;
+                }
+                else return string.Empty;
+            });
+            //remove file type and return
+            return leadlessPath.Split('.')[0];
+        }
+        #endregion
+
         #region Player actions
         public void clickExecution()
         {
             Debug.Log("Execution required receive");
             Debug.Log("Query: " + _mainConsoleController.getCurrentQueryString());
 
-            if( !_gameplayIsStarted )
+            if (!_gameplayIsStarted)
             {
                 Debug.LogWarning("gameplay is inactive");
                 return;
             }
 
+            _dynamicVisualController.ShowDownAll();
             // In case of universal button for progression
             if (!_canAdvanceAStep)
             {
                 var result = _currPC.GetExecuteResult(_mainConsoleController.getCurrentQueryString());
+                if (result.TableResult != null)
+                {
+                    string[] rawImagePaths = result.TableResult[0];
+                    string[] imagePaths = rawImagePaths.Select(rawImagePathConversion).ToArray();
+
+                    if (imagePaths.Length > 0)
+                        _dynamicVisualController.ShowUpGivenItem(imagePaths);
+                }
                 _mainConsoleController.setResultDisplay(_currPC.GetPuzzleResult(), result);
                 _canAdvanceAStep = _currPC.GetPuzzleResult();
                 return;
@@ -101,8 +148,10 @@ namespace Gameplay
                 Debug.LogWarning("gameplay is inactive");
                 return;
             }
+            _dynamicVisualController.DiscontinueItemObjects();
 
             _currStepCon.ChangeStep();
+            _currStepIndex++;
             actAccordingToStep(_currStepCon.GetCurrentStep());
         }
         public void clickSendResult()
@@ -117,12 +166,14 @@ namespace Gameplay
             advanceAStep();
         }
 
-        public override void activateController() => Debug.Log("Actiate: gameplay manager");
         #endregion
 
+        #region Unity Basic
         private void Start()
         {
             _mainConsoleController.setDisplayTab(TabType.CONSTRUCT);
         }
+        #endregion
     }
+
 }

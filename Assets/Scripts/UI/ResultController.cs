@@ -1,5 +1,6 @@
 using Assets.Scripts.BackendComponent;
 using Gameplay.UI.Table;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -18,19 +19,12 @@ namespace Gameplay.UI
         [SerializeField] private GameObject _tableGenerator;
         private ITableController _tableController => mustGetComponent<ITableController>(_tableGenerator);
 
-
         [Header("UI component")]
         [SerializeField] private GameObject _proceedButton;
         [SerializeField] private GameObject _errorText;
         private TextMeshProUGUI _errorTextMesh => mustGetComponent<TextMeshProUGUI>(_errorText);
 
         private bool _isPass;
-
-        public override void activateController()
-        {
-            _isPass = false;
-            Debug.Log("Activate result controller");
-        }
 
         public void setDisplayResult(bool isPass, ExecuteResult result)
         {
@@ -45,8 +39,14 @@ namespace Gameplay.UI
                 _errorText.SetActive(true);
                 return;
             }
+            //Filter out image paths
+            string[][] rawResult = result.TableResult;
+            int displayLegth = rawResult.Length-1;
+            string[][] displayResult = new string[displayLegth][];
+            Array.Copy(rawResult,1,displayResult,0,displayLegth);
+
             _tableGenerator.SetActive(true);
-            _tableController.setTable(result.TableResult);
+            _tableController.setTable(displayResult);
         }
 
     }
