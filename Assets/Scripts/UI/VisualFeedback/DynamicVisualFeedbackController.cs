@@ -20,23 +20,23 @@ namespace Gameplay.UI.VisualFeedback
         [Header("ImageObjects Config")]
         [SerializeField] private GameObject[] _ImageObjects;
 
-        private string[] _currentImagePaths = new string[10];
+        private string[] _fileNames = new string[10];
 
         public void InitItemObjects(string[] imagePaths)
         {
-            string[] copyTheGiven = (string[])imagePaths.Clone();
-            Array.Resize(ref copyTheGiven, _ImageObjects.Length);
+            string[] clonedImagePaths = (string[])imagePaths.Clone();
+            Array.Resize(ref clonedImagePaths, 10);
 
-            _currentImagePaths = copyTheGiven;
+            _fileNames = clonedImagePaths.Select(getFilename).ToArray();
 
-            setItemObjects(_currentImagePaths);
+            setItemObjects(clonedImagePaths);
         }
 
         public void ShowUpGivenItem(string[] imagePaths)
         {
             for (int i = 0; i < _ImageObjects.Length; i++)
             {
-                if (imagePaths.Contains(_currentImagePaths[i]))
+                if (imagePaths.Contains(_fileNames[i]))
                 {
                     var itemCon = mustGetComponent<ItemController>(_ImageObjects[i]);
                     StartCoroutine(showUpGiven(itemCon));
@@ -48,7 +48,7 @@ namespace Gameplay.UI.VisualFeedback
         {
             for (int i = 0; i < _ImageObjects.Length; i++)
             {
-                if (!string.IsNullOrEmpty(_currentImagePaths[i]))
+                if (!string.IsNullOrEmpty(_fileNames[i]))
                 {
                     var itemCon = mustGetComponent<ItemController>(_ImageObjects[i]);
                     StartCoroutine(showDownGiven(itemCon));
@@ -60,7 +60,7 @@ namespace Gameplay.UI.VisualFeedback
         {
             for (int i = 0; i < _ImageObjects.Length; i++)
             {
-                if (!string.IsNullOrEmpty(_currentImagePaths[i]))
+                if (!string.IsNullOrEmpty(_fileNames[i]))
                 {
                     var itemCon = mustGetComponent<ItemController>(_ImageObjects[i]);
                     itemCon.Deactivate();
@@ -69,6 +69,13 @@ namespace Gameplay.UI.VisualFeedback
         }
 
         #region Aux functions
+
+        private string getFilename(string path)
+        {
+            if (path == null) return string.Empty;
+            string[] tokens = path.Split('/');
+            return tokens[tokens.Length - 1];
+        }
 
         private void setItemObjects(string[] imagePaths)
         {
