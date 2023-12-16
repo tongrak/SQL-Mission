@@ -98,6 +98,7 @@ namespace Assets.Scripts.MissionGenComponent
             string[][] imagePathLists = new string[_missionConfig.MissionDetail.Length][];
 
             for (int i = 0; i < _missionConfig.MissionDetail.Length; i++)
+
             {
                 StepDetail stepDetail = _missionConfig.MissionDetail[i];
 
@@ -112,6 +113,7 @@ namespace Assets.Scripts.MissionGenComponent
                     {
                         imagePathLists[i] = stepDetail.ImgDetail.ImgList.Select(x => Application.dataPath + rootImgFolderPath + stepDetail.ImgDetail.ImgFolder + "/" + x).ToArray();
                     }
+
                 }
             }
 
