@@ -19,7 +19,6 @@ namespace Gameplay.UI
         [SerializeField] private GameObject _tableGenerator;
         private ITableController _tableController => mustGetComponent<ITableController>(_tableGenerator);
 
-
         [Header("UI component")]
         [SerializeField] private GameObject _proceedButton;
         [SerializeField] private GameObject _errorText;

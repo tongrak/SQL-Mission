@@ -50,8 +50,7 @@ namespace Gameplay
         private void actAccordingToStep(GameStep gStep)
         {
             string[] rawImagePaths = _currIC.GetImages(_currStepIndex);
-            string[] imagePaths = rawImagePaths.Select(x => x.Split('.')[0]).ToArray();
-
+            string[] imagePaths = rawImagePaths.Select(rawImagePathConversion).ToArray();
             switch (gStep.CurrStep)
             {
                 case Step.EndStep:
@@ -65,7 +64,6 @@ namespace Gameplay
                     _dialogBoxController.displayedText = _currPC.Brief;
                     //TODO: Check for visual type.
                     _dynamicVisualController.InitItemObjects(imagePaths);
-
                     _canAdvanceAStep = false;
                     break;
                 case Step.Dialog:
@@ -84,6 +82,33 @@ namespace Gameplay
             actAccordingToStep(_currStepCon.GetCurrentStep());
         }
 
+        #region Aux methods
+        /// <summary>
+        /// Convert full path into a resource path.
+        /// </summary>
+        /// <param name="rawImagePath">string representing full path for a image</param>
+        /// <returns>Resource path based on given full path</returns>
+        private string rawImagePathConversion(string rawImagePath)
+        {
+            string[] pathTokens = rawImagePath.Split('\\');
+            bool foundResources = false;
+            //remove all leading folder included resources
+            //replace backslash with normal one
+            string leadlessPath = pathTokens.Aggregate((acc, x) =>
+            {
+                if (foundResources) return acc.Equals(string.Empty) ? x : acc + '/' + x;
+                else if (x.Equals("Resources"))
+                {
+                    foundResources = true;
+                    return string.Empty;
+                }
+                else return string.Empty;
+            });
+            //remove file type and return
+            return leadlessPath.Split('.')[0];
+        }
+        #endregion
+
         #region Player actions
         public void clickExecution()
         {
@@ -101,11 +126,10 @@ namespace Gameplay
             if (!_canAdvanceAStep)
             {
                 var result = _currPC.GetExecuteResult(_mainConsoleController.getCurrentQueryString());
-                if (result.TableResult != null) 
+                if (result.TableResult != null)
                 {
                     string[] rawImagePaths = result.TableResult[0];
-                    string[] imagePaths = rawImagePaths.Select(x => x.Split('.')[0]).ToArray();
-                    //string[] imagePaths = rawImagePaths.Select(x => getResourcesPathFromFull(x)).ToArray();
+                    string[] imagePaths = rawImagePaths.Select(rawImagePathConversion).ToArray();
 
                     if (imagePaths.Length > 0)
                         _dynamicVisualController.ShowUpGivenItem(imagePaths);
@@ -144,10 +168,12 @@ namespace Gameplay
 
         #endregion
 
+        #region Unity Basic
         private void Start()
         {
             _mainConsoleController.setDisplayTab(TabType.CONSTRUCT);
         }
+        #endregion
     }
 
 }
