@@ -5,25 +5,18 @@
     {
       "Dialog": "แสดงข้อมูลทั้งหมดของ Flower ด้วยการกดปุ่ม execute",
       "Step": 1,
-      "ImgFolder": "Starter/Flower",
-      "ImgList": [
-        "Flower1.png",
-        "Flower2.png",
-        "Flower3.png",
-        "Flower4.png",
-        "Flower5.png",
-        "Flower6.png",
-        "Flower7.png",
-        "Flower8.png"
-      ],
-      "Detail": {
+      "ImgDetail": {
+        "ImgFolder": "Starter/Flower",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
         "DB": "Starter.db",
         "Tables": [
           "Flower"
         ],
         "PreSQL": "SELECT * \n FROM Flower",
         "AnswerSQL": "SELECT * FROM Flower",
-        "ImgType": 0,
+        "VisualType": 0,
         "PuzzleType": 0,
         "SpecialBlankOptions": null
       }
@@ -31,34 +24,20 @@
     {
       "Dialog": "เมื่อกี้นี้คือการใช้คำสั่งของ SQL ในการดึงข้อมูลทั้งหมดที่มีอยู่ภายในตาราง(table) ที่ชื่อว่า Flower",
       "Step": 0,
-      "ImgFolder": "Starter/Flower",
-      "ImgList": [
-        "Flower1.png",
-        "Flower2.png",
-        "Flower3.png",
-        "Flower4.png",
-        "Flower5.png",
-        "Flower6.png",
-        "Flower7.png",
-        "Flower8.png"
-      ],
-      "Detail": null
+      "ImgDetail": {
+        "ImgFolder": "Starter/Flower",
+        "ImgList": null
+      },
+      "PuzzleDetail": null
     },
     {
       "Dialog": "ซึ่งตาราง(table)เหล่านี้นั้นจะถูกเก็บอยู่ใน database อีกทีนึง",
       "Step": 0,
-      "ImgFolder": "Starter/Flower",
-      "ImgList": [
-        "Flower1.png",
-        "Flower2.png",
-        "Flower3.png",
-        "Flower4.png",
-        "Flower5.png",
-        "Flower6.png",
-        "Flower7.png",
-        "Flower8.png"
-      ],
-      "Detail": null
+      "ImgDetail": {
+        "ImgFolder": "Starter/Flower",
+        "ImgList": null
+      },
+      "PuzzleDetail": null
     }
   ],
   "MissionDependencies": null

@@ -20,15 +20,15 @@ namespace Assets.Scripts.BackendComponent
         public string[][] PlayerTableResult { get; private set; }
         public bool IsPass { get; private set; }
         public PuzzleType PuzzleType { get; private set; }
-        public ImgType ImgType { get; private set; }
+        public VisualType VisualType { get; private set; }
 
-        public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, ImgType imgType, IFixedTemplateService fixedTemplateService, IUpToConfigTemplateService upToConfigTemplateService, string[][] specialBlanks)
+        public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, VisualType imgType, IFixedTemplateService fixedTemplateService, IUpToConfigTemplateService upToConfigTemplateService, string[][] specialBlanks)
         {
             _dbConn = dbConn;
             Brief = brief;
             Schemas = schemas;
             _sqlService = sqlService;
-            ImgType = imgType;
+            VisualType = imgType;
             _answerTableResult = _sqlService.GetTableResult(dbConn, answerSQL, imgType);
             _fixedTemplateService = fixedTemplateService;
             _upToConfigTemplateService = upToConfigTemplateService;
@@ -39,7 +39,7 @@ namespace Assets.Scripts.BackendComponent
         {
             try
             {
-                PlayerTableResult = _sqlService.GetTableResult(_dbConn, playerSQL, ImgType);
+                PlayerTableResult = _sqlService.GetTableResult(_dbConn, playerSQL, VisualType);
                 return new ExecuteResult(PlayerTableResult);
             }
             catch (Exception e)

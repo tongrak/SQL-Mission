@@ -7,7 +7,7 @@
         string[][] PlayerTableResult { get; }
         bool IsPass { get; }
         PuzzleType PuzzleType { get; }
-        ImgType ImgType { get; }
+        VisualType VisualType { get; }
         ExecuteResult GetExecuteResult(string sql);
         bool GetPuzzleResult();
         string[] GetTemplateBlank(string templateType, string table);
