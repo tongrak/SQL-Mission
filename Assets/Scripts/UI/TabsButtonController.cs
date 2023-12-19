@@ -5,14 +5,31 @@ namespace Gameplay.UI
 {
     public interface IConsoleTabsController
     {
-        TabType CurrentTab { get; set; }
+        void SetTab(TabType tab);
     }
 
     public class TabsButtonController : GameplayController, IConsoleTabsController
     {
-        //TODO: Visual feedback improvement
+        [Header("Temporary config")]
+        [SerializeField] private UnityEngine.Color _activeColor;
+        [SerializeField] private UnityEngine.Color _inactiveColor;
 
-        private TabType _selectedTab = TabType.CONSTRUCT;
-        public TabType CurrentTab { get => _selectedTab; set => _selectedTab = value; }
+        [Header("Button gameobject")]
+        [SerializeField] private GameObject _constructionGameobject;
+        [SerializeField] private GameObject _resultGameobject;
+
+        private UnityEngine.UI.Image _constructionImage => mustGetComponent<UnityEngine.UI.Image>(_constructionGameobject);
+        private UnityEngine.UI.Image _resultImage => mustGetComponent<UnityEngine.UI.Image>(_resultGameobject);
+
+        public void SetTab(TabType tab)
+        {
+            _constructionImage.color = _inactiveColor;
+            _resultImage.color = _inactiveColor;
+            switch (tab)
+            {
+                case TabType.CONSTRUCT: _constructionImage.color = _activeColor; break;
+                case TabType.RESULT: _resultImage.color = _activeColor; break; 
+            }
+        }
     }
 }
