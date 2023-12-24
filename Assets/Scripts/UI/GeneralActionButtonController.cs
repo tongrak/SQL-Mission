@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Gameplay.UI
 {
-    public enum ActionButtonType { EXECUTION, PROCEED, STEP_BACK }
+    public enum ActionButtonType { EXECUTION, PROCEED, STEP_BACK, INACTICE }
 
     public interface IActionButtonController
     {
@@ -32,6 +32,7 @@ namespace Gameplay.UI
                 case ActionButtonType.EXECUTION: return _executionSprite;
                 case ActionButtonType.PROCEED: return _proceedSprite;
                 case ActionButtonType.STEP_BACK: return _stepBackSprite;
+                case ActionButtonType.INACTICE: return _disableExecutionSprite;
             }
             throw new System.Exception("Given type is invalid");
         }
