@@ -16,13 +16,14 @@ namespace Gameplay
         /// </summary>
         void StartGameplay();
         void ClickExecution();
-        //void ClickSendResult();
+        void SelectConstructionTab();
+        void SelectResultTab();
         void AdvanceAStep();
     }
 
     public interface IGameplayUILogic
     {
-        void updateActionButtonSprite(TabType currentTab, bool canProceed);
+        void UpdateUIDisplay(TabType currentTab, bool canProceed);
     }
 
     public class GameplayManager : GameplayController, IGameplayManager
@@ -52,13 +53,14 @@ namespace Gameplay
         private IImageController _currIC => mustFindComponentOfName<IImageController>(_backEndHolderName);
 
         //===== Injected gameplaylogic =====
-        private IGameplayUILogic _gameplayUI => new BasicUILogic(_actionButtonController);
+        private IGameplayUILogic _gameplayUI => new BasicUILogic(_consoleTabsController, _actionButtonController);
 
         //===== Runtime Variables =====
         private int _currStepIndex = 0;
         private IPuzzleController _currPC;
         private bool _gameplayIsStarted = false;
         private bool _canAdvanceAStep = false;
+        private TabType _currentTab = TabType.CONSTRUCT;
 
         private void actAccordingToStep(GameStep gStep)
         {
@@ -136,9 +138,14 @@ namespace Gameplay
             }
 
             _dynamicVisualController.ShowDownAll();
-            // In case of universal button for progression
 
-            switch (_consoleTabsController.CurrentTab) 
+            if (_currStepCon.GetCurrentStep().CurrStep != Step.Puzzle)
+            {
+                AdvanceAStep();
+                return;
+            }
+
+            switch (_currentTab)
             {
                 case TabType.CONSTRUCT:
                     var result = _currPC.GetExecuteResult(_mainConsoleController.getCurrentQueryString());
@@ -151,20 +158,14 @@ namespace Gameplay
                         if (imagePaths.Length > 0) _dynamicVisualController.ShowUpGivenItem(imagePaths);
                     }
                     _canAdvanceAStep = _currPC.GetPuzzleResult();
-                    _consoleTabsController.CurrentTab =  TabType.RESULT;
-                    _gameplayUI.updateActionButtonSprite(TabType.RESULT, _canAdvanceAStep);
                     _mainConsoleController.setResultDisplay(_currPC.GetPuzzleResult(), result);
+                    SelectResultTab();
                     break;
                 case TabType.RESULT:
                     if (_canAdvanceAStep) AdvanceAStep();
-                    _consoleTabsController.CurrentTab =  TabType.CONSTRUCT;
-                    _gameplayUI.updateActionButtonSprite(TabType.CONSTRUCT, _canAdvanceAStep);
-                    _mainConsoleController.setDisplayTab(TabType.CONSTRUCT);
+                    SelectConstructionTab();
                     break;
             }
-
-            
-            //If player can, let them advance.
         }
         public void AdvanceAStep()
         {
@@ -174,26 +175,29 @@ namespace Gameplay
                 return;
             }
             _dynamicVisualController.DiscontinueItemObjects();
-            _consoleTabsController.CurrentTab = TabType.CONSTRUCT;
 
             _currStepCon.ChangeStep();
             _currStepIndex++;
 
-            _consoleTabsController.CurrentTab = TabType.CONSTRUCT;
-            _gameplayUI.updateActionButtonSprite(TabType.CONSTRUCT, _canAdvanceAStep);
-
-
+            SelectConstructionTab();
             actAccordingToStep(_currStepCon.GetCurrentStep());
         }
+        private void setToGivenTab(TabType tab)
+        {
+            _gameplayUI.UpdateUIDisplay(tab, _canAdvanceAStep);
+            _mainConsoleController.setDisplayTab(tab);
+            _currentTab = tab;
+        }
+        public void SelectConstructionTab() => setToGivenTab(TabType.CONSTRUCT);
+        public void SelectResultTab() => setToGivenTab(TabType.RESULT);
         #endregion
 
         #region Unity Basic
         private void Start()
         {
-            _mainConsoleController.setDisplayTab(TabType.CONSTRUCT);
+            SelectConstructionTab();
             _actionButtonController.Activivity = false;
         }
         #endregion
     }
-
 }

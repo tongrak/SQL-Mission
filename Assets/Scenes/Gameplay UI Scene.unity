@@ -3691,7 +3691,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.014, y: 0.053201206}
   m_AnchorMax: {x: 0.93900007, y: 0.10920121}
-  m_AnchoredPosition: {x: -26.754, y: -1}
+  m_AnchoredPosition: {x: -26.754028, y: -1}
   m_SizeDelta: {x: -54.4221, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1247810142
@@ -3885,6 +3885,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48565e929ca5b744ea5ff2198676d1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _activeColor: {r: 0.95294124, g: 0.9607844, b: 0.9607844, a: 1}
+  _inactiveColor: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
+  _constructionGameobject: {fileID: 2109565457}
+  _resultGameobject: {fileID: 1947965521}
 --- !u!1 &1436885232
 GameObject:
   m_ObjectHideFlags: 0
@@ -4985,9 +4989,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1724651453}
-        m_TargetAssemblyTypeName: Gameplay.UI.MainConsoleController, UIAssembly
-        m_MethodName: setToResultTab
+      - m_Target: {fileID: 939566413}
+        m_TargetAssemblyTypeName: Gameplay.GameplayManager, MediumAssembly
+        m_MethodName: SelectResultTab
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5887,9 +5891,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1724651453}
-        m_TargetAssemblyTypeName: Gameplay.UI.MainConsoleController, UIAssembly
-        m_MethodName: setToConstructTab
+      - m_Target: {fileID: 939566413}
+        m_TargetAssemblyTypeName: Gameplay.GameplayManager, MediumAssembly
+        m_MethodName: SelectConstructionTab
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
