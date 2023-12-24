@@ -9,18 +9,24 @@ using UnityEngine;
 
 namespace Gameplay
 {
-    public interface IGamePlayerManager
+    public interface IGameplayManager
     {
         /// <summary>
         /// Activate Gameplay session
         /// </summary>
-        void startGameplay();
-        void clickExecution();
-        void clickSendResult();
-        void advanceAStep();
+        void StartGameplay();
+        void ClickExecution();
+        void SelectConstructionTab();
+        void SelectResultTab();
+        void AdvanceAStep();
     }
 
-    public class GameplayManager : GameplayController, IGamePlayerManager
+    public interface IGameplayUILogic
+    {
+        void UpdateUIDisplay(TabType currentTab, bool canProceed);
+    }
+
+    public class GameplayManager : GameplayController, IGameplayManager
     {
         [Header("BE Configuration")]
         [SerializeField] private string _backEndHolderName;
@@ -29,23 +35,32 @@ namespace Gameplay
         [SerializeField] private GameObject _dialogBoxControllerObject;
         [SerializeField] private GameObject _mainConsoleControllerObject;
         [SerializeField] private GameObject _dynamicVisualFeedbackObject;
+        [SerializeField] private GameObject _consoleTabsObject;
+        [SerializeField] private GameObject _actionButtonObject;
 
+        //===== UI Controller =====
         private IDialogBoxController _dialogBoxController => mustGetComponent<IDialogBoxController>(_dialogBoxControllerObject);
         private IMainConsoleController _mainConsoleController => mustGetComponent<IMainConsoleController>(_mainConsoleControllerObject);
-        // Visual Controller
+        private IConsoleTabsController _consoleTabsController => mustGetComponent<IConsoleTabsController>(_consoleTabsObject);
+        private IActionButtonController _actionButtonController => mustGetComponent<IActionButtonController>(_actionButtonObject);
+        //===== Visual Controller =====
         private IDynamicVisualController _dynamicVisualController => mustGetComponent<IDynamicVisualController>(_dynamicVisualFeedbackObject);
 
+        //===== BE interface =====
         private IStepController _currStepCon => mustFindComponentOfName<IStepController>(_backEndHolderName);
         private PuzzleManager _currPM => mustFindComponentOfName<PuzzleManager>(_backEndHolderName);
         private IDialogController _currDC => mustFindComponentOfName<IDialogController>(_backEndHolderName);
         private IImageController _currIC => mustFindComponentOfName<IImageController>(_backEndHolderName);
 
+        //===== Injected gameplaylogic =====
+        private IGameplayUILogic _gameplayUI => new BasicUILogic(_consoleTabsController, _actionButtonController);
+
+        //===== Runtime Variables =====
         private int _currStepIndex = 0;
         private IPuzzleController _currPC;
-        private ExecuteResult _currExeResult;
-
         private bool _gameplayIsStarted = false;
         private bool _canAdvanceAStep = false;
+        private TabType _currentTab = TabType.CONSTRUCT;
 
         private void actAccordingToStep(GameStep gStep)
         {
@@ -75,10 +90,10 @@ namespace Gameplay
             }
         }
 
-        public void startGameplay()
+        public void StartGameplay()
         {
             _gameplayIsStarted = true;
-
+            _actionButtonController.Activivity = true;
             actAccordingToStep(_currStepCon.GetCurrentStep());
         }
 
@@ -109,8 +124,9 @@ namespace Gameplay
         }
         #endregion
 
+        //TODO: Add gameplay action logic
         #region Player actions
-        public void clickExecution()
+        public void ClickExecution()
         {
             Debug.Log("Execution required receive");
             Debug.Log("Query: " + _mainConsoleController.getCurrentQueryString());
@@ -122,26 +138,36 @@ namespace Gameplay
             }
 
             _dynamicVisualController.ShowDownAll();
-            // In case of universal button for progression
-            if (!_canAdvanceAStep)
-            {
-                var result = _currPC.GetExecuteResult(_mainConsoleController.getCurrentQueryString());
-                if (result.TableResult != null)
-                {
-                    string[] rawImagePaths = result.TableResult[0];
-                    string[] imagePaths = rawImagePaths.Select(rawImagePathConversion).ToArray();
 
-                    if (imagePaths.Length > 0)
-                        _dynamicVisualController.ShowUpGivenItem(imagePaths);
-                }
-                _mainConsoleController.setResultDisplay(_currPC.GetPuzzleResult(), result);
-                _canAdvanceAStep = _currPC.GetPuzzleResult();
+            if (_currStepCon.GetCurrentStep().CurrStep != Step.Puzzle)
+            {
+                AdvanceAStep();
                 return;
             }
-            //If player can, let them advance.
-            advanceAStep();
+
+            switch (_currentTab)
+            {
+                case TabType.CONSTRUCT:
+                    var result = _currPC.GetExecuteResult(_mainConsoleController.getCurrentQueryString());
+                    if (result.TableResult != null)
+                    {
+                        string[] rawImagePaths = result.TableResult[0];
+                        //remove image label
+                        rawImagePaths = rawImagePaths.Skip(1).ToArray();
+                        string[] imagePaths = rawImagePaths.Select(x => x.Split('.')[0]).ToArray();
+                        if (imagePaths.Length > 0) _dynamicVisualController.ShowUpGivenItem(imagePaths);
+                    }
+                    _canAdvanceAStep = _currPC.GetPuzzleResult();
+                    _mainConsoleController.setResultDisplay(_currPC.GetPuzzleResult(), result);
+                    SelectResultTab();
+                    break;
+                case TabType.RESULT:
+                    if (_canAdvanceAStep) AdvanceAStep();
+                    SelectConstructionTab();
+                    break;
+            }
         }
-        public void advanceAStep()
+        public void AdvanceAStep()
         {
             if (!_gameplayIsStarted)
             {
@@ -152,28 +178,26 @@ namespace Gameplay
 
             _currStepCon.ChangeStep();
             _currStepIndex++;
+
+            SelectConstructionTab();
             actAccordingToStep(_currStepCon.GetCurrentStep());
         }
-        public void clickSendResult()
+        private void setToGivenTab(TabType tab)
         {
-            if (!_gameplayIsStarted)
-            {
-                Debug.LogWarning("gameplay is inactive");
-                return;
-            }
-
-            Debug.Log("result passing request received");
-            advanceAStep();
+            _gameplayUI.UpdateUIDisplay(tab, _canAdvanceAStep);
+            _mainConsoleController.setDisplayTab(tab);
+            _currentTab = tab;
         }
-
+        public void SelectConstructionTab() => setToGivenTab(TabType.CONSTRUCT);
+        public void SelectResultTab() => setToGivenTab(TabType.RESULT);
         #endregion
 
         #region Unity Basic
         private void Start()
         {
-            _mainConsoleController.setDisplayTab(TabType.CONSTRUCT);
+            SelectConstructionTab();
+            _actionButtonController.Activivity = false;
         }
         #endregion
     }
-
 }

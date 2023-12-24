@@ -8,11 +8,7 @@ using UnityEngine;
 
 namespace Gameplay
 {
-    public enum TabType
-    {
-        CONSTRUCT,
-        RESULT
-    }
+    public enum TabType{CONSTRUCT,RESULT}
 
     public abstract class GameplayController : MonoBehaviour
     {
