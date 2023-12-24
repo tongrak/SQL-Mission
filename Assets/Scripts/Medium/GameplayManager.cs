@@ -24,12 +24,13 @@ namespace Gameplay
     public interface IGameplayUILogic
     {
         void UpdateUIDisplay(TabType currentTab, bool canProceed);
+        void SetDisplayedActionButton(ActionButtonType buttonType);
     }
 
     public class GameplayManager : GameplayController, IGameplayManager
     {
         [Header("BE Configuration")]
-        [SerializeField] private string _backEndHolderName;
+        [SerializeField] private GameObject _backEndObject;
 
         [Header("UI GameObjects")]
         [SerializeField] private GameObject _dialogBoxControllerObject;
@@ -47,10 +48,10 @@ namespace Gameplay
         private IDynamicVisualController _dynamicVisualController => mustGetComponent<IDynamicVisualController>(_dynamicVisualFeedbackObject);
 
         //===== BE interface =====
-        private IStepController _currStepCon => mustFindComponentOfName<IStepController>(_backEndHolderName);
-        private PuzzleManager _currPM => mustFindComponentOfName<PuzzleManager>(_backEndHolderName);
-        private IDialogController _currDC => mustFindComponentOfName<IDialogController>(_backEndHolderName);
-        private IImageController _currIC => mustFindComponentOfName<IImageController>(_backEndHolderName);
+        private IStepController _currStepCon => mustGetComponent<IStepController>(_backEndObject);
+        private PuzzleManager _currPM => mustGetComponent<PuzzleManager>(_backEndObject);
+        private IDialogController _currDC => mustGetComponent<IDialogController>(_backEndObject);
+        private IImageController _currIC => mustGetComponent<IImageController>(_backEndObject);
 
         //===== Injected gameplaylogic =====
         private IGameplayUILogic _gameplayUI => new BasicUILogic(_consoleTabsController, _actionButtonController);
@@ -64,21 +65,33 @@ namespace Gameplay
 
         private void actAccordingToStep(GameStep gStep)
         {
-            string[] rawImagePaths = _currIC.GetImages(_currStepIndex);
-            string[] imagePaths = rawImagePaths.Select(rawImagePathConversion).ToArray();
+            string[] rawImagePaths = null;
+            string[] imagePaths = null;
+            try { rawImagePaths = _currIC.GetImages(_currStepIndex); } catch (System.Exception e) { Debug.LogWarning(e.ToString()); }
+            if (rawImagePaths != null) imagePaths = rawImagePaths.Select(rawImagePathConversion).ToArray();
             switch (gStep.CurrStep)
             {
                 case Step.EndStep:
                     Debug.Log("Reaching end step");
                     _gameplayIsStarted = false;
                     _canAdvanceAStep = false;
+                    _gameplayUI.SetDisplayedActionButton(ActionButtonType.INACTICE);
                     break;
                 case Step.Puzzle:
                     Debug.Log("Reaching puzzle step");
                     _currPC = _currPM.GetPC(gStep.PCIndex);
                     _dialogBoxController.displayedText = _currPC.Brief;
-                    //TODO: Check for visual type.
-                    _dynamicVisualController.InitItemObjects(imagePaths);
+                    if (imagePaths != null)
+                    {
+                        if (_currPC.VisualType == VisualType.A)
+                        {
+                            _dynamicVisualController.InitItemObjects(imagePaths);
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Puzzle with VisualType B detected");
+                        }
+                    }
                     _canAdvanceAStep = false;
                     break;
                 case Step.Dialog:
@@ -86,6 +99,7 @@ namespace Gameplay
                     string dialog = _currDC.GetDialog(gStep.DialogIndex);
                     _dialogBoxController.displayedText = dialog;
                     _canAdvanceAStep = true;
+                    _gameplayUI.SetDisplayedActionButton(ActionButtonType.PROCEED);
                     break;
             }
         }
@@ -162,8 +176,8 @@ namespace Gameplay
                     SelectResultTab();
                     break;
                 case TabType.RESULT:
-                    if (_canAdvanceAStep) AdvanceAStep();
                     SelectConstructionTab();
+                    if (_canAdvanceAStep) AdvanceAStep();
                     break;
             }
         }
@@ -177,6 +191,7 @@ namespace Gameplay
             _dynamicVisualController.DiscontinueItemObjects();
 
             _currStepCon.ChangeStep();
+            var x = _currStepCon.GetCurrentStep();
             _currStepIndex++;
 
             SelectConstructionTab();
