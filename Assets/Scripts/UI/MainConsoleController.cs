@@ -85,7 +85,7 @@ namespace Gameplay.UI
         [SerializeField] private GameObject _constructionTab;
         [SerializeField] private GameObject _resultTab;
 
-        private IContructionTabController _constrCon => mustGetComponent<IContructionTabController>(_constructionTab);
+        private IContructionConsoleController _constrCon => mustGetComponent<IContructionConsoleController>(_constructionTab);
         private IResultTabController _resultCon => mustGetComponent<IResultTabController>(_resultTab);
         public void setDisplayTab(TabType tabType)
         {
