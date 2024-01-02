@@ -20,7 +20,6 @@ namespace Gameplay
         void SelectResultTab();
         void AdvanceAStep();
     }
-
     public interface IGameplayUILogic
     {
         void UpdateUIDisplay(TabType currentTab, bool canProceed);
