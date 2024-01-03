@@ -114,6 +114,12 @@ namespace Gameplay.UI.Construction
 
         #region Unity basic
         private void Start() => this.SetUpTokenField(_testingString);
+
+        public void startConsole()
+        {
+            //remove past tokens
+            foreach (Transform token in this.transform) { Destroy(token.gameObject); }
+        }
         #endregion
     }
 

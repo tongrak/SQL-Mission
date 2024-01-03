@@ -4,6 +4,7 @@ using Assets.Scripts.BackendComponent.ImageController;
 using Assets.Scripts.BackendComponent.StepComponent;
 using Gameplay.UI;
 using Gameplay.UI.VisualFeedback;
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -80,6 +81,9 @@ namespace Gameplay
                     Debug.Log("Reaching puzzle step");
                     _currPC = _currPM.GetPC(gStep.PCIndex);
                     _dialogBoxController.displayedText = _currPC.Brief;
+                    //TODO: Get pass through token;
+                    //handleOnConsoleType(_currPC.PuzzleType,"");
+
                     if (imagePaths != null)
                     {
                         if (_currPC.VisualType == VisualType.A)
@@ -134,6 +138,21 @@ namespace Gameplay
             });
             //remove file type and return
             return leadlessPath.Split('.')[0];
+        }
+        private void handleOnConsoleType(PuzzleType type, string tokens)
+        {
+            switch (type)
+            {
+                case PuzzleType.ExecuteOnly:
+                    _mainConsoleController.setConstructionDisplay(UI.Construction.ConstructionType.FILL_THE_BLANK, tokens);
+                    break;
+                case PuzzleType.FillBlank: 
+                    _mainConsoleController.setConstructionDisplay(UI.Construction.ConstructionType.FILL_THE_BLANK, tokens);
+                    break;
+                case PuzzleType.OnYourOwn:
+                    _mainConsoleController.setConstructionDisplay(UI.Construction.ConstructionType.TYPING, tokens);
+                    break;
+            }
         }
         #endregion
 
