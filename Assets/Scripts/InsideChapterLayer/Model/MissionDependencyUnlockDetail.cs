@@ -4,6 +4,6 @@
     public class MissionDependencyUnlockDetail
     {
         public string MissionName;
-        public bool IsUnlock;
+        public bool IsPass;
     }
 }

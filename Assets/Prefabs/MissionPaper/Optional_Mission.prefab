@@ -408,3 +408,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missionTitle: {fileID: 5988460557432906724}
   missionDescription: {fileID: 5988460557416215694}
+  missionPaper: {fileID: 5988460557990492957}

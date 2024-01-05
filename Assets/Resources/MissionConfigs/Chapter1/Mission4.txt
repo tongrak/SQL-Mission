@@ -1,32 +1,29 @@
 {
   "MissionName": "Mission4",
   "MissionType": 0,
+  "MissionDescription": null,
   "MissionDetail": [
     {
       "Dialog": "จงแสดงข้อมูลทั้งหมดของ PeopleOccupation",
       "Step": 1,
-      "ImgFolder": "Chapter1/PeopleOccupation",
-      "ImgList": [
-        "PeopleOc1.png",
-        "PeopleOc2.png",
-        "PeopleOc3.png",
-        "PeopleOc4.png",
-        "PeopleOc5.png",
-        "PeopleOc6.png",
-        "PeopleOc7.png"
-      ],
-      "Detail": {
+      "ImgDetail": {
+        "ImgFolder": "Chapter1/PeopleOccupation",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
         "DB": "Starter.db",
         "Tables": [
           "PeopleOccupation"
         ],
         "PreSQL": "SELECT * \n FROM <<Tables>>",
         "AnswerSQL": "SELECT * FROM PeopleOccupation",
-        "ImgType": 0,
+        "VisualType": 0,
         "PuzzleType": 1,
         "SpecialBlankOptions": null
       }
     }
   ],
-  "MissionDependencies": null
+  "MissionDependencies": [
+    "Mission2"
+  ]
 }

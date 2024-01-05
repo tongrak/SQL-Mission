@@ -5,6 +5,7 @@
     {
         public string MissionName;
         public bool IsUnlock;
+        public bool IsPass;
         public MissionDependencyUnlockDetail[] MissionDependenciesUnlockDetail;
     }
 }

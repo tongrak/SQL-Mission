@@ -10,7 +10,7 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private GameObject _finalMission;
     private string _missionFolderPath; // Insert path after root path. If relative path is './MissionConfig/Chapter1' then insert 'Chapter1'
     private string[] _missionConfigFiles;
-    private MissionPaperDetail[] _missionPapersDetail;
+    //private MissionPaperDetail[] _missionPapersDetail;
 
     /// <summary>
     /// Set list of mission config file. Example [mission1.txt, mission2.txt]
@@ -35,107 +35,146 @@ public class MissionManager : MonoBehaviour
         string mockMissionFolderPath = "Chapter1";
         string[] mockMissionFiles = new string[]
         {
-            "Mission1.txt",
-            "Mission2.txt",
-            "Mission3.txt",
-            "Mission4.txt",
-            "Mission5.txt",
-            "Final.txt"
+            "Mission1",
+            "Mission2",
+            "Mission3",
+            "Mission4",
+            "Mission5",
+            "Final"
         };
 
         SetMissionFolderPath(mockMissionFolderPath);
 
         SetMissionConfigFiles(mockMissionFiles);
 
-        _LoadDataFromConfigFiles();
-        //_GenerateMissionObject(5);
+        _GenMissionPaperFromConfigFiles();
+        //_MockGenerateMissionObject(5);
     }
 
-    private void _LoadDataFromConfigFiles()
+    private async void _GenMissionPaperFromConfigFiles()
     {
-        _missionPapersDetail = new MissionPaperDetail[_missionConfigFiles.Length];
+        string missionConfigFolderPath = "MissionConfigs/" + _missionFolderPath + '/';
+        string unlockDetailFile = "UnlockDetail";
+        string unLockDetailPathAfterResources = missionConfigFolderPath + unlockDetailFile;
+        string unLockDetailPathFromAssets = "Assets/Resources/" + unLockDetailPathAfterResources;
+        bool haveUnlockDetail = System.IO.File.Exists(unLockDetailPathFromAssets);
+
+        //_missionPapersDetail = new MissionPaperDetail[_missionConfigFiles.Length];
+
+        MissionConfig[] missionConfigs = new MissionConfig[_missionConfigFiles.Length];
+
+        // Read each mission config file.
         for (int i = 0; i < _missionConfigFiles.Length; i++)
         {
-            string mission = _missionConfigFiles[i];
-            string missionConfigFolderPath = "MissionConfigs/" + _missionFolderPath + '/';
-            string missionConfigFilePath = missionConfigFolderPath + mission;
+            // Set config file path
+            string missionConfigFilePath = missionConfigFolderPath + _missionConfigFiles[i];
 
             // Load config file.
             TextAsset configFiles = Resources.Load<TextAsset>(missionConfigFilePath);
-            MissionConfig missionConfig = JsonUtility.FromJson<MissionConfig>(configFiles.text);
+            missionConfigs[i] = JsonUtility.FromJson<MissionConfig>(configFiles.text);
+        }
 
-            // Load data to mission manager.
-            _missionPapersDetail[i].MissionName = missionConfig.MissionName;
+        MissionUnlockDetails missionUnlockDetails;
 
-            /* ขั้นตอนการ Generate mission paper
-             * 1) Check ว่ามีไฟล์ JSON ที่เก็บข้อมูลการปลดล็อกด่านไว้หรือไม่
-             *  1A) ถ้าไม่มีให้ gen ขึ้นมาใหม่แล้วให้ใส่ข้อมูลการปลดล็อกของด่านด้วย พร้อมกับดึงข้อมูลออกมา
-             *      - รายละเอียดการสร้างนั้นจะไปสร้างที่ folder เดียวกับ mission config
-             *      - โดย file ที่สร้างจะมีชื่อว่า 'UnlockDetail.txt'
-             *  1B) ถ้าหากมีอยู่แล้วให้ดึงข้อมูลออกมา
-             * 2) ให้ทำการสร้าง mission paper โดยอิงตามข้อมูลการปลดล็อกของ mission นั้น ๆ
-             *
-            */
-            string unlockDetailFile = "UnlockDetail.txt";
-            string unLockDetailPath = "Assets/Resources/" + missionConfigFolderPath + unlockDetailFile;
-            if (System.IO.File.Exists(unLockDetailPath))
+        if (!haveUnlockDetail)
+        {
+            missionUnlockDetails = _WriteMissionUnlockDetails(missionConfigs, unLockDetailPathFromAssets, _missionConfigFiles.Length);
+        }
+        else
+        {
+            TextAsset unlockDetailsFile = Resources.Load<TextAsset>(unLockDetailPathAfterResources);
+            missionUnlockDetails = JsonUtility.FromJson<MissionUnlockDetails>(unlockDetailsFile.text);
+        }
+
+        _GenerateAllMissionObject(missionConfigs, missionUnlockDetails);
+    }
+
+    private MissionUnlockDetails _WriteMissionUnlockDetails(MissionConfig[] missionConfigs, string unLockDetailPathFromAssets, int configFileNum)
+    {
+        int missionNum = configFileNum;
+        string fileType = ".json";
+        MissionUnlockDetails missionUnlockDetails = new MissionUnlockDetails(missionNum);
+
+        // Create unlock detail for each mission.
+        for (int i = 0; i < missionNum; i++)
+        {
+            MissionConfig missionConfig = missionConfigs[i];
+            int missionDependencyNum = missionConfig.MissionDependencies.Length;
+            bool isMissionUnlocked = missionDependencyNum <= 0;
+            MissionDependencyUnlockDetail[] missionDependenciesUnlockDetail = null;
+
+            if (!isMissionUnlocked)
             {
-                int missionNum = _missionConfigFiles.Length;
-                MissionUnlockDetails missionUnlockDetails = new MissionUnlockDetails(missionNum);
-
-                for(int j = 0; j < missionNum; j++)
+                missionDependenciesUnlockDetail = new MissionDependencyUnlockDetail[missionDependencyNum];
+                for (int k = 0; k < missionDependencyNum; k++)
                 {
-                    int missionDependencyNum = missionConfig.MissionDependencies.Length;
-                    bool isUnlock = true;
-                    MissionDependencyUnlockDetail[] missionDependenciesUnlockDetail = null;
-                    if (missionDependencyNum > 0)
+                    missionDependenciesUnlockDetail[k] = new MissionDependencyUnlockDetail
                     {
-                        isUnlock = false;
-                        missionDependenciesUnlockDetail = new MissionDependencyUnlockDetail[missionDependencyNum];
-                        for(int k = 0; k < missionDependencyNum; k++)
-                        {
-                            missionDependenciesUnlockDetail[k] = new MissionDependencyUnlockDetail
-                            {
-                                MissionName = missionConfig.MissionDependencies[k],
-                                IsUnlock = false
-                            };
-                        }
-                    }
-
-                    missionUnlockDetails.MissionUnlockDetailList[j] = new MissionUnlockDetail
-                    {
-                        MissionName = missionConfig.MissionName,
-                        IsUnlock = isUnlock,
-                        MissionDependenciesUnlockDetail = missionDependenciesUnlockDetail
+                        MissionName = missionConfig.MissionDependencies[k],
+                        IsPass = false
                     };
                 }
-                
-
-                string data = JsonUtility.ToJson(missionUnlockDetails);
-                System.IO.File.WriteAllText(unLockDetailPath, data);
-                Debug.Log("Have unlock detail file");
             }
-            else
+
+            // Create unlock detail
+            missionUnlockDetails.MissionUnlockDetailList[i] = new MissionUnlockDetail
             {
-                Debug.Log("Don't have unlock detail file");
-            }
+                MissionName = missionConfig.MissionName,
+                IsUnlock = isMissionUnlocked,
+                IsPass = false,
+                MissionDependenciesUnlockDetail = missionDependenciesUnlockDetail
+            };
+        }
 
+        // Save to 'UnlockDetail.txt'
+        string data = JsonUtility.ToJson(missionUnlockDetails);
+        System.IO.File.WriteAllText(unLockDetailPathFromAssets+fileType, data);
+
+        return missionUnlockDetails;
     }
-}
 
-    private void _GenerateMissionObject(int missionNum)
+    private void _GenerateAllMissionObject(MissionConfig[] missionConfigs, MissionUnlockDetails missionUnlockDetails)
+    {
+        // Find parent's transform
+        Transform misionGroupTransform = GameObject.Find("Content").transform;
+
+
+        // Instantiate mission(s)
+        for (int i = 0; i < missionConfigs.Length; i++)
+        {
+            MissionConfig missionConfig = missionConfigs[i];
+            MissionUnlockDetail missionUnlockDetail = missionUnlockDetails.MissionUnlockDetailList[i];
+
+            switch (missionConfig.MissionType)
+            {
+                case MissionType.Normal:
+                    Instantiate(_normalMission, misionGroupTransform).GetComponent<MissionPaperUI>().Initiate(missionConfig.MissionName, missionConfig.MissionDescription, missionUnlockDetail.IsUnlock, missionUnlockDetail.IsPass);
+                    break;
+                case MissionType.Optional:
+                    Instantiate(_optionalMission, misionGroupTransform).GetComponent<MissionPaperUI>().Initiate(missionConfig.MissionName, missionConfig.MissionDescription, missionUnlockDetail.IsUnlock, missionUnlockDetail.IsPass);
+                    break;
+                case MissionType.Final:
+                    Instantiate(_finalMission, misionGroupTransform).GetComponent<MissionPaperUI>().Initiate(missionConfig.MissionName, missionConfig.MissionDescription, missionUnlockDetail.IsUnlock, missionUnlockDetail.IsPass);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void _MockGenerateMissionObject(int missionNum)
     {
         // Find parent's transform
         Transform misionGroupTransform = GameObject.Find("Content").transform;
 
         string mockDescription = "This is description blallfldsfljslfdjfjajdlasdjflka";
         string mockTitle = "Mission2";
-        bool mockIsPass = false;
+        bool mockIsUnlock = false;
 
         // Instantiate mission(s)
         for (int i = 0; i < missionNum; i++)
         {
-            Instantiate(_normalMission, misionGroupTransform).GetComponent<MissionPaperUI>().Initiate(mockTitle, mockDescription, mockIsPass);
+            Instantiate(_normalMission, misionGroupTransform).GetComponent<MissionPaperUI>().Initiate(mockTitle, mockDescription, mockIsUnlock, mockIsUnlock);
         }
     }
 

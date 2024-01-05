@@ -22,11 +22,11 @@ namespace Assets.Scripts.InsideChapterLayer.UI
 
         }
 
-        public void Initiate(string title, string description, bool isPass)
+        public void Initiate(string title, string description, bool isUnlock, bool isPass)
         {
             missionTitle.text = title;
             missionDescription.text = description;
-            missionPaper.interactable = isPass;
+            missionPaper.interactable = isUnlock;
         }
     }
 }
