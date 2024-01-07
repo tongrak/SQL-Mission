@@ -18,5 +18,10 @@ namespace Assets.Scripts.BackendComponent
         /// Get Puzzle Controller from given index.
         /// </summary>
         IPuzzleController GetPC(int index);
+
+        /// <summary>
+        /// Update mission status if final puzzle passed.
+        /// </summary>
+        void PuzzlePassed(bool isLastPuzzle);
     }
 }

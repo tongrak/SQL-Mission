@@ -5,10 +5,8 @@
         string Brief { get; }
         Schema[] Schemas { get; }
         string[][] PlayerTableResult { get; }
-        bool IsPass { get; }
         PuzzleType PuzzleType { get; }
         VisualType VisualType { get; }
-        bool IsLastPuzzle { get; }
         ExecuteResult GetExecuteResult(string sql);
         bool GetPuzzleResult();
         string[] GetTemplateBlank(string templateType, string table);

@@ -2,9 +2,9 @@
     "name": "MissionGen",
     "rootNamespace": "",
     "references": [
-        "GUID:f620261b49f709647926935d1f050f2b",
         "GUID:44203fa325a2c0340842dd48c517619c",
-        "GUID:9fae5e7fcdfbfbb4da4b12f5cf87768e"
+        "GUID:9fae5e7fcdfbfbb4da4b12f5cf87768e",
+        "GUID:f620261b49f709647926935d1f050f2b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

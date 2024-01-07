@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.BackendComponent
 {
@@ -22,6 +21,11 @@ namespace Assets.Scripts.BackendComponent
         public IPuzzleController GetPC(int index)
         {
             return _allPC[index];
+        }
+
+        public void PuzzlePassed(bool isLastPuzzle)
+        {
+
         }
 
         // Use this for initialization

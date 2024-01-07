@@ -14,16 +14,16 @@ namespace Assets.Scripts.BackendComponent
         private IFixedTemplateService _fixedTemplateService;
         private IUpToConfigTemplateService _upToConfigTemplateService;
         private readonly string[][] _specialBlanks;
+        private IPuzzleManager _puzzleManager;
+        private readonly bool _isLastPuzzle;
 
         public string Brief { get; private set; }
         public Schema[] Schemas { get; private set; }
         public string[][] PlayerTableResult { get; private set; }
-        public bool IsPass { get; private set; }
         public PuzzleType PuzzleType { get; private set; }
         public VisualType VisualType { get; private set; }
-        public bool IsLastPuzzle { get; private set; }
 
-        public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, VisualType imgType, IFixedTemplateService fixedTemplateService, IUpToConfigTemplateService upToConfigTemplateService, string[][] specialBlanks, bool isLastPuzzle)
+        public PuzzleController(IPuzzleManager puzzleManager ,string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, VisualType imgType, IFixedTemplateService fixedTemplateService, IUpToConfigTemplateService upToConfigTemplateService, string[][] specialBlanks, bool isLastPuzzle)
         {
             _dbConn = dbConn;
             Brief = brief;
@@ -34,7 +34,8 @@ namespace Assets.Scripts.BackendComponent
             _fixedTemplateService = fixedTemplateService;
             _upToConfigTemplateService = upToConfigTemplateService;
             _specialBlanks = specialBlanks;
-            IsLastPuzzle = isLastPuzzle;
+            _puzzleManager = puzzleManager;
+            _isLastPuzzle = isLastPuzzle;
         }
 
         public ExecuteResult GetExecuteResult(string playerSQL)
@@ -53,9 +54,10 @@ namespace Assets.Scripts.BackendComponent
         public bool GetPuzzleResult()
         {
             bool isCorrect = IsEqualQueryResult(_answerTableResult, PlayerTableResult);
-            if(!IsPass && isCorrect)
+
+            if (isCorrect)
             {
-                IsPass = true;
+                OnPuzzlePassed();
             }
 
             return isCorrect;
@@ -87,6 +89,11 @@ namespace Assets.Scripts.BackendComponent
                     return true;
                 }
             }
+        }
+
+        private void OnPuzzlePassed()
+        {
+            _puzzleManager.PuzzlePassed(_isLastPuzzle);
         }
 
         public string[] GetTemplateBlank(string templateType, string table)
