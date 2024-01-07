@@ -57,9 +57,9 @@ namespace Assets.Scripts.BackendComponent.PuzzleController
         {
             bool isCorrect = IsEqualQueryResult(_answerTableResult, PlayerTableResult);
 
-            if (isCorrect)
+            if (isCorrect & _isLastPuzzle)
             {
-                OnPuzzlePassed();
+                OnLastPuzzlePassed();
             }
 
             return isCorrect;
@@ -93,9 +93,9 @@ namespace Assets.Scripts.BackendComponent.PuzzleController
             }
         }
 
-        private void OnPuzzlePassed()
+        private void OnLastPuzzlePassed()
         {
-            _puzzleManager.PuzzlePassed(_isLastPuzzle);
+            _puzzleManager.AllPuzzlePassed();
         }
 
         public string[] GetTemplateBlank(string templateType, string table)
