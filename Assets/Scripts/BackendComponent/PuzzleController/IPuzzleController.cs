@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.BackendComponent
+﻿namespace Assets.Scripts.BackendComponent.PuzzleController
 {
     public interface IPuzzleController
     {

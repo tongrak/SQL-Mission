@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Assets.Scripts.BackendComponent.PuzzleController;
 
-namespace Assets.Scripts.BackendComponent
+namespace Assets.Scripts.BackendComponent.PuzzleManager
 {
     public interface IPuzzleManager
     {

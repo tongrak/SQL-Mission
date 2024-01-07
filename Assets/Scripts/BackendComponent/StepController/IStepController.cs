@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.BackendComponent.Model
+﻿namespace Assets.Scripts.BackendComponent.StepController
 {
     public interface IStepController
     {

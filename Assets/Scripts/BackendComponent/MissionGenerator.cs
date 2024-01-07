@@ -7,7 +7,8 @@ using Assets.Scripts.BackendComponent.ImageController;
 using System.IO;
 using Assets.Scripts.ScriptableObjects;
 using Assets.Scripts.Helper;
-using Assets.Scripts.BackendComponent.Model;
+using Assets.Scripts.BackendComponent.StepController;
+using Assets.Scripts.BackendComponent.PuzzleManager;
 
 namespace Assets.Scripts.BackendComponent
 {
@@ -83,7 +84,7 @@ namespace Assets.Scripts.BackendComponent
         {
             IPuzzleManager puzzleManager = _puzzleManagerGameObject.GetComponent<IPuzzleManager>();
             StepDetail[] allPuzzleStepDetail = _missionConfig.MissionDetail.Where(x => x.Step == Step.Puzzle).ToArray();
-            PuzzleController[] allPuzzleController = new PuzzleController[allPuzzleStepDetail.Length];
+            PuzzleController.PuzzleController[] allPuzzleController = new PuzzleController.PuzzleController[allPuzzleStepDetail.Length];
 
             for(int i = 0; i < allPuzzleStepDetail.Length; i++)
             {
@@ -94,7 +95,7 @@ namespace Assets.Scripts.BackendComponent
                 // 2) Get schema from SQLService
                 Schema[] schemas = _sqlService.GetSchemas(dbConn, puzzleStepDetail.PuzzleDetail.Tables);
                 // 3) Create PuzzleController
-                PuzzleController puzzleController = new PuzzleController(puzzleManager, dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, _fixedTemplateService, _upToConfigTemplateService, puzzleStepDetail.PuzzleDetail.SpecialBlankOptions, i == allPuzzleStepDetail.Length - 1);
+                PuzzleController.PuzzleController puzzleController = new PuzzleController.PuzzleController(puzzleManager, dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, _fixedTemplateService, _upToConfigTemplateService, puzzleStepDetail.PuzzleDetail.SpecialBlankOptions, i == allPuzzleStepDetail.Length - 1);
                 // 4) Insert PuzzleController to array.
                 allPuzzleController[i] = puzzleController;
 
