@@ -550,6 +550,8 @@ MonoBehaviour:
   _puzzleManagerGameObject: {fileID: 575188709}
   _imageControllerGameObject: {fileID: 1096631267}
   _missionData: {fileID: 11400000, guid: f20acfc1b1a3dfc49bd917b2c1b0d812, type: 2}
+  _configFile: {fileID: 4900000, guid: 556081fe15fad5941a09f29e12533ea6, type: 3}
+  _isMock: 1
 --- !u!1 &340119880
 GameObject:
   m_ObjectHideFlags: 0

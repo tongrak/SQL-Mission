@@ -20,6 +20,8 @@ namespace Assets.Scripts.BackendComponent
         [SerializeField] private GameObject _puzzleManagerGameObject;
         [SerializeField] private GameObject _imageControllerGameObject;
         [SerializeField] private MissionData _missionData;
+        [SerializeField] private TextAsset _configFile;
+        [SerializeField] private bool _isMock;
 
         private MissionConfig _missionConfig;
         private ISQLService _sqlService = new SQLService();
@@ -30,11 +32,23 @@ namespace Assets.Scripts.BackendComponent
         {
             _upToConfigTemplateService = new UpToConfigTemplateService(_sqlService);
 
-            LoadConfigFile();
+            if (_isMock)
+            {
+                _MockLoadConfigFile();
+            }
+            else
+            {
+                LoadConfigFile();
+            }
             LoadDialogController();
             LoadStepController();
             LoadPuzzleManager();
             LoadImageController();
+        }
+
+        private void _MockLoadConfigFile()
+        {
+            _missionConfig = JsonUtility.FromJson<MissionConfig>(_configFile.text);
         }
 
         private void LoadConfigFile()
