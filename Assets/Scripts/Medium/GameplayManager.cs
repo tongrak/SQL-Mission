@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.BackendComponent;
 using Assets.Scripts.BackendComponent.DialogController;
 using Assets.Scripts.BackendComponent.ImageController;
-using Assets.Scripts.BackendComponent.StepComponent;
+using Assets.Scripts.BackendComponent.Model;
 using Gameplay.UI;
 using Gameplay.UI.VisualFeedback;
 using System.Linq;

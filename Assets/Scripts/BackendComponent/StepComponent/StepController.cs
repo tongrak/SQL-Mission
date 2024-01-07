@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.BackendComponent.Model;
+using UnityEngine;
 
 namespace Assets.Scripts.BackendComponent.StepComponent
 {

@@ -1,6 +1,4 @@
-﻿using Assets.Scripts.BackendComponent;
-
-namespace Assets.Scripts.MissionGenComponent.Model
+﻿namespace Assets.Scripts.BackendComponent.Model
 {
     [System.Serializable]
     public class PuzzleDetail

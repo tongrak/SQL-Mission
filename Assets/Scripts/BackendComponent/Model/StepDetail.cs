@@ -1,6 +1,4 @@
-﻿using Assets.Scripts.BackendComponent.StepComponent;
-
-namespace Assets.Scripts.MissionGenComponent.Model
+﻿namespace Assets.Scripts.BackendComponent.Model
 {
     [System.Serializable]
     public class StepDetail

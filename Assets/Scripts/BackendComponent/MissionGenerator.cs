@@ -1,17 +1,15 @@
-﻿using Assets.Scripts.MissionGenComponent.Model;
-using Assets.Scripts.BackendComponent;
-using Assets.Scripts.BackendComponent.BlankBlockComponent;
+﻿using Assets.Scripts.BackendComponent.BlankBlockComponent;
 using Assets.Scripts.BackendComponent.DialogController;
 using Assets.Scripts.BackendComponent.SQLComponent;
-using Assets.Scripts.BackendComponent.StepComponent;
 using System.Linq;
 using UnityEngine;
 using Assets.Scripts.BackendComponent.ImageController;
 using System.IO;
 using Assets.Scripts.ScriptableObjects;
 using Assets.Scripts.Helper;
+using Assets.Scripts.BackendComponent.Model;
 
-namespace Assets.Scripts.MissionGenComponent
+namespace Assets.Scripts.BackendComponent
 {
     public class MissionGenerator : MonoBehaviour
     {

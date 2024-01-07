@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.BackendComponent.StepComponent
+﻿namespace Assets.Scripts.BackendComponent.Model
 {
     [System.Serializable]
     public enum Step
