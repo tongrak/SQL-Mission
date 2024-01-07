@@ -5,7 +5,6 @@
         string Brief { get; }
         Schema[] Schemas { get; }
         string[][] PlayerTableResult { get; }
-        bool IsPass { get; }
         PuzzleType PuzzleType { get; }
         VisualType VisualType { get; }
         ExecuteResult GetExecuteResult(string sql);

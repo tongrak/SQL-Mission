@@ -8,25 +8,39 @@ using System.Linq;
 using UnityEngine;
 using Assets.Scripts.BackendComponent.ImageController;
 using System.IO;
+using Assets.Scripts.ScriptableObjects;
+using Assets.Scripts.Helper;
 
 namespace Assets.Scripts.MissionGenComponent
 {
     public class MissionGenerator : MonoBehaviour
     {
-        [SerializeField] private TextAsset _configFile;
         [SerializeField] private GameObject _dialogConGameObject;
         [SerializeField] private GameObject _stepControllerGameObject;
         [SerializeField] private GameObject _puzzleManagerGameObject;
         [SerializeField] private GameObject _imageControllerGameObject;
+        [SerializeField] private MissionData _missionData;
 
         private MissionConfig _missionConfig;
         private ISQLService _sqlService = new SQLService();
-        private IFixedTemplateService _fixTemplateService = new FixedTemplateService();
+        private IFixedTemplateService _fixedTemplateService = new FixedTemplateService();
         private IUpToConfigTemplateService _upToConfigTemplateService;
+
+        private void StartGenerating()
+        {
+            _upToConfigTemplateService = new UpToConfigTemplateService(_sqlService);
+
+            LoadConfigFile();
+            LoadDialogController();
+            LoadStepController();
+            LoadPuzzleManager();
+            LoadImageController();
+        }
 
         private void LoadConfigFile()
         {
-            _missionConfig = JsonUtility.FromJson<MissionConfig>(_configFile.text);
+            TextAsset missionConfigFile = Resources.Load<TextAsset>(_missionData.missionConfigFolderPath + "/" + _missionData.missionFileName);
+            _missionConfig = JsonUtility.FromJson<MissionConfig>(missionConfigFile.text);
         }
 
         private void LoadDialogController()
@@ -70,19 +84,19 @@ namespace Assets.Scripts.MissionGenComponent
         private void LoadPuzzleManager()
         {
             IPuzzleManager puzzleManager = _puzzleManagerGameObject.GetComponent<IPuzzleManager>();
-            StepDetail[] allStepDetail = _missionConfig.MissionDetail.Where(x => x.Step == Step.Puzzle).ToArray();
-            PuzzleController[] allPuzzleController = new PuzzleController[allStepDetail.Length];
+            StepDetail[] allPuzzleStepDetail = _missionConfig.MissionDetail.Where(x => x.Step == Step.Puzzle).ToArray();
+            PuzzleController[] allPuzzleController = new PuzzleController[allPuzzleStepDetail.Length];
 
-            for(int i = 0; i < allStepDetail.Length; i++)
+            for(int i = 0; i < allPuzzleStepDetail.Length; i++)
             {
-                StepDetail stepDetail = allStepDetail[i];
+                StepDetail puzzleStepDetail = allPuzzleStepDetail[i];
                 // 1) Create database path
-                string dbFolder = "/Resources/Database/";
-                string dbConn = "URI=file:" + Application.dataPath + dbFolder + stepDetail.PuzzleDetail.DB;
+                string dbFolder = $"/Resources/{EnvironmentData.Instance.DatabaseRootFolder}/";
+                string dbConn = "URI=file:" + Application.dataPath + dbFolder + puzzleStepDetail.PuzzleDetail.DB;
                 // 2) Get schema from SQLService
-                Schema[] schemas = _sqlService.GetSchemas(dbConn, stepDetail.PuzzleDetail.Tables);
+                Schema[] schemas = _sqlService.GetSchemas(dbConn, puzzleStepDetail.PuzzleDetail.Tables);
                 // 3) Create PuzzleController
-                PuzzleController puzzleController = new PuzzleController(dbConn, stepDetail.PuzzleDetail.AnswerSQL, stepDetail.Dialog, schemas, _sqlService, stepDetail.PuzzleDetail.VisualType, _fixTemplateService, _upToConfigTemplateService, stepDetail.PuzzleDetail.SpecialBlankOptions);
+                PuzzleController puzzleController = new PuzzleController(puzzleManager, dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, _fixedTemplateService, _upToConfigTemplateService, puzzleStepDetail.PuzzleDetail.SpecialBlankOptions, i == allPuzzleStepDetail.Length - 1);
                 // 4) Insert PuzzleController to array.
                 allPuzzleController[i] = puzzleController;
 
@@ -123,12 +137,7 @@ namespace Assets.Scripts.MissionGenComponent
         // Use this for initialization
         void Start()
         {
-            _upToConfigTemplateService = new UpToConfigTemplateService(_sqlService);
-            LoadConfigFile();
-            LoadDialogController();
-            LoadStepController();
-            LoadPuzzleManager();
-            LoadImageController();
+            StartGenerating();
         }
 
         // Update is called once per frame
