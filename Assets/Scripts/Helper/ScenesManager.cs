@@ -14,7 +14,7 @@ public class ScenesManager : MonoBehaviour
 
     public void LoadMissionScene()
     {
-        SceneManager.LoadScene("Sample Mission Scene");
+        SceneManager.LoadScene("Mission Scene");
     }
 
     public void LoadSelectMissionScene()
