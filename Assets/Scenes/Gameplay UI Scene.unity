@@ -545,11 +545,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8243eec9cdb67a241b3c60d80dbe23ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _configFile: {fileID: 4900000, guid: 556081fe15fad5941a09f29e12533ea6, type: 3}
   _dialogConGameObject: {fileID: 1766792557}
   _stepControllerGameObject: {fileID: 1130035343}
   _puzzleManagerGameObject: {fileID: 575188709}
   _imageControllerGameObject: {fileID: 1096631267}
+  _missionData: {fileID: 11400000, guid: f20acfc1b1a3dfc49bd917b2c1b0d812, type: 2}
+  _configFile: {fileID: 4900000, guid: 556081fe15fad5941a09f29e12533ea6, type: 3}
+  _isMock: 1
 --- !u!1 &340119880
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,7 +1157,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 575188709}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fe8ded2db23e614fae250d20c837550, type: 3}
+  m_Script: {fileID: 11500000, guid: 66c7f008ab3b6954d8f95af7f29dca89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &591240349

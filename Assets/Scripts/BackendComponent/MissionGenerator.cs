@@ -1,17 +1,17 @@
-﻿using Assets.Scripts.MissionGenComponent.Model;
-using Assets.Scripts.BackendComponent;
-using Assets.Scripts.BackendComponent.BlankBlockComponent;
+﻿using Assets.Scripts.BackendComponent.BlankBlockComponent;
 using Assets.Scripts.BackendComponent.DialogController;
 using Assets.Scripts.BackendComponent.SQLComponent;
-using Assets.Scripts.BackendComponent.StepComponent;
 using System.Linq;
 using UnityEngine;
 using Assets.Scripts.BackendComponent.ImageController;
 using System.IO;
 using Assets.Scripts.ScriptableObjects;
 using Assets.Scripts.Helper;
+using Assets.Scripts.BackendComponent.StepController;
+using Assets.Scripts.BackendComponent.PuzzleManager;
+using Assets.Scripts.BackendComponent.Model;
 
-namespace Assets.Scripts.MissionGenComponent
+namespace Assets.Scripts.BackendComponent
 {
     public class MissionGenerator : MonoBehaviour
     {
@@ -20,6 +20,8 @@ namespace Assets.Scripts.MissionGenComponent
         [SerializeField] private GameObject _puzzleManagerGameObject;
         [SerializeField] private GameObject _imageControllerGameObject;
         [SerializeField] private MissionData _missionData;
+        [SerializeField] private TextAsset _configFile;
+        [SerializeField] private bool _isMock;
 
         private MissionConfig _missionConfig;
         private ISQLService _sqlService = new SQLService();
@@ -30,11 +32,23 @@ namespace Assets.Scripts.MissionGenComponent
         {
             _upToConfigTemplateService = new UpToConfigTemplateService(_sqlService);
 
-            LoadConfigFile();
+            if (_isMock)
+            {
+                _MockLoadConfigFile();
+            }
+            else
+            {
+                LoadConfigFile();
+            }
             LoadDialogController();
             LoadStepController();
             LoadPuzzleManager();
             LoadImageController();
+        }
+
+        private void _MockLoadConfigFile()
+        {
+            _missionConfig = JsonUtility.FromJson<MissionConfig>(_configFile.text);
         }
 
         private void LoadConfigFile()
@@ -85,7 +99,7 @@ namespace Assets.Scripts.MissionGenComponent
         {
             IPuzzleManager puzzleManager = _puzzleManagerGameObject.GetComponent<IPuzzleManager>();
             StepDetail[] allPuzzleStepDetail = _missionConfig.MissionDetail.Where(x => x.Step == Step.Puzzle).ToArray();
-            PuzzleController[] allPuzzleController = new PuzzleController[allPuzzleStepDetail.Length];
+            PuzzleController.PuzzleController[] allPuzzleController = new PuzzleController.PuzzleController[allPuzzleStepDetail.Length];
 
             for(int i = 0; i < allPuzzleStepDetail.Length; i++)
             {
@@ -96,7 +110,7 @@ namespace Assets.Scripts.MissionGenComponent
                 // 2) Get schema from SQLService
                 Schema[] schemas = _sqlService.GetSchemas(dbConn, puzzleStepDetail.PuzzleDetail.Tables);
                 // 3) Create PuzzleController
-                PuzzleController puzzleController = new PuzzleController(puzzleManager, dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, _fixedTemplateService, _upToConfigTemplateService, puzzleStepDetail.PuzzleDetail.SpecialBlankOptions, i == allPuzzleStepDetail.Length - 1);
+                PuzzleController.PuzzleController puzzleController = new PuzzleController.PuzzleController(puzzleManager, dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, _fixedTemplateService, _upToConfigTemplateService, puzzleStepDetail.PuzzleDetail.SpecialBlankOptions, i == allPuzzleStepDetail.Length - 1);
                 // 4) Insert PuzzleController to array.
                 allPuzzleController[i] = puzzleController;
 

@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.BackendComponent.PuzzleController;
+using UnityEngine;
 
-namespace Assets.Scripts.BackendComponent
+namespace Assets.Scripts.BackendComponent.PuzzleManager
 {
     public class PuzzleManager : MonoBehaviour, IPuzzleManager
     {

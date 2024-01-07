@@ -1,7 +1,10 @@
 {
     "name": "Backend_Comp",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:9fae5e7fcdfbfbb4da4b12f5cf87768e",
+        "GUID:44203fa325a2c0340842dd48c517619c"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.BackendComponent.StepComponent
+namespace Assets.Scripts.BackendComponent.StepController
 {
     public class StepController : MonoBehaviour, IStepController
     {

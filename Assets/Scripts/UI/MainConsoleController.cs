@@ -1,5 +1,6 @@
 using Assets.Scripts.BackendComponent;
-using Assets.Scripts.BackendComponent.StepComponent;
+using Assets.Scripts.BackendComponent.Model;
+using Assets.Scripts.BackendComponent.StepController;
 using Gameplay.UI;
 using System.Collections;
 using System.Collections.Generic;

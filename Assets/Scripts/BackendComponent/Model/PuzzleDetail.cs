@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.BackendComponent;
+﻿using Assets.Scripts.BackendComponent.Model;
 
-namespace Assets.Scripts.MissionGenComponent.Model
+namespace Assets.Scripts.BackendComponent.StepController
 {
     [System.Serializable]
     public class PuzzleDetail

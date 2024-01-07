@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.MissionGenComponent.Model
+﻿namespace Assets.Scripts.BackendComponent.StepController
 {
     public class MissionConfig
     {
