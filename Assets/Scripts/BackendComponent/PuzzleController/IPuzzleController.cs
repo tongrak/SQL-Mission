@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.BackendComponent.PuzzleController
+﻿using Assets.Scripts.BackendComponent.Model;
+
+namespace Assets.Scripts.BackendComponent.PuzzleController
 {
     public interface IPuzzleController
     {

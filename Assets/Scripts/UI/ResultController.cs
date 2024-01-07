@@ -1,4 +1,5 @@
 using Assets.Scripts.BackendComponent;
+using Assets.Scripts.BackendComponent.Model;
 using Gameplay.UI.Table;
 using System;
 using System.Collections;

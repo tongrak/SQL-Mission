@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.BackendComponent;
 using Assets.Scripts.BackendComponent.DialogController;
 using Assets.Scripts.BackendComponent.ImageController;
+using Assets.Scripts.BackendComponent.Model;
 using Assets.Scripts.BackendComponent.PuzzleController;
 using Assets.Scripts.BackendComponent.PuzzleManager;
 using Assets.Scripts.BackendComponent.StepController;

@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.BackendComponent.StepController
+﻿using Assets.Scripts.BackendComponent.Model;
+
+namespace Assets.Scripts.BackendComponent.StepController
 {
     [System.Serializable]
     public class PuzzleDetail

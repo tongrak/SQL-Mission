@@ -9,6 +9,7 @@ using Assets.Scripts.ScriptableObjects;
 using Assets.Scripts.Helper;
 using Assets.Scripts.BackendComponent.StepController;
 using Assets.Scripts.BackendComponent.PuzzleManager;
+using Assets.Scripts.BackendComponent.Model;
 
 namespace Assets.Scripts.BackendComponent
 {

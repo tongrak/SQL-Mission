@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.BackendComponent.BlankBlockComponent;
+using Assets.Scripts.BackendComponent.Model;
 using Assets.Scripts.BackendComponent.PuzzleManager;
 using Assets.Scripts.BackendComponent.SQLComponent;
 using Mono.Data.Sqlite;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
+using Assets.Scripts.BackendComponent.Model;
 using Mono.Data.Sqlite;
 
 namespace Assets.Scripts.BackendComponent.SQLComponent
