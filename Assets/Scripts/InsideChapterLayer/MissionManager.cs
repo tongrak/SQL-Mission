@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.InsideChapterLayer;
+﻿using Assets.Scripts.Helper;
+using Assets.Scripts.InsideChapterLayer;
 using Assets.Scripts.InsideChapterLayer.Model;
 using Assets.Scripts.InsideChapterLayer.UI;
 using Assets.Scripts.MissionGenComponent.Model;
@@ -12,37 +13,29 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private GameObject _optionalMission;
     [SerializeField] private GameObject _finalMission;
     [SerializeField] private MissionData _missionSceneData;
-    private string _missionFolderPath; // Insert path after root path. If relative path is './MissionConfig/Chapter1' then insert 'Chapter1'
-    private string[] _missionConfigFiles;
+    private string _allmissionConfigFolderPath; // Insert path after root path. If relative path is './MissionConfig/Chapter1' then insert 'Chapter1'
+    private string[] _missionConfigFiles; // list of mission config file. Example [mission1, mission2]
 
-    public void MissionPaperClicked(string missionClickedPath)
+    public void MissionPaperClicked(string missionClickedFilename)
     {
-        _missionSceneData.missionConfigPath = missionClickedPath;
+        _missionSceneData.missionConfigFolderPath = _allmissionConfigFolderPath;
+        _missionSceneData.missionFileName = missionClickedFilename;
         ScenesManager.Instance.LoadMissionScene();
-    }
-
-    /// <summary>
-    /// Set list of mission config file. Example [mission1.txt, mission2.txt]
-    /// </summary>
-    /// <param name="missions">List of mission config file</param>
-    public void SetMissionConfigFiles(string[] missions)
-    {
-        _missionConfigFiles = missions;
-    }
-
-    /// <summary>
-    /// Set relative folder path for mission config files.
-    /// </summary>
-    /// <param name="path">Insert path after root path. If relative path is './MissionConfig/Chapter1' then insert 'Chapter1'</param>
-    public void SetMissionFolderPath(string path)
-    {
-        _missionFolderPath = path;
     }
 
     public void Activate()
     {
-        string mockMissionFolderPath = "Chapter1";
-        string[] mockMissionFiles = new string[]
+        _LoadChapterConfigData();
+
+        _GenMissionPaperFromConfigFiles();
+    }
+
+    /// <summary>
+    /// Load chapter data from ScriptableObject
+    /// </summary>
+    private void _LoadChapterConfigData()
+    {
+        _missionConfigFiles = new string[]
         {
             "Mission1",
             "Mission2",
@@ -51,17 +44,13 @@ public class MissionManager : MonoBehaviour
             "Mission5",
             "Final"
         };
-
-        SetMissionFolderPath(mockMissionFolderPath);
-        SetMissionConfigFiles(mockMissionFiles);
-
-        _GenMissionPaperFromConfigFiles();
+        _allmissionConfigFolderPath = EnvironmentData.Instance.MissionConfigRootFolder + "/" + "Chapter1";
     }
 
     private void _GenMissionPaperFromConfigFiles()
     {
         // Set variable
-        string missionConfigFolderPath = "MissionConfigs/" + _missionFolderPath + '/';
+        string missionConfigFolderPath = _allmissionConfigFolderPath + '/';
         string unlockDetailFile = "UnlockDetail";
         string unLockDetailPathAfterResources = missionConfigFolderPath + unlockDetailFile;
         string unLockDetailPathFromAssets = "Assets/Resources/" + unLockDetailPathAfterResources;
@@ -92,7 +81,7 @@ public class MissionManager : MonoBehaviour
             missionUnlockDetails = JsonUtility.FromJson<MissionUnlockDetails>(unlockDetailsFile.text);
         }
 
-        _GenerateAllMissionObject(missionConfigs, missionUnlockDetails, missionConfigFolderPath);
+        _GenerateAllMissionObject(missionConfigs, missionUnlockDetails);
     }
 
     private MissionUnlockDetails _WriteMissionUnlockDetails(MissionConfig[] missionConfigs, string unLockDetailPathFromAssets, int configFileNum)
@@ -107,8 +96,8 @@ public class MissionManager : MonoBehaviour
             MissionConfig missionConfig = missionConfigs[i];
             int missionDependencyNum = missionConfig.MissionDependencies.Length;
             bool isMissionUnlocked = missionDependencyNum <= 0;
-            MissionDependencyUnlockDetail[] missionDependenciesUnlockDetail = null;
 
+            MissionDependencyUnlockDetail[] missionDependenciesUnlockDetail = null;
             if (!isMissionUnlocked)
             {
                 missionDependenciesUnlockDetail = new MissionDependencyUnlockDetail[missionDependencyNum];
@@ -144,8 +133,7 @@ public class MissionManager : MonoBehaviour
     /// </summary>
     /// <param name="missionConfigs"></param>
     /// <param name="missionUnlockDetails"></param>
-    /// <param name="missionConfigFolderPath">This param must be like this 'MissionConfigs/ChapterX/'</param>
-    private void _GenerateAllMissionObject(MissionConfig[] missionConfigs, MissionUnlockDetails missionUnlockDetails, string missionConfigFolderPath)
+    private void _GenerateAllMissionObject(MissionConfig[] missionConfigs, MissionUnlockDetails missionUnlockDetails)
     {
         // Find parent's transform
         Transform misionGroupTransform = GameObject.Find("Content").transform;
@@ -178,7 +166,7 @@ public class MissionManager : MonoBehaviour
 
             // Injected MissionPaperController to mission paper.
             MissionPaperController missionPaperController = missionPaper.AddComponent<MissionPaperController>();
-            missionPaperController.Construct(this, missionConfigFolderPath + missionConfig.MissionName);
+            missionPaperController.Construct(this, _missionConfigFiles[i]);
             missionPaper.GetComponent<Button>().onClick.AddListener(() => missionPaperController.MissionClicked());
         }
     }

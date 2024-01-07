@@ -38,7 +38,7 @@ namespace Assets.Scripts.MissionGenComponent
 
         private void LoadConfigFile()
         {
-            TextAsset missionConfigFile = Resources.Load<TextAsset>(_missionData.missionConfigPath);
+            TextAsset missionConfigFile = Resources.Load<TextAsset>(_missionData.missionConfigFolderPath + "/" + _missionData.missionFileName);
             _missionConfig = JsonUtility.FromJson<MissionConfig>(missionConfigFile.text);
         }
 
@@ -95,7 +95,7 @@ namespace Assets.Scripts.MissionGenComponent
                 // 2) Get schema from SQLService
                 Schema[] schemas = _sqlService.GetSchemas(dbConn, stepDetail.PuzzleDetail.Tables);
                 // 3) Create PuzzleController
-                PuzzleController puzzleController = new PuzzleController(dbConn, stepDetail.PuzzleDetail.AnswerSQL, stepDetail.Dialog, schemas, _sqlService, stepDetail.PuzzleDetail.VisualType, _fixedTemplateService, _upToConfigTemplateService, stepDetail.PuzzleDetail.SpecialBlankOptions);
+                PuzzleController puzzleController = new PuzzleController(dbConn, stepDetail.PuzzleDetail.AnswerSQL, stepDetail.Dialog, schemas, _sqlService, stepDetail.PuzzleDetail.VisualType, _fixedTemplateService, _upToConfigTemplateService, stepDetail.PuzzleDetail.SpecialBlankOptions, i == allStepDetail.Length - 1);
                 // 4) Insert PuzzleController to array.
                 allPuzzleController[i] = puzzleController;
 

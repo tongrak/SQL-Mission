@@ -21,8 +21,9 @@ namespace Assets.Scripts.BackendComponent
         public bool IsPass { get; private set; }
         public PuzzleType PuzzleType { get; private set; }
         public VisualType VisualType { get; private set; }
+        public bool IsLastPuzzle { get; private set; }
 
-        public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, VisualType imgType, IFixedTemplateService fixedTemplateService, IUpToConfigTemplateService upToConfigTemplateService, string[][] specialBlanks)
+        public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, VisualType imgType, IFixedTemplateService fixedTemplateService, IUpToConfigTemplateService upToConfigTemplateService, string[][] specialBlanks, bool isLastPuzzle)
         {
             _dbConn = dbConn;
             Brief = brief;
@@ -33,6 +34,7 @@ namespace Assets.Scripts.BackendComponent
             _fixedTemplateService = fixedTemplateService;
             _upToConfigTemplateService = upToConfigTemplateService;
             _specialBlanks = specialBlanks;
+            IsLastPuzzle = isLastPuzzle;
         }
 
         public ExecuteResult GetExecuteResult(string playerSQL)
