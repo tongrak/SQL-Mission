@@ -212,7 +212,6 @@ namespace Gameplay
             _dynamicVisualController.DiscontinueItemObjects();
 
             _currStepCon.ChangeStep();
-            var x = _currStepCon.GetCurrentStep();
             _currStepIndex++;
 
             SelectConstructionTab();
