@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.InsideChapterLayer.Model
+﻿namespace Assets.Scripts.BackendComponent.Model
 {
     [System.Serializable]
     public class MissionUnlockDetail

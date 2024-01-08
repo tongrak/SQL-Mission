@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c7f008ab3b6954d8f95af7f29dca89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _missionController: {fileID: 0}
+  _missionController: {fileID: 1366421734}
 --- !u!1 &1154173201
 GameObject:
   m_ObjectHideFlags: 0
