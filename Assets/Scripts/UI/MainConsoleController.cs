@@ -2,6 +2,7 @@ using Assets.Scripts.BackendComponent;
 using Assets.Scripts.BackendComponent.Model;
 using Assets.Scripts.BackendComponent.StepController;
 using Gameplay.UI;
+using Gameplay.UI.Construction;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,14 +60,8 @@ namespace Gameplay.UI
         /// </summary>
         /// <param name="tabType"></param>
         void setDisplayTab(TabType tabType);
-        /// <summary>
-        /// Set the console to construction tab
-        /// </summary>
-        void setToConstructTab();
-        /// <summary>
-        /// Set the console to result tab
-        /// </summary>
-        void setToResultTab();
+
+        void setConstructionDisplay(ConstructionType constructionType, string givenTokens);
         /// <summary>
         /// Set the result tab display according to given result
         /// </summary>
@@ -86,7 +81,7 @@ namespace Gameplay.UI
         [SerializeField] private GameObject _constructionTab;
         [SerializeField] private GameObject _resultTab;
 
-        private IContructionTabController _constrCon => mustGetComponent<IContructionTabController>(_constructionTab);
+        private IConstructionConsoleController _constrCon => mustGetComponent<IConstructionConsoleController>(_constructionTab);
         private IResultTabController _resultCon => mustGetComponent<IResultTabController>(_resultTab);
         public void setDisplayTab(TabType tabType)
         {
@@ -109,11 +104,18 @@ namespace Gameplay.UI
         public void setResultDisplay(bool isPass, ExecuteResult result)
         {
             setDisplayTab(TabType.RESULT);
-            if (isPass) _constrCon.clearQueryString(); 
+            //if (isPass) _constrCon.clearQueryString(); 
             _resultCon.setDisplayResult(isPass, result);
         }
-        public void setToConstructTab() => setDisplayTab(TabType.CONSTRUCT);
-        public void setToResultTab() => setDisplayTab(TabType.RESULT);
+        public void setConstructionDisplay(ConstructionType constructionType, string givenTokens)
+        {
+            switch (constructionType)
+            {
+                case ConstructionType.FILL_THE_BLANK: _constrCon.SetUpTokenizeConsole(givenTokens); break;
+                case ConstructionType.TYPING: _constrCon.SetUpOnYourOwnConsole(); break;
+                default: throw new System.Exception(constructionType.ToString() + " type is not yet implement or not existed");
+            }
+        }
     }
 }
 

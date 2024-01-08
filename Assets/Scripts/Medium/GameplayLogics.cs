@@ -12,12 +12,7 @@ namespace Gameplay
             this.consoleTabs = consoleTabs;
             this.actionButton = actionButton;
         }
-
-        public void SetDisplayedActionButton(ActionButtonType buttonType)
-        {
-            actionButton.ActionButtonType = buttonType;
-        }
-
+        public void SetDisplayedActionButton(ActionButtonType buttonType) => actionButton.ActionButtonType = buttonType;
         public void UpdateUIDisplay(TabType currentTab, bool canProceed)
         {
             consoleTabs.SetTab(currentTab);

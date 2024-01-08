@@ -7,6 +7,7 @@ using Assets.Scripts.BackendComponent.PuzzleManager;
 using Assets.Scripts.BackendComponent.StepController;
 using Gameplay.UI;
 using Gameplay.UI.VisualFeedback;
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -23,7 +24,6 @@ namespace Gameplay
         void SelectResultTab();
         void AdvanceAStep();
     }
-
     public interface IGameplayUILogic
     {
         void UpdateUIDisplay(TabType currentTab, bool canProceed);
@@ -84,6 +84,9 @@ namespace Gameplay
                     Debug.Log("Reaching puzzle step");
                     _currPC = _currPM.GetPC(gStep.PCIndex);
                     _dialogBoxController.displayedText = _currPC.Brief;
+                    //TODO: Get pass through token;
+                    //handleOnConsoleType(_currPC.PuzzleType,"");
+
                     if (imagePaths != null)
                     {
                         if (_currPC.VisualType == VisualType.A)
@@ -138,6 +141,21 @@ namespace Gameplay
             });
             //remove file type and return
             return leadlessPath.Split('.')[0];
+        }
+        private void handleOnConsoleType(PuzzleType type, string tokens)
+        {
+            switch (type)
+            {
+                case PuzzleType.ExecuteOnly:
+                    _mainConsoleController.setConstructionDisplay(UI.Construction.ConstructionType.FILL_THE_BLANK, tokens);
+                    break;
+                case PuzzleType.FillBlank: 
+                    _mainConsoleController.setConstructionDisplay(UI.Construction.ConstructionType.FILL_THE_BLANK, tokens);
+                    break;
+                case PuzzleType.OnYourOwn:
+                    _mainConsoleController.setConstructionDisplay(UI.Construction.ConstructionType.TYPING, tokens);
+                    break;
+            }
         }
         #endregion
 
@@ -194,7 +212,6 @@ namespace Gameplay
             _dynamicVisualController.DiscontinueItemObjects();
 
             _currStepCon.ChangeStep();
-            var x = _currStepCon.GetCurrentStep();
             _currStepIndex++;
 
             SelectConstructionTab();
