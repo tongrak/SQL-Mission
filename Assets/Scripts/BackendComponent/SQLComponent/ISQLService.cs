@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.BackendComponent.Model;
 using Mono.Data.Sqlite;
 
 namespace Assets.Scripts.BackendComponent.SQLComponent
