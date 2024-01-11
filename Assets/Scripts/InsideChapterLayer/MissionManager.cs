@@ -1,8 +1,8 @@
 ﻿using Assets.Scripts.BackendComponent.StepController;
 using Assets.Scripts.Helper;
-using Assets.Scripts.InsideChapterLayer;
-using Assets.Scripts.InsideChapterLayer.Model;
-using Assets.Scripts.InsideChapterLayer.UI;
+using Assets.Scripts.BackendComponent;
+using Assets.Scripts.BackendComponent.Model;
+using Assets.Scripts.BackendComponent.UI;
 using Assets.Scripts.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;

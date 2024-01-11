@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.InsideChapterLayer
+namespace Assets.Scripts.BackendComponent
 {
     public class MissionPaperController : MonoBehaviour
     {

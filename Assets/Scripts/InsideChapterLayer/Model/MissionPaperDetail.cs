@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Scripts.InsideChapterLayer.Model
+namespace Assets.Scripts.InsideChapterDetail.Model
 {
     public class MissionPaperDetail
     {

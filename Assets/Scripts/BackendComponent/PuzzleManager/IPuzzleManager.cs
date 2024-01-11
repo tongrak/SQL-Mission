@@ -1,14 +1,15 @@
 ﻿using Assets.Scripts.BackendComponent.PuzzleController;
+using Assets.Scripts.BackendComponent.SaveManager;
 
 namespace Assets.Scripts.BackendComponent.PuzzleManager
 {
     public interface IPuzzleManager
     {
         /// <summary>
-        /// Insert all PC for a mission.
+        /// Use for construct puzzle manager.
         /// </summary>
         /// <param name="allPC">Group of puzzle controller.</param>
-        void SetAllPC(IPuzzleController[] allPC);
+        void Construct(IPuzzleController[] allPC);
 
         /// <summary>
         /// Get Puzzle Controller from given index.
@@ -18,6 +19,6 @@ namespace Assets.Scripts.BackendComponent.PuzzleManager
         /// <summary>
         /// Update mission status if final puzzle passed.
         /// </summary>
-        void PuzzlePassed(bool isLastPuzzle);
+        void AllPuzzlePassed();
     }
 }

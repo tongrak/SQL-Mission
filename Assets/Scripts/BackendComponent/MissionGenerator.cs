@@ -10,6 +10,7 @@ using Assets.Scripts.Helper;
 using Assets.Scripts.BackendComponent.StepController;
 using Assets.Scripts.BackendComponent.PuzzleManager;
 using Assets.Scripts.BackendComponent.Model;
+using Assets.Scripts.BackendComponent.SaveManager;
 
 namespace Assets.Scripts.BackendComponent
 {
@@ -19,6 +20,7 @@ namespace Assets.Scripts.BackendComponent
         [SerializeField] private GameObject _stepControllerGameObject;
         [SerializeField] private GameObject _puzzleManagerGameObject;
         [SerializeField] private GameObject _imageControllerGameObject;
+        [SerializeField] private GameObject _missionControllerGameObject;
         [SerializeField] private MissionData _missionData;
         [SerializeField] private TextAsset _configFile;
         [SerializeField] private bool _isMock;
@@ -44,8 +46,10 @@ namespace Assets.Scripts.BackendComponent
             LoadStepController();
             LoadPuzzleManager();
             LoadImageController();
+            _InitiateMissionController();
         }
 
+        #region Method for StartGenerating
         private void _MockLoadConfigFile()
         {
             _missionConfig = JsonUtility.FromJson<MissionConfig>(_configFile.text);
@@ -107,16 +111,17 @@ namespace Assets.Scripts.BackendComponent
                 // 1) Create database path
                 string dbFolder = $"/Resources/{EnvironmentData.Instance.DatabaseRootFolder}/";
                 string dbConn = "URI=file:" + Application.dataPath + dbFolder + puzzleStepDetail.PuzzleDetail.DB;
+                bool isLastPuzzle = i == allPuzzleStepDetail.Length - 1;
                 // 2) Get schema from SQLService
                 Schema[] schemas = _sqlService.GetSchemas(dbConn, puzzleStepDetail.PuzzleDetail.Tables);
                 // 3) Create PuzzleController
-                PuzzleController.PuzzleController puzzleController = new PuzzleController.PuzzleController(puzzleManager, dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, _fixedTemplateService, _upToConfigTemplateService, puzzleStepDetail.PuzzleDetail.SpecialBlankOptions, i == allPuzzleStepDetail.Length - 1);
+                PuzzleController.PuzzleController puzzleController = new PuzzleController.PuzzleController(puzzleManager, dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, _fixedTemplateService, _upToConfigTemplateService, puzzleStepDetail.PuzzleDetail.SpecialBlankOptions, puzzleStepDetail.PuzzleDetail.PreSQL, isLastPuzzle);
                 // 4) Insert PuzzleController to array.
                 allPuzzleController[i] = puzzleController;
 
             }
             // 5) Insert all PuzzleController to PuzzleManager
-            puzzleManager.SetAllPC(allPuzzleController);
+            puzzleManager.Construct(allPuzzleController);
         }
 
         private void LoadImageController()
@@ -147,6 +152,13 @@ namespace Assets.Scripts.BackendComponent
 
             imageController.SetImagesList(imagePathLists);
         }
+
+        private void _InitiateMissionController()
+        {
+            MissionController missioncontroller = _missionControllerGameObject.GetComponent<MissionController>();
+            missioncontroller.Initiate(_missionData.missionConfigFolderPath, _missionConfig.MissionName, _missionConfig.MissionType, new SaveManager.SaveManager());
+        }
+        #endregion
 
         // Use this for initialization
         void Start()

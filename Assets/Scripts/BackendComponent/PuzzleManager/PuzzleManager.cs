@@ -1,17 +1,22 @@
-﻿using Assets.Scripts.BackendComponent.PuzzleController;
+﻿using Assets.Scripts.BackendComponent.Model;
+using Assets.Scripts.BackendComponent.PuzzleController;
+using Assets.Scripts.BackendComponent.SaveManager;
+using Assets.Scripts.BackendComponent.StepController;
 using UnityEngine;
 
 namespace Assets.Scripts.BackendComponent.PuzzleManager
 {
     public class PuzzleManager : MonoBehaviour, IPuzzleManager
     {
+        [SerializeField] private MissionController _missionController;
+
         private IPuzzleController[] _allPC;
 
         /// <summary>
         /// Insert all PC for a mission.
         /// </summary>
         /// <param name="allPC">Group of puzzle controller.</param>
-        public void SetAllPC(IPuzzleController[] allPC)
+        public void Construct(IPuzzleController[] allPC)
         {
             _allPC = allPC;
         }
@@ -24,9 +29,9 @@ namespace Assets.Scripts.BackendComponent.PuzzleManager
             return _allPC[index];
         }
 
-        public void PuzzlePassed(bool isLastPuzzle)
+        public void AllPuzzlePassed()
         {
-
+            _missionController.AllPuzzlePassed();
         }
 
         // Use this for initialization
