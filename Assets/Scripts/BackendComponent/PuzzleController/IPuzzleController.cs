@@ -9,6 +9,7 @@ namespace Assets.Scripts.BackendComponent.PuzzleController
         string[][] PlayerTableResult { get; }
         PuzzleType PuzzleType { get; }
         VisualType VisualType { get; }
+        string PreSQL { get; }
         ExecuteResult GetExecuteResult(string sql);
         bool GetPuzzleResult();
         string[] GetTemplateBlank(string templateType, string table);
