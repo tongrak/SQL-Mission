@@ -24,8 +24,9 @@ namespace Assets.Scripts.BackendComponent.PuzzleController
         public string[][] PlayerTableResult { get; private set; }
         public PuzzleType PuzzleType { get; private set; }
         public VisualType VisualType { get; private set; }
+        public string PreSQL { get; private set; }
 
-        public PuzzleController(IPuzzleManager puzzleManager ,string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, VisualType imgType, IFixedTemplateService fixedTemplateService, IUpToConfigTemplateService upToConfigTemplateService, string[][] specialBlanks, bool isLastPuzzle)
+        public PuzzleController(IPuzzleManager puzzleManager ,string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, VisualType imgType, IFixedTemplateService fixedTemplateService, IUpToConfigTemplateService upToConfigTemplateService, string[][] specialBlanks, string preSQL, bool isLastPuzzle)
         {
             _dbConn = dbConn;
             Brief = brief;
@@ -38,6 +39,7 @@ namespace Assets.Scripts.BackendComponent.PuzzleController
             _specialBlanks = specialBlanks;
             _puzzleManager = puzzleManager;
             _isLastPuzzle = isLastPuzzle;
+            PreSQL = preSQL;
         }
 
         public ExecuteResult GetExecuteResult(string playerSQL)
