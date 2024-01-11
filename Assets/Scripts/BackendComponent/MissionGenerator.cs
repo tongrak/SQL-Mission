@@ -10,6 +10,7 @@ using Assets.Scripts.Helper;
 using Assets.Scripts.BackendComponent.StepController;
 using Assets.Scripts.BackendComponent.PuzzleManager;
 using Assets.Scripts.BackendComponent.Model;
+using Assets.Scripts.BackendComponent.SaveManager;
 
 namespace Assets.Scripts.BackendComponent
 {
@@ -19,6 +20,7 @@ namespace Assets.Scripts.BackendComponent
         [SerializeField] private GameObject _stepControllerGameObject;
         [SerializeField] private GameObject _puzzleManagerGameObject;
         [SerializeField] private GameObject _imageControllerGameObject;
+        [SerializeField] private GameObject _missionControllerGameObject;
         [SerializeField] private MissionData _missionData;
         [SerializeField] private TextAsset _configFile;
         [SerializeField] private bool _isMock;
@@ -44,8 +46,10 @@ namespace Assets.Scripts.BackendComponent
             LoadStepController();
             LoadPuzzleManager();
             LoadImageController();
+            _InitiateMissionController();
         }
 
+        #region Method for StartGenerating
         private void _MockLoadConfigFile()
         {
             _missionConfig = JsonUtility.FromJson<MissionConfig>(_configFile.text);
@@ -116,7 +120,7 @@ namespace Assets.Scripts.BackendComponent
 
             }
             // 5) Insert all PuzzleController to PuzzleManager
-            puzzleManager.SetAllPC(allPuzzleController);
+            puzzleManager.Construct(allPuzzleController);
         }
 
         private void LoadImageController()
@@ -147,6 +151,13 @@ namespace Assets.Scripts.BackendComponent
 
             imageController.SetImagesList(imagePathLists);
         }
+
+        private void _InitiateMissionController()
+        {
+            MissionController missioncontroller = _missionControllerGameObject.GetComponent<MissionController>();
+            missioncontroller.Initiate(_missionData.missionConfigFolderPath, _missionConfig.MissionName, _missionConfig.MissionType, new SaveManager.SaveManager());
+        }
+        #endregion
 
         // Use this for initialization
         void Start()

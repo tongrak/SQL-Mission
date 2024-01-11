@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.InsideChapterLayer.UI
+namespace Assets.Scripts.BackendComponent.UI
 {
     public class MissionPaperUI : MonoBehaviour
     {
