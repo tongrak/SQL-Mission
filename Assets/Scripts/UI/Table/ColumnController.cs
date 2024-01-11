@@ -11,10 +11,10 @@ namespace Gameplay.UI.Table
         void setColumnDisplay(string[] data);
     }
 
-    public class ColumnController : MonoBehaviour, IColumnController
+    public class ColumnController : GameplayController, IColumnController
     {
         [Header("Cell configuration")]
-        [SerializeField] private GameObject _cellPrefab;
+        [SerializeField] protected GameObject _cellPrefab;
         [SerializeField] private int _defualtCellHeight = 30;
         [SerializeField] private int _cellFontSize = 16;
         private int _cellHeight = 0;
