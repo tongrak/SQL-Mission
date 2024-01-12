@@ -1,5 +1,6 @@
 using Assets.Scripts.BackendComponent;
 using Assets.Scripts.BackendComponent.Model;
+using Assets.Scripts.BackendComponent.PuzzleController;
 using Assets.Scripts.BackendComponent.StepController;
 using Gameplay.UI;
 using Gameplay.UI.Construction;
@@ -61,7 +62,7 @@ namespace Gameplay.UI
         /// <param name="tabType"></param>
         void setDisplayTab(TabType tabType);
 
-        void setConstructionDisplay(ConstructionType constructionType, string givenTokens);
+        void setConstructionDisplay(IPuzzleController pC, ConstructionType constructionType, string givenTokens);
         /// <summary>
         /// Set the result tab display according to given result
         /// </summary>
@@ -107,11 +108,11 @@ namespace Gameplay.UI
             //if (isPass) _constrCon.clearQueryString(); 
             _resultCon.setDisplayResult(isPass, result);
         }
-        public void setConstructionDisplay(ConstructionType constructionType, string givenTokens)
+        public void setConstructionDisplay(IPuzzleController pC, ConstructionType constructionType, string givenTokens)
         {
             switch (constructionType)
             {
-                case ConstructionType.FILL_THE_BLANK: _constrCon.SetUpTokenizeConsole(givenTokens); break;
+                case ConstructionType.FILL_THE_BLANK: _constrCon.SetUpTokenizeConsole(pC, givenTokens); break;
                 case ConstructionType.TYPING: _constrCon.SetUpOnYourOwnConsole(); break;
                 default: throw new System.Exception(constructionType.ToString() + " type is not yet implement or not existed");
             }
