@@ -21,6 +21,8 @@ namespace Gameplay.UI
 
         public void SetUpDisplay(Schema[] schemas)
         {
+            removePastSchema();
+
             var tables = new string[schemas.Length];
             var attributes = new string[schemas.Length][];
             for (int i = 0; i < schemas.Length; i++)
@@ -30,8 +32,7 @@ namespace Gameplay.UI
                 var createdTMP = mustGetComponent<TextMeshProUGUI>(created);
 
                 createdTMP.text = schemas[i].TableName;
-                var clonedAttr = (string[])schemas[i].Attributes.Clone();
-                createdButton.onClick.AddListener(getOnClickAction(clonedAttr));
+                createdButton.onClick.AddListener(getOnClickAction(schemas[i].Attributes));
             }
         }
         private UnityAction getOnClickAction(string[] attribute) 
@@ -45,22 +46,6 @@ namespace Gameplay.UI
 
             _schemaAttrCon.RemoveDisplayAttribute();
         }
-
-        #region Temporary Unity Basic
-        private void Start()
-        {
-            var testAttr1 = new string[] { "apple", "butter", "cactus" };
-            var testSchema1 = new Schema("Table1", testAttr1);
-            var testAttr2 = new string[] { "1", "2", "3", "4", "5" };
-            var testSchema2 = new Schema("Table2", testAttr2);
-            var testAttr3 = new string[] { "Cream" };
-            var testSchema3 = new Schema("Table3", testAttr3);
-
-            var testSchemas = new Schema[] { testSchema1, testSchema2, testSchema3 };
-
-            this.SetUpDisplay(testSchemas);
-        }
-        #endregion
     }
 }
 

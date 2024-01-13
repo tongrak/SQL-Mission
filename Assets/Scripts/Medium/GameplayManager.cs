@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.BackendComponent;
-using Assets.Scripts.BackendComponent.DialogController;
+﻿using Assets.Scripts.BackendComponent.DialogController;
 using Assets.Scripts.BackendComponent.ImageController;
 using Assets.Scripts.BackendComponent.Model;
 using Assets.Scripts.BackendComponent.PuzzleController;
@@ -41,12 +40,14 @@ namespace Gameplay
         [SerializeField] private GameObject _dynamicVisualFeedbackObject;
         [SerializeField] private GameObject _consoleTabsObject;
         [SerializeField] private GameObject _actionButtonObject;
+        [SerializeField] private GameObject _schemaDisplayObject;
 
         //===== UI Controller =====
         private IDialogBoxController _dialogBoxController => mustGetComponent<IDialogBoxController>(_dialogBoxControllerObject);
         private IMainConsoleController _mainConsoleController => mustGetComponent<IMainConsoleController>(_mainConsoleControllerObject);
         private IConsoleTabsController _consoleTabsController => mustGetComponent<IConsoleTabsController>(_consoleTabsObject);
         private IActionButtonController _actionButtonController => mustGetComponent<IActionButtonController>(_actionButtonObject);
+        private ISchemaDisplayController _schemaDisplayController => mustGetComponent<ISchemaDisplayController>(_schemaDisplayObject);
         //===== Visual Controller =====
         private IDynamicVisualController _dynamicVisualController => mustGetComponent<IDynamicVisualController>(_dynamicVisualFeedbackObject);
 
@@ -83,9 +84,12 @@ namespace Gameplay
                 case Step.Puzzle:
                     Debug.Log("Reaching puzzle step");
                     _currPC = _currPM.GetPC(gStep.PCIndex);
+                    //Set dialog box with puzzle brief.
                     _dialogBoxController.displayedText = _currPC.Brief;
-                    //TODO: Get pass through token;
-                    //handleOnConsoleType(_currPC.PuzzleType,"");
+                    //Set console accordingly
+                    handleOnConsoleType(_currPC, _currPC.PuzzleType, _currPC.PreSQL);
+                    //Set schema display
+                    _schemaDisplayController.SetUpDisplay(_currPC.Schemas);
 
                     if (imagePaths != null)
                     {
@@ -142,18 +146,18 @@ namespace Gameplay
             //remove file type and return
             return leadlessPath.Split('.')[0];
         }
-        private void handleOnConsoleType(PuzzleType type, string tokens)
+        private void handleOnConsoleType(IPuzzleController pC, PuzzleType type, string tokens)
         {
             switch (type)
             {
                 case PuzzleType.ExecuteOnly:
-                    _mainConsoleController.setConstructionDisplay(UI.Construction.ConstructionType.FILL_THE_BLANK, tokens);
+                    _mainConsoleController.setConstructionDisplay(pC, UI.Construction.ConstructionType.FILL_THE_BLANK, tokens);
                     break;
                 case PuzzleType.FillBlank: 
-                    _mainConsoleController.setConstructionDisplay(UI.Construction.ConstructionType.FILL_THE_BLANK, tokens);
+                    _mainConsoleController.setConstructionDisplay(pC, UI.Construction.ConstructionType.FILL_THE_BLANK, tokens);
                     break;
                 case PuzzleType.OnYourOwn:
-                    _mainConsoleController.setConstructionDisplay(UI.Construction.ConstructionType.TYPING, tokens);
+                    _mainConsoleController.setConstructionDisplay(pC, UI.Construction.ConstructionType.TYPING, tokens);
                     break;
             }
         }
