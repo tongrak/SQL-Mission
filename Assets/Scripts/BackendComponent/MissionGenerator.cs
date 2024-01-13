@@ -22,6 +22,7 @@ namespace Assets.Scripts.BackendComponent
         [SerializeField] private GameObject _puzzleManagerGameObject;
         [SerializeField] private GameObject _imageControllerGameObject;
         [SerializeField] private GameObject _missionControllerGameObject;
+        [SerializeField] private GameObject _gamePlayControllerGameObject;
         [SerializeField] private MissionData _missionSceneData;
         [SerializeField] private TextAsset _configFile;
         [SerializeField] private bool _isMock;
@@ -166,6 +167,8 @@ namespace Assets.Scripts.BackendComponent
         void Start()
         {
             StartGenerating();
+
+            //_gamePlayControllerGameObject.GetComponent<>
         }
 
         // Update is called once per frame
