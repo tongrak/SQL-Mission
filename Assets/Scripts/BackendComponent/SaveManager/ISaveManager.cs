@@ -5,9 +5,9 @@
         /// <summary>
         /// Update mission status for chapter after mission is passed.
         /// </summary>
-        /// <param name="missionFolderPath">Folder path for mission config file in seleted chapter and must be after 'Resources' folder sush as 'MissionConfigs/ChapterX'</param>
+        /// <param name="missionFolderPathAfterResources">Folder path for mission config file in seleted chapter and must be after 'Resources' folder sush as 'MissionConfigs/ChapterX'</param>
         /// <param name="passedMissionName">Mission name that passed.</param>
-        void UpdateMissionStatus(string missionFolderPath, string passedMissionName);
+        void UpdateMissionStatus(string missionFolderPathAfterResources, string passedMissionName, string[] missionDependTos);
 
         ///// <summary>
         ///// Update chapter status.

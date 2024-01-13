@@ -11,6 +11,7 @@ using Assets.Scripts.BackendComponent.StepController;
 using Assets.Scripts.BackendComponent.PuzzleManager;
 using Assets.Scripts.BackendComponent.Model;
 using Assets.Scripts.BackendComponent.SaveManager;
+using System;
 
 namespace Assets.Scripts.BackendComponent
 {
@@ -21,7 +22,8 @@ namespace Assets.Scripts.BackendComponent
         [SerializeField] private GameObject _puzzleManagerGameObject;
         [SerializeField] private GameObject _imageControllerGameObject;
         [SerializeField] private GameObject _missionControllerGameObject;
-        [SerializeField] private MissionData _missionData;
+        [SerializeField] private GameObject _gamePlayControllerGameObject;
+        [SerializeField] private MissionData _missionSceneData;
         [SerializeField] private TextAsset _configFile;
         [SerializeField] private bool _isMock;
 
@@ -57,7 +59,8 @@ namespace Assets.Scripts.BackendComponent
 
         private void LoadConfigFile()
         {
-            TextAsset missionConfigFile = Resources.Load<TextAsset>(_missionData.missionConfigFolderPath + "/" + _missionData.missionFileName);
+            string folderPathAfterResources = _missionSceneData.missionConfigFolderPathFromAssets.Split(new string[] { "Resources/" }, StringSplitOptions.None)[1];
+            TextAsset missionConfigFile = Resources.Load<TextAsset>(folderPathAfterResources + "/" + _missionSceneData.missionFileName);
             _missionConfig = JsonUtility.FromJson<MissionConfig>(missionConfigFile.text);
         }
 
@@ -156,7 +159,7 @@ namespace Assets.Scripts.BackendComponent
         private void _InitiateMissionController()
         {
             MissionController missioncontroller = _missionControllerGameObject.GetComponent<MissionController>();
-            missioncontroller.Initiate(_missionData.missionConfigFolderPath, _missionConfig.MissionName, _missionConfig.MissionType, new SaveManager.SaveManager());
+            missioncontroller.Initiate(_missionSceneData.missionConfigFolderPathFromAssets, _missionConfig.MissionName, _missionConfig.MissionDependTos, _missionConfig.MissionType, new SaveManager.SaveManager());
         }
         #endregion
 
@@ -164,6 +167,8 @@ namespace Assets.Scripts.BackendComponent
         void Start()
         {
             StartGenerating();
+
+            //_gamePlayControllerGameObject.GetComponent<>
         }
 
         // Update is called once per frame
