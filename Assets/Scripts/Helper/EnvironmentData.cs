@@ -5,6 +5,8 @@
         public readonly string MissionConfigRootFolder = "MissionConfigs";
         public readonly string DatabaseRootFolder = "Database";
         public readonly string PuzzleImagesRootFolder = "PuzzleImages";
+        public readonly string MissionStatusFileName = "UnlockDetail";
+        public readonly string MissionStatusDetailFileType = ".txt"; // Must be ".txt" of ".json"
 
         private static readonly EnvironmentData instance = new EnvironmentData();
 
