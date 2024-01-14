@@ -1,4 +1,3 @@
-using Assets.Scripts.BackendComponent.Model;
 using TMPro;
 //using Unity.Plastic.Newtonsoft.Json.Serialization;
 using UnityEngine;
@@ -8,7 +7,7 @@ namespace Gameplay.UI
 {
     public interface ISchemaDisplayController
     {
-        void SetUpDisplay(Schema[] schemas);
+        void SetUpDisplay(SchemaDTO[] schemas);
     }
     public class SchemaDisplayController : GameplayController, ISchemaDisplayController
     {
@@ -19,7 +18,7 @@ namespace Gameplay.UI
 
         private ISchemaAttributesController _schemaAttrCon => mustGetComponent<ISchemaAttributesController>(_displayListGO);
 
-        public void SetUpDisplay(Schema[] schemas)
+        public void SetUpDisplay(SchemaDTO[] schemas)
         {
             removePastSchema();
 
@@ -31,8 +30,8 @@ namespace Gameplay.UI
                 var createdButton = mustGetComponent<UnityEngine.UI.Button>(created);
                 var createdTMP = mustGetComponent<TextMeshProUGUI>(created);
 
-                createdTMP.text = schemas[i].TableName;
-                createdButton.onClick.AddListener(getOnClickAction(schemas[i].Attributes));
+                createdTMP.text = schemas[i].tableName;
+                createdButton.onClick.AddListener(getOnClickAction(schemas[i].attribuites));
             }
         }
         private UnityAction getOnClickAction(string[] attribute) 

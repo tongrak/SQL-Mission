@@ -1,11 +1,5 @@
-using Assets.Scripts.BackendComponent;
-using Assets.Scripts.BackendComponent.Model;
-using Assets.Scripts.BackendComponent.PuzzleController;
-using Assets.Scripts.BackendComponent.StepController;
-using Gameplay.UI;
 using Gameplay.UI.Construction;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 
@@ -62,12 +56,12 @@ namespace Gameplay.UI
         /// <param name="tabType"></param>
         void setDisplayTab(TabType tabType);
 
-        void setConstructionDisplay(IPuzzleController pC, ConstructionType constructionType, string givenTokens);
+        void setConstructionDisplay(Func<string, string[]> getOptionFunction, ConstructionType constructionType, string givenTokens);
         /// <summary>
         /// Set the result tab display according to given result
         /// </summary>
         /// <param name="result">interested result to be displayed</param>
-        void setResultDisplay(bool isPass, ExecuteResult result);
+        void setResultDisplay(bool isPass, ExecuteResultDTO result);
         /// <summary>
         /// Get 
         /// </summary>
@@ -102,17 +96,17 @@ namespace Gameplay.UI
         #endregion
 
         public string getCurrentQueryString() => _constrCon.queryString;
-        public void setResultDisplay(bool isPass, ExecuteResult result)
+        public void setResultDisplay(bool isPass, ExecuteResultDTO result)
         {
             setDisplayTab(TabType.RESULT);
             //if (isPass) _constrCon.clearQueryString(); 
             _resultCon.setDisplayResult(isPass, result);
         }
-        public void setConstructionDisplay(IPuzzleController pC, ConstructionType constructionType, string givenTokens)
+        public void setConstructionDisplay(Func<string, string[]> getOptionFunction, ConstructionType constructionType, string givenTokens)
         {
             switch (constructionType)
             {
-                case ConstructionType.FILL_THE_BLANK: _constrCon.SetUpTokenizeConsole(pC, givenTokens); break;
+                case ConstructionType.FILL_THE_BLANK: _constrCon.SetUpTokenizeConsole(getOptionFunction, givenTokens); break;
                 case ConstructionType.TYPING: _constrCon.SetUpOnYourOwnConsole(); break;
                 default: throw new System.Exception(constructionType.ToString() + " type is not yet implement or not existed");
             }
