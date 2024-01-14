@@ -1,10 +1,8 @@
-
 using UnityEngine;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System;
 using Gameplay.UI.Construction.FTB;
-using Assets.Scripts.BackendComponent.PuzzleController;
 
 namespace Gameplay.UI.Construction
 {
@@ -22,29 +20,13 @@ namespace Gameplay.UI.Construction
     }
     class ChoiceFTBToken : FillTheBlankToken
     {
-        protected IPuzzleController _PC;
-        public ChoiceFTBToken(IPuzzleController pC, string tokenType) 
-        { 
-            this._optionName = tokenType;
-            this._PC = pC;
-        }
-        public override string[] GetContextOptions() => _PC.GetTemplateBlank(_optionName, string.Empty);
-    }
-    class SpecialChoiceFTBToken : FillTheBlankToken
-    {
-        protected IPuzzleController _PC;
-        private string _specialIndex;
-        public SpecialChoiceFTBToken(IPuzzleController pC, string tokenType, string specialIndex)
+        private Func<string, string[]> _getOptionOfKey;
+        public ChoiceFTBToken(Func<string, string[]> getOptionFunction, string tokenType)
         {
             this._optionName = tokenType;
-            this._specialIndex = specialIndex;
-            this._PC = pC;
+            this._getOptionOfKey = getOptionFunction;
         }
-        public override string[] GetContextOptions()
-        {
-            if (_optionName.Equals("Special")) return _PC.GetSpecialBlank(int.Parse(_specialIndex));
-            else return _PC.GetTemplateBlank(_optionName, _specialIndex);
-        }
+        public override string[] GetContextOptions() => _getOptionOfKey(_optionName);
     }
     class TypingFTBToken : FillTheBlankToken
     {
@@ -57,7 +39,7 @@ namespace Gameplay.UI.Construction
         [SerializeField] private string _newlineSplitPoint = "\n";
         [SerializeField] private string _FTBTokenReg = @"<<(.*?)>>";
         [SerializeField] private string _typeFTBTokenReg = @"Type";
-        [SerializeField] private string _specialFTBTokenReg = @"[A-Za-z0-9]+:[A-Za-z0-9]+";
+        //[SerializeField] private string _specialFTBTokenReg = @"[A-Za-z0-9]+:[A-Za-z0-9]+";
 
         [Header("UI component")]
         [SerializeField] private GameObject _lineTokenPrefab;
@@ -73,7 +55,7 @@ namespace Gameplay.UI.Construction
                 return string.Join(" ", queriedTokens);
             }
         }
-        public void SetUpTokenField(IPuzzleController pC, string tokens)
+        public void SetUpTokenField(Func<string, string[]> getOptionFunction, string tokens)
         {
             //remove pass token
             startConsole();
@@ -82,7 +64,7 @@ namespace Gameplay.UI.Construction
             //Split tokenlines to tokens then filter all
             string[][] tokensField = lineTokens.Select(splitAndFilter).ToArray();
             //Convert tokenField to FTB
-            Func<string[], (string, FillTheBlankToken)[]> convertTokenLineToFTBline = (tokenLine) => tokenLine.Select(x =>  stringToFTBToken(pC, x)).ToArray();
+            Func<string[], (string, FillTheBlankToken)[]> convertTokenLineToFTBline = (tokenLine) => tokenLine.Select(x => stringToFTBToken(getOptionFunction, x)).ToArray();
             this._currentTokenField = tokensField.Select(convertTokenLineToFTBline).ToArray();
             //Create the fill the blank token field from given string.
             foreach (var line in _currentTokenField)
@@ -105,27 +87,21 @@ namespace Gameplay.UI.Construction
         #region Tokenizer
         private string[] splitAndFilter(string given) => given.Split(' ').ToArray()
             .Where(x => !(string.IsNullOrEmpty(x) || string.IsNullOrWhiteSpace(x))).ToArray();
-        private (string, FillTheBlankToken) stringToFTBToken(IPuzzleController pC, string token)
+        private (string, FillTheBlankToken) stringToFTBToken(Func<string, string[]> getOptionFunction, string token)
         {
             //If given string doesn't match as agreed, assume as normal string.
             if (!Regex.IsMatch(token, _FTBTokenReg)) return new(token, null);
             //Else attempted to generate Fill the blank
             //Get string in between <<>>
             string realToken = Regex.Match(token, _FTBTokenReg).Groups[1].Value;
-            return new(string.Empty, FTBTokenGenetion(pC, realToken));
-        }   
-        private FillTheBlankToken FTBTokenGenetion(IPuzzleController pC, string token)
+            return new(string.Empty, FTBTokenGenetion(getOptionFunction, realToken));
+        }
+        private FillTheBlankToken FTBTokenGenetion(Func<string, string[]> getOptionFunction, string token)
         {
-            if (!Regex.IsMatch(token, _specialFTBTokenReg))
-            {
-                if (Regex.IsMatch(token, _typeFTBTokenReg)) return new TypingFTBToken();
-                else return new ChoiceFTBToken(pC, token);
-            }
-            string[] splited = token.Split(':');
-            return new SpecialChoiceFTBToken(pC, splited[0], splited[1]);
+            if (Regex.IsMatch(token, _typeFTBTokenReg)) return new TypingFTBToken();
+            else return new ChoiceFTBToken(getOptionFunction, token);
         }
         #endregion
     }
-
 }
 

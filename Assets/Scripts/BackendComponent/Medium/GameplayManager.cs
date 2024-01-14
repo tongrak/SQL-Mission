@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.BackendComponent.DialogController;
+﻿using Assets.Scripts.BackendComponent;
+using Assets.Scripts.BackendComponent.DialogController;
 using Assets.Scripts.BackendComponent.ImageController;
 using Assets.Scripts.BackendComponent.Model;
 using Assets.Scripts.BackendComponent.PuzzleController;
@@ -89,7 +90,8 @@ namespace Gameplay
                     //Set console accordingly
                     handleOnConsoleType(_currPC, _currPC.PuzzleType, _currPC.PreSQL);
                     //Set schema display
-                    _schemaDisplayController.SetUpDisplay(_currPC.Schemas);
+                    SchemaDTO[] schemaDTOs = _currPC.Schemas.Select(x => { return new SchemaDTO(x.TableName, x.Attributes); }).ToArray();
+                    _schemaDisplayController.SetUpDisplay(schemaDTOs);
 
                     if (imagePaths != null)
                     {
@@ -148,16 +150,18 @@ namespace Gameplay
         }
         private void handleOnConsoleType(IPuzzleController pC, PuzzleType type, string tokens)
         {
+            //TODO: Wait for BE access function
+            Func<string, string[]> getOptions = null;
             switch (type)
             {
                 case PuzzleType.ExecuteOnly:
-                    _mainConsoleController.setConstructionDisplay(pC, UI.Construction.ConstructionType.FILL_THE_BLANK, tokens);
+                    _mainConsoleController.setConstructionDisplay(getOptions, UI.Construction.ConstructionType.FILL_THE_BLANK, tokens);
                     break;
                 case PuzzleType.FillBlank: 
-                    _mainConsoleController.setConstructionDisplay(pC, UI.Construction.ConstructionType.FILL_THE_BLANK, tokens);
+                    _mainConsoleController.setConstructionDisplay(getOptions, UI.Construction.ConstructionType.FILL_THE_BLANK, tokens);
                     break;
                 case PuzzleType.OnYourOwn:
-                    _mainConsoleController.setConstructionDisplay(pC, UI.Construction.ConstructionType.TYPING, tokens);
+                    _mainConsoleController.setConstructionDisplay(getOptions, UI.Construction.ConstructionType.TYPING, tokens);
                     break;
             }
         }
@@ -187,7 +191,7 @@ namespace Gameplay
             switch (_currentTab)
             {
                 case TabType.CONSTRUCT:
-                    var result = _currPC.GetExecuteResult(_mainConsoleController.getCurrentQueryString());
+                    ExecuteResult result = _currPC.GetExecuteResult(_mainConsoleController.getCurrentQueryString());
                     if (result.TableResult != null)
                     {
                         string[] rawImagePaths = result.TableResult[0];
@@ -197,7 +201,8 @@ namespace Gameplay
                         if (imagePaths.Length > 0) _dynamicVisualController.ShowUpGivenItem(imagePaths);
                     }
                     _canAdvanceAStep = _currPC.GetPuzzleResult();
-                    _mainConsoleController.setResultDisplay(_currPC.GetPuzzleResult(), result);
+                    ExecuteResultDTO executeResultDTO = new ExecuteResultDTO((result.IsError, result.ErrorMessage), result.TableResult);
+                    _mainConsoleController.setResultDisplay(_currPC.GetPuzzleResult(), executeResultDTO);
                     SelectResultTab();
                     break;
                 case TabType.RESULT:

@@ -1,4 +1,4 @@
-using Assets.Scripts.BackendComponent.PuzzleController;
+using System;
 using Gameplay.UI.Construction;
 using TMPro;
 using UnityEngine;
@@ -7,7 +7,7 @@ namespace Gameplay.UI.Construction
 {
     public enum ConstructionType { TYPING, FILL_THE_BLANK }
     public interface IConstructionConsole { string queryString { get; } }
-    public interface IFillTheBlankQuery : IConstructionConsole { void SetUpTokenField(IPuzzleController pC, string tokens); }
+    public interface IFillTheBlankQuery : IConstructionConsole { void SetUpTokenField(Func<string, string[]> getOptionFunction, string tokens); }
     public interface ITypedQuery : IConstructionConsole { void startConsole(); }
 }
 
@@ -16,7 +16,7 @@ namespace Gameplay.UI
     public interface IConstructionConsoleController
     {
         void SetUpOnYourOwnConsole();
-        void SetUpTokenizeConsole(IPuzzleController pC, string tokens);
+        void SetUpTokenizeConsole(Func<string, string[]> getOptionFunction, string tokens);
         string queryString { get; }
     }
 
@@ -68,11 +68,10 @@ namespace Gameplay.UI
             SetContructionType(ConstructionType.TYPING); 
             _OnYourOwnController.startConsole();
         }
-        public void SetUpTokenizeConsole(IPuzzleController pC, string tokens)
+        public void SetUpTokenizeConsole(Func<string, string[]> getOptionFunction, string tokens)
         {
             SetContructionType(ConstructionType.FILL_THE_BLANK);
-            _FTBController.SetUpTokenField(pC, tokens);
-
+            _FTBController.SetUpTokenField(getOptionFunction, tokens);
         }
     }
 }
