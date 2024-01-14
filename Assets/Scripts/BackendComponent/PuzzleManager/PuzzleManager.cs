@@ -29,11 +29,6 @@ namespace Assets.Scripts.BackendComponent.PuzzleManager
             return _allPC[index];
         }
 
-        public void AllPuzzlePassed()
-        {
-            _missionController.AllPuzzlePassed();
-        }
-
         // Use this for initialization
         void Start()
         {

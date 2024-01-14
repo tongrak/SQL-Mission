@@ -19,10 +19,11 @@ public class MissionManager : MonoBehaviour
     private string _allmissionConfigFolderPathFromAssets; // Insert path after root path. If relative path is './MissionConfig/Chapter1' then insert 'Chapter1'
     private string[] _missionConfigFiles; // list of mission config file. Example [mission1, mission2]
 
-    public void MissionPaperClicked(string missionClickedFilename)
+    public void MissionPaperClicked(string missionClickedFilename, bool isPassed)
     {
-        _missionSceneData.missionConfigFolderPathFromAssets = _allmissionConfigFolderPathFromAssets;
-        _missionSceneData.missionFileName = missionClickedFilename;
+        _missionSceneData.MissionConfigFolderPathFromAssets = _allmissionConfigFolderPathFromAssets;
+        _missionSceneData.MissionFileName = missionClickedFilename;
+        _missionSceneData.IsPassed = isPassed;
         ScenesManager.Instance.LoadMissionScene();
     }
 
@@ -173,7 +174,7 @@ public class MissionManager : MonoBehaviour
 
             // Injected MissionPaperController to mission paper.
             MissionPaperController missionPaperController = missionPaper.AddComponent<MissionPaperController>();
-            missionPaperController.Construct(this, _missionConfigFiles[i]);
+            missionPaperController.Construct(this, _missionConfigFiles[i], missionUnlockDetail.IsPass);
             missionPaper.GetComponent<Button>().onClick.AddListener(() => missionPaperController.MissionClicked());
         }
     }

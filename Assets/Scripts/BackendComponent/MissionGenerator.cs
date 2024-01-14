@@ -10,7 +10,6 @@ using Assets.Scripts.Helper;
 using Assets.Scripts.BackendComponent.StepController;
 using Assets.Scripts.BackendComponent.PuzzleManager;
 using Assets.Scripts.BackendComponent.Model;
-using Assets.Scripts.BackendComponent.SaveManager;
 using System;
 using Gameplay;
 
@@ -60,8 +59,8 @@ namespace Assets.Scripts.BackendComponent
 
         private void LoadConfigFile()
         {
-            string folderPathAfterResources = _missionSceneData.missionConfigFolderPathFromAssets.Split(new string[] { "Resources/" }, StringSplitOptions.None)[1];
-            TextAsset missionConfigFile = Resources.Load<TextAsset>(folderPathAfterResources + "/" + _missionSceneData.missionFileName);
+            string folderPathAfterResources = _missionSceneData.MissionConfigFolderPathFromAssets.Split(new string[] { "Resources/" }, StringSplitOptions.None)[1];
+            TextAsset missionConfigFile = Resources.Load<TextAsset>(folderPathAfterResources + "/" + _missionSceneData.MissionFileName);
             _missionConfig = JsonUtility.FromJson<MissionConfig>(missionConfigFile.text);
         }
 
@@ -119,7 +118,7 @@ namespace Assets.Scripts.BackendComponent
                 // 2) Get schema from SQLService
                 Schema[] schemas = _sqlService.GetSchemas(dbConn, puzzleStepDetail.PuzzleDetail.Tables);
                 // 3) Create PuzzleController
-                PuzzleController.PuzzleController puzzleController = new PuzzleController.PuzzleController(puzzleManager, dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, _fixedTemplateService, _upToConfigTemplateService, puzzleStepDetail.PuzzleDetail.SpecialBlankOptions, puzzleStepDetail.PuzzleDetail.PreSQL, isLastPuzzle);
+                PuzzleController.PuzzleController puzzleController = new PuzzleController.PuzzleController(dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, _fixedTemplateService, _upToConfigTemplateService, puzzleStepDetail.PuzzleDetail.BlankOptions, puzzleStepDetail.PuzzleDetail.PreSQL);
                 // 4) Insert PuzzleController to array.
                 allPuzzleController[i] = puzzleController;
 
@@ -160,7 +159,7 @@ namespace Assets.Scripts.BackendComponent
         private void _InitiateMissionController()
         {
             MissionController missioncontroller = _missionControllerGameObject.GetComponent<MissionController>();
-            missioncontroller.Initiate(_missionSceneData.missionConfigFolderPathFromAssets, _missionConfig.MissionName, _missionConfig.MissionDependTos, _missionConfig.MissionType, new SaveManager.SaveManager());
+            missioncontroller.Initiate(_missionSceneData.MissionConfigFolderPathFromAssets, _missionConfig.MissionName, _missionConfig.MissionDependTos, _missionConfig.MissionType, new SaveManager.SaveManager(), _missionSceneData.IsPassed);
         }
         #endregion
 

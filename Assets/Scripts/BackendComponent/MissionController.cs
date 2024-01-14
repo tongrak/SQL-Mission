@@ -15,6 +15,7 @@ namespace Assets.Scripts.BackendComponent
         private string _missionFolderPath;
         private string[] _missionDependTos;
         private ISaveManager _saveManager;
+        private bool _isPassed;
 
         /// <summary>
         /// 
@@ -24,25 +25,34 @@ namespace Assets.Scripts.BackendComponent
         /// <param name="missionDependTos"></param>
         /// <param name="missionType"></param>
         /// <param name="saveManager"></param>
-        public void Initiate(string missionConfigFolderPath, string missionName, string[] missionDependTos,MissionType missionType, ISaveManager saveManager)
+        public void Initiate(string missionConfigFolderPath, string missionName, string[] missionDependTos,MissionType missionType, ISaveManager saveManager, bool isPassed)
         {
             _missionFolderPath = missionConfigFolderPath;
             _missionName = missionName;
             _missionType = missionType;
             _saveManager = saveManager;
             _missionDependTos = missionDependTos;
+            _isPassed = isPassed;
         }
 
         public void AllPuzzlePassed()
         {
-            if(_missionType != MissionType.Final)
+            if (!_isPassed)
             {
-                _saveManager.UpdateMissionStatus(_missionFolderPath.Split(new string[] {"Resources/"}, StringSplitOptions.None)[1], _missionName, _missionDependTos);
+                if (_missionType != MissionType.Final)
+                {
+                    _saveManager.UpdateMissionStatus(_missionFolderPath.Split(new string[] { "Resources/" }, StringSplitOptions.None)[1], _missionName, _missionDependTos);
+                }
+                else
+                {
+                    // Update chapter status.
+                }
             }
-            else
-            {
-                // Update chapter status.
-            }
+        }
+
+        public void MockButtonClicked()
+        {
+            AllPuzzlePassed();
         }
     }
 }

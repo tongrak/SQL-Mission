@@ -58,7 +58,7 @@ namespace Assets.Scripts.BackendComponent.SaveManager
             }
             // 4) Save to file
             string saveData = JsonUtility.ToJson(missionStatusDetails);
-            System.IO.File.WriteAllText(missionFolderPathAfterResources + "/" + EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType, saveData);
+            System.IO.File.WriteAllText("Assets/Resources/"+missionFolderPathAfterResources + "/" + EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType, saveData);
         }
     }
 }

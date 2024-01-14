@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.BackendComponent.BlankBlockComponent;
 using Assets.Scripts.BackendComponent.Model;
-using Assets.Scripts.BackendComponent.PuzzleManager;
 using Assets.Scripts.BackendComponent.SQLComponent;
 using Mono.Data.Sqlite;
 using System;
@@ -15,9 +14,7 @@ namespace Assets.Scripts.BackendComponent.PuzzleController
         private string[][] _answerTableResult;
         private IFixedTemplateService _fixedTemplateService;
         private IUpToConfigTemplateService _upToConfigTemplateService;
-        private readonly string[][] _specialBlanks;
-        private IPuzzleManager _puzzleManager;
-        private readonly bool _isLastPuzzle;
+        private readonly BlankOption[] _blankOptions;
 
         public string Brief { get; private set; }
         public Schema[] Schemas { get; private set; }
@@ -26,7 +23,7 @@ namespace Assets.Scripts.BackendComponent.PuzzleController
         public VisualType VisualType { get; private set; }
         public string PreSQL { get; private set; }
 
-        public PuzzleController(IPuzzleManager puzzleManager ,string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, VisualType imgType, IFixedTemplateService fixedTemplateService, IUpToConfigTemplateService upToConfigTemplateService, string[][] specialBlanks, string preSQL, bool isLastPuzzle)
+        public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, VisualType imgType, IFixedTemplateService fixedTemplateService, IUpToConfigTemplateService upToConfigTemplateService, BlankOption[] blankOptions, string preSQL)
         {
             _dbConn = dbConn;
             Brief = brief;
@@ -36,9 +33,7 @@ namespace Assets.Scripts.BackendComponent.PuzzleController
             _answerTableResult = _sqlService.GetTableResult(dbConn, answerSQL, imgType);
             _fixedTemplateService = fixedTemplateService;
             _upToConfigTemplateService = upToConfigTemplateService;
-            _specialBlanks = specialBlanks;
-            _puzzleManager = puzzleManager;
-            _isLastPuzzle = isLastPuzzle;
+            _blankOptions = blankOptions;
             PreSQL = preSQL;
         }
 
@@ -58,11 +53,6 @@ namespace Assets.Scripts.BackendComponent.PuzzleController
         public bool GetPuzzleResult()
         {
             bool isCorrect = IsEqualQueryResult(_answerTableResult, PlayerTableResult);
-
-            if (isCorrect & _isLastPuzzle)
-            {
-                OnLastPuzzlePassed();
-            }
 
             return isCorrect;
         }
@@ -95,37 +85,32 @@ namespace Assets.Scripts.BackendComponent.PuzzleController
             }
         }
 
-        private void OnLastPuzzlePassed()
-        {
-            _puzzleManager.AllPuzzlePassed();
-        }
+        //public string[] GetTemplateBlank(string templateType, string table)
+        //{
+        //    switch (templateType)
+        //    {
+        //        case "OperatorsSymbol":
+        //            return _fixedTemplateService.OperatorsSymbol;
+        //        case "OperatorsWord":
+        //            return _fixedTemplateService.OperatorsWord;
+        //        case "Function":
+        //            return _fixedTemplateService.Function;
+        //        case "Command":
+        //            return _fixedTemplateService.Command;
+        //        case "Tables":
+        //            return _upToConfigTemplateService.GetTablesTemplate(_dbConn);
+        //        case "Schema":
+        //            return _upToConfigTemplateService.GetSchemaTemplate(_dbConn, table);
+        //        case "Attributes":
+        //            return _upToConfigTemplateService.GetAttributesTemplate(_dbConn, table);
+        //        default:
+        //            return null;
+        //    }
+        //}
 
-        public string[] GetTemplateBlank(string templateType, string table)
-        {
-            switch (templateType)
-            {
-                case "OperatorsSymbol":
-                    return _fixedTemplateService.OperatorsSymbol;
-                case "OperatorsWord":
-                    return _fixedTemplateService.OperatorsWord;
-                case "Function":
-                    return _fixedTemplateService.Function;
-                case "Command":
-                    return _fixedTemplateService.Command;
-                case "Tables":
-                    return _upToConfigTemplateService.GetTablesTemplate(_dbConn);
-                case "Schema":
-                    return _upToConfigTemplateService.GetSchemaTemplate(_dbConn, table);
-                case "Attributes":
-                    return _upToConfigTemplateService.GetAttributesTemplate(_dbConn, table);
-                default:
-                    return null;
-            }
-        }
-
-        public string[] GetSpecialBlank(int index)
-        {
-            return _specialBlanks[index];
-        }
+        //public string[] GetSpecialBlank(int index)
+        //{
+        //    return _blankOptions[index];
+        //}
     }
 }

@@ -3561,8 +3561,8 @@ MonoBehaviour:
   _missionControllerGameObject: {fileID: 1034289771}
   _gameplayManagerGameObjefct: {fileID: 1575723517}
   _missionSceneData: {fileID: 11400000, guid: f20acfc1b1a3dfc49bd917b2c1b0d812, type: 2}
-  _configFile: {fileID: 4900000, guid: 556081fe15fad5941a09f29e12533ea6, type: 3}
-  _isMock: 1
+  _configFile: {fileID: 4900000, guid: 88ca76cf37a0ab9429d0e1adb2f8960f, type: 3}
+  _isMock: 0
 --- !u!114 &1034289777
 MonoBehaviour:
   m_ObjectHideFlags: 0

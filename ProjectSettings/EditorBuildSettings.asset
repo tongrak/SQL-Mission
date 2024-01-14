@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Sample Mission Scene.unity
     guid: e78fc54b007cbba44847b02e15569b5e
+  - enabled: 1
+    path: Assets/Scenes/Gameplay Scene.unity
+    guid: aef443ed4ec23494f96fdbaa9e7be3d0
   m_configObjects: {}
