@@ -1,6 +1,7 @@
 {
   "MissionName": "Mission1",
   "MissionType": 0,
+  "MissionDescription": "สอนการใช้ SQL เบื้องต้น",
   "MissionDetail": [
     {
       "Dialog": "แสดงข้อมูลทั้งหมดของ Flower ด้วยการกดปุ่ม execute",
@@ -18,7 +19,7 @@
         "AnswerSQL": "SELECT * FROM Flower",
         "VisualType": 0,
         "PuzzleType": 0,
-        "SpecialBlankOptions": null
+        "BlankOptions": null
       }
     },
     {
@@ -40,5 +41,8 @@
       "PuzzleDetail": null
     }
   ],
-  "MissionDependencies": null
+  "MissionDependencies": null,
+  "MissionDependTos": [
+    "Mission2"
+  ]
 }

@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.BackendComponent.Model;
 using Assets.Scripts.Helper;
 using System;
+using System.Threading;
 using UnityEngine;
 
 namespace Assets.Scripts.BackendComponent.SaveManager
@@ -34,18 +35,15 @@ namespace Assets.Scripts.BackendComponent.SaveManager
                     int totalUnlockDependencies = 0;
 
                     // Update passed mission dependency's status.
-                    foreach (MissionDependencyUnlockDetail missionDependencyDetail in missionStatusDetail.MissionDependenciesUnlockDetail)
+                    foreach (MissionDependencyUnlockDetail missionDependency in missionStatusDetail.MissionDependenciesUnlockDetail)
                     {
-                        if (missionStatusDetail.MissionName == passedMissionName)
+                        if (missionDependency.MissionName == passedMissionName)
                         {
-                            missionStatusDetail.IsPass = true;
+                            missionDependency.IsPass = true;
                         }
-                        else
+                        if (missionDependency.IsPass)
                         {
-                            if (missionStatusDetail.IsPass)
-                            {
-                                totalUnlockDependencies++;
-                            }
+                            totalUnlockDependencies++;
                         }
                     }
 
@@ -59,6 +57,8 @@ namespace Assets.Scripts.BackendComponent.SaveManager
             // 4) Save to file
             string saveData = JsonUtility.ToJson(missionStatusDetails);
             System.IO.File.WriteAllText("Assets/Resources/"+missionFolderPathAfterResources + "/" + EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType, saveData);
+            Thread.Sleep(20000);
+            Debug.Log("Wait 20 seconds done. Use for wait until write file done. // Please remove this debug before production");
         }
     }
 }

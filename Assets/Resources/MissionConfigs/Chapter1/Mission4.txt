@@ -15,15 +15,18 @@
         "Tables": [
           "PeopleOccupation"
         ],
-        "PreSQL": "SELECT * \n FROM <<Tables>>",
+        "PreSQL": "SELECT * \n FROM <<Blank>>",
         "AnswerSQL": "SELECT * FROM PeopleOccupation",
         "VisualType": 0,
         "PuzzleType": 1,
-        "SpecialBlankOptions": null
+        "BlankOptions": null
       }
     }
   ],
   "MissionDependencies": [
     "Mission2"
+  ],
+  "MissionDependTos": [
+    "Final"
   ]
 }
