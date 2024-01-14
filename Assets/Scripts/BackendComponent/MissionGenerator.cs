@@ -12,6 +12,7 @@ using Assets.Scripts.BackendComponent.PuzzleManager;
 using Assets.Scripts.BackendComponent.Model;
 using Assets.Scripts.BackendComponent.SaveManager;
 using System;
+using Gameplay;
 
 namespace Assets.Scripts.BackendComponent
 {
@@ -22,7 +23,7 @@ namespace Assets.Scripts.BackendComponent
         [SerializeField] private GameObject _puzzleManagerGameObject;
         [SerializeField] private GameObject _imageControllerGameObject;
         [SerializeField] private GameObject _missionControllerGameObject;
-        [SerializeField] private GameObject _gamePlayControllerGameObject;
+        [SerializeField] private GameObject _gameplayManagerGameObjefct;
         [SerializeField] private MissionData _missionSceneData;
         [SerializeField] private TextAsset _configFile;
         [SerializeField] private bool _isMock;
@@ -167,8 +168,8 @@ namespace Assets.Scripts.BackendComponent
         void Start()
         {
             StartGenerating();
-
-            //_gamePlayControllerGameObject.GetComponent<>
+            //Start gameplay after mission generation.
+            _gameplayManagerGameObjefct.GetComponent<IGameplayManager>().StartGameplay();
         }
 
         // Update is called once per frame
