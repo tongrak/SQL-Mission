@@ -733,7 +733,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1425007403}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22646c5d5a612bc46868ee6a24a768e0, type: 3}
   m_Name: 
@@ -839,9 +839,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1425007404}
-        m_TargetAssemblyTypeName: SaveAndBackToMB, Backend_Comp
-        m_MethodName: ButtonClicked
+      - m_Target: {fileID: 1366421734}
+        m_TargetAssemblyTypeName: Assets.Scripts.BackendComponent.MissionController,
+          Backend_Comp
+        m_MethodName: AllPuzzlePassed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
