@@ -8,6 +8,7 @@ using Assets.Scripts.BackendComponent.StepController;
 using Gameplay.UI;
 using Gameplay.UI.VisualFeedback;
 using System;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ namespace Gameplay
         /// <summary>
         /// Activate Gameplay session
         /// </summary>
-        void StartGameplay();
+        void StartGameplay(FileSystemWatcher fileWatcher);
         void ClickExecution();
         void SelectConstructionTab();
         void SelectResultTab();
@@ -116,8 +117,9 @@ namespace Gameplay
             }
         }
 
-        public void StartGameplay()
+        public void StartGameplay(FileSystemWatcher fileWatcher)
         {
+            //TODO: Utilize given fileWatcher for the save "scene" thingie...
             _gameplayIsStarted = true;
             _actionButtonController.Activivity = true;
             actAccordingToStep(_currStepCon.GetCurrentStep());
