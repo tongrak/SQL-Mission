@@ -131,7 +131,7 @@ namespace Gameplay
         {
             //TODO: Utilize given fileWatcher for the save "scene" thingie...
             _gameplayIsStarted = true;
-            _actionButtonController.Activivity = true;
+            _actionButtonController.SetActivity(true);
             actAccordingToStep(_currStepCon.GetCurrentStep());
             _saveFileWatcher = saveFileWatcher;
             _saveFileWatcher.Changed += onSaveComplete;
@@ -187,11 +187,14 @@ namespace Gameplay
             var currentTime = DateTime.Now;
             // Show loading facade.
             _loadingFacadeObject.SetActive(true);
-            while (!_resultSaved || (currentTime - startedTime).Seconds < maxLoadingSeconds)
+            while (!_resultSaved && (currentTime - startedTime).Seconds < maxLoadingSeconds)
             {
                 currentTime = DateTime.Now;
+                var currDiff = (currentTime - startedTime).Seconds;
                 yield return null;
             }
+            //TODO: check loading status;
+            _loadingFacadeObject.SetActive(false);
             //Then switch back to Boards Scene
             _scenesManager.LoadSelectMissionScene();
         }
@@ -267,7 +270,7 @@ namespace Gameplay
             //Hide loading facade;
             _loadingFacadeObject.SetActive(false);
             SelectConstructionTab();
-            _actionButtonController.Activivity = false;
+            _actionButtonController.SetActivity(false);
         }
         private void OnDisable()
         {
