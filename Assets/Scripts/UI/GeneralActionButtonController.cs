@@ -9,8 +9,10 @@ namespace Gameplay.UI
 
     public interface IActionButtonController
     {
-        bool Activivity { get; set; }
-        ActionButtonType ActionButtonType { get; set; }
+        bool Activivity { get;}
+        void SetActivity(bool activivity);
+        ActionButtonType ActionButtonType { get;}
+        void SetActionButtonType(ActionButtonType buttonType);
 
     }
 
@@ -57,12 +59,10 @@ namespace Gameplay.UI
                 _buttonImage.sprite = _isActive ? getFromActionButtonType(_currentType) : _disableExecutionSprite;
             }
         }
+        public void SetActivity(bool activivity) => _isActive = activivity;
+        public void SetActionButtonType(ActionButtonType buttonType) => _currentType = buttonType;
 
-        private void Start()
-        {
-            Activivity = false;
-            ActionButtonType = ActionButtonType.EXECUTION;
-        }
+
     }
 }
 
