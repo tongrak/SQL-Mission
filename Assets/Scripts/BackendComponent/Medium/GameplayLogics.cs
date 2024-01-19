@@ -12,15 +12,15 @@ namespace Gameplay
             this.consoleTabs = consoleTabs;
             this.actionButton = actionButton;
         }
-        public void SetDisplayedActionButton(ActionButtonType buttonType) => actionButton.ActionButtonType = buttonType;
+        public void SetDisplayedActionButton(ActionButtonType buttonType) => actionButton.SetActionButtonType(buttonType);
         public void UpdateUIDisplay(TabType currentTab, bool canProceed)
         {
             consoleTabs.SetTab(currentTab);
 
             switch (currentTab)
             {
-                case TabType.CONSTRUCT: actionButton.ActionButtonType = ActionButtonType.EXECUTION; break;
-                case TabType.RESULT: actionButton.ActionButtonType = (canProceed) ? ActionButtonType.PROCEED : ActionButtonType.STEP_BACK; break;
+                case TabType.CONSTRUCT: actionButton.SetActionButtonType( ActionButtonType.EXECUTION); break;
+                case TabType.RESULT: actionButton.SetActionButtonType((canProceed) ? ActionButtonType.PROCEED : ActionButtonType.STEP_BACK); break;
             }
         }
     }

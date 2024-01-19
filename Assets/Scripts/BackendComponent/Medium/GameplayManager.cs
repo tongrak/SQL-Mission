@@ -8,6 +8,7 @@ using Assets.Scripts.BackendComponent.StepController;
 using Gameplay.UI;
 using Gameplay.UI.VisualFeedback;
 using System;
+using System.Collections;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -19,7 +20,7 @@ namespace Gameplay
         /// <summary>
         /// Activate Gameplay session
         /// </summary>
-        void StartGameplay(FileSystemWatcher fileWatcher);
+        void StartGameplay(FileSystemWatcher saveFileWatcher);
         void ClickExecution();
         void SelectConstructionTab();
         void SelectResultTab();
@@ -33,7 +34,11 @@ namespace Gameplay
 
     public class GameplayManager : GameplayController, IGameplayManager
     {
-        [Header("BE Configuration")]
+        [Header("Utility Configuration")]
+        [SerializeField] private ScenesManager _scenesManager;
+        [SerializeField] private int _maxLoadingSecond;
+
+        [Header("BE GameObjects")]
         [SerializeField] private GameObject _backEndObject;
 
         [Header("UI GameObjects")]
@@ -43,6 +48,7 @@ namespace Gameplay
         [SerializeField] private GameObject _consoleTabsObject;
         [SerializeField] private GameObject _actionButtonObject;
         [SerializeField] private GameObject _schemaDisplayObject;
+        [SerializeField] private GameObject _loadingFacadeObject;
 
         //===== UI Controller =====
         private IDialogBoxController _dialogBoxController => mustGetComponent<IDialogBoxController>(_dialogBoxControllerObject);
@@ -65,8 +71,10 @@ namespace Gameplay
         //===== Runtime Variables =====
         private int _currStepIndex = 0;
         private IPuzzleController _currPC;
+        private FileSystemWatcher _saveFileWatcher = null;
         private bool _gameplayIsStarted = false;
         private bool _canAdvanceAStep = false;
+        private bool _resultSaved = false;
         private TabType _currentTab = TabType.CONSTRUCT;
 
         private void actAccordingToStep(GameStep gStep)
@@ -82,6 +90,8 @@ namespace Gameplay
                     _gameplayIsStarted = false;
                     _canAdvanceAStep = false;
                     _gameplayUI.SetDisplayedActionButton(ActionButtonType.INACTICE);
+                    //Switch to boards scnene if appropriate
+                    StartCoroutine(switchToBoardsSceneWhenAppro(_maxLoadingSecond));
                     break;
                 case Step.Puzzle:
                     Debug.Log("Reaching puzzle step");
@@ -117,12 +127,14 @@ namespace Gameplay
             }
         }
 
-        public void StartGameplay(FileSystemWatcher fileWatcher)
+        public void StartGameplay(FileSystemWatcher saveFileWatcher)
         {
             //TODO: Utilize given fileWatcher for the save "scene" thingie...
             _gameplayIsStarted = true;
-            _actionButtonController.Activivity = true;
+            _actionButtonController.SetActivity(true);
             actAccordingToStep(_currStepCon.GetCurrentStep());
+            _saveFileWatcher = saveFileWatcher;
+            _saveFileWatcher.Changed += onSaveComplete;
         }
 
         #region Aux methods
@@ -166,6 +178,25 @@ namespace Gameplay
                     _mainConsoleController.setConstructionDisplay(getOptions, UI.Construction.ConstructionType.TYPING, tokens);
                     break;
             }
+        }
+        private void onSaveComplete(object source, FileSystemEventArgs e) => _resultSaved = true;
+        private IEnumerator switchToBoardsSceneWhenAppro(int maxLoadingSeconds)
+        {
+            // Wait untill game result is saved
+            var startedTime = DateTime.Now;
+            var currentTime = DateTime.Now;
+            // Show loading facade.
+            _loadingFacadeObject.SetActive(true);
+            while (!_resultSaved && (currentTime - startedTime).Seconds < maxLoadingSeconds)
+            {
+                currentTime = DateTime.Now;
+                var currDiff = (currentTime - startedTime).Seconds;
+                yield return null;
+            }
+            //TODO: check loading status;
+            _loadingFacadeObject.SetActive(false);
+            //Then switch back to Boards Scene
+            _scenesManager.LoadSelectMissionScene();
         }
         #endregion
 
@@ -215,11 +246,6 @@ namespace Gameplay
         }
         public void AdvanceAStep()
         {
-            if (!_gameplayIsStarted)
-            {
-                Debug.LogWarning("gameplay is inactive");
-                return;
-            }
             _dynamicVisualController.DiscontinueItemObjects();
 
             _currStepCon.ChangeStep();
@@ -241,8 +267,18 @@ namespace Gameplay
         #region Unity Basic
         private void Start()
         {
+            //Hide loading facade;
+            _loadingFacadeObject.SetActive(false);
             SelectConstructionTab();
-            _actionButtonController.Activivity = false;
+            _actionButtonController.SetActivity(false);
+        }
+        private void OnDisable()
+        {
+            if (_saveFileWatcher != null) _saveFileWatcher.Changed -= onSaveComplete;
+        }
+        private void OnDestroy()
+        {
+            if (_saveFileWatcher != null) _saveFileWatcher.Changed -= onSaveComplete;
         }
         #endregion
     }
