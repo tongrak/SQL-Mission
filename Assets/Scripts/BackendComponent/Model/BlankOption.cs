@@ -10,6 +10,6 @@ namespace Assets.Scripts.BackendComponent.Model
     public class BlankOption
     {
         public string OptionTitle;
-        public string OptionContext;
+        public string[] OptionContext;
     }
 }

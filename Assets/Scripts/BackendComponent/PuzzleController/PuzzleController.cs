@@ -12,8 +12,6 @@ namespace Assets.Scripts.BackendComponent.PuzzleController
         private string _dbConn;
         private ISQLService _sqlService;
         private string[][] _answerTableResult;
-        private IFixedTemplateService _fixedTemplateService;
-        private IUpToConfigTemplateService _upToConfigTemplateService;
         private readonly BlankOption[] _blankOptions;
 
         public string Brief { get; private set; }
@@ -23,7 +21,7 @@ namespace Assets.Scripts.BackendComponent.PuzzleController
         public VisualType VisualType { get; private set; }
         public string PreSQL { get; private set; }
 
-        public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, VisualType imgType, IFixedTemplateService fixedTemplateService, IUpToConfigTemplateService upToConfigTemplateService, BlankOption[] blankOptions, string preSQL, PuzzleType puzzleType)
+        public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, VisualType imgType, BlankOption[] blankOptions, string preSQL, PuzzleType puzzleType)
         {
             _dbConn = dbConn;
             Brief = brief;
@@ -31,8 +29,6 @@ namespace Assets.Scripts.BackendComponent.PuzzleController
             _sqlService = sqlService;
             VisualType = imgType;
             _answerTableResult = _sqlService.GetTableResult(dbConn, answerSQL, imgType);
-            _fixedTemplateService = fixedTemplateService;
-            _upToConfigTemplateService = upToConfigTemplateService;
             _blankOptions = blankOptions;
             PreSQL = preSQL;
             PuzzleType = puzzleType;
@@ -84,6 +80,19 @@ namespace Assets.Scripts.BackendComponent.PuzzleController
                     return true;
                 }
             }
+        }
+
+        public string[] GetBlankOptions(string optionTitle)
+        {
+            foreach(BlankOption blankOption in _blankOptions)
+            {
+                if(optionTitle == blankOption.OptionTitle)
+                {
+                    return blankOption.OptionContext;
+                }
+            }
+
+            return null;
         }
 
         //public string[] GetTemplateBlank(string templateType, string table)
