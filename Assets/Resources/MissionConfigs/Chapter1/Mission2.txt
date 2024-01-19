@@ -1,53 +1,36 @@
 {
   "MissionName": "Mission2",
   "MissionType": 0,
-  "MissionDescription": null,
+  "MissionDescription": "ทดสอบการเติมช่องว่างด้วย Drop down",
   "MissionDetail": [
     {
-      "Dialog": "ช่วยแสดงข้อมูลทั้งหมดของ PeopleDress ให้หน่อย",
+      "Dialog": "ช่วยแสดงข้อมูลทั้งหมดของ Flower ให้หน่อย",
       "Step": 1,
       "ImgDetail": {
-        "ImgFolder": "Starter/PeopleDress",
+        "ImgFolder": "Starter/Flower",
         "ImgList": null
       },
       "PuzzleDetail": {
         "DB": "Starter.db",
         "Tables": [
-          "PeopleDress"
+          "Flower"
         ],
-        "PreSQL": "SELECT * \n FROM PeopleDress",
-        "AnswerSQL": "SELECT * FROM PeopleDress",
+        "PreSQL": "SELECT <<Blank1>>\n FROM Flower",
+        "AnswerSQL": "SELECT * FROM Flower",
         "VisualType": 0,
         "PuzzleType": 0,
-        "BlankOptions": null
+        "BlankOptions": [
+          {
+            "OptionTitle": "Blank1",
+            "OptionContext": [
+              "*",
+              "Petal",
+              "PollenColor",
+              "PetalColor"
+            ]
+          }
+        ]
       }
-    },
-    {
-      "Dialog": "จาก puzzle ที่ผ่านมาทำให้เราเห็นว่าเมื่อทำการเปลี่ยน table แล้วข้อมูลก็เปลี่ยนตามเช่นเดียวกัน",
-      "Step": 0,
-      "ImgDetail": {
-        "ImgFolder": "Starter/PeopleDress",
-        "ImgList": null
-      },
-      "PuzzleDetail": null
-    },
-    {
-      "Dialog": "ซึ่ง table นี้อยู่ใน database เดียวกับ table จาก puzzle ก่อนหน้านี้",
-      "Step": 0,
-      "ImgDetail": {
-        "ImgFolder": "Starter/PeopleDress",
-        "ImgList": null
-      },
-      "Detail": null
-    },
-    {
-      "Dialog": "ดังนั้น database สามารถมี table ได้มากกว่า 1 table",
-      "Step": 0,
-      "ImgDetail": {
-        "ImgFolder": "Starter/PeopleDress",
-        "ImgList": null
-      },
-      "Detail": null
     }
   ],
   "MissionDependencies": [

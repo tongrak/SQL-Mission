@@ -29,13 +29,9 @@ namespace Assets.Scripts.BackendComponent
 
         private MissionConfig _missionConfig;
         private ISQLService _sqlService = new SQLService();
-        private IFixedTemplateService _fixedTemplateService = new FixedTemplateService();
-        private IUpToConfigTemplateService _upToConfigTemplateService;
 
         private void StartGenerating()
         {
-            _upToConfigTemplateService = new UpToConfigTemplateService(_sqlService);
-
             if (_isMock)
             {
                 _MockLoadConfigFile();
@@ -117,7 +113,7 @@ namespace Assets.Scripts.BackendComponent
                 // 2) Get schema from SQLService
                 Schema[] schemas = _sqlService.GetSchemas(dbConn, puzzleStepDetail.PuzzleDetail.Tables);
                 // 3) Create PuzzleController
-                PuzzleController.PuzzleController puzzleController = new PuzzleController.PuzzleController(dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, _fixedTemplateService, _upToConfigTemplateService, puzzleStepDetail.PuzzleDetail.BlankOptions, puzzleStepDetail.PuzzleDetail.PreSQL, puzzleStepDetail.PuzzleDetail.PuzzleType);
+                PuzzleController.PuzzleController puzzleController = new PuzzleController.PuzzleController(dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, puzzleStepDetail.PuzzleDetail.BlankOptions, puzzleStepDetail.PuzzleDetail.PreSQL, puzzleStepDetail.PuzzleDetail.PuzzleType);
                 // 4) Insert PuzzleController to array.
                 allPuzzleController[i] = puzzleController;
             }
@@ -197,7 +193,7 @@ namespace Assets.Scripts.BackendComponent
         {
             StartGenerating();
             //Start gameplay after mission generation.
-            _gameplayManagerGameObjefct.GetComponent<IGameplayManager>().StartGameplay();
+            _gameplayManagerGameObjefct.GetComponent<IGameplayManager>().StartGameplay(null);
         }
 
         // Update is called once per frame
