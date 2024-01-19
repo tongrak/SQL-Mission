@@ -2651,7 +2651,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &902760574
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5531,7 +5531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scenesManager: {fileID: 1034289779}
-  _maxLoadingSecond: 3
+  _maxLoadingSecond: 2
   _backEndObject: {fileID: 1034289771}
   _dialogBoxControllerObject: {fileID: 957630300}
   _mainConsoleControllerObject: {fileID: 1724651449}
