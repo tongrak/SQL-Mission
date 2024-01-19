@@ -164,8 +164,9 @@ namespace Assets.Scripts.BackendComponent.SQLComponent
             {
                 connection.Open();
 
-                foreach(string table in tables)
+                for (int i = 0; i < tables.Length; i++)
                 {
+                    string table = tables[i];
                     string sql = $"SELECT * FROM {table} LIMIT 1";
                     // Query to database
                     using (SqliteCommand command = new SqliteCommand(sql, connection))
@@ -176,12 +177,12 @@ namespace Assets.Scripts.BackendComponent.SQLComponent
                             string[] attributes = new string[reader.FieldCount];
 
                             // get all attribute
-                            for (int i = 0; i < reader.FieldCount; i++)
+                            for (int j = 0; j < reader.FieldCount; j++)
                             {
-                                attributes[i] = reader.GetName(i);
+                                attributes[j] = reader.GetName(j);
                             }
 
-                            schemas.Append(new Schema(table, attributes));
+                            schemas[i] = new Schema(table, attributes);
                         }
                     }
                 }

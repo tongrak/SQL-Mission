@@ -1,83 +1,61 @@
 {
   "MissionName": "Mission2",
   "MissionType": 0,
+  "MissionDescription": null,
   "MissionDetail": [
     {
       "Dialog": "ช่วยแสดงข้อมูลทั้งหมดของ PeopleDress ให้หน่อย",
       "Step": 1,
-      "ImgFolder": "Starter/PeopleDress",
-      "ImgList": [
-        "PeopleDress1.png",
-        "PeopleDress2.png",
-        "PeopleDress3.png",
-        "PeopleDress4.png",
-        "PeopleDress5.png",
-        "PeopleDress6.png",
-        "PeopleDress7.png",
-        "PeopleDress8.png"
-      ],
-      "Detail": {
+      "ImgDetail": {
+        "ImgFolder": "Starter/PeopleDress",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
         "DB": "Starter.db",
         "Tables": [
           "PeopleDress"
         ],
         "PreSQL": "SELECT * \n FROM PeopleDress",
         "AnswerSQL": "SELECT * FROM PeopleDress",
-        "ImgType": 0,
+        "VisualType": 0,
         "PuzzleType": 0,
-        "SpecialBlankOptions": null
+        "BlankOptions": null
       }
     },
     {
       "Dialog": "จาก puzzle ที่ผ่านมาทำให้เราเห็นว่าเมื่อทำการเปลี่ยน table แล้วข้อมูลก็เปลี่ยนตามเช่นเดียวกัน",
       "Step": 0,
-      "ImgFolder": "Starter/PeopleDress",
-      "ImgList": [
-        "PeopleDress1.png",
-        "PeopleDress2.png",
-        "PeopleDress3.png",
-        "PeopleDress4.png",
-        "PeopleDress5.png",
-        "PeopleDress6.png",
-        "PeopleDress7.png",
-        "PeopleDress8.png"
-      ],
-      "Detail": null
+      "ImgDetail": {
+        "ImgFolder": "Starter/PeopleDress",
+        "ImgList": null
+      },
+      "PuzzleDetail": null
     },
     {
       "Dialog": "ซึ่ง table นี้อยู่ใน database เดียวกับ table จาก puzzle ก่อนหน้านี้",
       "Step": 0,
-      "ImgFolder": "Starter/PeopleDress",
-      "ImgList": [
-        "PeopleDress1.png",
-        "PeopleDress2.png",
-        "PeopleDress3.png",
-        "PeopleDress4.png",
-        "PeopleDress5.png",
-        "PeopleDress6.png",
-        "PeopleDress7.png",
-        "PeopleDress8.png"
-      ],
+      "ImgDetail": {
+        "ImgFolder": "Starter/PeopleDress",
+        "ImgList": null
+      },
       "Detail": null
     },
     {
       "Dialog": "ดังนั้น database สามารถมี table ได้มากกว่า 1 table",
       "Step": 0,
-      "ImgFolder": "Starter/PeopleDress",
-      "ImgList": [
-        "PeopleDress1.png",
-        "PeopleDress2.png",
-        "PeopleDress3.png",
-        "PeopleDress4.png",
-        "PeopleDress5.png",
-        "PeopleDress6.png",
-        "PeopleDress7.png",
-        "PeopleDress8.png"
-      ],
+      "ImgDetail": {
+        "ImgFolder": "Starter/PeopleDress",
+        "ImgList": null
+      },
       "Detail": null
     }
   ],
   "MissionDependencies": [
     "Mission1"
+  ],
+  "MissionDependTos": [
+    "Mission3",
+    "Mission4",
+    "Mission5"
   ]
 }

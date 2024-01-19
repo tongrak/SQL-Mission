@@ -15,11 +15,11 @@
         "Tables": [
           "PeopleOccupation"
         ],
-        "PreSQL": "SELECT * \n FROM <<Tables>>",
+        "PreSQL": "SELECT * \n FROM <<Blank>>",
         "AnswerSQL": "SELECT * FROM PeopleOccupation",
         "VisualType": 0,
         "PuzzleType": 1,
-        "SpecialBlankOptions": null
+        "BlankOptions": null
       }
     },
     {
@@ -34,11 +34,11 @@
         "Tables": [
           "Animal"
         ],
-        "PreSQL": "SELECT * \n FROM <<Tables>>",
+        "PreSQL": "SELECT * \n FROM <<Blank>>",
         "AnswerSQL": "SELECT * FROM Animal",
         "VisualType": 0,
         "PuzzleType": 1,
-        "SpecialBlankOptions": null
+        "BlankOptions": null
       }
     },
     {
@@ -53,11 +53,11 @@
         "Tables": [
           "Book"
         ],
-        "PreSQL": "SELECT * \n FROM <<Tables>>",
+        "PreSQL": "SELECT * \n FROM <<Blank>>",
         "AnswerSQL": "SELECT * FROM Book",
         "VisualType": 0,
         "PuzzleType": 1,
-        "SpecialBlankOptions": null
+        "BlankOptions": null
       }
     }
   ],
@@ -65,5 +65,6 @@
     "Mission3",
     "Mission4",
     "Mission5"
-  ]
+  ],
+  "MissionDependTos": null
 }

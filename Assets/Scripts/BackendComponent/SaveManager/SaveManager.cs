@@ -1,12 +1,35 @@
 ﻿using Assets.Scripts.BackendComponent.Model;
 using Assets.Scripts.Helper;
 using System;
+using System.IO;
+using System.Threading;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace Assets.Scripts.BackendComponent.SaveManager
 {
     public class SaveManager : ISaveManager
     {
+        private FileSystemWatcher _fileWatcher;
+
+        //public SaveManager()
+        //{
+        //    //_fileWatcher = fileWatcher;
+        //    _InitiateWatcher();
+        //}
+
+        //private void _InitiateWatcher()
+        //{
+        //    _fileWatcher = new FileSystemWatcher(Application.dataPath + "/Resources/" + EnvironmentData.Instance.MissionConfigRootFolder + "/" + "Chapter1", EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType);
+        //    _fileWatcher.NotifyFilter = NotifyFilters.CreationTime
+        //             | NotifyFilters.LastWrite
+        //             | NotifyFilters.Size;
+
+        //    _fileWatcher.Changed += TestChangedEvent;
+
+        //    _fileWatcher.EnableRaisingEvents = true;
+        //}
+
         /// <summary>
         /// Update mission status for chapter after mission is passed.
         /// </summary>
@@ -34,18 +57,15 @@ namespace Assets.Scripts.BackendComponent.SaveManager
                     int totalUnlockDependencies = 0;
 
                     // Update passed mission dependency's status.
-                    foreach (MissionDependencyUnlockDetail missionDependencyDetail in missionStatusDetail.MissionDependenciesUnlockDetail)
+                    foreach (MissionDependencyUnlockDetail missionDependency in missionStatusDetail.MissionDependenciesUnlockDetail)
                     {
-                        if (missionStatusDetail.MissionName == passedMissionName)
+                        if (missionDependency.MissionName == passedMissionName)
                         {
-                            missionStatusDetail.IsPass = true;
+                            missionDependency.IsPass = true;
                         }
-                        else
+                        if (missionDependency.IsPass)
                         {
-                            if (missionStatusDetail.IsPass)
-                            {
-                                totalUnlockDependencies++;
-                            }
+                            totalUnlockDependencies++;
                         }
                     }
 
@@ -57,8 +77,15 @@ namespace Assets.Scripts.BackendComponent.SaveManager
                 }
             }
             // 4) Save to file
-            string saveData = JsonUtility.ToJson(missionStatusDetails);
-            System.IO.File.WriteAllText(missionFolderPathAfterResources + "/" + EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType, saveData);
+            string saveData = JsonUtility.ToJson(missionStatusDetails, true);
+            string savedFileFullPath = Path.Combine(Application.dataPath, "Resources", missionFolderPathAfterResources, EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType);
+
+            File.WriteAllText(savedFileFullPath, saveData);
         }
+
+        //private void TestChangedEvent(object sender, FileSystemEventArgs e)
+        //{
+        //    Debug.Log("File changed.");
+        //}
     }
 }

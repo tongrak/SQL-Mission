@@ -1,37 +1,32 @@
 {
   "MissionName": "Mission3",
   "MissionType": 0,
+  "MissionDescription": null,
   "MissionDetail": [
     {
       "Dialog": "จงแสดงข้อมูลทั้งหมดของ Animal",
       "Step": 1,
-      "ImgFolder": "Starter/Animal",
-      "ImgList": [
-        "Animal1.png",
-        "Animal2.png",
-        "Animal3.png",
-        "Animal4.png",
-        "Animal5.png",
-        "Animal6.png",
-        "Animal7.png",
-        "Animal8.png",
-        "Animal9.png",
-        "Animal10.png"
-      ],
-      "Detail": {
+      "ImgDetail": {
+        "ImgFolder": "Starter/Animal",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
         "DB": "Starter.db",
         "Tables": [
           "Animal"
         ],
-        "PreSQL": "SELECT * \n FROM <<Tables>>",
+        "PreSQL": "SELECT * \n FROM <<Blank>>",
         "AnswerSQL": "SELECT * FROM Animal",
-        "ImgType": 0,
+        "VisualType": 0,
         "PuzzleType": 1,
-        "SpecialBlankOptions": null
+        "BlankOptions": null
       }
     }
   ],
   "MissionDependencies": [
     "Mission2"
+  ],
+  "MissionDependTos": [
+    "Final"
   ]
 }

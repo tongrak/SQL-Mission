@@ -12,7 +12,5 @@ namespace Assets.Scripts.BackendComponent.PuzzleController
         string PreSQL { get; }
         ExecuteResult GetExecuteResult(string sql);
         bool GetPuzzleResult();
-        string[] GetTemplateBlank(string templateType, string table);
-        string[] GetSpecialBlank(int index);
     }
 }

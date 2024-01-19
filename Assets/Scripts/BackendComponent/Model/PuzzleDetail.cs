@@ -11,6 +11,6 @@ namespace Assets.Scripts.BackendComponent.StepController
         public string AnswerSQL;
         public VisualType VisualType; // PuzzleType will be "Enum".
         public PuzzleType PuzzleType;
-        public string[][] SpecialBlankOptions;
+        public BlankOption[] BlankOptions;
     }
 }

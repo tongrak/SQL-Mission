@@ -4,12 +4,14 @@ namespace Assets.Scripts.BackendComponent.StepController
 {
     public class StepController : MonoBehaviour, IStepController
     {
+        [SerializeField] private MissionController _missionController;
         private GameStep[] _allGameStep;
         private int _gameStepIndex = 0;
 
         public void ChangeStep()
         {
             _gameStepIndex++;
+            if (_allGameStep[_gameStepIndex].CurrStep == Step.EndStep) { OnAllStepPassed(); }
         }
 
         public GameStep GetCurrentStep()
@@ -25,6 +27,11 @@ namespace Assets.Scripts.BackendComponent.StepController
         public void SetAllGameStep(GameStep[] allGameStep)
         {
             _allGameStep = allGameStep;
+        }
+
+        private void OnAllStepPassed()
+        {
+            _missionController.AllPuzzlePassed();
         }
     }
 }

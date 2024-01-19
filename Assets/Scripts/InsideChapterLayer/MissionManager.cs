@@ -6,6 +6,7 @@ using Assets.Scripts.BackendComponent.UI;
 using Assets.Scripts.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class MissionManager : MonoBehaviour
 {
@@ -14,23 +15,41 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private GameObject _finalMission;
     [SerializeField] private MissionData _missionSceneData;
     /// <summary>
-    /// Path will be like this 'Assets/Resources/X/X/MissionConfigs/X/ChapterX'
+    /// Full path of config missions folder.
     /// </summary>
-    private string _allmissionConfigFolderPathFromAssets; // Insert path after root path. If relative path is './MissionConfig/Chapter1' then insert 'Chapter1'
+    private string _allmissionConfigFolderFullPath; // Insert path after root path. If relative path is './MissionConfig/Chapter1' then insert 'Chapter1'
     private string[] _missionConfigFiles; // list of mission config file. Example [mission1, mission2]
+    private FileSystemWatcher _fileWatcher;
 
-    public void MissionPaperClicked(string missionClickedFilename)
+    public void MissionPaperClicked(string missionClickedFilename, bool isPassed)
     {
-        _missionSceneData.missionConfigFolderPathFromAssets = _allmissionConfigFolderPathFromAssets;
-        _missionSceneData.missionFileName = missionClickedFilename;
+        _missionSceneData.MissionConfigFolderFullPath = _allmissionConfigFolderFullPath;
+        _missionSceneData.MissionFileName = missionClickedFilename;
+        _missionSceneData.IsPassed = isPassed;
         ScenesManager.Instance.LoadMissionScene();
     }
 
     public void Activate()
     {
         _LoadChapterConfigData();
-
+        _InstantiateWatcher();
         _GenMissionPaperFromConfigFiles();
+    }
+
+    /// <summary>
+    /// Instantiate SystemFileWatcher to look at mission status file.
+    /// </summary>
+    private void _InstantiateWatcher()
+    {
+        _fileWatcher = new FileSystemWatcher(_allmissionConfigFolderFullPath, EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType + ".meta");
+
+        _fileWatcher.NotifyFilter = NotifyFilters.CreationTime
+                             | NotifyFilters.LastWrite
+                             | NotifyFilters.Size;
+
+        _fileWatcher.Created += TestCreatedEvent;
+
+        _fileWatcher.EnableRaisingEvents = true;
     }
 
     /// <summary>
@@ -47,14 +66,14 @@ public class MissionManager : MonoBehaviour
             "Mission5",
             "Final"
         };
-        _allmissionConfigFolderPathFromAssets = "Assets/Resources/" + EnvironmentData.Instance.MissionConfigRootFolder + "/" + "Chapter1";
+        _allmissionConfigFolderFullPath = Application.dataPath + "/Resources/" + EnvironmentData.Instance.MissionConfigRootFolder + "/" + "Chapter1";
     }
 
     private void _GenMissionPaperFromConfigFiles()
     {
         // Set variable
-        string missionConfigFolderPathAfterResources = _allmissionConfigFolderPathFromAssets.Split(new string[] { "Resources/" }, System.StringSplitOptions.None)[1] + '/';
-        string unLockDetailFilePathFromAssets = _allmissionConfigFolderPathFromAssets + "/" + EnvironmentData.Instance.MissionStatusFileName; // Such as 'Assets/Resources/X/X/<FileName>'
+        string missionConfigFolderPathAfterResources = _allmissionConfigFolderFullPath.Split(new string[] { "Resources/" }, System.StringSplitOptions.None)[1] + '/';
+        string unLockDetailFilePathFromAssets = _allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.MissionStatusFileName; // Such as 'Assets/Resources/X/X/<FileName>'
         string missionStatusFileType = EnvironmentData.Instance.MissionStatusDetailFileType; // Can use '.txt' or '.json'. Up to you.
         bool haveStatusDetailFile = System.IO.File.Exists(unLockDetailFilePathFromAssets + missionStatusFileType);
 
@@ -129,10 +148,21 @@ public class MissionManager : MonoBehaviour
         }
 
         // Save to 'UnlockDetail.txt'
-        string data = JsonUtility.ToJson(missionUnlockDetails);
+        string data = JsonUtility.ToJson(missionUnlockDetails, true);
+
+        //watcher.Changed += FileChangedCompletely;
+
+        //watcher.EnableRaisingEvents = true;
+
+
         System.IO.File.WriteAllText(unLockDetailFilePathFromAssets+fileType, data);
 
         return missionUnlockDetails;
+    }
+
+    private void TestCreatedEvent(object sender, FileSystemEventArgs e)
+    {
+        Debug.Log("Created mission status meta file complete. // Please remove this function before production.");
     }
 
     /// <summary>
@@ -173,7 +203,7 @@ public class MissionManager : MonoBehaviour
 
             // Injected MissionPaperController to mission paper.
             MissionPaperController missionPaperController = missionPaper.AddComponent<MissionPaperController>();
-            missionPaperController.Construct(this, _missionConfigFiles[i]);
+            missionPaperController.Construct(this, _missionConfigFiles[i], missionUnlockDetail.IsPass);
             missionPaper.GetComponent<Button>().onClick.AddListener(() => missionPaperController.MissionClicked());
         }
     }
@@ -184,9 +214,19 @@ public class MissionManager : MonoBehaviour
         Activate();
     }
 
+    private void OnDisable()
+    {
+        if (_fileWatcher != null)
+        {
+            _fileWatcher.Changed -= TestCreatedEvent;
+
+            _fileWatcher.Dispose();
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
