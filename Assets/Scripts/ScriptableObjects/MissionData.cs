@@ -8,13 +8,13 @@ namespace Assets.Scripts.ScriptableObjects
         /// <summary>
         /// Path must contain 'Assets' and 'Resources' folder and must be like this 'Assets/X/Resource/X/X/MissionConfigs/ChapterX'
         /// </summary>
-        public string MissionConfigFolderPathFromAssets;
+        public string MissionConfigFolderFullPath;
         /// <summary>
         /// Such as 'Mission1.txt' but insert 'Mission1' only
         /// </summary>
         public string MissionFileName;
         /// <summary>
-        /// This mission have already passed yet?
+        /// This mission have passed yet?
         /// </summary>
         public bool IsPassed;
     }

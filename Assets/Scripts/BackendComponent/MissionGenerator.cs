@@ -59,7 +59,7 @@ namespace Assets.Scripts.BackendComponent
 
         private void LoadConfigFile()
         {
-            string folderPathAfterResources = _missionSceneData.MissionConfigFolderPathFromAssets.Split(new string[] { "Resources/" }, StringSplitOptions.None)[1];
+            string folderPathAfterResources = _missionSceneData.MissionConfigFolderFullPath.Split(new string[] { "Resources/" }, StringSplitOptions.None)[1];
             TextAsset missionConfigFile = Resources.Load<TextAsset>(folderPathAfterResources + "/" + _missionSceneData.MissionFileName);
             _missionConfig = JsonUtility.FromJson<MissionConfig>(missionConfigFile.text);
         }
@@ -77,8 +77,8 @@ namespace Assets.Scripts.BackendComponent
 
             int dialogIndex = 0;
             int puzzleIndex = 0;
-            GameStep[] allGameStep = new GameStep[allConfigStep.Length + 1];
-            for(int i = 0; i < allConfigStep.Length; i++)
+            GameStep[] allGameStep = new GameStep[allConfigStep.Length + 1]; // Add slot for end step.
+            for (int i = 0; i < allConfigStep.Length; i++)
             {
                 Step step = allConfigStep[i];
                 switch (step)
@@ -114,14 +114,12 @@ namespace Assets.Scripts.BackendComponent
                 // 1) Create database path
                 string dbFolder = $"/Resources/{EnvironmentData.Instance.DatabaseRootFolder}/";
                 string dbConn = "URI=file:" + Application.dataPath + dbFolder + puzzleStepDetail.PuzzleDetail.DB;
-                bool isLastPuzzle = i == allPuzzleStepDetail.Length - 1;
                 // 2) Get schema from SQLService
                 Schema[] schemas = _sqlService.GetSchemas(dbConn, puzzleStepDetail.PuzzleDetail.Tables);
                 // 3) Create PuzzleController
                 PuzzleController.PuzzleController puzzleController = new PuzzleController.PuzzleController(dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, _fixedTemplateService, _upToConfigTemplateService, puzzleStepDetail.PuzzleDetail.BlankOptions, puzzleStepDetail.PuzzleDetail.PreSQL);
                 // 4) Insert PuzzleController to array.
                 allPuzzleController[i] = puzzleController;
-
             }
             // 5) Insert all PuzzleController to PuzzleManager
             puzzleManager.Construct(allPuzzleController);
@@ -130,7 +128,8 @@ namespace Assets.Scripts.BackendComponent
         private void LoadImageController()
         {
             IImageController imageController = _imageControllerGameObject.GetComponent<IImageController>();
-            string rootImgFolderPath = "/Resources/PuzzleImages/";
+            string rootImgFolderPath = $"/Resources/{EnvironmentData.Instance.PuzzleImagesRootFolder}/";
+            // Each index mean each step. Example imagePathLists[0] mean image for Step[0].
             string[][] imagePathLists = new string[_missionConfig.MissionDetail.Length][];
 
             for (int i = 0; i < _missionConfig.MissionDetail.Length; i++)
@@ -142,12 +141,42 @@ namespace Assets.Scripts.BackendComponent
                 {
                     if (stepDetail.ImgDetail.ImgList.Length == 0)
                     {
-                        FileInfo[] images = new DirectoryInfo(Application.dataPath + rootImgFolderPath + stepDetail.ImgDetail.ImgFolder).GetFiles("*.png");
-                        imagePathLists[i] = images.Select(x => x.FullName).ToArray();
+                        DirectoryInfo di = new DirectoryInfo(Application.dataPath + rootImgFolderPath + stepDetail.ImgDetail.ImgFolder);
+
+                        // Check if image path is correct.
+                        try {
+                            if (di.Exists)
+                            {
+                                FileInfo[] images = di.GetFiles("*.png");
+                                imagePathLists[i] = images.Select(x => x.FullName).ToArray();
+
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.LogWarning("Image folder path is not correct.");
+                            Debug.LogWarning("Image folder path: " + di.FullName);
+                            Debug.LogWarning("Because: " + e.Message);
+                        }
+                        
                     }
                     else
                     {
-                        imagePathLists[i] = stepDetail.ImgDetail.ImgList.Select(x => Application.dataPath + rootImgFolderPath + stepDetail.ImgDetail.ImgFolder + "/" + x).ToArray();
+                        string[] imagePaths = stepDetail.ImgDetail.ImgList.Select(x => Application.dataPath + rootImgFolderPath + stepDetail.ImgDetail.ImgFolder + "/" + x).ToArray();
+                        imagePathLists[i] = new string[imagePaths.Length];
+                        for (int j = 0; i < imagePaths.Length; j++) 
+                        {
+                            string imagePath = imagePaths[j];
+                            if (!File.Exists(imagePath))
+                            {
+                                Debug.LogWarning("Image path is not correct.");
+                                Debug.LogWarning("Image path: " + imagePath);
+                            }
+                            else
+                            {
+                                imagePathLists[i][0] = imagePath;
+                            }
+                        }
                     }
 
                 }
@@ -159,7 +188,7 @@ namespace Assets.Scripts.BackendComponent
         private void _InitiateMissionController()
         {
             MissionController missioncontroller = _missionControllerGameObject.GetComponent<MissionController>();
-            missioncontroller.Initiate(_missionSceneData.MissionConfigFolderPathFromAssets, _missionConfig.MissionName, _missionConfig.MissionDependTos, _missionConfig.MissionType, new SaveManager.SaveManager(), _missionSceneData.IsPassed);
+            missioncontroller.Initiate(_missionSceneData.MissionConfigFolderFullPath, _missionConfig.MissionName, _missionConfig.MissionDependTos, _missionConfig.MissionType, new SaveManager.SaveManager(), _missionSceneData.IsPassed);
         }
         #endregion
 

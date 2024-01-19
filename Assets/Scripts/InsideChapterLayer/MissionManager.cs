@@ -15,7 +15,7 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private GameObject _finalMission;
     [SerializeField] private MissionData _missionSceneData;
     /// <summary>
-    /// Path will be like this 'Assets/Resources/X/X/MissionConfigs/X/ChapterX'
+    /// Full path of config missions folder.
     /// </summary>
     private string _allmissionConfigFolderFullPath; // Insert path after root path. If relative path is './MissionConfig/Chapter1' then insert 'Chapter1'
     private string[] _missionConfigFiles; // list of mission config file. Example [mission1, mission2]
@@ -23,7 +23,7 @@ public class MissionManager : MonoBehaviour
 
     public void MissionPaperClicked(string missionClickedFilename, bool isPassed)
     {
-        _missionSceneData.MissionConfigFolderPathFromAssets = _allmissionConfigFolderFullPath;
+        _missionSceneData.MissionConfigFolderFullPath = _allmissionConfigFolderFullPath;
         _missionSceneData.MissionFileName = missionClickedFilename;
         _missionSceneData.IsPassed = isPassed;
         ScenesManager.Instance.LoadMissionScene();
