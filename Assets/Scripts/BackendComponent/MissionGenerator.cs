@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.BackendComponent.BlankBlockComponent;
-using Assets.Scripts.BackendComponent.DialogController;
+﻿using Assets.Scripts.BackendComponent.DialogController;
 using Assets.Scripts.BackendComponent.SQLComponent;
 using System.Linq;
 using UnityEngine;
@@ -29,6 +28,7 @@ namespace Assets.Scripts.BackendComponent
 
         private MissionConfig _missionConfig;
         private ISQLService _sqlService = new SQLService();
+        private FileSystemWatcher _fileSystemWatcher;
 
         private void StartGenerating()
         {
@@ -40,6 +40,7 @@ namespace Assets.Scripts.BackendComponent
             {
                 LoadConfigFile();
             }
+            InitiateFileWatcher();
             LoadDialogController();
             LoadStepController();
             LoadPuzzleManager();
@@ -58,6 +59,17 @@ namespace Assets.Scripts.BackendComponent
             string folderPathAfterResources = _missionSceneData.MissionConfigFolderFullPath.Split(new string[] { "Resources/" }, StringSplitOptions.None)[1];
             TextAsset missionConfigFile = Resources.Load<TextAsset>(folderPathAfterResources + "/" + _missionSceneData.MissionFileName);
             _missionConfig = JsonUtility.FromJson<MissionConfig>(missionConfigFile.text);
+        }
+
+        private void InitiateFileWatcher()
+        {
+            _fileSystemWatcher = new FileSystemWatcher(_missionSceneData.MissionConfigFolderFullPath, EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType + ".meta");
+
+            _fileSystemWatcher.NotifyFilter = NotifyFilters.CreationTime
+                                 | NotifyFilters.LastWrite
+                                 | NotifyFilters.Size;
+
+            _fileSystemWatcher.EnableRaisingEvents = true;
         }
 
         private void LoadDialogController()
@@ -193,7 +205,7 @@ namespace Assets.Scripts.BackendComponent
         {
             StartGenerating();
             //Start gameplay after mission generation.
-            _gameplayManagerGameObjefct.GetComponent<IGameplayManager>().StartGameplay(null);
+            _gameplayManagerGameObjefct.GetComponent<IGameplayManager>().StartGameplay(_fileSystemWatcher);
         }
 
         // Update is called once per frame
