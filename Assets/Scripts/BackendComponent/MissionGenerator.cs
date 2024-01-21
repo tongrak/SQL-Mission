@@ -25,6 +25,7 @@ namespace Assets.Scripts.BackendComponent
         [SerializeField] private MissionData _missionSceneData;
         [SerializeField] private TextAsset _configFile;
         [SerializeField] private bool _isMock;
+        [SerializeField] private SaveAndBackToMB _saveAndBackToDB;
 
         private MissionConfig _missionConfig;
         private ISQLService _sqlService = new SQLService();
@@ -63,7 +64,7 @@ namespace Assets.Scripts.BackendComponent
 
         private void InitiateFileWatcher()
         {
-            _fileSystemWatcher = new FileSystemWatcher(_missionSceneData.MissionConfigFolderFullPath, EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType + ".meta");
+            _fileSystemWatcher = new FileSystemWatcher(_missionSceneData.MissionConfigFolderFullPath, EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType);
 
             _fileSystemWatcher.NotifyFilter = NotifyFilters.CreationTime
                                  | NotifyFilters.LastWrite
@@ -204,6 +205,9 @@ namespace Assets.Scripts.BackendComponent
         void Start()
         {
             StartGenerating();
+            // Ues for test change scene when mission passed.
+            _saveAndBackToDB.Initiate(_fileSystemWatcher);
+            Debug.LogWarning("SaveAndBackToDB initiate. // Delete this before production");
             //Start gameplay after mission generation.
             _gameplayManagerGameObjefct.GetComponent<IGameplayManager>().StartGameplay(_fileSystemWatcher);
         }

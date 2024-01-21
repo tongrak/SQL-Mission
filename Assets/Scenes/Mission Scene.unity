@@ -597,6 +597,7 @@ MonoBehaviour:
   _missionSceneData: {fileID: 11400000, guid: f20acfc1b1a3dfc49bd917b2c1b0d812, type: 2}
   _configFile: {fileID: 0}
   _isMock: 0
+  _saveAndBackToDB: {fileID: 1425007404}
 --- !u!1 &1363386436
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,6 +710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbd54da99939918428f42eee497c93c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _stepControllerGameObject: {fileID: 1755518240}
 --- !u!1 &1425007403
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,7 +735,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1425007403}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22646c5d5a612bc46868ee6a24a768e0, type: 3}
   m_Name: 
@@ -839,10 +841,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1366421734}
-        m_TargetAssemblyTypeName: Assets.Scripts.BackendComponent.MissionController,
-          Backend_Comp
-        m_MethodName: AllPuzzlePassed
+      - m_Target: {fileID: 1425007404}
+        m_TargetAssemblyTypeName: SaveAndBackToMB, Backend_Comp
+        m_MethodName: ButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

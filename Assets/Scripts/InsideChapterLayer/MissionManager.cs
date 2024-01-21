@@ -75,7 +75,7 @@ public class MissionManager : MonoBehaviour
         string missionConfigFolderPathAfterResources = _allmissionConfigFolderFullPath.Split(new string[] { "Resources/" }, System.StringSplitOptions.None)[1] + '/';
         string unLockDetailFilePathFromAssets = _allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.MissionStatusFileName; // Such as 'Assets/Resources/X/X/<FileName>'
         string missionStatusFileType = EnvironmentData.Instance.MissionStatusDetailFileType; // Can use '.txt' or '.json'. Up to you.
-        bool haveStatusDetailFile = System.IO.File.Exists(unLockDetailFilePathFromAssets + missionStatusFileType);
+        bool haveStatusDetailFile = File.Exists(unLockDetailFilePathFromAssets + missionStatusFileType);
 
         MissionConfig[] missionConfigs = new MissionConfig[_missionConfigFiles.Length];
 
@@ -93,13 +93,13 @@ public class MissionManager : MonoBehaviour
         // Get all status detail.
         MissionUnlockDetails missionUnlockDetails;
         if (!haveStatusDetailFile)
-            {
+        {
             missionUnlockDetails = _WriteMissionUnlockDetails(missionConfigs, unLockDetailFilePathFromAssets, missionStatusFileType);
         }
         else
         {
-            TextAsset unlockDetailsFile = Resources.Load<TextAsset>(missionConfigFolderPathAfterResources + EnvironmentData.Instance.MissionStatusFileName);
-            missionUnlockDetails = JsonUtility.FromJson<MissionUnlockDetails>(unlockDetailsFile.text);
+            string missionStatusTxt = File.ReadAllText(_allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType);
+            missionUnlockDetails = JsonUtility.FromJson<MissionUnlockDetails>(missionStatusTxt);
         }
 
         _GenerateAllMissionObject(missionConfigs, missionUnlockDetails);

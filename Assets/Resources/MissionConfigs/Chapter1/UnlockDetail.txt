@@ -9,7 +9,7 @@
         {
             "MissionName": "Mission2",
             "IsUnlock": true,
-            "IsPass": false,
+            "IsPass": true,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionName": "Mission1",
@@ -19,53 +19,53 @@
         },
         {
             "MissionName": "Mission3",
-            "IsUnlock": false,
-            "IsPass": false,
+            "IsUnlock": true,
+            "IsPass": true,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionName": "Mission2",
-                    "IsPass": false
+                    "IsPass": true
                 }
             ]
         },
         {
             "MissionName": "Mission4",
-            "IsUnlock": false,
-            "IsPass": false,
+            "IsUnlock": true,
+            "IsPass": true,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionName": "Mission2",
-                    "IsPass": false
+                    "IsPass": true
                 }
             ]
         },
         {
             "MissionName": "Mission5",
-            "IsUnlock": false,
-            "IsPass": false,
+            "IsUnlock": true,
+            "IsPass": true,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionName": "Mission2",
-                    "IsPass": false
+                    "IsPass": true
                 }
             ]
         },
         {
             "MissionName": "Final",
-            "IsUnlock": false,
+            "IsUnlock": true,
             "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionName": "Mission3",
-                    "IsPass": false
+                    "IsPass": true
                 },
                 {
                     "MissionName": "Mission4",
-                    "IsPass": false
+                    "IsPass": true
                 },
                 {
                     "MissionName": "Mission5",
-                    "IsPass": false
+                    "IsPass": true
                 }
             ]
         }
