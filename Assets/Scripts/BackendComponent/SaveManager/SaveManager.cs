@@ -10,35 +10,15 @@ namespace Assets.Scripts.BackendComponent.SaveManager
 {
     public class SaveManager : ISaveManager
     {
-        private FileSystemWatcher _fileWatcher;
-
-        //public SaveManager()
-        //{
-        //    //_fileWatcher = fileWatcher;
-        //    _InitiateWatcher();
-        //}
-
-        //private void _InitiateWatcher()
-        //{
-        //    _fileWatcher = new FileSystemWatcher(Application.dataPath + "/Resources/" + EnvironmentData.Instance.MissionConfigRootFolder + "/" + "Chapter1", EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType);
-        //    _fileWatcher.NotifyFilter = NotifyFilters.CreationTime
-        //             | NotifyFilters.LastWrite
-        //             | NotifyFilters.Size;
-
-        //    _fileWatcher.Changed += TestChangedEvent;
-
-        //    _fileWatcher.EnableRaisingEvents = true;
-        //}
-
         /// <summary>
         /// Update mission status for chapter after mission is passed.
         /// </summary>
-        /// <param name="missionFolderPath">Folder path for mission config file in seleted chapter and must be after 'Resources' folder sush as 'MissionConfigs/ChapterX'</param>
+        /// <param name="missionFolderFullPath">Folder path for mission config file in seleted chapter and must be after 'Resources' folder sush as 'MissionConfigs/ChapterX'</param>
         /// <param name="passedMissionName">Mission name that passed.</param>
-        public void UpdateMissionStatus(string missionFolderPathAfterResources, string passedMissionName, string[] missionDependTos)
+        public void UpdateMissionStatus(string missionFolderFullPath, string passedMissionName, string[] missionDependTos)
         {
             // 1) Get mission status detail
-            TextAsset missionStatusFile = Resources.Load<TextAsset>(missionFolderPathAfterResources + '/' + EnvironmentData.Instance.MissionStatusFileName);
+            TextAsset missionStatusFile = Resources.Load<TextAsset>(missionFolderFullPath.Split(new string[] { "Resources/" }, StringSplitOptions.None)[1] + '/' + EnvironmentData.Instance.MissionStatusFileName);
             MissionUnlockDetails missionStatusDetails = JsonUtility.FromJson<MissionUnlockDetails>(missionStatusFile.text);
             // 2) Loop for update status
             foreach (MissionUnlockDetail missionStatusDetail in missionStatusDetails.MissionUnlockDetailList)
@@ -78,14 +58,9 @@ namespace Assets.Scripts.BackendComponent.SaveManager
             }
             // 4) Save to file
             string saveData = JsonUtility.ToJson(missionStatusDetails, true);
-            string savedFileFullPath = Path.Combine(Application.dataPath, "Resources", missionFolderPathAfterResources, EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType);
+            string savedFileFullPath = Path.Combine(missionFolderFullPath, EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType);
 
             File.WriteAllText(savedFileFullPath, saveData);
         }
-
-        //private void TestChangedEvent(object sender, FileSystemEventArgs e)
-        //{
-        //    Debug.Log("File changed.");
-        //}
     }
 }
