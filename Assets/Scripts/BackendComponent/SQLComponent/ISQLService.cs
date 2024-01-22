@@ -23,8 +23,9 @@ namespace Assets.Scripts.DataPersistence.SQLComponent
         /// </summary>
         /// <param name="dbConn">Must be full path for connecting to Database example "URI=file:folder/database.db</param>
         /// <param name="tables">Group of table</param>
+        /// <param name="keepImgCol">Tell method to keep 'Image' column or not.</param>
         /// <returns>Group of schema.</returns>
-        Schema[] GetSchemas(string dbConn, string[] tables);
+        Schema[] GetSchemas(string dbConn, string[] tables, bool keepImgCol);
 
         string[] GetAllTable(string dbConn);
     }
