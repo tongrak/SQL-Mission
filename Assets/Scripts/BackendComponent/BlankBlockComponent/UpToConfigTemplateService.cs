@@ -15,12 +15,12 @@ namespace Assets.Scripts.DataPersistence.BlankBlockComponent
 
         public string[] GetAttributesTemplate(string dbConn, string table)
         {
-            return _sqlService.GetSchemas(dbConn, new string[] { table })[0].Attributes;
+            return _sqlService.GetSchemas(dbConn, new string[] { table }, false)[0].Attributes;
         }
 
         public string[] GetSchemaTemplate(string dbConn, string table)
         {
-            Schema[] schemas = _sqlService.GetSchemas(dbConn, new string[] {table});
+            Schema[] schemas = _sqlService.GetSchemas(dbConn, new string[] {table}, false);
 
             string[] schema = new string[] {table};
             schema = schema.Concat(schemas[0].Attributes.ToArray()).ToArray();

@@ -7,6 +7,7 @@
         public readonly string PuzzleImagesRootFolder = "PuzzleImages";
         public readonly string MissionStatusFileName = "UnlockDetail";
         public readonly string MissionStatusDetailFileType = ".txt"; // Must be ".txt" of ".json"
+        public readonly string ImageColumn = "Image";
 
         private static readonly EnvironmentData instance = new EnvironmentData();
 

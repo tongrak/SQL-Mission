@@ -2,6 +2,7 @@
 using System.Data;
 using System.Linq;
 using Assets.Scripts.DataPersistence.MissionStatusDetail;
+using Assets.Scripts.Helper;
 using Mono.Data.Sqlite;
 
 namespace Assets.Scripts.DataPersistence.SQLComponent
@@ -138,16 +139,15 @@ namespace Assets.Scripts.DataPersistence.SQLComponent
         /// <returns>Query command that have image column.</returns>
         private string _InsertImgColumn(string sql)
         {
-            const string imgColumn = "MockImgColumn";
             const string selectWord = "select ";
 
             int selectIndex = sql.ToLower().IndexOf(selectWord);
-            //Todo: if not query all (*) insert image column.
+            //If query is not select all (SELECT *) then insert image column.
             if (selectIndex >= 0 && sql.ElementAt(selectIndex + selectWord.Length) != '*')
             {
                 int imgIndex = selectIndex + selectWord.Length;
 
-                return sql.Insert(imgIndex, $"{imgColumn},");
+                return sql.Insert(imgIndex, $"{EnvironmentData.Instance.ImageColumn},");
             }
             else
             {
@@ -155,7 +155,7 @@ namespace Assets.Scripts.DataPersistence.SQLComponent
             }
         }
 
-        public Schema[] GetSchemas(string dbConn, string[] tables)
+        public Schema[] GetSchemas(string dbConn, string[] tables, bool keepImgCol)
         {
             Schema[] schemas = new Schema[tables.Length];
 
@@ -182,6 +182,11 @@ namespace Assets.Scripts.DataPersistence.SQLComponent
                                 attributes[j] = reader.GetName(j);
                             }
 
+                            // Check if want to keep image column.
+                            if (!keepImgCol && attributes[0].Equals(EnvironmentData.Instance.ImageColumn))
+                            {
+                                attributes = attributes.Skip(1).ToArray();
+                            }
                             schemas[i] = new Schema(table, attributes);
                         }
                     }
