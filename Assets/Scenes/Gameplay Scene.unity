@@ -3310,7 +3310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b09482c46a316a49a9d3e0e3f825460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _missionController: {fileID: 1034289778}
 --- !u!114 &1034289775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3343,7 +3342,9 @@ MonoBehaviour:
   _gameplayManagerGameObjefct: {fileID: 1575723517}
   _missionSceneData: {fileID: 11400000, guid: f20acfc1b1a3dfc49bd917b2c1b0d812, type: 2}
   _configFile: {fileID: 4900000, guid: 5c76841a0cb59d345b699868cb66b6cf, type: 3}
-  _isMock: 0
+  _saveAndBackToDB: {fileID: 0}
+  _isMockConfig: 0
+  _isMockPassed: 0
 --- !u!114 &1034289777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3368,6 +3369,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbd54da99939918428f42eee497c93c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _stepControllerGameObject: {fileID: 1034289771}
+  _missionStatusDetailsData: {fileID: 11400000, guid: 3990d4d3c137b8b40946a3036f66bd2d, type: 2}
 --- !u!114 &1034289779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4013,7 +4016,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1227716174
 RectTransform:
   m_ObjectHideFlags: 0

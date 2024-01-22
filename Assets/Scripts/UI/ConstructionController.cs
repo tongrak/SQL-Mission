@@ -73,6 +73,15 @@ namespace Gameplay.UI
             SetContructionType(ConstructionType.FILL_THE_BLANK);
             _FTBController.SetUpTokenField(getOptionFunction, tokens);
         }
+
+        #region Unity Basic
+        //Hide all console
+        private void Start()
+        {
+            _fillTheBlankGameobject.SetActive(false);
+            _typedQueryGameobject.SetActive(false);
+        }
+        #endregion
     }
 }
 
