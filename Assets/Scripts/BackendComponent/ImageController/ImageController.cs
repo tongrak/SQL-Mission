@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.BackendComponent.ImageController
+namespace Assets.Scripts.DataPersistence.ImageController
 {
     public class ImageController : MonoBehaviour, IImageController
     {

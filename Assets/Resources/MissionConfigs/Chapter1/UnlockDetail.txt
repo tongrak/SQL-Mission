@@ -3,17 +3,17 @@
         {
             "MissionName": "Mission1",
             "IsUnlock": true,
-            "IsPass": true,
+            "IsPass": false,
             "MissionDependenciesUnlockDetail": []
         },
         {
             "MissionName": "Mission2",
-            "IsUnlock": true,
+            "IsUnlock": false,
             "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionName": "Mission1",
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },

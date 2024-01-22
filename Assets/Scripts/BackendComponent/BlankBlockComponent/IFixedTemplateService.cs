@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.BackendComponent.BlankBlockComponent
+﻿namespace Assets.Scripts.DataPersistence.BlankBlockComponent
 {
     public interface IFixedTemplateService
     {

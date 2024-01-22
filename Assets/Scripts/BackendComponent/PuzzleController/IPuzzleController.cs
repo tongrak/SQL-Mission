@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.BackendComponent.Model;
+﻿using Assets.Scripts.DataPersistence.MissionStatusDetail;
 
-namespace Assets.Scripts.BackendComponent.PuzzleController
+namespace Assets.Scripts.DataPersistence.PuzzleController
 {
     public interface IPuzzleController
     {

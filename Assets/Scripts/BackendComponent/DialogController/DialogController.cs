@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.BackendComponent.DialogController
+namespace Assets.Scripts.DataPersistence.DialogController
 {
     public class DialogController : MonoBehaviour, IDialogController
     {

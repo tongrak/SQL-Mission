@@ -1,10 +1,10 @@
-﻿using Assets.Scripts.BackendComponent;
-using Assets.Scripts.BackendComponent.DialogController;
-using Assets.Scripts.BackendComponent.ImageController;
-using Assets.Scripts.BackendComponent.Model;
-using Assets.Scripts.BackendComponent.PuzzleController;
-using Assets.Scripts.BackendComponent.PuzzleManager;
-using Assets.Scripts.BackendComponent.StepController;
+﻿using Assets.Scripts.DataPersistence;
+using Assets.Scripts.DataPersistence.DialogController;
+using Assets.Scripts.DataPersistence.ImageController;
+using Assets.Scripts.DataPersistence.MissionStatusDetail;
+using Assets.Scripts.DataPersistence.PuzzleController;
+using Assets.Scripts.DataPersistence.PuzzleManager;
+using Assets.Scripts.DataPersistence.StepController;
 using Gameplay.UI;
 using Gameplay.UI.VisualFeedback;
 using System;

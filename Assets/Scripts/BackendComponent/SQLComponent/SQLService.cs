@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
-using Assets.Scripts.BackendComponent.Model;
+using Assets.Scripts.DataPersistence.MissionStatusDetail;
 using Mono.Data.Sqlite;
 
-namespace Assets.Scripts.BackendComponent.SQLComponent
+namespace Assets.Scripts.DataPersistence.SQLComponent
 {
     public class SQLService: ISQLService
     {

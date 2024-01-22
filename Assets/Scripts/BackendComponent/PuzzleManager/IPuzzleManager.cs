@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.BackendComponent.PuzzleController;
-using Assets.Scripts.BackendComponent.SaveManager;
+﻿using Assets.Scripts.DataPersistence.PuzzleController;
+using Assets.Scripts.DataPersistence.SaveManager;
 
-namespace Assets.Scripts.BackendComponent.PuzzleManager
+namespace Assets.Scripts.DataPersistence.PuzzleManager
 {
     public interface IPuzzleManager
     {

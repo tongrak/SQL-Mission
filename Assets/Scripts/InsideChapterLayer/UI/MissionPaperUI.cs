@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.BackendComponent.UI
+namespace Assets.Scripts.DataPersistence.UI
 {
     public class MissionPaperUI : MonoBehaviour
     {

@@ -1,37 +1,46 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
-namespace Assets.Scripts.BackendComponent.StepController
+namespace Assets.Scripts.DataPersistence.StepController
 {
     public class StepController : MonoBehaviour, IStepController
     {
-        [SerializeField] private MissionController _missionController;
-        private GameStep[] _allGameStep;
+        public UnityEvent OnAllStepPassed { get; private set; }
+        public GameStep[] AllGameStep { get; private set; }
         private int _gameStepIndex = 0;
 
         public void ChangeStep()
         {
             _gameStepIndex++;
-            if (_allGameStep[_gameStepIndex].CurrStep == Step.EndStep) { OnAllStepPassed(); }
+            if (AllGameStep[_gameStepIndex].CurrStep == Step.EndStep) { OnAllStepPassed?.Invoke(); }
         }
 
         public GameStep GetCurrentStep()
         {
-            return _allGameStep[_gameStepIndex];
+            return AllGameStep[_gameStepIndex];
         }
 
         public GameStep GetNextStep()
         {
-            return _allGameStep[_gameStepIndex + 1];
+            return AllGameStep[_gameStepIndex + 1];
         }
 
         public void SetAllGameStep(GameStep[] allGameStep)
         {
-            _allGameStep = allGameStep;
+            AllGameStep = allGameStep;
         }
 
-        private void OnAllStepPassed()
+        private void Awake()
         {
-            _missionController.AllPuzzlePassed();
+            if (OnAllStepPassed == null)
+            {
+                OnAllStepPassed = new UnityEvent();
+            }
+        }
+
+        private void OnDisable()
+        {
+            OnAllStepPassed?.RemoveAllListeners();
         }
     }
 }

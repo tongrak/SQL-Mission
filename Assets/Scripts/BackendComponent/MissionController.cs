@@ -1,18 +1,21 @@
-﻿using Assets.Scripts.BackendComponent.SaveManager;
-using Assets.Scripts.BackendComponent.StepController;
-using System;
+﻿using Assets.Scripts.DataPersistence.SaveManager;
+using Assets.Scripts.DataPersistence.StepController;
+using Assets.Scripts.ScriptableObjects;
 using UnityEngine;
 
-namespace Assets.Scripts.BackendComponent
+namespace Assets.Scripts.DataPersistence
 {
     public class MissionController : MonoBehaviour
     {
+        [SerializeField] private GameObject _stepControllerGameObject;
+        [SerializeField] private MissionStatusDetailsData _missionStatusDetailsData;
+        
         private MissionType _missionType;
         private string _missionName;
         /// <summary>
         /// Must be like 'Assets/Resources/X/XMissionConfigs/X/ChapterX'
         /// </summary>
-        private string _missionFolderPath;
+        private string _missionFolderFullPath;
         private string[] _missionDependTos;
         private ISaveManager _saveManager;
         private bool _isPassed;
@@ -20,14 +23,14 @@ namespace Assets.Scripts.BackendComponent
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="missionConfigFolderPath">Path must start with 'Assets' then follow by 'Resources'. Example 'Assets/Resources/X/XMissionConfigs/X/ChapterX'</param>
+        /// <param name="missionConfigFolderFullPath">Such as "D:/RootFolder/Assets/Resources/X/X/Chapter1"</param>
         /// <param name="missionName"></param>
         /// <param name="missionDependTos"></param>
         /// <param name="missionType"></param>
         /// <param name="saveManager"></param>
-        public void Initiate(string missionConfigFolderPath, string missionName, string[] missionDependTos,MissionType missionType, ISaveManager saveManager, bool isPassed)
+        public void Initiate(string missionConfigFolderFullPath, string missionName, string[] missionDependTos,MissionType missionType, ISaveManager saveManager, bool isPassed)
         {
-            _missionFolderPath = missionConfigFolderPath;
+            _missionFolderFullPath = missionConfigFolderFullPath;
             _missionName = missionName;
             _missionType = missionType;
             _saveManager = saveManager;
@@ -41,7 +44,9 @@ namespace Assets.Scripts.BackendComponent
             {
                 if (_missionType != MissionType.Final)
                 {
-                    _saveManager.UpdateMissionStatus(_missionFolderPath.Split(new string[] { "Resources/" }, StringSplitOptions.None)[1], _missionName, _missionDependTos);
+                    _missionStatusDetailsData.MissionStatusDetails = _saveManager.UpdateMissionStatus(_missionFolderFullPath, _missionStatusDetailsData.MissionStatusDetails, _missionName, _missionDependTos);
+                    _missionStatusDetailsData.Changed = true;
+                    //_missionSceneData.MissionStatusDetails = null;
                 }
                 else
                 {
@@ -53,6 +58,12 @@ namespace Assets.Scripts.BackendComponent
         public void MockButtonClicked()
         {
             AllPuzzlePassed();
+        }
+
+        private void Start()
+        {
+            IStepController stepcontroller = _stepControllerGameObject.GetComponent<IStepController>();
+            stepcontroller.OnAllStepPassed?.AddListener(AllPuzzlePassed);
         }
     }
 }

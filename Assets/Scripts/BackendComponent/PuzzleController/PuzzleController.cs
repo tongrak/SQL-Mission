@@ -1,11 +1,11 @@
-﻿using Assets.Scripts.BackendComponent.BlankBlockComponent;
-using Assets.Scripts.BackendComponent.Model;
-using Assets.Scripts.BackendComponent.SQLComponent;
+﻿using Assets.Scripts.DataPersistence.BlankBlockComponent;
+using Assets.Scripts.DataPersistence.MissionStatusDetail;
+using Assets.Scripts.DataPersistence.SQLComponent;
 using Mono.Data.Sqlite;
 using System;
 using System.Linq;
 
-namespace Assets.Scripts.BackendComponent.PuzzleController
+namespace Assets.Scripts.DataPersistence.PuzzleController
 {
     public class PuzzleController : IPuzzleController
     {
@@ -94,33 +94,5 @@ namespace Assets.Scripts.BackendComponent.PuzzleController
 
             return null;
         }
-
-        //public string[] GetTemplateBlank(string templateType, string table)
-        //{
-        //    switch (templateType)
-        //    {
-        //        case "OperatorsSymbol":
-        //            return _fixedTemplateService.OperatorsSymbol;
-        //        case "OperatorsWord":
-        //            return _fixedTemplateService.OperatorsWord;
-        //        case "Function":
-        //            return _fixedTemplateService.Function;
-        //        case "Command":
-        //            return _fixedTemplateService.Command;
-        //        case "Tables":
-        //            return _upToConfigTemplateService.GetTablesTemplate(_dbConn);
-        //        case "Schema":
-        //            return _upToConfigTemplateService.GetSchemaTemplate(_dbConn, table);
-        //        case "Attributes":
-        //            return _upToConfigTemplateService.GetAttributesTemplate(_dbConn, table);
-        //        default:
-        //            return null;
-        //    }
-        //}
-
-        //public string[] GetSpecialBlank(int index)
-        //{
-        //    return _blankOptions[index];
-        //}
     }
 }
