@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.DataPersistence.MissionStatusDetail;
+using UnityEngine;
 
 namespace Assets.Scripts.ScriptableObjects
 {

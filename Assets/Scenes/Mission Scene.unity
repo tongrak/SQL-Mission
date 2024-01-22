@@ -712,6 +712,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stepControllerGameObject: {fileID: 1755518240}
+  _missionStatusDetailsData: {fileID: 11400000, guid: 3990d4d3c137b8b40946a3036f66bd2d, type: 2}
 --- !u!1 &1425007403
 GameObject:
   m_ObjectHideFlags: 0

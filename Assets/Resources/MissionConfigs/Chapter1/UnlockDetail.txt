@@ -3,50 +3,50 @@
         {
             "MissionName": "Mission1",
             "IsUnlock": true,
-            "IsPass": true,
+            "IsPass": false,
             "MissionDependenciesUnlockDetail": []
         },
         {
             "MissionName": "Mission2",
-            "IsUnlock": true,
-            "IsPass": true,
+            "IsUnlock": false,
+            "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionName": "Mission1",
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "MissionName": "Mission3",
-            "IsUnlock": true,
+            "IsUnlock": false,
             "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionName": "Mission2",
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "MissionName": "Mission4",
-            "IsUnlock": true,
+            "IsUnlock": false,
             "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionName": "Mission2",
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "MissionName": "Mission5",
-            "IsUnlock": true,
+            "IsUnlock": false,
             "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionName": "Mission2",
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },

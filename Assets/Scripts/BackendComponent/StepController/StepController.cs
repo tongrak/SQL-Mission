@@ -5,7 +5,6 @@ namespace Assets.Scripts.DataPersistence.StepController
 {
     public class StepController : MonoBehaviour, IStepController
     {
-        [SerializeField] private MissionController _missionController;
         public UnityEvent OnAllStepPassed { get; private set; }
         public GameStep[] AllGameStep { get; private set; }
         private int _gameStepIndex = 0;

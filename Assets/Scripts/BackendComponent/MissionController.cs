@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.DataPersistence.SaveManager;
 using Assets.Scripts.DataPersistence.StepController;
+using Assets.Scripts.ScriptableObjects;
 using UnityEngine;
 
 namespace Assets.Scripts.DataPersistence
@@ -7,6 +8,7 @@ namespace Assets.Scripts.DataPersistence
     public class MissionController : MonoBehaviour
     {
         [SerializeField] private GameObject _stepControllerGameObject;
+        [SerializeField] private MissionStatusDetailsData _missionStatusDetailsData;
         
         private MissionType _missionType;
         private string _missionName;
@@ -42,7 +44,9 @@ namespace Assets.Scripts.DataPersistence
             {
                 if (_missionType != MissionType.Final)
                 {
-                    _saveManager.UpdateMissionStatus(_missionFolderFullPath, _missionName, _missionDependTos);
+                    _missionStatusDetailsData.MissionStatusDetails = _saveManager.UpdateMissionStatus(_missionFolderFullPath, _missionStatusDetailsData.MissionStatusDetails, _missionName, _missionDependTos);
+                    _missionStatusDetailsData.Changed = true;
+                    //_missionSceneData.MissionStatusDetails = null;
                 }
                 else
                 {
