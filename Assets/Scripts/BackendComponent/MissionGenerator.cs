@@ -1,18 +1,18 @@
-﻿using Assets.Scripts.BackendComponent.DialogController;
-using Assets.Scripts.BackendComponent.SQLComponent;
+﻿using Assets.Scripts.DataPersistence.DialogController;
+using Assets.Scripts.DataPersistence.SQLComponent;
 using System.Linq;
 using UnityEngine;
-using Assets.Scripts.BackendComponent.ImageController;
+using Assets.Scripts.DataPersistence.ImageController;
 using System.IO;
 using Assets.Scripts.ScriptableObjects;
 using Assets.Scripts.Helper;
-using Assets.Scripts.BackendComponent.StepController;
-using Assets.Scripts.BackendComponent.PuzzleManager;
-using Assets.Scripts.BackendComponent.Model;
+using Assets.Scripts.DataPersistence.StepController;
+using Assets.Scripts.DataPersistence.PuzzleManager;
+using Assets.Scripts.DataPersistence.MissionStatusDetail;
 using System;
 using Gameplay;
 
-namespace Assets.Scripts.BackendComponent
+namespace Assets.Scripts.DataPersistence
 {
     public class MissionGenerator : MonoBehaviour
     {

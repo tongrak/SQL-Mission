@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.BackendComponent.Model;
-using Assets.Scripts.BackendComponent.SQLComponent;
+﻿using Assets.Scripts.DataPersistence.MissionStatusDetail;
+using Assets.Scripts.DataPersistence.SQLComponent;
 using System.Linq;
 
-namespace Assets.Scripts.BackendComponent.BlankBlockComponent
+namespace Assets.Scripts.DataPersistence.BlankBlockComponent
 {
     public class UpToConfigTemplateService : IUpToConfigTemplateService
     {

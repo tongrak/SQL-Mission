@@ -1,8 +1,8 @@
 ﻿using System;
-using Assets.Scripts.BackendComponent.Model;
+using Assets.Scripts.DataPersistence.MissionStatusDetail;
 using Mono.Data.Sqlite;
 
-namespace Assets.Scripts.BackendComponent.SQLComponent
+namespace Assets.Scripts.DataPersistence.SQLComponent
 {
     public interface ISQLService
     {

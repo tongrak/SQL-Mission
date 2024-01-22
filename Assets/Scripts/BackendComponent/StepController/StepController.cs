@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace Assets.Scripts.BackendComponent.StepController
+namespace Assets.Scripts.DataPersistence.StepController
 {
     public class StepController : MonoBehaviour, IStepController
     {

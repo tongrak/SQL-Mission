@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.BackendComponent.DialogController
+﻿namespace Assets.Scripts.DataPersistence.DialogController
 {
     public interface IDialogController
     {

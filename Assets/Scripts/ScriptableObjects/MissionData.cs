@@ -2,7 +2,7 @@
 
 namespace Assets.Scripts.ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "MissionData", menuName = "MissionSelectedData")]
+    [CreateAssetMenu(fileName = "MissionSceneData", menuName = "MissionSceneData")]
     public class MissionData: ScriptableObject
     {
         /// <summary>

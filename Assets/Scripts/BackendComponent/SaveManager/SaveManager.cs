@@ -1,12 +1,10 @@
-﻿using Assets.Scripts.BackendComponent.Model;
+﻿using Assets.Scripts.DataPersistence.MissionStatusDetail;
 using Assets.Scripts.Helper;
 using System;
 using System.IO;
-using System.Threading;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
-namespace Assets.Scripts.BackendComponent.SaveManager
+namespace Assets.Scripts.DataPersistence.SaveManager
 {
     public class SaveManager : ISaveManager
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine.Events;
 
-namespace Assets.Scripts.BackendComponent.StepController
+namespace Assets.Scripts.DataPersistence.StepController
 {
     public interface IStepController
     {

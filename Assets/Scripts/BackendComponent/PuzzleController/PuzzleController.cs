@@ -1,11 +1,11 @@
-﻿using Assets.Scripts.BackendComponent.BlankBlockComponent;
-using Assets.Scripts.BackendComponent.Model;
-using Assets.Scripts.BackendComponent.SQLComponent;
+﻿using Assets.Scripts.DataPersistence.BlankBlockComponent;
+using Assets.Scripts.DataPersistence.MissionStatusDetail;
+using Assets.Scripts.DataPersistence.SQLComponent;
 using Mono.Data.Sqlite;
 using System;
 using System.Linq;
 
-namespace Assets.Scripts.BackendComponent.PuzzleController
+namespace Assets.Scripts.DataPersistence.PuzzleController
 {
     public class PuzzleController : IPuzzleController
     {

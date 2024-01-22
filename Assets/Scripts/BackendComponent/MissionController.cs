@@ -1,9 +1,8 @@
-﻿using Assets.Scripts.BackendComponent.SaveManager;
-using Assets.Scripts.BackendComponent.StepController;
-using System;
+﻿using Assets.Scripts.DataPersistence.SaveManager;
+using Assets.Scripts.DataPersistence.StepController;
 using UnityEngine;
 
-namespace Assets.Scripts.BackendComponent
+namespace Assets.Scripts.DataPersistence
 {
     public class MissionController : MonoBehaviour
     {

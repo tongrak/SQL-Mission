@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.BackendComponent
+namespace Assets.Scripts.DataPersistence
 {
     public class MissionPaperController : MonoBehaviour
     {

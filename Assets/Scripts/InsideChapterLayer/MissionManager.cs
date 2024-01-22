@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.BackendComponent.StepController;
+﻿using Assets.Scripts.DataPersistence.StepController;
 using Assets.Scripts.Helper;
-using Assets.Scripts.BackendComponent;
-using Assets.Scripts.BackendComponent.Model;
-using Assets.Scripts.BackendComponent.UI;
+using Assets.Scripts.DataPersistence;
+using Assets.Scripts.DataPersistence.MissionStatusDetail;
+using Assets.Scripts.DataPersistence.UI;
 using Assets.Scripts.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;

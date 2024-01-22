@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.BackendComponent.SaveManager
+﻿namespace Assets.Scripts.DataPersistence.SaveManager
 {
     public interface ISaveManager
     {

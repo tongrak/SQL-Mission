@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.BackendComponent.StepController
+﻿namespace Assets.Scripts.DataPersistence.StepController
 {
     [System.Serializable]
     public enum Step
