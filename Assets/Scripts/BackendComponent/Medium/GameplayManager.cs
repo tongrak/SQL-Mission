@@ -122,11 +122,15 @@ namespace Gameplay
 
         public void StartGameplay(FileSystemWatcher saveFileWatcher)
         {
-            //TODO: Utilize given fileWatcher for the save "scene" thingie...
             _gameplayIsStarted = true;
             _actionButtonController.SetActivity(true);
             actAccordingToStep(_currStepCon.GetCurrentStep());
             _saveFileWatcher = saveFileWatcher;
+            if (saveFileWatcher == null)
+            {
+                _resultSaved = true;
+                return;
+            }
             _saveFileWatcher.Changed += onSaveComplete;
         }
 
