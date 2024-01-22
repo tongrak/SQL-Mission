@@ -210,8 +210,10 @@ namespace Gameplay
             }
             //TODO: check loading status;
             _loadingFacadeObject.SetActive(false);
-            //Then switch back to Boards Scene
+            //UnsubThen switch back to Boards Scene
+            if (_saveFileWatcher != null) _saveFileWatcher.Changed -= onSaveComplete;
             _scenesManager.LoadSelectMissionScene();
+
         }
         #endregion
 
