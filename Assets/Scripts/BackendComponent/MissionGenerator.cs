@@ -138,7 +138,7 @@ namespace Assets.Scripts.DataPersistence
         private void LoadImageController()
         {
             IImageController imageController = _imageControllerGameObject.GetComponent<IImageController>();
-            string rootImgFolderPath = $"/Resources/{EnvironmentData.Instance.PuzzleImagesRootFolder}/";
+            string rootImgFolderPath = $"\\Resources\\{EnvironmentData.Instance.PuzzleImagesRootFolder}/";
             // Each index mean each step. Example imagePathLists[0] mean image for Step[0].
             string[][] imagePathLists = new string[_missionConfig.MissionDetail.Length][];
 
@@ -172,9 +172,9 @@ namespace Assets.Scripts.DataPersistence
                     }
                     else
                     {
-                        string[] imagePaths = stepDetail.ImgDetail.ImgList.Select(x => Application.dataPath + rootImgFolderPath + stepDetail.ImgDetail.ImgFolder + "/" + x).ToArray();
+                        string[] imagePaths = stepDetail.ImgDetail.ImgList.Select(x => Application.dataPath + rootImgFolderPath + stepDetail.ImgDetail.ImgFolder + "\\" + x).ToArray();
                         imagePathLists[i] = new string[imagePaths.Length];
-                        for (int j = 0; i < imagePaths.Length; j++) 
+                        for (int j = 0; j < imagePaths.Length; j++) 
                         {
                             string imagePath = imagePaths[j];
                             if (!File.Exists(imagePath))

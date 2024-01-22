@@ -4,21 +4,23 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ PeopleOccupation",
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Flower ที่มี Petal เป็น 7",
       "Step": 1,
       "ImgDetail": {
-        "ImgFolder": "Chapter1/PeopleOccupation",
-        "ImgList": null
+        "ImgFolder": "Chapter1",
+        "ImgList": [
+          "mission4_1.png"
+        ]
       },
       "PuzzleDetail": {
         "DB": "Starter.db",
         "Tables": [
-          "PeopleOccupation"
+          "Flower"
         ],
-        "PreSQL": "SELECT * \n FROM <<Blank>>",
-        "AnswerSQL": "SELECT * FROM PeopleOccupation",
-        "VisualType": 0,
-        "PuzzleType": 1,
+        "PreSQL": null,
+        "AnswerSQL": "SELECT * FROM Flower WHERE Petal = 7",
+        "VisualType": 1,
+        "PuzzleType": 2,
         "BlankOptions": null
       }
     }
