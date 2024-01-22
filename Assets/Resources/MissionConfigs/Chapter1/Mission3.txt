@@ -4,21 +4,21 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Animal",
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Flower ที่มี PollenColor เป็น Yellow",
       "Step": 1,
       "ImgDetail": {
-        "ImgFolder": "Starter/Animal",
+        "ImgFolder": "Starter/Flower",
         "ImgList": null
       },
       "PuzzleDetail": {
         "DB": "Starter.db",
         "Tables": [
-          "Animal"
+          "Flower"
         ],
-        "PreSQL": "SELECT * \n FROM <<Blank>>",
-        "AnswerSQL": "SELECT * FROM Animal",
+        "PreSQL": null,
+        "AnswerSQL": "SELECT * FROM Flower WHERE PollenColor = 'Yellow'",
         "VisualType": 0,
-        "PuzzleType": 1,
+        "PuzzleType": 2,
         "BlankOptions": null
       }
     }
