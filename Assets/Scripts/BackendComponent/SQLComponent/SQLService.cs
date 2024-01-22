@@ -155,7 +155,7 @@ namespace Assets.Scripts.DataPersistence.SQLComponent
             }
         }
 
-        public Schema[] GetSchemas(string dbConn, string[] tables)
+        public Schema[] GetSchemas(string dbConn, string[] tables, bool keepImgCol)
         {
             Schema[] schemas = new Schema[tables.Length];
 
@@ -182,6 +182,11 @@ namespace Assets.Scripts.DataPersistence.SQLComponent
                                 attributes[j] = reader.GetName(j);
                             }
 
+                            // Check if want to keep image column.
+                            if (!keepImgCol && attributes[0].Equals(EnvironmentData.Instance.ImageColumn))
+                            {
+                                attributes = attributes.Skip(1).ToArray();
+                            }
                             schemas[i] = new Schema(table, attributes);
                         }
                     }
