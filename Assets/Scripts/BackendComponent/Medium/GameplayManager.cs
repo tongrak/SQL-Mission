@@ -165,7 +165,7 @@ namespace Gameplay
         private void handleOnConsoleType(IPuzzleController pC, PuzzleType type, string tokens)
         {
             //TODO: Wait for BE access function
-            Func<string, string[]> getOptions = null;
+            Func<string, string[]> getOptions = pC.GetBlankOptions;
             switch (type)
             {
                 case PuzzleType.ExecuteOnly:

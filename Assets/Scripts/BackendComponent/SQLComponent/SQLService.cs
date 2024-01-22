@@ -142,7 +142,7 @@ namespace Assets.Scripts.DataPersistence.SQLComponent
             const string selectWord = "select ";
 
             int selectIndex = sql.ToLower().IndexOf(selectWord);
-
+            //Todo: if not query all (*) insert image column.
             if (selectIndex >= 0 && sql.ElementAt(selectIndex + selectWord.Length) != '*')
             {
                 int imgIndex = selectIndex + selectWord.Length;
