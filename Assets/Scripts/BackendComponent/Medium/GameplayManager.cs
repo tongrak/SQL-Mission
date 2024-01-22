@@ -45,6 +45,7 @@ namespace Gameplay
         [SerializeField] private GameObject _dialogBoxControllerObject;
         [SerializeField] private GameObject _mainConsoleControllerObject;
         [SerializeField] private GameObject _dynamicVisualFeedbackObject;
+        [SerializeField] private GameObject _staticVisualFeedbackObject;
         [SerializeField] private GameObject _consoleTabsObject;
         [SerializeField] private GameObject _actionButtonObject;
         [SerializeField] private GameObject _schemaDisplayObject;
@@ -58,6 +59,7 @@ namespace Gameplay
         private ISchemaDisplayController _schemaDisplayController => mustGetComponent<ISchemaDisplayController>(_schemaDisplayObject);
         //===== Visual Controller =====
         private IDynamicVisualController _dynamicVisualController => mustGetComponent<IDynamicVisualController>(_dynamicVisualFeedbackObject);
+        private IStaticVisualController _staticVisualController => mustGetComponent<IStaticVisualController>(_staticVisualFeedbackObject);
 
         //===== BE interface =====
         private IStepController _currStepCon => mustGetComponent<IStepController>(_backEndObject);
@@ -104,17 +106,8 @@ namespace Gameplay
                     SchemaDTO[] schemaDTOs = _currPC.Schemas.Select(x => { return new SchemaDTO(x.TableName, x.Attributes); }).ToArray();
                     _schemaDisplayController.SetUpDisplay(schemaDTOs);
 
-                    if (imagePaths != null)
-                    {
-                        if (_currPC.VisualType == VisualType.A)
-                        {
-                            _dynamicVisualController.InitItemObjects(imagePaths);
-                        }
-                        else
-                        {
-                            Debug.LogWarning("Puzzle with VisualType B detected");
-                        }
-                    }
+                    if (imagePaths != null) handleOnVisualType(_currPC.VisualType, imagePaths);
+
                     _canAdvanceAStep = false;
                     break;
                 case Step.Dialog:
@@ -176,6 +169,24 @@ namespace Gameplay
                     break;
                 case PuzzleType.OnYourOwn:
                     _mainConsoleController.setConstructionDisplay(getOptions, UI.Construction.ConstructionType.TYPING, tokens);
+                    break;
+            }
+        }
+        private void handleOnVisualType(VisualType type, string[] imagePaths)
+        {
+            //Hide Visual feedback
+            _dynamicVisualFeedbackObject.SetActive(false);
+            _staticVisualFeedbackObject.SetActive(false);
+
+            switch (type)
+            {
+                case VisualType.A: 
+                    _dynamicVisualFeedbackObject.SetActive(true);
+                    _dynamicVisualController.InitItemObjects(imagePaths); 
+                    break;
+                case VisualType.B:
+                    _staticVisualFeedbackObject.SetActive(true);
+                    _staticVisualController.InitItemObjects(imagePaths); 
                     break;
             }
         }
@@ -269,8 +280,10 @@ namespace Gameplay
         {
             //Hide loading facade;
             _loadingFacadeObject.SetActive(false);
+            
             SelectConstructionTab();
             _actionButtonController.SetActivity(false);
+            
         }
         private void OnDisable()
         {
