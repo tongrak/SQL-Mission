@@ -596,8 +596,9 @@ MonoBehaviour:
   _gameplayManagerGameObjefct: {fileID: 0}
   _missionSceneData: {fileID: 11400000, guid: f20acfc1b1a3dfc49bd917b2c1b0d812, type: 2}
   _configFile: {fileID: 0}
-  _isMock: 0
   _saveAndBackToDB: {fileID: 1425007404}
+  _isMockConfig: 0
+  _isMockPassed: 1
 --- !u!1 &1363386436
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,7 +20,7 @@
         {
             "MissionName": "Mission3",
             "IsUnlock": true,
-            "IsPass": true,
+            "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionName": "Mission2",
@@ -31,7 +31,7 @@
         {
             "MissionName": "Mission4",
             "IsUnlock": true,
-            "IsPass": true,
+            "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionName": "Mission2",
@@ -42,7 +42,7 @@
         {
             "MissionName": "Mission5",
             "IsUnlock": true,
-            "IsPass": true,
+            "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionName": "Mission2",
@@ -52,20 +52,20 @@
         },
         {
             "MissionName": "Final",
-            "IsUnlock": true,
+            "IsUnlock": false,
             "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionName": "Mission3",
-                    "IsPass": true
+                    "IsPass": false
                 },
                 {
                     "MissionName": "Mission4",
-                    "IsPass": true
+                    "IsPass": false
                 },
                 {
                     "MissionName": "Mission5",
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         }

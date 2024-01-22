@@ -24,8 +24,9 @@ namespace Assets.Scripts.BackendComponent
         [SerializeField] private GameObject _gameplayManagerGameObjefct;
         [SerializeField] private MissionData _missionSceneData;
         [SerializeField] private TextAsset _configFile;
-        [SerializeField] private bool _isMock;
         [SerializeField] private SaveAndBackToMB _saveAndBackToDB;
+        [SerializeField] private bool _isMockConfig;
+        [SerializeField] private bool _isMockPassed;
 
         private MissionConfig _missionConfig;
         private ISQLService _sqlService = new SQLService();
@@ -33,7 +34,7 @@ namespace Assets.Scripts.BackendComponent
 
         private void StartGenerating()
         {
-            if (_isMock)
+            if (_isMockConfig)
             {
                 _MockLoadConfigFile();
             }
@@ -206,8 +207,11 @@ namespace Assets.Scripts.BackendComponent
         {
             StartGenerating();
             // Ues for test change scene when mission passed.
-            _saveAndBackToDB.Initiate(_fileSystemWatcher);
-            Debug.LogWarning("SaveAndBackToDB initiate. // Delete this before production");
+            if (_isMockPassed)
+            {
+                _saveAndBackToDB.Initiate(_fileSystemWatcher);
+                Debug.LogWarning("SaveAndBackToDB initiate. // Delete this before production");
+            }
             //Start gameplay after mission generation.
             _gameplayManagerGameObjefct.GetComponent<IGameplayManager>().StartGameplay(_fileSystemWatcher);
         }
