@@ -1,13 +1,15 @@
-﻿namespace Assets.Scripts.BackendComponent.SaveManager
+﻿using Assets.Scripts.DataPersistence.MissionStatusDetail;
+
+namespace Assets.Scripts.DataPersistence.SaveManager
 {
     public interface ISaveManager
     {
         /// <summary>
         /// Update mission status for chapter after mission is passed.
         /// </summary>
-        /// <param name="missionFolderPathAfterResources">Folder path for mission config file in seleted chapter and must be after 'Resources' folder sush as 'MissionConfigs/ChapterX'</param>
+        /// <param name="missionFolderFullPath">Inside path must contain 'Resources/' folder such as "D:X/X/X/Resources/X/X/Chapter1"</param>
         /// <param name="passedMissionName">Mission name that passed.</param>
-        void UpdateMissionStatus(string missionFolderPathAfterResources, string passedMissionName, string[] missionDependTos);
+        MissionUnlockDetails UpdateMissionStatus(string missionFolderFullPath, MissionUnlockDetails missionStatusDetails, string passedMissionName, string[] missionDependTos);
 
         ///// <summary>
         ///// Update chapter status.

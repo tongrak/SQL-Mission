@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.BackendComponent.Model;
+﻿using Assets.Scripts.DataPersistence.MissionStatusDetail;
 
-namespace Assets.Scripts.BackendComponent.StepController
+namespace Assets.Scripts.DataPersistence.StepController
 {
     [System.Serializable]
     public class PuzzleDetail

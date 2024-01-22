@@ -1,19 +1,18 @@
-﻿using Assets.Scripts.BackendComponent.BlankBlockComponent;
-using Assets.Scripts.BackendComponent.DialogController;
-using Assets.Scripts.BackendComponent.SQLComponent;
+﻿using Assets.Scripts.DataPersistence.DialogController;
+using Assets.Scripts.DataPersistence.SQLComponent;
 using System.Linq;
 using UnityEngine;
-using Assets.Scripts.BackendComponent.ImageController;
+using Assets.Scripts.DataPersistence.ImageController;
 using System.IO;
 using Assets.Scripts.ScriptableObjects;
 using Assets.Scripts.Helper;
-using Assets.Scripts.BackendComponent.StepController;
-using Assets.Scripts.BackendComponent.PuzzleManager;
-using Assets.Scripts.BackendComponent.Model;
+using Assets.Scripts.DataPersistence.StepController;
+using Assets.Scripts.DataPersistence.PuzzleManager;
+using Assets.Scripts.DataPersistence.MissionStatusDetail;
 using System;
 using Gameplay;
 
-namespace Assets.Scripts.BackendComponent
+namespace Assets.Scripts.DataPersistence
 {
     public class MissionGenerator : MonoBehaviour
     {
@@ -25,14 +24,17 @@ namespace Assets.Scripts.BackendComponent
         [SerializeField] private GameObject _gameplayManagerGameObjefct;
         [SerializeField] private MissionData _missionSceneData;
         [SerializeField] private TextAsset _configFile;
-        [SerializeField] private bool _isMock;
+        [SerializeField] private SaveAndBackToMB _saveAndBackToDB;
+        [SerializeField] private bool _isMockConfig;
+        [SerializeField] private bool _isMockPassed;
 
         private MissionConfig _missionConfig;
         private ISQLService _sqlService = new SQLService();
+        private FileSystemWatcher _fileSystemWatcher;
 
         private void StartGenerating()
         {
-            if (_isMock)
+            if (_isMockConfig)
             {
                 _MockLoadConfigFile();
             }
@@ -40,6 +42,7 @@ namespace Assets.Scripts.BackendComponent
             {
                 LoadConfigFile();
             }
+            InitiateFileWatcher();
             LoadDialogController();
             LoadStepController();
             LoadPuzzleManager();
@@ -58,6 +61,17 @@ namespace Assets.Scripts.BackendComponent
             string folderPathAfterResources = _missionSceneData.MissionConfigFolderFullPath.Split(new string[] { "Resources/" }, StringSplitOptions.None)[1];
             TextAsset missionConfigFile = Resources.Load<TextAsset>(folderPathAfterResources + "/" + _missionSceneData.MissionFileName);
             _missionConfig = JsonUtility.FromJson<MissionConfig>(missionConfigFile.text);
+        }
+
+        private void InitiateFileWatcher()
+        {
+            _fileSystemWatcher = new FileSystemWatcher(_missionSceneData.MissionConfigFolderFullPath, EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType);
+
+            _fileSystemWatcher.NotifyFilter = NotifyFilters.CreationTime
+                                 | NotifyFilters.LastWrite
+                                 | NotifyFilters.Size;
+
+            _fileSystemWatcher.EnableRaisingEvents = true;
         }
 
         private void LoadDialogController()
@@ -192,8 +206,14 @@ namespace Assets.Scripts.BackendComponent
         void Start()
         {
             StartGenerating();
+            // Ues for test change scene when mission passed.
+            if (_isMockPassed)
+            {
+                _saveAndBackToDB.Initiate(_fileSystemWatcher);
+                Debug.LogWarning("SaveAndBackToDB initiate. // Delete this before production");
+            }
             //Start gameplay after mission generation.
-            _gameplayManagerGameObjefct.GetComponent<IGameplayManager>().StartGameplay(null);
+            _gameplayManagerGameObjefct.GetComponent<IGameplayManager>().StartGameplay(_fileSystemWatcher);
         }
 
         // Update is called once per frame

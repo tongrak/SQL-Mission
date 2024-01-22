@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.BackendComponent.StepController;
+﻿using Assets.Scripts.DataPersistence.StepController;
 using Assets.Scripts.Helper;
-using Assets.Scripts.BackendComponent;
-using Assets.Scripts.BackendComponent.Model;
-using Assets.Scripts.BackendComponent.UI;
+using Assets.Scripts.DataPersistence;
+using Assets.Scripts.DataPersistence.MissionStatusDetail;
+using Assets.Scripts.DataPersistence.UI;
 using Assets.Scripts.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,18 +14,21 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private GameObject _optionalMission;
     [SerializeField] private GameObject _finalMission;
     [SerializeField] private MissionData _missionSceneData;
+    [SerializeField] private MissionStatusDetailsData _missionStatusDetailsData;
     /// <summary>
     /// Full path of config missions folder.
     /// </summary>
     private string _allmissionConfigFolderFullPath; // Insert path after root path. If relative path is './MissionConfig/Chapter1' then insert 'Chapter1'
     private string[] _missionConfigFiles; // list of mission config file. Example [mission1, mission2]
     private FileSystemWatcher _fileWatcher;
+    private MissionUnlockDetails _missionStatusDetails;
 
     public void MissionPaperClicked(string missionClickedFilename, bool isPassed)
     {
         _missionSceneData.MissionConfigFolderFullPath = _allmissionConfigFolderFullPath;
         _missionSceneData.MissionFileName = missionClickedFilename;
         _missionSceneData.IsPassed = isPassed;
+        _missionStatusDetailsData.MissionStatusDetails = _missionStatusDetails;
         ScenesManager.Instance.LoadMissionScene();
     }
 
@@ -75,7 +78,7 @@ public class MissionManager : MonoBehaviour
         string missionConfigFolderPathAfterResources = _allmissionConfigFolderFullPath.Split(new string[] { "Resources/" }, System.StringSplitOptions.None)[1] + '/';
         string unLockDetailFilePathFromAssets = _allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.MissionStatusFileName; // Such as 'Assets/Resources/X/X/<FileName>'
         string missionStatusFileType = EnvironmentData.Instance.MissionStatusDetailFileType; // Can use '.txt' or '.json'. Up to you.
-        bool haveStatusDetailFile = System.IO.File.Exists(unLockDetailFilePathFromAssets + missionStatusFileType);
+        bool haveStatusDetailFile = File.Exists(unLockDetailFilePathFromAssets + missionStatusFileType);
 
         MissionConfig[] missionConfigs = new MissionConfig[_missionConfigFiles.Length];
 
@@ -90,19 +93,27 @@ public class MissionManager : MonoBehaviour
             missionConfigs[i] = JsonUtility.FromJson<MissionConfig>(configFiles.text);
         }
 
-        // Get all status detail.
-        MissionUnlockDetails missionUnlockDetails;
-        if (!haveStatusDetailFile)
-            {
-            missionUnlockDetails = _WriteMissionUnlockDetails(missionConfigs, unLockDetailFilePathFromAssets, missionStatusFileType);
+        // Load all mission status detail.
+        if (_missionStatusDetailsData.Changed)
+        {
+            _missionStatusDetails = _missionStatusDetailsData.MissionStatusDetails;
+            //_missionBoardSceneData.MissionStatusDetails = null;
+            _missionStatusDetailsData.Changed = false;
         }
         else
         {
-            TextAsset unlockDetailsFile = Resources.Load<TextAsset>(missionConfigFolderPathAfterResources + EnvironmentData.Instance.MissionStatusFileName);
-            missionUnlockDetails = JsonUtility.FromJson<MissionUnlockDetails>(unlockDetailsFile.text);
+            if (!haveStatusDetailFile)
+            {
+                _missionStatusDetails = _WriteMissionUnlockDetails(missionConfigs, unLockDetailFilePathFromAssets, missionStatusFileType);
+            }
+            else
+            {
+                string missionStatusTxt = File.ReadAllText(_allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType);
+                _missionStatusDetails = JsonUtility.FromJson<MissionUnlockDetails>(missionStatusTxt);
+            }
         }
 
-        _GenerateAllMissionObject(missionConfigs, missionUnlockDetails);
+        _GenerateAllMissionObject(missionConfigs, _missionStatusDetails);
     }
 
     /// <summary>
@@ -150,12 +161,7 @@ public class MissionManager : MonoBehaviour
         // Save to 'UnlockDetail.txt'
         string data = JsonUtility.ToJson(missionUnlockDetails, true);
 
-        //watcher.Changed += FileChangedCompletely;
-
-        //watcher.EnableRaisingEvents = true;
-
-
-        System.IO.File.WriteAllText(unLockDetailFilePathFromAssets+fileType, data);
+        File.WriteAllText(unLockDetailFilePathFromAssets+fileType, data);
 
         return missionUnlockDetails;
     }
@@ -174,7 +180,6 @@ public class MissionManager : MonoBehaviour
     {
         // Find parent's transform
         Transform misionGroupTransform = GameObject.Find("Content").transform;
-
 
         // Instantiate mission(s)
         for (int i = 0; i < missionConfigs.Length; i++)

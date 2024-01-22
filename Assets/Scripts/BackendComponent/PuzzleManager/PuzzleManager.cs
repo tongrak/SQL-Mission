@@ -1,10 +1,10 @@
-﻿using Assets.Scripts.BackendComponent.Model;
-using Assets.Scripts.BackendComponent.PuzzleController;
-using Assets.Scripts.BackendComponent.SaveManager;
-using Assets.Scripts.BackendComponent.StepController;
+﻿using Assets.Scripts.DataPersistence.MissionStatusDetail;
+using Assets.Scripts.DataPersistence.PuzzleController;
+using Assets.Scripts.DataPersistence.SaveManager;
+using Assets.Scripts.DataPersistence.StepController;
 using UnityEngine;
 
-namespace Assets.Scripts.BackendComponent.PuzzleManager
+namespace Assets.Scripts.DataPersistence.PuzzleManager
 {
     public class PuzzleManager : MonoBehaviour, IPuzzleManager
     {

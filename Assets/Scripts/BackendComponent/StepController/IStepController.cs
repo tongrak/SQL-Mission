@@ -1,7 +1,11 @@
-﻿namespace Assets.Scripts.BackendComponent.StepController
+﻿using UnityEngine.Events;
+
+namespace Assets.Scripts.DataPersistence.StepController
 {
     public interface IStepController
     {
+        UnityEvent OnAllStepPassed { get; }
+        GameStep[] AllGameStep { get; }
         void SetAllGameStep(GameStep[] allGameStep);
         /// <summary>
         /// Change to next step and get that step

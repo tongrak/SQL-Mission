@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Scripts.BackendComponent.Model
+namespace Assets.Scripts.DataPersistence.MissionStatusDetail
 {
     [System.Serializable]
     public class BlankOption
