@@ -4,7 +4,7 @@
   "MissionDescription": "ทดสอบการเติมช่องว่างด้วย Drop down",
   "MissionDetail": [
     {
-      "Dialog": "ช่วยแสดงข้อมูลทั้งหมดของ Flower ให้หน่อย",
+      "Dialog": "ช่วยแสดงข้อมูลทั้งหมดของ Flower ที่มี Petal เป็น 7",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Flower",
@@ -15,10 +15,10 @@
         "Tables": [
           "Flower"
         ],
-        "PreSQL": "SELECT <<Blank1>>\n FROM Flower",
-        "AnswerSQL": "SELECT * FROM Flower",
+        "PreSQL": "SELECT <<Blank1>> /n FROM Flower /n WHERE Petal <<Blank2>> 7",
+        "AnswerSQL": "SELECT * FROM Flower WHERE Petal = 7",
         "VisualType": 0,
-        "PuzzleType": 0,
+        "PuzzleType": 1,
         "BlankOptions": [
           {
             "OptionTitle": "Blank1",
@@ -27,6 +27,14 @@
               "Petal",
               "PollenColor",
               "PetalColor"
+            ]
+          },
+	  {
+            "OptionTitle": "Blank2",
+            "OptionContext": [
+              ">",
+              "<",
+              "="
             ]
           }
         ]
