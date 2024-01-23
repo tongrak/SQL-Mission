@@ -15,7 +15,7 @@
         "Tables": [
           "Flower"
         ],
-        "PreSQL": "SELECT <<Blank1>> /n FROM Flower /n WHERE Petal <<Blank2>> 7",
+        "PreSQL": "SELECT <<Blank1>> /n FROM Flower /n WHERE Petal <<Type>> 7",
         "AnswerSQL": "SELECT * FROM Flower WHERE Petal = 7",
         "VisualType": 0,
         "PuzzleType": 1,
@@ -27,14 +27,6 @@
               "Petal",
               "PollenColor",
               "PetalColor"
-            ]
-          },
-	  {
-            "OptionTitle": "Blank2",
-            "OptionContext": [
-              ">",
-              "<",
-              "="
             ]
           }
         ]
