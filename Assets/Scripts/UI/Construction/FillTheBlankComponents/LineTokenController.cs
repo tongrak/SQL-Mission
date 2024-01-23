@@ -24,7 +24,6 @@ namespace Gameplay.UI.Construction.FTB
                 if (token.Item1 == string.Empty)
                 {
                     var specialTokenCon = mustGetComponent<IInputTokenController>(generated);
-                    //TODO: check input type
                     FTBInputType currType = token.Item2.GetType().Equals(typeof(TypingFTBToken)) ? FTBInputType.TYPING : FTBInputType.CHOICE;
                     specialTokenCon.SetUpToken(token.Item2, currType);
                 }
@@ -32,8 +31,12 @@ namespace Gameplay.UI.Construction.FTB
                 {
                     //Set displayed text and auto adjust text frame's size
                     var TMP = mustGetComponent<TextMeshProUGUI>(generated);
+                    var rect = mustGetComponent<RectTransform>(generated);
+                    //Assign display text;
                     TMP.text = token.Item1;
+                    //Auto adjust text rect;
                     TMP.autoSizeTextContainer = true;
+                    rect.sizeDelta = new Vector2(TMP.preferredWidth, TMP.preferredHeight);
                 }
             }
         }
