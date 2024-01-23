@@ -9,11 +9,8 @@ namespace Gameplay.UI
 
     public interface IActionButtonController
     {
-        bool Activivity { get;}
-        void SetActivity(bool activivity);
-        ActionButtonType ActionButtonType { get;}
-        void SetActionButtonType(ActionButtonType buttonType);
-
+        bool Activivity { get; set; }
+        ActionButtonType ActionButtonType { get; set; }
     }
 
     public class GeneralActionButtonController : GameplayController, IActionButtonController
@@ -25,7 +22,9 @@ namespace Gameplay.UI
         [SerializeField] private Sprite _stepBackSprite;
         [Header("Button Image")]
         [SerializeField] private UnityEngine.UI.Image _buttonImage;
-
+        // Runtime variable
+        private bool _isActive = false;
+        private ActionButtonType _currentType = ActionButtonType.INACTICE;
 
         private Sprite getFromActionButtonType(ActionButtonType givenType)
         {
@@ -39,7 +38,6 @@ namespace Gameplay.UI
             throw new System.Exception("Given type is invalid");
         }
 
-        private bool _isActive = false;
         public bool Activivity
         {
             get => _isActive;
@@ -49,7 +47,6 @@ namespace Gameplay.UI
                 _buttonImage.sprite = _isActive ? getFromActionButtonType(_currentType) : _disableExecutionSprite;
             }
         }
-        private ActionButtonType _currentType;
         public ActionButtonType ActionButtonType
         {
             get => _currentType;
@@ -59,10 +56,6 @@ namespace Gameplay.UI
                 _buttonImage.sprite = _isActive ? getFromActionButtonType(_currentType) : _disableExecutionSprite;
             }
         }
-        public void SetActivity(bool activivity) => _isActive = activivity;
-        public void SetActionButtonType(ActionButtonType buttonType) => _currentType = buttonType;
-
-
     }
 }
 

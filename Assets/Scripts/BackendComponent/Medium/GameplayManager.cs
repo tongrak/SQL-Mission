@@ -123,7 +123,7 @@ namespace Gameplay
         public void StartGameplay(FileSystemWatcher saveFileWatcher)
         {
             _gameplayIsStarted = true;
-            _actionButtonController.SetActivity(true);
+            _actionButtonController.Activivity = true;
             actAccordingToStep(_currStepCon.GetCurrentStep());
             _saveFileWatcher = saveFileWatcher;
             if (saveFileWatcher == null)
@@ -286,10 +286,8 @@ namespace Gameplay
         {
             //Hide loading facade;
             _loadingFacadeObject.SetActive(false);
-            
             SelectConstructionTab();
-            _actionButtonController.SetActivity(false);
-            
+
         }
         private void OnDisable()
         {
