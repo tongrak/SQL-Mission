@@ -4,7 +4,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Flower ที่มี Petal เป็น 7",
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Flower",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Chapter1",
@@ -18,7 +18,7 @@
           "Flower"
         ],
         "PreSQL": null,
-        "AnswerSQL": "SELECT * FROM Flower WHERE Petal = 7",
+        "AnswerSQL": "SELECT * FROM Flower",
         "VisualType": 1,
         "PuzzleType": 2,
         "BlankOptions": null
