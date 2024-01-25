@@ -204,7 +204,7 @@ public class MissionManager : MonoBehaviour
             }
             
             // Injected MissionPaperUI to mission paper.
-            missionPaper.GetComponent<MissionPaperUI>().Initiate(missionConfig.MissionName, missionConfig.MissionDescription, missionUnlockDetail.IsUnlock, missionUnlockDetail.IsPass);
+            missionPaper.GetComponent<MissionPaperUI>().Initiate(missionConfig.MissionName, missionConfig.MissionDescription, missionUnlockDetail.IsUnlock, missionUnlockDetail.IsPass, missionConfig.MissionDependencies);
 
             // Injected MissionPaperController to mission paper.
             MissionPaperController missionPaperController = missionPaper.AddComponent<MissionPaperController>();
