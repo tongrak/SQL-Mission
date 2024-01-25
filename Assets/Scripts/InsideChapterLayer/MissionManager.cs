@@ -7,6 +7,8 @@ using Assets.Scripts.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 
 public class MissionManager : MonoBehaviour
 {
@@ -142,7 +144,7 @@ public class MissionManager : MonoBehaviour
                 {
                     missionDependenciesUnlockDetail[k] = new MissionDependencyUnlockDetail
                     {
-                        MissionName = missionConfig.MissionDependencies[k],
+                        MissionID = missionConfig.MissionDependencies[k],
                         IsPass = false
                     };
                 }
@@ -151,7 +153,7 @@ public class MissionManager : MonoBehaviour
             // Create unlock detail
             missionUnlockDetails.MissionUnlockDetailList[i] = new MissionUnlockDetail
             {
-                MissionName = missionConfig.MissionName,
+                MissionID = missionConfig.MissionID,
                 IsUnlock = isMissionUnlocked,
                 IsPass = false,
                 MissionDependenciesUnlockDetail = missionDependenciesUnlockDetail
@@ -181,6 +183,9 @@ public class MissionManager : MonoBehaviour
         // Find parent's transform
         Transform misionGroupTransform = GameObject.Find("Content").transform;
 
+        // Pair missionID and missionTitle
+        IDictionary<int, string> missionDic = missionConfigs.ToDictionary(x => x.MissionID, x => x.MissionTitle);
+
         // Instantiate mission(s)
         for (int i = 0; i < missionConfigs.Length; i++)
         {
@@ -202,15 +207,28 @@ public class MissionManager : MonoBehaviour
                 default:
                     break;
             }
-            
+
             // Injected MissionPaperUI to mission paper.
-            missionPaper.GetComponent<MissionPaperUI>().Initiate(missionConfig.MissionName, missionConfig.MissionDescription, missionUnlockDetail.IsUnlock, missionUnlockDetail.IsPass, missionConfig.MissionDependencies);
+            string[] missionDependencyTitles = _MapMissionIDToTitle(missionConfig.MissionDependencies, missionDic);
+            missionPaper.GetComponent<MissionPaperUI>().Initiate(missionConfig.MissionTitle, missionConfig.MissionDescription, missionUnlockDetail.IsUnlock, missionUnlockDetail.IsPass, missionDependencyTitles);
 
             // Injected MissionPaperController to mission paper.
             MissionPaperController missionPaperController = missionPaper.AddComponent<MissionPaperController>();
             missionPaperController.Construct(this, _missionConfigFiles[i], missionUnlockDetail.IsPass);
             missionPaper.GetComponent<Button>().onClick.AddListener(() => missionPaperController.MissionClicked());
         }
+    }
+
+    private string[] _MapMissionIDToTitle(int[] missionIDs, IDictionary<int, string> missions)
+    {
+        string[] missionTitles = new string[missionIDs.Length];
+
+        for (int i = 0; i < missionIDs.Length; i++)
+        {
+            missionTitles[i] = missions[missionIDs[i]];
+        }
+
+        return missionTitles;
     }
 
     // Start is called before the first frame update

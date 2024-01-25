@@ -281,7 +281,7 @@ MonoBehaviour:
         - m_Target: {fileID: 8388801985617665271}
           m_TargetAssemblyTypeName: Assets.Scripts.DataPersistence.UI.MissionPaperUI,
             InsideChapterLayer
-          m_MethodName: ShowPrerequisite
+          m_MethodName: MissionPaperHovered
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -298,7 +298,7 @@ MonoBehaviour:
         - m_Target: {fileID: 8388801985617665271}
           m_TargetAssemblyTypeName: Assets.Scripts.DataPersistence.UI.MissionPaperUI,
             InsideChapterLayer
-          m_MethodName: HidePrerequisite
+          m_MethodName: MissionPaperUnHovered
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

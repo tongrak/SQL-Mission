@@ -1,70 +1,70 @@
 {
     "MissionUnlockDetailList": [
         {
-            "MissionName": "Mission1",
+            "MissionID": 1,
             "IsUnlock": true,
             "IsPass": true,
             "MissionDependenciesUnlockDetail": []
         },
         {
-            "MissionName": "Mission2",
+            "MissionID": 2,
             "IsUnlock": true,
             "IsPass": true,
             "MissionDependenciesUnlockDetail": [
                 {
-                    "MissionName": "Mission1",
+                    "MissionID": 1,
                     "IsPass": true
                 }
             ]
         },
         {
-            "MissionName": "Mission3",
+            "MissionID": 3,
             "IsUnlock": true,
             "IsPass": true,
             "MissionDependenciesUnlockDetail": [
                 {
-                    "MissionName": "Mission2",
+                    "MissionID": 2,
                     "IsPass": true
                 }
             ]
         },
         {
-            "MissionName": "Mission4",
+            "MissionID": 4,
+            "IsUnlock": true,
+            "IsPass": true,
+            "MissionDependenciesUnlockDetail": [
+                {
+                    "MissionID": 2,
+                    "IsPass": true
+                }
+            ]
+        },
+        {
+            "MissionID": 5,
             "IsUnlock": true,
             "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
-                    "MissionName": "Mission2",
+                    "MissionID": 2,
                     "IsPass": true
                 }
             ]
         },
         {
-            "MissionName": "Mission5",
-            "IsUnlock": true,
-            "IsPass": false,
-            "MissionDependenciesUnlockDetail": [
-                {
-                    "MissionName": "Mission2",
-                    "IsPass": true
-                }
-            ]
-        },
-        {
-            "MissionName": "Final",
+            "MissionID": 99,
             "IsUnlock": false,
             "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
-                    "MissionName": "Mission3",
+                    "MissionID": 3,
                     "IsPass": true
                 },
                 {
-                    "MissionName": "Mission4",
-                    "IsPass": false
+                    "MissionID": 4,
+                    "IsPass": true
                 },
                 {
-                    "MissionName": "Mission5",
+                    "MissionID": 5,
                     "IsPass": false
                 }
             ]

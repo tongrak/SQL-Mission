@@ -1,5 +1,6 @@
 {
-  "MissionName": "Mission3",
+  "MissionID": 3,
+  "MissionTitle": "Mission3",
   "MissionType": 0,
   "MissionDescription": null,
   "MissionDetail": [
@@ -24,9 +25,9 @@
     }
   ],
   "MissionDependencies": [
-    "Mission2"
+    2
   ],
   "MissionDependTos": [
-    "Final"
+    99
   ]
 }

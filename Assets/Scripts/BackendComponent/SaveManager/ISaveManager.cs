@@ -8,8 +8,8 @@ namespace Assets.Scripts.DataPersistence.SaveManager
         /// Update mission status for chapter after mission is passed.
         /// </summary>
         /// <param name="missionFolderFullPath">Inside path must contain 'Resources/' folder such as "D:X/X/X/Resources/X/X/Chapter1"</param>
-        /// <param name="passedMissionName">Mission name that passed.</param>
-        MissionUnlockDetails UpdateMissionStatus(string missionFolderFullPath, MissionUnlockDetails missionStatusDetails, string passedMissionName, string[] missionDependTos);
+        /// <param name="passedMissionID">Mission ID that passed.</param>
+        MissionUnlockDetails UpdateMissionStatus(string missionFolderFullPath, MissionUnlockDetails missionStatusDetails, int passedMissionID, int[] missionDependTos);
 
         ///// <summary>
         ///// Update chapter status.

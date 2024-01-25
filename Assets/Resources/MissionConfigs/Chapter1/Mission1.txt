@@ -1,5 +1,6 @@
 {
-  "MissionName": "Mission1",
+  "MissionID": 1,
+  "MissionTitle": "Mission1",
   "MissionType": 0,
   "MissionDescription": "สอนการใช้ SQL เบื้องต้น",
   "MissionDetail": [
@@ -43,6 +44,6 @@
   ],
   "MissionDependencies": null,
   "MissionDependTos": [
-    "Mission2"
+    2
   ]
 }
