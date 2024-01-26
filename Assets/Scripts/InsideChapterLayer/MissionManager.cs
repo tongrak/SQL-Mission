@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using Assets.Scripts.InsideChapterLayer.UI;
 
 public class MissionManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private GameObject _finalMission;
     [SerializeField] private MissionData _missionSceneData;
     [SerializeField] private MissionStatusDetailsData _missionStatusDetailsData;
+    [SerializeField] private MissionBoardUI _missionBoardUI;
     /// <summary>
     /// Full path of config missions folder.
     /// </summary>
@@ -24,6 +26,7 @@ public class MissionManager : MonoBehaviour
     private string[] _missionConfigFiles; // list of mission config file. Example [mission1, mission2]
     private FileSystemWatcher _fileWatcher;
     private MissionUnlockDetails _missionStatusDetails;
+    private bool _haveStatusDetailFile;
 
     public void MissionPaperClicked(string missionClickedFilename, bool isPassed)
     {
@@ -37,7 +40,11 @@ public class MissionManager : MonoBehaviour
     public void Activate()
     {
         _LoadChapterConfigData();
-        _InstantiateWatcher();
+        if (!_haveStatusDetailFile)
+        {
+            _InstantiateWatcher();
+        }
+        _InitiateMissionBoardUI();
         _GenMissionPaperFromConfigFiles();
     }
 
@@ -72,6 +79,7 @@ public class MissionManager : MonoBehaviour
             "Final"
         };
         _allmissionConfigFolderFullPath = Application.dataPath + "/Resources/" + EnvironmentData.Instance.MissionConfigRootFolder + "/" + "Chapter1";
+        _haveStatusDetailFile = File.Exists(_allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType);
     }
 
     private void _GenMissionPaperFromConfigFiles()
@@ -80,7 +88,6 @@ public class MissionManager : MonoBehaviour
         string missionConfigFolderPathAfterResources = _allmissionConfigFolderFullPath.Split(new string[] { "Resources/" }, System.StringSplitOptions.None)[1] + '/';
         string unLockDetailFilePathFromAssets = _allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.MissionStatusFileName; // Such as 'Assets/Resources/X/X/<FileName>'
         string missionStatusFileType = EnvironmentData.Instance.MissionStatusDetailFileType; // Can use '.txt' or '.json'. Up to you.
-        bool haveStatusDetailFile = File.Exists(unLockDetailFilePathFromAssets + missionStatusFileType);
 
         MissionConfig[] missionConfigs = new MissionConfig[_missionConfigFiles.Length];
 
@@ -104,7 +111,7 @@ public class MissionManager : MonoBehaviour
         }
         else
         {
-            if (!haveStatusDetailFile)
+            if (!_haveStatusDetailFile)
             {
                 _missionStatusDetails = _WriteMissionUnlockDetails(missionConfigs, unLockDetailFilePathFromAssets, missionStatusFileType);
             }
@@ -231,13 +238,29 @@ public class MissionManager : MonoBehaviour
         return missionTitles;
     }
 
+    private void _InitiateMissionBoardUI()
+    {
+        _missionBoardUI.Initiate(_fileWatcher);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         Activate();
     }
 
+    #region Object disable or destroy
     private void OnDisable()
+    {
+        _DisposeWatcher();
+    }
+
+    private void OnDestroy()
+    {
+        _DisposeWatcher();
+    }
+
+    private void _DisposeWatcher()
     {
         if (_fileWatcher != null)
         {
@@ -246,6 +269,7 @@ public class MissionManager : MonoBehaviour
             _fileWatcher.Dispose();
         }
     }
+    #endregion
 
     // Update is called once per frame
     void Update()
