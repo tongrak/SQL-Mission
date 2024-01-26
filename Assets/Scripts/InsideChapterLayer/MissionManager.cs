@@ -53,7 +53,7 @@ public class MissionManager : MonoBehaviour
     /// </summary>
     private void _InstantiateWatcher()
     {
-        _fileWatcher = new FileSystemWatcher(_allmissionConfigFolderFullPath, EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType + ".meta");
+        _fileWatcher = new FileSystemWatcher(_allmissionConfigFolderFullPath, EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.ConfigFileType + ".meta");
 
         _fileWatcher.NotifyFilter = NotifyFilters.CreationTime
                              | NotifyFilters.LastWrite
@@ -79,7 +79,7 @@ public class MissionManager : MonoBehaviour
             "Final"
         };
         _allmissionConfigFolderFullPath = Application.dataPath + "/Resources/" + EnvironmentData.Instance.MissionConfigRootFolder + "/" + "Chapter1";
-        _haveStatusDetailFile = File.Exists(_allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType);
+        _haveStatusDetailFile = File.Exists(_allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.ConfigFileType);
     }
 
     private void _GenMissionPaperFromConfigFiles()
@@ -87,7 +87,7 @@ public class MissionManager : MonoBehaviour
         // Set variable
         string missionConfigFolderPathAfterResources = _allmissionConfigFolderFullPath.Split(new string[] { "Resources/" }, System.StringSplitOptions.None)[1] + '/';
         string unLockDetailFilePathFromAssets = _allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.MissionStatusFileName; // Such as 'Assets/Resources/X/X/<FileName>'
-        string missionStatusFileType = EnvironmentData.Instance.MissionStatusDetailFileType; // Can use '.txt' or '.json'. Up to you.
+        string missionStatusFileType = EnvironmentData.Instance.ConfigFileType; // Can use '.txt' or '.json'. Up to you.
 
         MissionConfig[] missionConfigs = new MissionConfig[_missionConfigFiles.Length];
 
@@ -117,7 +117,7 @@ public class MissionManager : MonoBehaviour
             }
             else
             {
-                string missionStatusTxt = File.ReadAllText(_allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType);
+                string missionStatusTxt = File.ReadAllText(_allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.ConfigFileType);
                 _missionStatusDetails = JsonUtility.FromJson<MissionUnlockDetails>(missionStatusTxt);
             }
         }

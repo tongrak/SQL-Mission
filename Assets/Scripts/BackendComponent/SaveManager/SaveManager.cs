@@ -52,7 +52,7 @@ namespace Assets.Scripts.DataPersistence.SaveManager
                 }
             }
             // 3) Save to file
-            string savedFileFullPath = Path.Combine(missionFolderFullPath, EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType);
+            string savedFileFullPath = Path.Combine(missionFolderFullPath, EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.ConfigFileType);
             SaveMissionStatusToFile(missionStatusDetails, savedFileFullPath);
 
             return missionStatusDetails;

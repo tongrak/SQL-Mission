@@ -1,0 +1,16 @@
+{
+    "name": "ChapterLayer",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9fae5e7fcdfbfbb4da4b12f5cf87768e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
