@@ -8,6 +8,5 @@
         public StepDetail[] MissionDetail;
         public MissionType MissionType;
         public int[] MissionDependencies;
-        public int[] MissionDependTos;
     }
 }

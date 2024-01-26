@@ -42,8 +42,5 @@
       "PuzzleDetail": null
     }
   ],
-  "MissionDependencies": null,
-  "MissionDependTos": [
-    2
-  ]
+  "MissionDependencies": null
 }

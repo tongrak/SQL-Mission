@@ -16,7 +16,6 @@ namespace Assets.Scripts.DataPersistence
         /// Must be like 'Assets/Resources/X/XMissionConfigs/X/ChapterX'
         /// </summary>
         private string _missionFolderFullPath;
-        private int[] _missionDependTos;
         private ISaveManager _saveManager;
         private bool _isPassed;
 
@@ -28,13 +27,12 @@ namespace Assets.Scripts.DataPersistence
         /// <param name="missionDependTos"></param>
         /// <param name="missionType"></param>
         /// <param name="saveManager"></param>
-        public void Initiate(string missionConfigFolderFullPath, int missionID, int[] missionDependTos,MissionType missionType, ISaveManager saveManager, bool isPassed)
+        public void Initiate(string missionConfigFolderFullPath, int missionID, MissionType missionType, ISaveManager saveManager, bool isPassed)
         {
             _missionFolderFullPath = missionConfigFolderFullPath;
             _missionID = missionID;
             _missionType = missionType;
             _saveManager = saveManager;
-            _missionDependTos = missionDependTos;
             _isPassed = isPassed;
         }
 
@@ -44,7 +42,7 @@ namespace Assets.Scripts.DataPersistence
             {
                 if (_missionType != MissionType.Final)
                 {
-                    _missionStatusDetailsData.MissionStatusDetails = _saveManager.UpdateMissionStatus(_missionFolderFullPath, _missionStatusDetailsData.MissionStatusDetails, _missionID, _missionDependTos);
+                    _missionStatusDetailsData.MissionStatusDetails = _saveManager.UpdateMissionStatus(_missionFolderFullPath, _missionStatusDetailsData.MissionStatusDetails, _missionID);
                     _missionStatusDetailsData.Changed = true;
                     //_missionSceneData.MissionStatusDetails = null;
                 }

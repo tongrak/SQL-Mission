@@ -66,6 +66,5 @@
     3,
     4,
     5
-  ],
-  "MissionDependTos": null
+  ]
 }

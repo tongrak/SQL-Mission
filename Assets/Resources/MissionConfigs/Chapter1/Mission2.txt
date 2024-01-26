@@ -36,10 +36,5 @@
   ],
   "MissionDependencies": [
     1
-  ],
-  "MissionDependTos": [
-    3,
-    4,
-    5
   ]
 }
