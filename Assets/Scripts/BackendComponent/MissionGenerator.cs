@@ -65,7 +65,7 @@ namespace Assets.Scripts.DataPersistence
 
         private void InitiateFileWatcher()
         {
-            _fileSystemWatcher = new FileSystemWatcher(_missionSceneData.MissionConfigFolderFullPath, EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.ConfigFileType);
+            _fileSystemWatcher = new FileSystemWatcher(_missionSceneData.MissionConfigFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
 
             _fileSystemWatcher.NotifyFilter = NotifyFilters.CreationTime
                                  | NotifyFilters.LastWrite

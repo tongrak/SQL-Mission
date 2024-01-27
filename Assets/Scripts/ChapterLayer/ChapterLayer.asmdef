@@ -2,7 +2,8 @@
     "name": "ChapterLayer",
     "rootNamespace": "",
     "references": [
-        "GUID:9fae5e7fcdfbfbb4da4b12f5cf87768e"
+        "GUID:9fae5e7fcdfbfbb4da4b12f5cf87768e",
+        "GUID:d2713d8022245b442b0cc60782c2a3ca"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
