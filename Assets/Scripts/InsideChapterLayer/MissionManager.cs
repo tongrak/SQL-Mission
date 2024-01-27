@@ -220,7 +220,7 @@ public class MissionManager : MonoBehaviour
 
             // Injected MissionPaperController to mission paper.
             MissionPaperController missionPaperController = missionPaper.AddComponent<MissionPaperController>();
-            missionPaperController.Construct(this, _missionConfigFiles[i], missionUnlockDetail.IsPass);
+            missionPaperController.Construct(_missionConfigFiles[i], missionUnlockDetail.IsPass);
             missionPaper.GetComponent<Button>().onClick.AddListener(() => missionPaperController.MissionClicked());
         }
     }

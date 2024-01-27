@@ -13,9 +13,8 @@ namespace Assets.Scripts.DataPersistence
         /// </summary>
         /// <param name="missionConfigFilePath">Path must be like this 'MissionConfigs/ChapterX' and path must after 'Resources' folder.</param>
         /// <param name="missionFileName"></param>
-        public void Construct(MissionManager missionManager, string missionFileName, bool isPassed)
+        public void Construct(string missionFileName, bool isPassed)
         {
-            _missionManager = missionManager;
             _missionFileName = missionFileName;
             _isPassed = isPassed; 
         }
