@@ -6,7 +6,7 @@
         public int ChapterID;
         public string ChapterTitle;
         public string MissionConfigFolder;
-        public string[] MissionFiles;
+        public string[] MissionFilesIndex;
         public int[] ChapterDependencies;
     }
 }

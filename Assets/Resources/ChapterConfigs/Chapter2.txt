@@ -1,0 +1,16 @@
+{
+  "ChapterID": 2,
+  "ChapterTitle": "Chapter2: Projection",
+  "MissionConfigFolder": "Chapter2",
+  "MissionFilesIndex": [
+    "Mission1",
+    "Mission2",
+    "Mission3",
+    "Mission4",
+    "Mission5",
+    "Final"
+  ],
+  "ChapterDependencies": [
+    1
+  ]
+}

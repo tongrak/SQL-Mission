@@ -44,7 +44,7 @@ public class ChapterGenerator : MonoBehaviour
         _GenerateChapterObjects(chapterConfigs, chapterStatusDetails);
 
         // 5) Init chapter button manager.
-        _chapterManager.Construct(chapterIndex.ChapterFileIndex, chapterStatusDetails);
+        _chapterManager.Construct(chapterStatusDetails);
     }
 
     private void _SetFields()
@@ -142,7 +142,7 @@ public class ChapterGenerator : MonoBehaviour
             chapterButton.GetComponent<ChapterButtonUI>().Initiate(chapterConfig.ChapterTitle, chapterStatusDetail.IsUnlock, chapterStatusDetail.IsPass, chapterDependencyTitles);
 
             // Init ChapterButtonController
-            chapterButton.GetComponent<ChapterButtonController>().Construct(_chapterManager, chapterConfig.MissionConfigFolder, chapterStatusDetail.IsPass);
+            chapterButton.GetComponent<ChapterButtonController>().Construct(_chapterManager, chapterConfig.MissionConfigFolder, chapterStatusDetail.IsPass, chapterConfig.MissionFilesIndex);
         }
     }
 
