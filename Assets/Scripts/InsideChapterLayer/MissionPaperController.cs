@@ -6,15 +6,16 @@ namespace Assets.Scripts.DataPersistence
     {
         private string _missionFileName;
         private bool _isPassed;
-        [SerializeField] private MissionManager _missionManager;
+        private MissionManager _missionManager;
 
         /// <summary>
         /// Construct mission controller completely.
         /// </summary>
         /// <param name="missionConfigFilePath">Path must be like this 'MissionConfigs/ChapterX' and path must after 'Resources' folder.</param>
         /// <param name="missionFileName"></param>
-        public void Construct(string missionFileName, bool isPassed)
+        public void Construct(MissionManager missionManager, string missionFileName, bool isPassed)
         {
+            _missionManager = missionManager;
             _missionFileName = missionFileName;
             _isPassed = isPassed; 
         }
