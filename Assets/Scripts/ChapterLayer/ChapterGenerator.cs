@@ -1,4 +1,5 @@
 using Assets.Scripts.ChapterLayer;
+using Assets.Scripts.ChapterLayer.UI;
 using Assets.Scripts.ChapterLayer.Model;
 using Assets.Scripts.DataPersistence.ChapterStatusDetail;
 using Assets.Scripts.Helper;
@@ -13,41 +14,71 @@ public class ChapterGenerator : MonoBehaviour
     [SerializeField] private Transform _chaptersContainer;
     [SerializeField] private GameObject _chapterPrefab;
     [SerializeField] private MissionBoardData _missionBoardData;
+    [SerializeField] private ChapterButtonManager _chapterManager;
 
-    private string _chapterConfigsFolderFullPath = Application.dataPath + "/Resources/" + EnvironmentData.Instance.ChapterConfigRootFolder;
+    private string _chapterConfigsFolderFullPath; 
     private string _chapterStatusFileFullPath;
     private bool _haveStatusFile;
 
     private void Activate()
     {
         // 1) Set fields.
-        _chapterStatusFileFullPath = _chapterConfigsFolderFullPath + "/" + EnvironmentData.Instance.StatusFileName;
-        _haveStatusFile = File.Exists(_chapterStatusFileFullPath + EnvironmentData.Instance.ConfigFileType);
+        _SetFields();
 
         // 2) Load config from file by use config index
-        string chapterIndexData = File.ReadAllText(_chapterConfigsFolderFullPath + "/" + EnvironmentData.Instance.ChpaterFileIndexFileName + EnvironmentData.Instance.ConfigFileType);
-        ChapterIndex chapterIndex = JsonUtility.FromJson<ChapterIndex>(chapterIndexData);
-        ChapterConfig[] chapterConfigs = new ChapterConfig[chapterIndex.ChapterFileIndex.Length];
-        for (int i = 0; i < chapterConfigs.Length; i ++)
-        {
-            string chapterFileName = chapterIndex.ChapterFileIndex[i];
-            string chapterConfigData = File.ReadAllText(_chapterConfigsFolderFullPath + "/" + chapterFileName + EnvironmentData.Instance.ConfigFileType);
-            chapterConfigs[i] = JsonUtility.FromJson<ChapterConfig>(chapterConfigData);
-        }
+        ChapterIndex chapterIndex = _LoadChapterIndexFromFile();
+        ChapterConfig[] chapterConfigs = _LoadChapterConfigsFromFile(chapterIndex);
 
         // 3) Load chapter status.
-        ChapterStatusDetails chapterStatusDetails = null;
+        ChapterStatusDetails chapterStatusDetails;
         if (!_haveStatusFile)
         {
             chapterStatusDetails = _WriteChapterStatusDetailFile(chapterConfigs);
         }
         else
         {
-            string chapterStatusData = File.ReadAllText(_chapterStatusFileFullPath + EnvironmentData.Instance.ConfigFileType);
-            chapterStatusDetails = JsonUtility.FromJson<ChapterStatusDetails>(chapterStatusData);
+            chapterStatusDetails = _LoadChapterStatusDetailsFromFile();
         }
 
+        // 4) Generate chapter button to UI.
         _GenerateChapterObjects(chapterConfigs, chapterStatusDetails);
+
+        // 5) Init chapter button manager.
+        _chapterManager.Construct(chapterIndex.ChapterFileIndex, chapterStatusDetails);
+    }
+
+    private void _SetFields()
+    {
+        _chapterConfigsFolderFullPath = Application.dataPath + "/Resources/" + EnvironmentData.Instance.ChapterConfigRootFolder; ;
+        _chapterStatusFileFullPath = _chapterConfigsFolderFullPath + "/" + EnvironmentData.Instance.StatusFileName;
+        _haveStatusFile = File.Exists(_chapterStatusFileFullPath + EnvironmentData.Instance.ConfigFileType);
+    }
+
+    private ChapterIndex _LoadChapterIndexFromFile()
+    {
+        string chapterIndexData = File.ReadAllText(_chapterConfigsFolderFullPath + "/" + EnvironmentData.Instance.ChpaterFileIndexFileName + EnvironmentData.Instance.ConfigFileType);
+        ChapterIndex chapterIndex = JsonUtility.FromJson<ChapterIndex>(chapterIndexData);
+        return chapterIndex;
+    }
+
+    private ChapterConfig[] _LoadChapterConfigsFromFile(ChapterIndex chapterIndex)
+    {
+        ChapterConfig[] chapterConfigs = new ChapterConfig[chapterIndex.ChapterFileIndex.Length];
+        for (int i = 0; i < chapterConfigs.Length; i++)
+        {
+            string chapterFileName = chapterIndex.ChapterFileIndex[i];
+            string chapterConfigData = File.ReadAllText(_chapterConfigsFolderFullPath + "/" + chapterFileName + EnvironmentData.Instance.ConfigFileType);
+            chapterConfigs[i] = JsonUtility.FromJson<ChapterConfig>(chapterConfigData);
+        }
+
+        return chapterConfigs;
+    }
+
+    private ChapterStatusDetails _LoadChapterStatusDetailsFromFile()
+    {
+        string chapterStatusData = File.ReadAllText(_chapterStatusFileFullPath + EnvironmentData.Instance.ConfigFileType);
+        ChapterStatusDetails chapterStatusDetails = JsonUtility.FromJson<ChapterStatusDetails>(chapterStatusData);
+        return chapterStatusDetails;
     }
 
     private ChapterStatusDetails _WriteChapterStatusDetailFile(ChapterConfig[] chapterConfigs)
@@ -111,7 +142,7 @@ public class ChapterGenerator : MonoBehaviour
             chapterButton.GetComponent<ChapterButtonUI>().Initiate(chapterConfig.ChapterTitle, chapterStatusDetail.IsUnlock, chapterStatusDetail.IsPass, chapterDependencyTitles);
 
             // Init ChapterButtonController
-            chapterButton.GetComponent<ChapterButtonController>().Construct(chapterConfig.MissionConfigFolder, chapterStatusDetail.IsPass);
+            chapterButton.GetComponent<ChapterButtonController>().Construct(_chapterManager, chapterConfig.MissionConfigFolder, chapterStatusDetail.IsPass);
         }
     }
 

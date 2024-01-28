@@ -1,17 +1,31 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.DataPersistence.ChapterStatusDetail;
+using Assets.Scripts.Helper;
+using Assets.Scripts.ScriptableObjects;
+using UnityEngine;
 
 namespace Assets.Scripts.ChapterLayer
 {
     public class ChapterButtonManager : MonoBehaviour
     {
+        [SerializeField] private MissionBoardData _missionBoardData;
+        [SerializeField] private ChapterStatusDetailsData _chapterStatusDetailsData;
+
+        private ChapterStatusDetails _chapterStatusDetails;
+        private string[] _chapterFileIndex;
 
         public void ChapterButtonClicked(string missionConfigsRelativeFolder, bool isPassed)
         {
-            //_missionSceneData.MissionConfigFolderFullPath = _allmissionConfigFolderFullPath;
-            //_missionSceneData.MissionFileName = missionConfigsRelativeFolder;
-            //_missionSceneData.IsPassed = isPassed;
-            //_missionStatusDetailsData.MissionStatusDetails = _missionStatusDetails;
+            _missionBoardData.MissionConfigFolderFullPath = Application.dataPath + "/Resources/" + EnvironmentData.Instance.MissionConfigRootFolder + "/" + missionConfigsRelativeFolder;
+            _missionBoardData.ChapterFileIndex = _chapterFileIndex;
+            _missionBoardData.IsPassed = isPassed;
+            _chapterStatusDetailsData.ChapterStatusDetails = _chapterStatusDetails;
             ScenesManager.Instance.LoadSelectMissionScene();
+        }
+
+        public void Construct(string[] chapterFileIndex ,ChapterStatusDetails chapterStatusDetails)
+        {
+            _chapterStatusDetails = chapterStatusDetails;
+            _chapterFileIndex = chapterFileIndex;
         }
 
         // Use this for initialization

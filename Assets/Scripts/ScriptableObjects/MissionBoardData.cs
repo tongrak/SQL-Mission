@@ -3,10 +3,11 @@ using UnityEngine;
 
 namespace Assets.Scripts.ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "MissionSceneBoardData", menuName = "MissionSceneBoardData")]
+    [CreateAssetMenu(fileName = "MissionBoardData", menuName = "MissionBoardData")]
     public class MissionBoardData : ScriptableObject
     {
         public string[] ChapterFileIndex;
         public string MissionConfigFolderFullPath;
+        public bool IsPassed;
     }
 }

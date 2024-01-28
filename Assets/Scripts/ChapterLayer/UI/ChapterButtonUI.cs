@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.ChapterLayer
+namespace Assets.Scripts.ChapterLayer.UI
 {
     public class ChapterButtonUI : MonoBehaviour
     {

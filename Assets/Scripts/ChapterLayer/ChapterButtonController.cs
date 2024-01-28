@@ -4,20 +4,21 @@ namespace Assets.Scripts.ChapterLayer
 {
     public class ChapterButtonController : MonoBehaviour
     {
-        [SerializeField] private ChapterButtonManager _chapterManager;
+        private ChapterButtonManager _chapterButtonManager;
 
         private string _missionConfigsRelativeFolder;
         private bool _isPassed;
 
-        public void Construct(string missionConfigsRelativeFolder, bool isPassed)
+        public void Construct(ChapterButtonManager chapterButtonManager, string missionConfigsRelativeFolder, bool isPassed)
         {
+            _chapterButtonManager = chapterButtonManager; 
             _missionConfigsRelativeFolder = missionConfigsRelativeFolder;
             _isPassed = isPassed;
         }
 
         public void ChapterClicked()
         {
-            //_chapterManager.ChapterButtonClicked(_missionConfigsRelativeFolder, _isPassed);
+            _chapterButtonManager.ChapterButtonClicked(_missionConfigsRelativeFolder, _isPassed);
         }
 
         // Use this for initialization
