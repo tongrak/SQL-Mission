@@ -44,8 +44,15 @@ namespace Gameplay.UI.Construction.FTB
         #region AUX methods
         private void setUpDowndrop(TMP_Dropdown dropdown, string[] options)
         {
+            var placeholderOption = new TMP_Dropdown.OptionData("Select a option");
+            //Add placeholder
+            dropdown.options.Add(placeholderOption);
             foreach(string option in options) dropdown.options.Add(new TMP_Dropdown.OptionData(option));
-            dropdown.onValueChanged.AddListener(delegate{_currFTB.SetSelectedString(options[dropdown.value]);});
+            dropdown.onValueChanged.AddListener(delegate
+                {
+                    _currFTB.SetSelectedString((dropdown.value == 0)? string.Empty : options[dropdown.value-1]);
+                }
+            );
         }
         #endregion
 

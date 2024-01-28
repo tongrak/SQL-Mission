@@ -33,6 +33,8 @@ namespace Gameplay.UI
                 createdTMP.text = schemas[i].tableName;
                 createdButton.onClick.AddListener(getOnClickAction(schemas[i].attribuites));
             }
+            //Display first schema
+            _schemaAttrCon.SetDisplayAttribute(schemas[0].attribuites);
         }
         private UnityAction getOnClickAction(string[] attribute) 
         {
