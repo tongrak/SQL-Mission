@@ -3,69 +3,69 @@
         {
             "MissionID": 1,
             "IsUnlock": true,
-            "IsPass": true,
+            "IsPass": false,
             "MissionDependenciesUnlockDetail": []
         },
         {
             "MissionID": 2,
-            "IsUnlock": true,
-            "IsPass": true,
+            "IsUnlock": false,
+            "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionID": 1,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "MissionID": 3,
-            "IsUnlock": true,
-            "IsPass": true,
+            "IsUnlock": false,
+            "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionID": 2,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "MissionID": 4,
-            "IsUnlock": true,
-            "IsPass": true,
+            "IsUnlock": false,
+            "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionID": 2,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "MissionID": 5,
-            "IsUnlock": true,
-            "IsPass": true,
+            "IsUnlock": false,
+            "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionID": 2,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "MissionID": 99,
-            "IsUnlock": true,
-            "IsPass": true,
+            "IsUnlock": false,
+            "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionID": 3,
-                    "IsPass": true
+                    "IsPass": false
                 },
                 {
                     "MissionID": 4,
-                    "IsPass": true
+                    "IsPass": false
                 },
                 {
                     "MissionID": 5,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         }

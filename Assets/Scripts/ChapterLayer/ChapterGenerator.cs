@@ -13,6 +13,7 @@ public class ChapterGenerator : MonoBehaviour
 {
     [SerializeField] private Transform _chaptersContainer;
     [SerializeField] private GameObject _chapterPrefab;
+    [SerializeField] private ChapterBoardUI _chapterBoardUI;
     [SerializeField] private MissionBoardData _missionBoardData;
     [SerializeField] private ChapterButtonManager _chapterManager;
     [SerializeField] private ChapterStatusDetailsData _chapterStatusDetailsData;
@@ -20,17 +21,27 @@ public class ChapterGenerator : MonoBehaviour
     private string _chapterConfigsFolderFullPath; 
     private string _chapterStatusFileFullPath;
     private bool _haveStatusFile;
+    private FileSystemWatcher _fileWatcher;
 
     private void Activate()
     {
         // 1) Set fields.
         _SetFields();
 
-        // 2) Load config from file by use config index
+        // 2)
+        if(!_haveStatusFile)
+        {
+            _InstantiateWatcher();
+        }
+
+        // 3)
+        _InitiateChapterBoardUI();
+
+        // ) Load config from file by use config index
         ChapterIndex chapterIndex = _LoadChapterIndexFromFile();
         ChapterConfig[] chapterConfigs = _LoadChapterConfigsFromFile(chapterIndex);
 
-        // 3) Load chapter status.
+        // ) Load chapter status.
         ChapterStatusDetails chapterStatusDetails;
         if (_chapterStatusDetailsData.Changed)
         {
@@ -49,10 +60,10 @@ public class ChapterGenerator : MonoBehaviour
             }
         }
 
-        // 4) Generate chapter(s) to UI.
+        // ) Generate chapter(s) to UI.
         _GenerateChapterObjects(chapterConfigs, chapterStatusDetails);
 
-        // 5) Init chapter manager.
+        // ) Init chapter manager.
         _chapterManager.Construct(_chapterConfigsFolderFullPath, chapterStatusDetails);
     }
 
@@ -61,6 +72,25 @@ public class ChapterGenerator : MonoBehaviour
         _chapterConfigsFolderFullPath = Application.dataPath + "/Resources/" + EnvironmentData.Instance.ChapterConfigRootFolder; ;
         _chapterStatusFileFullPath = _chapterConfigsFolderFullPath + "/" + EnvironmentData.Instance.StatusFileName;
         _haveStatusFile = File.Exists(_chapterStatusFileFullPath + EnvironmentData.Instance.ConfigFileType);
+    }
+
+    /// <summary>
+    /// Instantiate SystemFileWatcher to look at chapter status file.
+    /// </summary>
+    private void _InstantiateWatcher()
+    {
+        _fileWatcher = new FileSystemWatcher(_chapterConfigsFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType + ".meta");
+
+        _fileWatcher.NotifyFilter = NotifyFilters.CreationTime
+                             | NotifyFilters.LastWrite
+                             | NotifyFilters.Size;
+
+        _fileWatcher.EnableRaisingEvents = true;
+    }
+
+    private void _InitiateChapterBoardUI()
+    {
+        _chapterBoardUI.Initiate(_fileWatcher);
     }
 
     private ChapterIndex _LoadChapterIndexFromFile()
