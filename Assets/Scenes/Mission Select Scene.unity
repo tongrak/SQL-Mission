@@ -249,6 +249,7 @@ MonoBehaviour:
   _missionSceneData: {fileID: 11400000, guid: f20acfc1b1a3dfc49bd917b2c1b0d812, type: 2}
   _missionStatusDetailsData: {fileID: 11400000, guid: 3990d4d3c137b8b40946a3036f66bd2d, type: 2}
   _missionBoardUI: {fileID: 618671411}
+  _missionBoardData: {fileID: 11400000, guid: c2b867629e432ae4eb49ca9236fbdcad, type: 2}
 --- !u!1 &483094850
 GameObject:
   m_ObjectHideFlags: 0

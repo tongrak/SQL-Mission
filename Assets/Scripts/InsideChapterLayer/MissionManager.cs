@@ -19,6 +19,7 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private MissionData _missionSceneData;
     [SerializeField] private MissionStatusDetailsData _missionStatusDetailsData;
     [SerializeField] private MissionBoardUI _missionBoardUI;
+    [SerializeField] private MissionBoardData _missionBoardData;
     /// <summary>
     /// Full path of config missions folder.
     /// </summary>
@@ -69,16 +70,8 @@ public class MissionManager : MonoBehaviour
     /// </summary>
     private void _LoadChapterConfigData()
     {
-        _missionConfigFiles = new string[]
-        {
-            "Mission1",
-            "Mission2",
-            "Mission3",
-            "Mission4",
-            "Mission5",
-            "Final"
-        };
-        _allmissionConfigFolderFullPath = Application.dataPath + "/Resources/" + EnvironmentData.Instance.MissionConfigRootFolder + "/" + "Chapter1";
+        _missionConfigFiles = _missionBoardData.MissionFilesIndex;
+        _allmissionConfigFolderFullPath = _missionBoardData.MissionConfigFolderFullPath;
         _haveStatusDetailFile = File.Exists(_allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
     }
 

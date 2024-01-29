@@ -40,10 +40,10 @@ public class ChapterGenerator : MonoBehaviour
             chapterStatusDetails = _LoadChapterStatusDetailsFromFile();
         }
 
-        // 4) Generate chapter button to UI.
+        // 4) Generate chapter(s) to UI.
         _GenerateChapterObjects(chapterConfigs, chapterStatusDetails);
 
-        // 5) Init chapter button manager.
+        // 5) Init chapter manager.
         _chapterManager.Construct(chapterStatusDetails);
     }
 
@@ -118,7 +118,7 @@ public class ChapterGenerator : MonoBehaviour
         }
 
         // Save to 'StatusDetail.txt'
-        string data = JsonUtility.ToJson(chapterStatusDetails);
+        string data = JsonUtility.ToJson(chapterStatusDetails, true);
 
         File.WriteAllText(_chapterStatusFileFullPath + EnvironmentData.Instance.ConfigFileType, data);
 
@@ -161,7 +161,7 @@ public class ChapterGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Activate();
     }
 
     // Update is called once per frame
