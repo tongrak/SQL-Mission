@@ -9,18 +9,20 @@ namespace Assets.Scripts.ChapterLayer
         private string _missionConfigsRelativeFolder;
         private bool _isPassed;
         private string[] _missionFilesIndex;
+        private int _chapterID;
 
-        public void Construct(ChapterButtonManager chapterButtonManager, string missionConfigsRelativeFolder, bool isPassed, string[] missionFilesIndex)
+        public void Construct(ChapterButtonManager chapterButtonManager, int chapterID ,string missionConfigsRelativeFolder, bool isPassed, string[] missionFilesIndex)
         {
             _chapterButtonManager = chapterButtonManager; 
             _missionConfigsRelativeFolder = missionConfigsRelativeFolder;
             _isPassed = isPassed;
             _missionFilesIndex = missionFilesIndex;
+            _chapterID = chapterID;
         }
 
         public void ChapterClicked()
         {
-            _chapterButtonManager.ChapterButtonClicked(_missionConfigsRelativeFolder, _isPassed, _missionFilesIndex);
+            _chapterButtonManager.ChapterButtonClicked(_chapterID, _missionConfigsRelativeFolder, _isPassed, _missionFilesIndex);
         }
 
         // Use this for initialization

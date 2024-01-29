@@ -15,6 +15,7 @@ public class ChapterGenerator : MonoBehaviour
     [SerializeField] private GameObject _chapterPrefab;
     [SerializeField] private MissionBoardData _missionBoardData;
     [SerializeField] private ChapterButtonManager _chapterManager;
+    [SerializeField] private ChapterStatusDetailsData _chapterStatusDetailsData;
 
     private string _chapterConfigsFolderFullPath; 
     private string _chapterStatusFileFullPath;
@@ -31,20 +32,28 @@ public class ChapterGenerator : MonoBehaviour
 
         // 3) Load chapter status.
         ChapterStatusDetails chapterStatusDetails;
-        if (!_haveStatusFile)
+        if (_chapterStatusDetailsData.Changed)
         {
-            chapterStatusDetails = _WriteChapterStatusDetailFile(chapterConfigs);
+            chapterStatusDetails = _chapterStatusDetailsData.ChapterStatusDetails;
+            _chapterStatusDetailsData.Changed = false;
         }
         else
         {
-            chapterStatusDetails = _LoadChapterStatusDetailsFromFile();
+            if (!_haveStatusFile)
+            {
+                chapterStatusDetails = _WriteChapterStatusDetailFile(chapterConfigs);
+            }
+            else
+            {
+                chapterStatusDetails = _LoadChapterStatusDetailsFromFile();
+            }
         }
 
         // 4) Generate chapter(s) to UI.
         _GenerateChapterObjects(chapterConfigs, chapterStatusDetails);
 
         // 5) Init chapter manager.
-        _chapterManager.Construct(chapterStatusDetails);
+        _chapterManager.Construct(_chapterConfigsFolderFullPath, chapterStatusDetails);
     }
 
     private void _SetFields()
@@ -142,7 +151,7 @@ public class ChapterGenerator : MonoBehaviour
             chapterButton.GetComponent<ChapterButtonUI>().Initiate(chapterConfig.ChapterTitle, chapterStatusDetail.IsUnlock, chapterStatusDetail.IsPass, chapterDependencyTitles);
 
             // Init ChapterButtonController
-            chapterButton.GetComponent<ChapterButtonController>().Construct(_chapterManager, chapterConfig.MissionConfigFolder, chapterStatusDetail.IsPass, chapterConfig.MissionFilesIndex);
+            chapterButton.GetComponent<ChapterButtonController>().Construct(_chapterManager, chapterConfig.ChapterID, chapterConfig.MissionConfigFolder, chapterStatusDetail.IsPass, chapterConfig.MissionFilesIndex);
         }
     }
 

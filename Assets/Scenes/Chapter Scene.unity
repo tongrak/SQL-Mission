@@ -1003,6 +1003,7 @@ MonoBehaviour:
   _chapterPrefab: {fileID: 1187498146352846030, guid: d28e130cfca94e14fa109b0f52ca4a17, type: 3}
   _missionBoardData: {fileID: 11400000, guid: c2b867629e432ae4eb49ca9236fbdcad, type: 2}
   _chapterManager: {fileID: 2100169487}
+  _chapterStatusDetailsData: {fileID: 11400000, guid: 2a0848a45d61be146aee5e2398bf1e41, type: 2}
 --- !u!1 &1959198893
 GameObject:
   m_ObjectHideFlags: 0
@@ -1279,3 +1280,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _missionBoardData: {fileID: 11400000, guid: c2b867629e432ae4eb49ca9236fbdcad, type: 2}
   _chapterStatusDetailsData: {fileID: 11400000, guid: 2a0848a45d61be146aee5e2398bf1e41, type: 2}
+  _selectedChapterData: {fileID: 11400000, guid: 9c72d1850969993448b1cd463510f918, type: 2}

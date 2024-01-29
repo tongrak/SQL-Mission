@@ -1,11 +1,11 @@
-﻿using Assets.Scripts.DataPersistence.MissionStatusDetail;
+﻿using Assets.Scripts.DataPersistence.ChapterStatusDetail;
+using Assets.Scripts.DataPersistence.MissionStatusDetail;
 using Assets.Scripts.Helper;
 using System.IO;
 using UnityEngine;
 
 namespace Assets.Scripts.DataPersistence.SaveManager
 {
-    //[SerializeField] private MissionBoardSceneData _missionBoardSceneData; 
     public class SaveManager : ISaveManager
     {
         /// <summary>
@@ -23,7 +23,7 @@ namespace Assets.Scripts.DataPersistence.SaveManager
                     missionStatusDetail.IsPass = true;
                 }
             }
-            // 2) Loop เพื่อปลดล็อก mission ที่เป็น MissionDependTo
+            // 2) Loop for unlock other mission ซึ่งถูก passed mission ล็อกไว้
             foreach (MissionUnlockDetail missionStatusDetail in missionStatusDetails.MissionUnlockDetailList)
             {
                 if (missionStatusDetail.MissionID != passedMissionID)
@@ -53,12 +53,63 @@ namespace Assets.Scripts.DataPersistence.SaveManager
             }
             // 3) Save to file
             string savedFileFullPath = Path.Combine(missionFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
-            SaveMissionStatusToFile(missionStatusDetails, savedFileFullPath);
+            _SaveMissionStatusToFile(missionStatusDetails, savedFileFullPath);
 
             return missionStatusDetails;
         }
 
-        private void SaveMissionStatusToFile(MissionUnlockDetails missionStatusDetails,string fullPath)
+        private void _SaveMissionStatusToFile(MissionUnlockDetails missionStatusDetails, string fullPath)
+        {
+            string saveData = JsonUtility.ToJson(missionStatusDetails, true);
+            File.WriteAllText(fullPath, saveData);
+        }
+
+        public ChapterStatusDetails UpdateChapterStatus(string chapterFolderFullPath, ChapterStatusDetails chapterStatusDetails, int passedChapterID)
+        {
+            // 1) Loop for update status
+            foreach (ChapterStatusDetail.ChapterStatusDetail chapterStatusDetail in chapterStatusDetails.ChapterStatusDetailList)
+            {
+                if (chapterStatusDetail.ChatperID == passedChapterID)
+                {
+                    chapterStatusDetail.IsPass = true;
+                }
+            }
+            // 2) Loop for unlock other chapter ซึ่งถูก passed chapter ล็อกไว้
+            foreach (ChapterStatusDetail.ChapterStatusDetail chapterStatusDetail in chapterStatusDetails.ChapterStatusDetailList)
+            {
+                if (chapterStatusDetail.ChatperID != passedChapterID)
+                {
+                    int totalDependencies = chapterStatusDetail.ChapterDependenciesStatusDetail.Length;
+                    int totalUnlockDependencies = 0;
+
+                    // Update passed chapter dependency's status.
+                    foreach (ChapterDependenciesStatusDetail chapterDependency in chapterStatusDetail.ChapterDependenciesStatusDetail)
+                    {
+                        if (chapterDependency.ChapterID == passedChapterID)
+                        {
+                            chapterDependency.IsPass = true;
+                        }
+                        if (chapterDependency.IsPass)
+                        {
+                            totalUnlockDependencies++;
+                        }
+                    }
+
+                    // If all dependency passed.
+                    if (totalUnlockDependencies == totalDependencies)
+                    {
+                        chapterStatusDetail.IsUnlock = true;
+                    }
+                }
+            }
+            // 3) Save to file
+            string savedFileFullPath = Path.Combine(chapterFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
+            _SaveChapterStatusToFile(chapterStatusDetails, savedFileFullPath);
+
+            return chapterStatusDetails;
+        }
+
+        private void _SaveChapterStatusToFile(ChapterStatusDetails missionStatusDetails, string fullPath)
         {
             string saveData = JsonUtility.ToJson(missionStatusDetails, true);
             File.WriteAllText(fullPath, saveData);

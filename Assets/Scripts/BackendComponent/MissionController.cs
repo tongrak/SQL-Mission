@@ -9,6 +9,8 @@ namespace Assets.Scripts.DataPersistence
     {
         [SerializeField] private GameObject _stepControllerGameObject;
         [SerializeField] private MissionStatusDetailsData _missionStatusDetailsData;
+        [SerializeField] private ChapterStatusDetailsData _chapterStatusDetailsData;
+        [SerializeField] private SelectedChapterData _selectedChapterData;
         
         private MissionType _missionType;
         private int _missionID;
@@ -40,15 +42,12 @@ namespace Assets.Scripts.DataPersistence
         {
             if (!_isPassed)
             {
-                if (_missionType != MissionType.Final)
+                _missionStatusDetailsData.MissionStatusDetails = _saveManager.UpdateMissionStatus(_missionFolderFullPath, _missionStatusDetailsData.MissionStatusDetails, _missionID);
+                _missionStatusDetailsData.Changed = true;
+                if (_missionType == MissionType.Final)
                 {
-                    _missionStatusDetailsData.MissionStatusDetails = _saveManager.UpdateMissionStatus(_missionFolderFullPath, _missionStatusDetailsData.MissionStatusDetails, _missionID);
-                    _missionStatusDetailsData.Changed = true;
-                    //_missionSceneData.MissionStatusDetails = null;
-                }
-                else
-                {
-                    // Update chapter status.
+                    _chapterStatusDetailsData.ChapterStatusDetails = _saveManager.UpdateChapterStatus(_selectedChapterData.ChapterFolderFullPath, _chapterStatusDetailsData.ChapterStatusDetails, _selectedChapterData.ChapterID);
+                    _chapterStatusDetailsData.Changed = true;
                 }
             }
         }
