@@ -12,18 +12,6 @@ namespace Assets.Scripts.DataPersistence.UI
         [SerializeField] private GameObject _prerequisite;
         [SerializeField] private GameObject _missionDependencyTMP;
 
-        // Use this for initialization
-        void Start()
-        {
-               
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
-
         public void Initiate(string title, string description, bool isUnlock, bool isPass, string[] missionDependencies)
         {
             missionTitle.text = title;

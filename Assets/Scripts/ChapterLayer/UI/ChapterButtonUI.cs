@@ -21,16 +21,17 @@ namespace Assets.Scripts.ChapterLayer.UI
             }
         }
 
-        // Use this for initialization
-        void Start()
+        public void ChapterHovered()
         {
-
+            if (!gameObject.GetComponent<Button>().interactable)
+            {
+                _prerequisite?.SetActive(true);
+            }
         }
 
-        // Update is called once per frame
-        void Update()
+        public void ChapterUnHovered()
         {
-
+            _prerequisite?.SetActive(false);
         }
     }
 }
