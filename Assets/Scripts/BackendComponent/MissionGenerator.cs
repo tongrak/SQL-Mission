@@ -65,7 +65,7 @@ namespace Assets.Scripts.DataPersistence
 
         private void InitiateFileWatcher()
         {
-            _fileSystemWatcher = new FileSystemWatcher(_missionSceneData.MissionConfigFolderFullPath, EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType);
+            _fileSystemWatcher = new FileSystemWatcher(_missionSceneData.MissionConfigFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
 
             _fileSystemWatcher.NotifyFilter = NotifyFilters.CreationTime
                                  | NotifyFilters.LastWrite
@@ -198,7 +198,7 @@ namespace Assets.Scripts.DataPersistence
         private void _InitiateMissionController()
         {
             MissionController missioncontroller = _missionControllerGameObject.GetComponent<MissionController>();
-            missioncontroller.Initiate(_missionSceneData.MissionConfigFolderFullPath, _missionConfig.MissionName, _missionConfig.MissionDependTos, _missionConfig.MissionType, new SaveManager.SaveManager(), _missionSceneData.IsPassed);
+            missioncontroller.Initiate(_missionSceneData.MissionConfigFolderFullPath, _missionConfig.MissionID, _missionConfig.MissionType, new SaveManager.SaveManager(), _missionSceneData.IsPassed);
         }
         #endregion
 

@@ -6,7 +6,7 @@ namespace Assets.Scripts.DataPersistence
     {
         private string _missionFileName;
         private bool _isPassed;
-        [SerializeField] private MissionManager _missionManager;
+        private MissionManager _missionManager;
 
         /// <summary>
         /// Construct mission controller completely.

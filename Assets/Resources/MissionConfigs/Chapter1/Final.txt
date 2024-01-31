@@ -1,70 +1,32 @@
 {
-  "MissionName": "Final",
+  "MissionID": 99,
+  "MissionTitle": "Final",
   "MissionType": 2,
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ PeopleOccupation",
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Flower",
       "Step": 1,
       "ImgDetail": {
-        "ImgFolder": "Chapter1/PeopleOccupation",
+        "ImgFolder": "Starter/Flower",
         "ImgList": null
       },
       "PuzzleDetail": {
         "DB": "Starter.db",
         "Tables": [
-          "PeopleOccupation"
+          "Flower"
         ],
-        "PreSQL": "SELECT * \n FROM <<Blank>>",
-        "AnswerSQL": "SELECT * FROM PeopleOccupation",
+        "PreSQL": "SELECT * /n FROM Flower",
+        "AnswerSQL": "SELECT * FROM Flower",
         "VisualType": 0,
-        "PuzzleType": 1,
-        "BlankOptions": null
-      }
-    },
-    {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Animal",
-      "Step": 1,
-      "ImgDetail": {
-        "ImgFolder": "Starter/Animal",
-        "ImgList": null
-      },
-      "PuzzleDetail": {
-        "DB": "Starter.db",
-        "Tables": [
-          "Animal"
-        ],
-        "PreSQL": "SELECT * \n FROM <<Blank>>",
-        "AnswerSQL": "SELECT * FROM Animal",
-        "VisualType": 0,
-        "PuzzleType": 1,
-        "BlankOptions": null
-      }
-    },
-    {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Book",
-      "Step": 1,
-      "ImgDetail": {
-        "ImgFolder": "Starter/Book",
-        "ImgList": null
-      },
-      "PuzzleDetail": {
-        "DB": "Starter.db",
-        "Tables": [
-          "Book"
-        ],
-        "PreSQL": "SELECT * \n FROM <<Blank>>",
-        "AnswerSQL": "SELECT * FROM Book",
-        "VisualType": 0,
-        "PuzzleType": 1,
+        "PuzzleType": 0,
         "BlankOptions": null
       }
     }
   ],
   "MissionDependencies": [
-    "Mission3",
-    "Mission4",
-    "Mission5"
-  ],
-  "MissionDependTos": null
+    3,
+    4,
+    5
+  ]
 }

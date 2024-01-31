@@ -3,7 +3,7 @@
     [System.Serializable]
     public class MissionDependencyUnlockDetail
     {
-        public string MissionName;
+        public int MissionID;
         public bool IsPass;
     }
 }

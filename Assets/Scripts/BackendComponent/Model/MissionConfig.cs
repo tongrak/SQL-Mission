@@ -2,11 +2,11 @@
 {
     public class MissionConfig
     {
-        public string MissionName;
+        public int MissionID;
+        public string MissionTitle;
         public string MissionDescription;
         public StepDetail[] MissionDetail;
         public MissionType MissionType;
-        public string[] MissionDependencies;
-        public string[] MissionDependTos;
+        public int[] MissionDependencies;
     }
 }

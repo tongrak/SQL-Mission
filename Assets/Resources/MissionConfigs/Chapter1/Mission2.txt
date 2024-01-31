@@ -1,5 +1,6 @@
 {
-  "MissionName": "Mission2",
+  "MissionID": 2,
+  "MissionTitle": "Mission2",
   "MissionType": 0,
   "MissionDescription": "ทดสอบการเติมช่องว่างด้วย Drop down",
   "MissionDetail": [
@@ -34,11 +35,6 @@
     }
   ],
   "MissionDependencies": [
-    "Mission1"
-  ],
-  "MissionDependTos": [
-    "Mission3",
-    "Mission4",
-    "Mission5"
+    1
   ]
 }
