@@ -50,7 +50,7 @@ namespace Assets.Scripts.DataPersistence
                 InitiateMissionStatusFileWatcher();
             }
 
-            if (_selectedChapterData.IsPassed)
+            if (!_selectedChapterData.IsPassed)
             {
                 InitiateChapterStatusFileWatcher();
             }
