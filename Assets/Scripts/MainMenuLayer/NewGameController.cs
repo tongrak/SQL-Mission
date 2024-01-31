@@ -1,7 +1,7 @@
 using Assets.Scripts.Helper;
-using Codice.Client.Common;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NewGameController : MonoBehaviour
 {
@@ -26,6 +26,10 @@ public class NewGameController : MonoBehaviour
         if (_fileWatcher != null)
         {
             _DeleteAllStatusFile();
+        }
+        else
+        {
+            ScenesManager.Instance.LoadSelectChapterScene();
         }
     }
 
