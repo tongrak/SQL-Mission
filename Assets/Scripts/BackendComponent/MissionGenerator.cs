@@ -23,6 +23,7 @@ namespace Assets.Scripts.DataPersistence
         [SerializeField] private GameObject _missionControllerGameObject;
         [SerializeField] private GameObject _gameplayManagerGameObjefct;
         [SerializeField] private MissionData _missionSceneData;
+        [SerializeField] private SelectedChapterData _selectedChapterData;
         [SerializeField] private TextAsset _configFile;
         [SerializeField] private SaveAndBackToMB _saveAndBackToDB;
         [SerializeField] private bool _isMockConfig;
@@ -30,7 +31,8 @@ namespace Assets.Scripts.DataPersistence
 
         private MissionConfig _missionConfig;
         private ISQLService _sqlService = new SQLService();
-        private FileSystemWatcher _fileSystemWatcher;
+        private FileSystemWatcher _missionStatusFileWatcher;
+        private FileSystemWatcher _chapterStatusFileWatcher;
 
         private void StartGenerating()
         {
@@ -42,7 +44,17 @@ namespace Assets.Scripts.DataPersistence
             {
                 LoadConfigFile();
             }
-            InitiateFileWatcher();
+
+            if (!_missionSceneData.IsPassed)
+            {
+                InitiateMissionStatusFileWatcher();
+            }
+
+            if (_selectedChapterData.IsPassed)
+            {
+                InitiateChapterStatusFileWatcher();
+            }
+
             LoadDialogController();
             LoadStepController();
             LoadPuzzleManager();
@@ -63,15 +75,25 @@ namespace Assets.Scripts.DataPersistence
             _missionConfig = JsonUtility.FromJson<MissionConfig>(missionConfigFile.text);
         }
 
-        private void InitiateFileWatcher()
+        private void InitiateMissionStatusFileWatcher()
         {
-            _fileSystemWatcher = new FileSystemWatcher(_missionSceneData.MissionConfigFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
+            _missionStatusFileWatcher = new FileSystemWatcher(_missionSceneData.MissionConfigFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
+            InitiateFileWatcher(_missionStatusFileWatcher);
+        }
 
-            _fileSystemWatcher.NotifyFilter = NotifyFilters.CreationTime
-                                 | NotifyFilters.LastWrite
-                                 | NotifyFilters.Size;
+        private void InitiateChapterStatusFileWatcher()
+        {
+            _chapterStatusFileWatcher = new FileSystemWatcher(_missionSceneData.MissionConfigFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
+            InitiateFileWatcher(_chapterStatusFileWatcher);
+        }
 
-            _fileSystemWatcher.EnableRaisingEvents = true;
+        private void InitiateFileWatcher(FileSystemWatcher fileWatcher)
+        {
+            fileWatcher.NotifyFilter = NotifyFilters.CreationTime
+                     | NotifyFilters.LastWrite
+                     | NotifyFilters.Size;
+
+            fileWatcher.EnableRaisingEvents = true;
         }
 
         private void LoadDialogController()
@@ -209,11 +231,11 @@ namespace Assets.Scripts.DataPersistence
             // Ues for test change scene when mission passed.
             if (_isMockPassed)
             {
-                _saveAndBackToDB.Initiate(_fileSystemWatcher);
+                _saveAndBackToDB.Initiate(_missionStatusFileWatcher);
                 Debug.LogWarning("SaveAndBackToDB initiate. // Delete this before production");
             }
             //Start gameplay after mission generation.
-            _gameplayManagerGameObjefct.GetComponent<IGameplayManager>().StartGameplay(_fileSystemWatcher);
+            _gameplayManagerGameObjefct.GetComponent<IGameplayManager>().StartGameplay(_missionStatusFileWatcher);
         }
 
         // Update is called once per frame
