@@ -8,6 +8,5 @@ namespace Assets.Scripts.ScriptableObjects
     {
         public string[] MissionFilesIndex;
         public string MissionConfigFolderFullPath;
-        public bool IsPassed;
     }
 }
