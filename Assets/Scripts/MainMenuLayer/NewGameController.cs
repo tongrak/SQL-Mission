@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class NewGameController : MonoBehaviour
 {
+    [SerializeField] private GameObject _loadingFacade;
+
     private FileSystemWatcher _fileWatcher;
     private string _rootPath;
     private string _statusFile;
@@ -23,9 +25,11 @@ public class NewGameController : MonoBehaviour
 
     public void NewGameButtonClicked()
     {
+        _loadingFacade.SetActive(true);
         if (_fileWatcher != null)
         {
             _DeleteAllStatusFile();
+            // Will change scene after delete all status file.
         }
         else
         {
