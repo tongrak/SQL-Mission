@@ -19,7 +19,6 @@ namespace Assets.Scripts.ChapterLayer
             // Insert mission board data
             _missionBoardData.MissionConfigFolderFullPath = Application.dataPath + "/Resources/" + EnvironmentData.Instance.MissionConfigRootFolder + "/" + missionConfigsRelativeFolder;
             _missionBoardData.MissionFilesIndex = missionFilesIndex;
-            _missionBoardData.IsPassed = isPassed;
 
             // Insert chapter status data
             _chapterStatusDetailsData.ChapterStatusDetails = _chapterStatusDetails;
@@ -27,6 +26,7 @@ namespace Assets.Scripts.ChapterLayer
             // Insert chapter data
             _selectedChapterData.ChapterFolderFullPath = _chapterConfigsFolderFullPath;
             _selectedChapterData.ChapterID = chapterID;
+            _selectedChapterData.IsPassed = isPassed;
 
             ScenesManager.Instance.LoadSelectMissionScene();
         }

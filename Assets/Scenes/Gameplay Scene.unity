@@ -3864,6 +3864,7 @@ MonoBehaviour:
   _missionControllerGameObject: {fileID: 1034289771}
   _gameplayManagerGameObjefct: {fileID: 1575723517}
   _missionSceneData: {fileID: 11400000, guid: f20acfc1b1a3dfc49bd917b2c1b0d812, type: 2}
+  _selectedChapterData: {fileID: 11400000, guid: 9c72d1850969993448b1cd463510f918, type: 2}
   _configFile: {fileID: 4900000, guid: 5c76841a0cb59d345b699868cb66b6cf, type: 3}
   _saveAndBackToDB: {fileID: 0}
   _isMockConfig: 0

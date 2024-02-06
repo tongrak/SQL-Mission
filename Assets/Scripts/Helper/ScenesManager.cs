@@ -19,4 +19,9 @@ public class ScenesManager : MonoBehaviour
     {
         SceneManager.LoadScene("Mission Select Scene");
     }
+
+    public void LoadSelectChapterScene()
+    {
+        SceneManager.LoadScene("Chapter Scene");
+    }
 }

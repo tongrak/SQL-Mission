@@ -7,5 +7,6 @@ namespace Assets.Scripts.ScriptableObjects
     {
         public string ChapterFolderFullPath;
         public int ChapterID;
+        public bool IsPassed;
     }
 }
