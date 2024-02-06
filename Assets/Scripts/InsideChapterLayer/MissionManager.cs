@@ -7,6 +7,9 @@ using Assets.Scripts.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
+using Assets.Scripts.InsideChapterLayer.UI;
 
 public class MissionManager : MonoBehaviour
 {
@@ -15,6 +18,8 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private GameObject _finalMission;
     [SerializeField] private MissionData _missionSceneData;
     [SerializeField] private MissionStatusDetailsData _missionStatusDetailsData;
+    [SerializeField] private MissionBoardUI _missionBoardUI;
+    [SerializeField] private MissionBoardData _missionBoardData;
     /// <summary>
     /// Full path of config missions folder.
     /// </summary>
@@ -22,6 +27,7 @@ public class MissionManager : MonoBehaviour
     private string[] _missionConfigFiles; // list of mission config file. Example [mission1, mission2]
     private FileSystemWatcher _fileWatcher;
     private MissionUnlockDetails _missionStatusDetails;
+    private bool _haveStatusDetailFile;
 
     public void MissionPaperClicked(string missionClickedFilename, bool isPassed)
     {
@@ -35,7 +41,11 @@ public class MissionManager : MonoBehaviour
     public void Activate()
     {
         _LoadChapterConfigData();
-        _InstantiateWatcher();
+        if (!_haveStatusDetailFile)
+        {
+            _InstantiateWatcher();
+        }
+        _InitiateMissionBoardUI();
         _GenMissionPaperFromConfigFiles();
     }
 
@@ -44,7 +54,7 @@ public class MissionManager : MonoBehaviour
     /// </summary>
     private void _InstantiateWatcher()
     {
-        _fileWatcher = new FileSystemWatcher(_allmissionConfigFolderFullPath, EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType + ".meta");
+        _fileWatcher = new FileSystemWatcher(_allmissionConfigFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType + ".meta");
 
         _fileWatcher.NotifyFilter = NotifyFilters.CreationTime
                              | NotifyFilters.LastWrite
@@ -60,25 +70,17 @@ public class MissionManager : MonoBehaviour
     /// </summary>
     private void _LoadChapterConfigData()
     {
-        _missionConfigFiles = new string[]
-        {
-            "Mission1",
-            "Mission2",
-            "Mission3",
-            "Mission4",
-            "Mission5",
-            "Final"
-        };
-        _allmissionConfigFolderFullPath = Application.dataPath + "/Resources/" + EnvironmentData.Instance.MissionConfigRootFolder + "/" + "Chapter1";
+        _missionConfigFiles = _missionBoardData.MissionFilesIndex;
+        _allmissionConfigFolderFullPath = _missionBoardData.MissionConfigFolderFullPath;
+        _haveStatusDetailFile = File.Exists(_allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
     }
 
     private void _GenMissionPaperFromConfigFiles()
     {
         // Set variable
         string missionConfigFolderPathAfterResources = _allmissionConfigFolderFullPath.Split(new string[] { "Resources/" }, System.StringSplitOptions.None)[1] + '/';
-        string unLockDetailFilePathFromAssets = _allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.MissionStatusFileName; // Such as 'Assets/Resources/X/X/<FileName>'
-        string missionStatusFileType = EnvironmentData.Instance.MissionStatusDetailFileType; // Can use '.txt' or '.json'. Up to you.
-        bool haveStatusDetailFile = File.Exists(unLockDetailFilePathFromAssets + missionStatusFileType);
+        string unLockDetailFilePathFromAssets = _allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.StatusFileName; // Such as 'Assets/Resources/X/X/<FileName>'
+        string missionStatusFileType = EnvironmentData.Instance.ConfigFileType; // Can use '.txt' or '.json'. Up to you.
 
         MissionConfig[] missionConfigs = new MissionConfig[_missionConfigFiles.Length];
 
@@ -97,18 +99,17 @@ public class MissionManager : MonoBehaviour
         if (_missionStatusDetailsData.Changed)
         {
             _missionStatusDetails = _missionStatusDetailsData.MissionStatusDetails;
-            //_missionBoardSceneData.MissionStatusDetails = null;
             _missionStatusDetailsData.Changed = false;
         }
         else
         {
-            if (!haveStatusDetailFile)
+            if (!_haveStatusDetailFile)
             {
                 _missionStatusDetails = _WriteMissionUnlockDetails(missionConfigs, unLockDetailFilePathFromAssets, missionStatusFileType);
             }
             else
             {
-                string missionStatusTxt = File.ReadAllText(_allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.MissionStatusFileName + EnvironmentData.Instance.MissionStatusDetailFileType);
+                string missionStatusTxt = File.ReadAllText(_allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
                 _missionStatusDetails = JsonUtility.FromJson<MissionUnlockDetails>(missionStatusTxt);
             }
         }
@@ -142,7 +143,7 @@ public class MissionManager : MonoBehaviour
                 {
                     missionDependenciesUnlockDetail[k] = new MissionDependencyUnlockDetail
                     {
-                        MissionName = missionConfig.MissionDependencies[k],
+                        MissionID = missionConfig.MissionDependencies[k],
                         IsPass = false
                     };
                 }
@@ -151,7 +152,7 @@ public class MissionManager : MonoBehaviour
             // Create unlock detail
             missionUnlockDetails.MissionUnlockDetailList[i] = new MissionUnlockDetail
             {
-                MissionName = missionConfig.MissionName,
+                MissionID = missionConfig.MissionID,
                 IsUnlock = isMissionUnlocked,
                 IsPass = false,
                 MissionDependenciesUnlockDetail = missionDependenciesUnlockDetail
@@ -181,6 +182,9 @@ public class MissionManager : MonoBehaviour
         // Find parent's transform
         Transform misionGroupTransform = GameObject.Find("Content").transform;
 
+        // Pair missionID and missionTitle
+        IDictionary<int, string> missionDic = missionConfigs.ToDictionary(x => x.MissionID, x => x.MissionTitle);
+
         // Instantiate mission(s)
         for (int i = 0; i < missionConfigs.Length; i++)
         {
@@ -202,9 +206,10 @@ public class MissionManager : MonoBehaviour
                 default:
                     break;
             }
-            
+
             // Injected MissionPaperUI to mission paper.
-            missionPaper.GetComponent<MissionPaperUI>().Initiate(missionConfig.MissionName, missionConfig.MissionDescription, missionUnlockDetail.IsUnlock, missionUnlockDetail.IsPass);
+            string[] missionDependencyTitles = _MapMissionIDToTitle(missionConfig.MissionDependencies, missionDic);
+            missionPaper.GetComponent<MissionPaperUI>().Initiate(missionConfig.MissionTitle, missionConfig.MissionDescription, missionUnlockDetail.IsUnlock, missionUnlockDetail.IsPass, missionDependencyTitles);
 
             // Injected MissionPaperController to mission paper.
             MissionPaperController missionPaperController = missionPaper.AddComponent<MissionPaperController>();
@@ -213,13 +218,41 @@ public class MissionManager : MonoBehaviour
         }
     }
 
+    private string[] _MapMissionIDToTitle(int[] missionIDs, IDictionary<int, string> missions)
+    {
+        string[] missionTitles = new string[missionIDs.Length];
+
+        for (int i = 0; i < missionIDs.Length; i++)
+        {
+            missionTitles[i] = missions[missionIDs[i]];
+        }
+
+        return missionTitles;
+    }
+
+    private void _InitiateMissionBoardUI()
+    {
+        _missionBoardUI.Initiate(_fileWatcher);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         Activate();
     }
 
+    #region Object disable or destroy
     private void OnDisable()
+    {
+        _DisposeWatcher();
+    }
+
+    private void OnDestroy()
+    {
+        _DisposeWatcher();
+    }
+
+    private void _DisposeWatcher()
     {
         if (_fileWatcher != null)
         {
@@ -228,6 +261,7 @@ public class MissionManager : MonoBehaviour
             _fileWatcher.Dispose();
         }
     }
+    #endregion
 
     // Update is called once per frame
     void Update()
