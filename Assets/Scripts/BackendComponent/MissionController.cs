@@ -19,7 +19,8 @@ namespace Assets.Scripts.DataPersistence
         /// </summary>
         private string _missionFolderFullPath;
         private ISaveManager _saveManager;
-        private bool _isPassed;
+        private bool _isMissionPassed;
+        private bool _isChapterPassed;
 
         /// <summary>
         /// 
@@ -29,22 +30,23 @@ namespace Assets.Scripts.DataPersistence
         /// <param name="missionDependTos"></param>
         /// <param name="missionType"></param>
         /// <param name="saveManager"></param>
-        public void Initiate(string missionConfigFolderFullPath, int missionID, MissionType missionType, ISaveManager saveManager, bool isPassed)
+        public void Initiate(string missionConfigFolderFullPath, int missionID, MissionType missionType, ISaveManager saveManager, bool isMissionPassed, bool isChapterPassed)
         {
             _missionFolderFullPath = missionConfigFolderFullPath;
             _missionID = missionID;
             _missionType = missionType;
             _saveManager = saveManager;
-            _isPassed = isPassed;
+            _isMissionPassed = isMissionPassed;
+            _isChapterPassed = isChapterPassed;
         }
 
         public void AllPuzzlePassed()
         {
-            if (!_isPassed)
+            if (!_isMissionPassed)
             {
                 _missionStatusDetailsData.MissionStatusDetails = _saveManager.UpdateMissionStatus(_missionFolderFullPath, _missionStatusDetailsData.MissionStatusDetails, _missionID);
                 _missionStatusDetailsData.Changed = true;
-                if (_missionType == MissionType.Final)
+                if (_missionType == MissionType.Final && !_isChapterPassed)
                 {
                     _chapterStatusDetailsData.ChapterStatusDetails = _saveManager.UpdateChapterStatus(_selectedChapterData.ChapterFolderFullPath, _chapterStatusDetailsData.ChapterStatusDetails, _selectedChapterData.ChapterID);
                     _chapterStatusDetailsData.Changed = true;

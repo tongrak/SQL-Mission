@@ -37,11 +37,11 @@ public class ChapterGenerator : MonoBehaviour
         // 3)
         _InitiateChapterBoardUI();
 
-        // ) Load config from file by use config index
+        // 4) Load config from file by use config index
         ChapterIndex chapterIndex = _LoadChapterIndexFromFile();
         ChapterConfig[] chapterConfigs = _LoadChapterConfigsFromFile(chapterIndex);
 
-        // ) Load chapter status.
+        // 5) Load chapter status.
         ChapterStatusDetails chapterStatusDetails;
         if (_chapterStatusDetailsData.Changed)
         {
@@ -60,10 +60,10 @@ public class ChapterGenerator : MonoBehaviour
             }
         }
 
-        // ) Generate chapter(s) to UI.
+        // 6) Generate chapter(s) to UI.
         _GenerateChapterObjects(chapterConfigs, chapterStatusDetails);
 
-        // ) Init chapter manager.
+        // 7) Init chapter manager.
         _chapterManager.Construct(_chapterConfigsFolderFullPath, chapterStatusDetails);
     }
 
