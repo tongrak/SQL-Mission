@@ -6,27 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Main menu.unity
+    guid: e7ce36f40f68a514ba11b81392b41eab
+  - enabled: 1
+    path: Assets/Scenes/Chapter Scene.unity
+    guid: a9a000c8cf6df03498891aabcc5d607e
+  - enabled: 1
     path: Assets/Scenes/Mission Select Scene.unity
     guid: 67b5ddebf5e94fa4eade6fd342425dc3
   - enabled: 1
     path: Assets/Scenes/Gameplay Scene.unity
     guid: aef443ed4ec23494f96fdbaa9e7be3d0
-  - enabled: 1
-    path: Assets/Scenes/Mission Scene.unity
-    guid: 05aaf95f51648c341a253361c8dad727
-  - enabled: 1
-    path: Assets/Scenes/SQLTest.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/Sample Mission Scene.unity
-    guid: e78fc54b007cbba44847b02e15569b5e
-  - enabled: 1
-    path: Assets/Scenes/Gameplay Scene.unity
-    guid: aef443ed4ec23494f96fdbaa9e7be3d0
-  - enabled: 1
-    path: Assets/Scenes/Chapter Scene.unity
-    guid: a9a000c8cf6df03498891aabcc5d607e
-  - enabled: 1
-    path: Assets/Scenes/Main menu.unity
-    guid: e7ce36f40f68a514ba11b81392b41eab
   m_configObjects: {}

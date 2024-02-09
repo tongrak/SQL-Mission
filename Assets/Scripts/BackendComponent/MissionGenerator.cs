@@ -25,9 +25,6 @@ namespace Assets.Scripts.DataPersistence
         [SerializeField] private MissionData _missionSceneData;
         [SerializeField] private SelectedChapterData _selectedChapterData;
         [SerializeField] private TextAsset _configFile;
-        [SerializeField] private SaveAndBackToMB _saveAndBackToDB;
-        [SerializeField] private bool _isMockConfig;
-        [SerializeField] private bool _isMockPassed;
 
         private MissionConfig _missionConfig;
         private ISQLService _sqlService = new SQLService();
@@ -36,14 +33,7 @@ namespace Assets.Scripts.DataPersistence
 
         private void StartGenerating()
         {
-            if (_isMockConfig)
-            {
-                _MockLoadConfigFile();
-            }
-            else
-            {
-                LoadConfigFile();
-            }
+            LoadConfigFile();
 
             if (!_missionSceneData.IsPassed)
             {
@@ -220,7 +210,7 @@ namespace Assets.Scripts.DataPersistence
         private void _InitiateMissionController()
         {
             MissionController missioncontroller = _missionControllerGameObject.GetComponent<MissionController>();
-            missioncontroller.Initiate(_missionSceneData.MissionConfigFolderFullPath, _missionConfig.MissionID, _missionConfig.MissionType, new SaveManager.SaveManager(), _missionSceneData.IsPassed);
+            missioncontroller.Initiate(_missionSceneData.MissionConfigFolderFullPath, _missionConfig.MissionID, _missionConfig.MissionType, new SaveManager.SaveManager(), _missionSceneData.IsPassed, _selectedChapterData.IsPassed);
         }
         #endregion
 
@@ -228,12 +218,7 @@ namespace Assets.Scripts.DataPersistence
         void Start()
         {
             StartGenerating();
-            // Ues for test change scene when mission passed.
-            if (_isMockPassed)
-            {
-                _saveAndBackToDB.Initiate(_missionStatusFileWatcher);
-                Debug.LogWarning("SaveAndBackToDB initiate. // Delete this before production");
-            }
+
             //Start gameplay after mission generation.
             _gameplayManagerGameObjefct.GetComponent<IGameplayManager>().StartGameplay(_missionStatusFileWatcher);
         }
