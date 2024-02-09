@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.ChapterLayer.Model
+﻿namespace Assets.Scripts.DataPersistence.Chapter
 {
     [System.Serializable]
     public class ChapterConfig

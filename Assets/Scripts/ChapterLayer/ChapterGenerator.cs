@@ -1,6 +1,6 @@
 using Assets.Scripts.ChapterLayer;
 using Assets.Scripts.ChapterLayer.UI;
-using Assets.Scripts.ChapterLayer.Model;
+using Assets.Scripts.DataPersistence.Chapter;
 using Assets.Scripts.DataPersistence.ChapterStatusDetail;
 using Assets.Scripts.Helper;
 using Assets.Scripts.ScriptableObjects;
