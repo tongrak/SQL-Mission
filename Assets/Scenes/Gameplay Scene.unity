@@ -7238,10 +7238,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a666a257046b864e80a4913e5716297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _executionSprite: {fileID: 21300000, guid: 838a6ad43eb278b40b2c7dc19a412f0e, type: 3}
-  _disableExecutionSprite: {fileID: 21300000, guid: 81114d2f03770f342ab96b047ffd45bd, type: 3}
-  _proceedSprite: {fileID: 21300000, guid: f4996de063ecac04ca80c8a9ca3e1b8f, type: 3}
-  _stepBackSprite: {fileID: 21300000, guid: b438ed01059142649b928cb086086948, type: 3}
+  _executionSprite: {fileID: 21300000, guid: da3479f3e7b57c44a804327a144d2ac0, type: 3}
+  _disableExecutionSprite: {fileID: 21300000, guid: b7b1e21065280df449400f526217dc14, type: 3}
+  _proceedSprite: {fileID: 21300000, guid: 569269f9cffc85a47b137fe378bd1f1e, type: 3}
+  _stepBackSprite: {fileID: 21300000, guid: d8c09cf719029df49a6b77dec25a9926, type: 3}
   _buttonImage: {fileID: 1966234491}
 --- !u!114 &1966234490
 MonoBehaviour:
@@ -7319,7 +7319,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 838a6ad43eb278b40b2c7dc19a412f0e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: da3479f3e7b57c44a804327a144d2ac0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
