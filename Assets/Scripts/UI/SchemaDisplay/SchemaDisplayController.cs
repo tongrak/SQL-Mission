@@ -36,14 +36,17 @@ namespace Gameplay.UI
             //Display first schema
             _schemaAttrCon.SetDisplayAttribute(schemas[0].attribuites);
         }
-        private UnityAction getOnClickAction(string[] attribute) 
+        private UnityAction getOnClickAction(string[] attribute)
         {
             return () => _schemaAttrCon.SetDisplayAttribute(attribute);
         }
         private void removePastSchema()
         {
             //Remove past selection list
-            foreach (GameObject option in _selectionListGO.transform) Destroy(option);
+            foreach (Transform child in _selectionListGO.transform)
+            {
+              if(child.gameObject != null)   Destroy(child.gameObject);
+            }
 
             _schemaAttrCon.RemoveDisplayAttribute();
         }

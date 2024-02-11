@@ -77,7 +77,10 @@ namespace Gameplay.UI.Construction
         public void startConsole()
         {
             //remove past tokens
-            foreach (Transform token in this.transform) { Destroy(token.gameObject); }
+            foreach (Transform token in this.transform)
+            {
+                if (token.gameObject != null) Destroy(token.gameObject);
+            }
         }
 
         #region Aux method
@@ -104,4 +107,3 @@ namespace Gameplay.UI.Construction
         #endregion
     }
 }
-
