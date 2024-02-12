@@ -30,11 +30,11 @@ namespace Assets.Scripts.DataPersistence
         private FileSystemWatcher _missionStatusFileWatcher;
         private FileSystemWatcher _chapterStatusFileWatcher;
 
-        private void StartGenerating()
+        private void _StartGenerating()
         {
             LoadConfigFile();
 
-            if (!_missionSceneData.IsPassed)
+            if (!_missionSceneData.IsPassed && _missionConfig.MissionType != MissionType.Placement)
             {
                 InitiateMissionStatusFileWatcher();
             }
@@ -209,13 +209,33 @@ namespace Assets.Scripts.DataPersistence
         }
         #endregion
 
+        private void _StartGamePlay()
+        {
+            //Start gameplay after mission generated.
+            IGameplayManager gameplayManager = _gameplayManagerGameObjefct.GetComponent<IGameplayManager>();
+            if (_missionStatusFileWatcher != null && _chapterStatusFileWatcher != null)
+            {
+                gameplayManager.StartFinalGameplay(_missionStatusFileWatcher, _chapterStatusFileWatcher);
+            }
+            else if (_missionStatusFileWatcher != null && _chapterStatusFileWatcher == null)
+            {
+                gameplayManager.StartNormalGameplay(_missionStatusFileWatcher);
+            }
+            else if (_missionStatusFileWatcher == null && _chapterStatusFileWatcher != null)
+            {
+                gameplayManager.StartPlacement(_chapterStatusFileWatcher);
+            }
+            else
+            {
+                gameplayManager.StartFreeGame();
+            }
+        }
+
         // Use this for initialization
         void Start()
         {
-            StartGenerating();
-
-            //Start gameplay after mission generation.
-            _gameplayManagerGameObjefct.GetComponent<IGameplayManager>().StartGameplay(_missionStatusFileWatcher);
+            _StartGenerating();
+            _StartGamePlay();
         }
 
         // Update is called once per frame
