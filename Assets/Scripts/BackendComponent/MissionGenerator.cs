@@ -39,7 +39,7 @@ namespace Assets.Scripts.DataPersistence
                 InitiateMissionStatusFileWatcher();
             }
 
-            if (!_selectedChapterData.IsPassed || _missionConfig.MissionType == MissionType.Placement)
+            if ((!_selectedChapterData.IsPassed && _missionConfig.MissionType == MissionType.Final) || _missionConfig.MissionType == MissionType.Placement)
             {
                 InitiateChapterStatusFileWatcher();
             }
