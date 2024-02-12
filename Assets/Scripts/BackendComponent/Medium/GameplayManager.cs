@@ -97,7 +97,7 @@ namespace Gameplay
                     _canAdvanceAStep = false;
                     _gameplayUI.SetDisplayedActionButton(ActionButtonType.INACTICE);
                     //Switch to boards scnene if appropriate
-                    StartCoroutine(switchToBoardsSceneWhenAppro(_maxLoadingSecond));
+                    StartCoroutine(switchToAnotherSceneWhenAppro(_maxLoadingSecond));
                     break;
                 case Step.Puzzle:
                     Debug.Log("Reaching puzzle step");
@@ -186,20 +186,20 @@ namespace Gameplay
                     break;
             }
         }
-        private bool allIsSaved => _namedSaveFileWatchers.Count() == _savedFileWatcherNames.Count();
+        private bool allIsSaved => _namedSaveFileWatchers.Count() == _savedFileWatcherNames?.Count();
         private void unsubAllSaveFileWatcher()
         {
             if (_namedSaveFileWatchers != null) 
                 foreach (var namedWatcher in _namedSaveFileWatchers) namedWatcher.Item2.Changed -= (s, e) => _savedFileWatcherNames.Add(namedWatcher.Item1);
         }
-        private IEnumerator switchToBoardsSceneWhenAppro(int maxLoadingSeconds)
+        private IEnumerator switchToAnotherSceneWhenAppro(int maxLoadingSeconds)
         {
             // Wait untill game result is saved
             var startedTime = System.DateTime.Now;
             var currentTime = System.DateTime.Now;
             // Show loading facade.
             _loadingFacadeObject.SetActive(true);
-            while (allIsSaved && (currentTime - startedTime).Seconds < maxLoadingSeconds)
+            while (!allIsSaved && (currentTime - startedTime).Seconds < maxLoadingSeconds)
             {
                 currentTime = System.DateTime.Now;
                 yield return null;
