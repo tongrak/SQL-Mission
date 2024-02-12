@@ -29,4 +29,9 @@ public class ScenesManager : MonoBehaviour
     {
         SceneManager.LoadScene("Placement Scene");
     }
+
+    public void LoadMainMenuScene()
+    {
+        SceneManager.LoadScene("Main menu");
+    }
 }
