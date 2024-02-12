@@ -26,7 +26,8 @@ namespace Assets.Scripts.DataPersistence.SaveManager
             // 2) Loop for unlock other mission ซึ่งถูก passed mission ล็อกไว้
             foreach (MissionUnlockDetail missionStatusDetail in missionStatusDetails.MissionUnlockDetailList)
             {
-                if (missionStatusDetail.MissionID != passedMissionID)
+                // Mission have dependency and not passed mission
+                if (missionStatusDetail.MissionID != passedMissionID && missionStatusDetail.MissionDependenciesUnlockDetail?.Length > 0)
                 {
                     int totalDependencies = missionStatusDetail.MissionDependenciesUnlockDetail.Length;
                     int totalUnlockDependencies = 0;
@@ -77,7 +78,8 @@ namespace Assets.Scripts.DataPersistence.SaveManager
             // 2) Loop for unlock other chapter ซึ่งถูก passed chapter ล็อกไว้
             foreach (ChapterStatusDetail.ChapterStatusDetail chapterStatusDetail in chapterStatusDetails.ChapterStatusDetailList)
             {
-                if (chapterStatusDetail.ChatperID != passedChapterID && chapterStatusDetail.ChapterDependenciesStatusDetail != null)
+                // Chapter have dependency and not passed chapter
+                if (chapterStatusDetail.ChatperID != passedChapterID && chapterStatusDetail.ChapterDependenciesStatusDetail?.Length > 0)
                 {
                     int totalDependencies = chapterStatusDetail.ChapterDependenciesStatusDetail.Length ;
                     int totalUnlockDependencies = 0;
