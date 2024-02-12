@@ -11,7 +11,9 @@ namespace Assets.Scripts.MainMenuLayer
     {
         [SerializeField] private GameObject _loadingFacade;
         [SerializeField] private ChapterStatusDetailsData _chapterStatusDetailsData;
+        [SerializeField] private SelectedChapterData _selectedChapterData;
         [SerializeField] private bool _goToPlacement;
+        [SerializeField] private MissionData _missionSceneData;
 
         private FileSystemWatcher _fileWatcher;
         private string _configsFolderPath;
@@ -30,7 +32,7 @@ namespace Assets.Scripts.MainMenuLayer
             _totalStatusFile = 0;
             _totalDeletedStatusFile = 0;
             _deleteCompleted = false;
-            _chapterConfigsFolderFullPath = Application.dataPath + "/Resources/" + EnvironmentData.Instance.ChapterConfigRootFolder;
+            _chapterConfigsFolderFullPath = Application.dataPath + "/" + EnvironmentData.Instance.ResourcesFolder + "/" + EnvironmentData.Instance.ChapterConfigRootFolder;
             _chapterStatusFileFullPath = _chapterConfigsFolderFullPath + "/" + EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType;
         }
 
@@ -183,6 +185,16 @@ namespace Assets.Scripts.MainMenuLayer
             _fileWatcher.EnableRaisingEvents = true;
         }
 
+        private void _GoToPlacementTest()
+        {
+            _missionSceneData.MissionConfigFolderFullPath = Application.dataPath + "/" + EnvironmentData.Instance.ResourcesFolder + "/" + EnvironmentData.Instance.PlacementConfigRootFolder;
+            _missionSceneData.MissionFileName = EnvironmentData.Instance.PlacementFileName;
+
+            _selectedChapterData.ChapterFolderFullPath = Application.dataPath + "/" + EnvironmentData.Instance.ResourcesFolder + "/" + EnvironmentData.Instance.ChapterConfigRootFolder;
+
+            ScenesManager.Instance.LoadPlacementScene();
+        }
+
         private void Awake()
         {
             _SetFields();
@@ -203,7 +215,14 @@ namespace Assets.Scripts.MainMenuLayer
             if (_createChapterStatusCompleted)
             {
                 _createChapterStatusCompleted = false;
-                ScenesManager.Instance.LoadSelectChapterScene();
+                if (_goToPlacement)
+                {
+                    _GoToPlacementTest();
+                }
+                else
+                {
+                    ScenesManager.Instance.LoadSelectChapterScene();
+                }
             }
         }
 

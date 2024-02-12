@@ -6,6 +6,7 @@
     {
         Normal,
         Optional,
-        Final
+        Final,
+        Placement
     }
 }

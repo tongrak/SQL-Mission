@@ -24,7 +24,6 @@ namespace Assets.Scripts.DataPersistence
         [SerializeField] private GameObject _gameplayManagerGameObjefct;
         [SerializeField] private MissionData _missionSceneData;
         [SerializeField] private SelectedChapterData _selectedChapterData;
-        [SerializeField] private TextAsset _configFile;
 
         private MissionConfig _missionConfig;
         private ISQLService _sqlService = new SQLService();
@@ -40,7 +39,7 @@ namespace Assets.Scripts.DataPersistence
                 InitiateMissionStatusFileWatcher();
             }
 
-            if (!_selectedChapterData.IsPassed)
+            if (!_selectedChapterData.IsPassed || _missionConfig.MissionType == MissionType.Placement)
             {
                 InitiateChapterStatusFileWatcher();
             }
@@ -53,10 +52,6 @@ namespace Assets.Scripts.DataPersistence
         }
 
         #region Method for StartGenerating
-        private void _MockLoadConfigFile()
-        {
-            _missionConfig = JsonUtility.FromJson<MissionConfig>(_configFile.text);
-        }
 
         private void LoadConfigFile()
         {
@@ -73,7 +68,7 @@ namespace Assets.Scripts.DataPersistence
 
         private void InitiateChapterStatusFileWatcher()
         {
-            _chapterStatusFileWatcher = new FileSystemWatcher(_missionSceneData.MissionConfigFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
+            _chapterStatusFileWatcher = new FileSystemWatcher(_selectedChapterData.ChapterFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
             InitiateFileWatcher(_chapterStatusFileWatcher);
         }
 
@@ -139,7 +134,7 @@ namespace Assets.Scripts.DataPersistence
                 // 2) Get schema from SQLService
                 Schema[] schemas = _sqlService.GetSchemas(dbConn, puzzleStepDetail.PuzzleDetail.Tables, false);
                 // 3) Create PuzzleController
-                PuzzleController.PuzzleController puzzleController = new PuzzleController.PuzzleController(dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, puzzleStepDetail.PuzzleDetail.BlankOptions, puzzleStepDetail.PuzzleDetail.PreSQL, puzzleStepDetail.PuzzleDetail.PuzzleType);
+                PuzzleController.PuzzleController puzzleController = new PuzzleController.PuzzleController(dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, puzzleStepDetail.PuzzleDetail.BlankOptions, puzzleStepDetail.PuzzleDetail.PreSQL, puzzleStepDetail.PuzzleDetail.PuzzleType, puzzleStepDetail.PassedChapterID, puzzleManager);
                 // 4) Insert PuzzleController to array.
                 allPuzzleController[i] = puzzleController;
             }

@@ -28,17 +28,10 @@ namespace Assets.Scripts.DataPersistence.PuzzleManager
         {
             return _allPC[index];
         }
-
-        // Use this for initialization
-        void Start()
+        
+        public void ChapterPassed(int passedChapterID)
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            _missionController.ChapterPassed(passedChapterID);
         }
     }
 }
