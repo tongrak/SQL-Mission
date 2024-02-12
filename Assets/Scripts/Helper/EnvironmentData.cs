@@ -13,6 +13,8 @@ namespace Assets.Scripts.Helper
         public readonly string ChpaterFileIndexFileName = "ChapterFileIndex";
         public readonly string StatusFileName = "StatusDetail";
         public readonly string ResourcesFolder = "Resources";
+        public readonly string PlacementConfigRootFolder = "Configs/PlacementConfig";
+        public readonly string PlacementFileName = "Placement";
 
         private static readonly EnvironmentData instance = new EnvironmentData();
 

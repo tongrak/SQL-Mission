@@ -8,10 +8,8 @@ namespace Assets.Scripts.ChapterLayer
     public class ChapterButtonManager : MonoBehaviour
     {
         [SerializeField] private MissionBoardData _missionBoardData;
-        [SerializeField] private ChapterStatusDetailsData _chapterStatusDetailsData;
         [SerializeField] private SelectedChapterData _selectedChapterData;
 
-        private ChapterStatusDetails _chapterStatusDetails;
         private string _chapterConfigsFolderFullPath;
 
         public void ChapterButtonClicked(int chapterID, string missionConfigsRelativeFolder, bool isPassed, string[] missionFilesIndex)
@@ -19,9 +17,6 @@ namespace Assets.Scripts.ChapterLayer
             // Insert mission board data
             _missionBoardData.MissionConfigFolderFullPath = Application.dataPath + "/Resources/" + EnvironmentData.Instance.MissionConfigRootFolder + "/" + missionConfigsRelativeFolder;
             _missionBoardData.MissionFilesIndex = missionFilesIndex;
-
-            // Insert chapter status data
-            _chapterStatusDetailsData.ChapterStatusDetails = _chapterStatusDetails;
 
             // Insert chapter data
             _selectedChapterData.ChapterFolderFullPath = _chapterConfigsFolderFullPath;
@@ -31,9 +26,8 @@ namespace Assets.Scripts.ChapterLayer
             ScenesManager.Instance.LoadSelectMissionScene();
         }
 
-        public void Construct(string chapterConfigsFolderFullPath, ChapterStatusDetails chapterStatusDetails)
+        public void Construct(string chapterConfigsFolderFullPath)
         {
-            _chapterStatusDetails = chapterStatusDetails;
             _chapterConfigsFolderFullPath = chapterConfigsFolderFullPath;
         }
 

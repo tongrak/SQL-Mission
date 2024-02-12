@@ -64,7 +64,7 @@ namespace Assets.Scripts.DataPersistence.SaveManager
             File.WriteAllText(fullPath, saveData);
         }
 
-        public ChapterStatusDetails UpdateChapterStatus(string chapterFolderFullPath, ChapterStatusDetails chapterStatusDetails, int passedChapterID)
+        public ChapterStatusDetails UpdateChapterStatus(string chapterFolderFullPath, ChapterStatusDetails chapterStatusDetails, int passedChapterID, bool saveToFile)
         {
             // 1) Loop for update status
             foreach (ChapterStatusDetail.ChapterStatusDetail chapterStatusDetail in chapterStatusDetails.ChapterStatusDetailList)
@@ -77,9 +77,9 @@ namespace Assets.Scripts.DataPersistence.SaveManager
             // 2) Loop for unlock other chapter ซึ่งถูก passed chapter ล็อกไว้
             foreach (ChapterStatusDetail.ChapterStatusDetail chapterStatusDetail in chapterStatusDetails.ChapterStatusDetailList)
             {
-                if (chapterStatusDetail.ChatperID != passedChapterID)
+                if (chapterStatusDetail.ChatperID != passedChapterID && chapterStatusDetail.ChapterDependenciesStatusDetail != null)
                 {
-                    int totalDependencies = chapterStatusDetail.ChapterDependenciesStatusDetail.Length;
+                    int totalDependencies = chapterStatusDetail.ChapterDependenciesStatusDetail.Length ;
                     int totalUnlockDependencies = 0;
 
                     // Update passed chapter dependency's status.
@@ -103,8 +103,11 @@ namespace Assets.Scripts.DataPersistence.SaveManager
                 }
             }
             // 3) Save to file
-            string savedFileFullPath = Path.Combine(chapterFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
-            _SaveChapterStatusToFile(chapterStatusDetails, savedFileFullPath);
+            if (saveToFile)
+            {
+                string savedFileFullPath = Path.Combine(chapterFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
+                _SaveChapterStatusToFile(chapterStatusDetails, savedFileFullPath);
+            }
 
             return chapterStatusDetails;
         }

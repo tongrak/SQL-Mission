@@ -1,6 +1,10 @@
 ﻿using Assets.Scripts.DataPersistence.SaveManager;
 using Assets.Scripts.DataPersistence.StepController;
+using Assets.Scripts.Helper;
 using Assets.Scripts.ScriptableObjects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.DataPersistence
@@ -19,7 +23,9 @@ namespace Assets.Scripts.DataPersistence
         /// </summary>
         private string _missionFolderFullPath;
         private ISaveManager _saveManager;
-        private bool _isPassed;
+        private bool _isMissionPassed;
+        private bool _isChapterPassed;
+        private List<int> _passedChapterIDs;
 
         /// <summary>
         /// 
@@ -29,32 +35,58 @@ namespace Assets.Scripts.DataPersistence
         /// <param name="missionDependTos"></param>
         /// <param name="missionType"></param>
         /// <param name="saveManager"></param>
-        public void Initiate(string missionConfigFolderFullPath, int missionID, MissionType missionType, ISaveManager saveManager, bool isPassed)
+        public void Initiate(string missionConfigFolderFullPath, int missionID, MissionType missionType, ISaveManager saveManager, bool isMissionPassed, bool isChapterPassed)
         {
             _missionFolderFullPath = missionConfigFolderFullPath;
             _missionID = missionID;
             _missionType = missionType;
             _saveManager = saveManager;
-            _isPassed = isPassed;
+            _isMissionPassed = isMissionPassed;
+            _isChapterPassed = isChapterPassed;
+            _passedChapterIDs = new List<int>();
         }
 
         public void AllPuzzlePassed()
         {
-            if (!_isPassed)
+            if (_missionType != MissionType.Placement)
             {
-                _missionStatusDetailsData.MissionStatusDetails = _saveManager.UpdateMissionStatus(_missionFolderFullPath, _missionStatusDetailsData.MissionStatusDetails, _missionID);
-                _missionStatusDetailsData.Changed = true;
-                if (_missionType == MissionType.Final)
+                if (!_isMissionPassed)
                 {
-                    _chapterStatusDetailsData.ChapterStatusDetails = _saveManager.UpdateChapterStatus(_selectedChapterData.ChapterFolderFullPath, _chapterStatusDetailsData.ChapterStatusDetails, _selectedChapterData.ChapterID);
-                    _chapterStatusDetailsData.Changed = true;
+                    _missionStatusDetailsData.MissionStatusDetails = _saveManager.UpdateMissionStatus(_missionFolderFullPath, _missionStatusDetailsData.MissionStatusDetails, _missionID);
+                    _missionStatusDetailsData.Changed = true;
+                    if (_missionType == MissionType.Final && !_isChapterPassed)
+                    {
+                        _chapterStatusDetailsData.ChapterStatusDetails = _saveManager.UpdateChapterStatus(_selectedChapterData.ChapterFolderFullPath, _chapterStatusDetailsData.ChapterStatusDetails, _selectedChapterData.ChapterID, true);
+                        _chapterStatusDetailsData.Changed = true;
+                    }
                 }
+            }
+            else
+            {
+                SavePlacementResult();
             }
         }
 
-        public void MockButtonClicked()
+        public void ChapterPassed(int passedChapterID)
         {
-            AllPuzzlePassed();
+            _passedChapterIDs.Add(passedChapterID);
+        }
+
+        public void SavePlacementResult()
+        {
+            _passedChapterIDs = _passedChapterIDs.Distinct().ToList();
+            for (int i = 0; i < _passedChapterIDs.Count; i++)
+            {
+                int chapterID = _passedChapterIDs[i];
+                if (i == _passedChapterIDs.Count - 1)
+                {
+                    _chapterStatusDetailsData.ChapterStatusDetails = _saveManager.UpdateChapterStatus(_selectedChapterData.ChapterFolderFullPath, _chapterStatusDetailsData.ChapterStatusDetails, chapterID, true);
+                }
+                else
+                {
+                    _chapterStatusDetailsData.ChapterStatusDetails = _saveManager.UpdateChapterStatus(_selectedChapterData.ChapterFolderFullPath, _chapterStatusDetailsData.ChapterStatusDetails, chapterID, false);
+                }
+            }
         }
 
         private void Start()

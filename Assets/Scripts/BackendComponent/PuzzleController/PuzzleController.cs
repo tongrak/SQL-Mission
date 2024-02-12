@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.DataPersistence.BlankBlockComponent;
 using Assets.Scripts.DataPersistence.MissionStatusDetail;
+using Assets.Scripts.DataPersistence.PuzzleManager;
 using Assets.Scripts.DataPersistence.SQLComponent;
 using Mono.Data.Sqlite;
 using System;
@@ -13,6 +14,8 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
         private ISQLService _sqlService;
         private string[][] _answerTableResult;
         private readonly BlankOption[] _blankOptions;
+        private int _passedChapterID;
+        private IPuzzleManager _puzzleManager;
 
         public string Brief { get; private set; }
         public Schema[] Schemas { get; private set; }
@@ -21,7 +24,7 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
         public VisualType VisualType { get; private set; }
         public string PreSQL { get; private set; }
 
-        public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, VisualType imgType, BlankOption[] blankOptions, string preSQL, PuzzleType puzzleType)
+        public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, VisualType imgType, BlankOption[] blankOptions, string preSQL, PuzzleType puzzleType, int passedChapterID, IPuzzleManager puzzleManager)
         {
             _dbConn = dbConn;
             Brief = brief;
@@ -32,6 +35,8 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
             _blankOptions = blankOptions;
             PreSQL = preSQL;
             PuzzleType = puzzleType;
+            _passedChapterID = passedChapterID;
+            _puzzleManager = puzzleManager;
         }
 
         public ExecuteResult GetExecuteResult(string playerSQL)
@@ -50,6 +55,12 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
         public bool GetPuzzleResult()
         {
             bool isCorrect = IsEqualQueryResult(_answerTableResult, PlayerTableResult);
+
+            if(_passedChapterID > 0 && isCorrect)
+            {
+                // Send signal to unlock chapter
+                _puzzleManager.ChapterPassed(_passedChapterID);
+            }
 
             return isCorrect;
         }
