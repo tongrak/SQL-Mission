@@ -16,12 +16,28 @@ namespace Gameplay
     public interface IGameplayManager
     {
         /// <summary>
-        /// Activate Gameplay session
+        /// Activate Gameplay session without saving the progress. required triggering = EndGameplay().
         /// </summary>
         void StartFreeGame();
+        /// <summary>
+        /// Activate Normal mission Gameplay session. required triggering = EndGameplay().
+        /// </summary>
         void StartNormalGameplay(FileSystemWatcher MissionFileWatcher);
+        /// <summary>
+        /// Activate Final mission Gameplay session. required triggering = EndGameplay().
+        /// </summary>
         void StartFinalGameplay(FileSystemWatcher MissionFileWatcher, FileSystemWatcher ChapterFileWatcher);
+        /// <summary>
+        /// Activate Placement test Gameplay session.
+        /// </summary>
         void StartPlacement(FileSystemWatcher ChapterFileWatcher);
+        /// <summary>
+        /// Confirm the ending of gameplay
+        /// </summary>
+        /// <param name="canGoToNextMission">Activity of Next Misison</param>
+        void EndGameplay(bool canGoToNextMission);
+
+
         void ClickExecution();
         void SelectConstructionTab();
         void SelectResultTab();
@@ -312,6 +328,10 @@ namespace Gameplay
             var namedSaveFileWatcher = new System.Tuple<string, FileSystemWatcher>("ChapterSave", ChapterFileWatcher);
             startGameplayScene(new System.Tuple<string, FileSystemWatcher>[] { namedSaveFileWatcher });
             this._isPlacementTest = true;
+        }
+        public void EndGameplay(bool canGoToNextMission)
+        {
+            throw new System.NotImplementedException();
         }
         #endregion
 
