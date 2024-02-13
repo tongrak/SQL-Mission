@@ -104,6 +104,7 @@ namespace Gameplay.UI
         }
         public void setConstructionDisplay(Func<string, string[]> getOptionFunction, ConstructionType constructionType, string givenTokens)
         {
+            setDisplayTab(TabType.CONSTRUCT);
             switch (constructionType)
             {
                 case ConstructionType.FILL_THE_BLANK: _constrCon.SetUpTokenizeConsole(getOptionFunction, givenTokens); break;

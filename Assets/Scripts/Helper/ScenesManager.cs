@@ -24,4 +24,14 @@ public class ScenesManager : MonoBehaviour
     {
         SceneManager.LoadScene("Chapter Scene");
     }
+
+    public void LoadPlacementScene()
+    {
+        SceneManager.LoadScene("Placement Scene");
+    }
+
+    public void LoadMainMenuScene()
+    {
+        SceneManager.LoadScene("Main menu");
+    }
 }

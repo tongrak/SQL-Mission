@@ -11,12 +11,19 @@ namespace Assets.Scripts.DataPersistence.UI
         [SerializeField] private Button missionPaper;
         [SerializeField] private GameObject _prerequisite;
         [SerializeField] private GameObject _missionDependencyTMP;
+        [SerializeField] private GameObject _passedStamp;
 
         public void Initiate(string title, string description, bool isUnlock, bool isPass, string[] missionDependencies)
         {
             missionTitle.text = title;
             missionDescription.text = description;
             missionPaper.interactable = isUnlock;
+
+            if (isPass)
+            {
+                _passedStamp.SetActive(true);
+            }
+
             foreach (string missionDependency in missionDependencies)
             {
                 GameObject missionDependencyObject = Instantiate(_missionDependencyTMP, _prerequisite.transform);

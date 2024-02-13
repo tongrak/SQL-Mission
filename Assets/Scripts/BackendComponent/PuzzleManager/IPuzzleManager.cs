@@ -15,5 +15,7 @@ namespace Assets.Scripts.DataPersistence.PuzzleManager
         /// Get Puzzle Controller from given index.
         /// </summary>
         IPuzzleController GetPC(int index);
+
+        void ChapterPassed(int passedChapterID);
     }
 }
