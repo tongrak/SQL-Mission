@@ -24,33 +24,22 @@ namespace Assets.Scripts.DataPersistence
         [SerializeField] private GameObject _gameplayManagerGameObjefct;
         [SerializeField] private MissionData _missionSceneData;
         [SerializeField] private SelectedChapterData _selectedChapterData;
-        [SerializeField] private TextAsset _configFile;
-        [SerializeField] private SaveAndBackToMB _saveAndBackToDB;
-        [SerializeField] private bool _isMockConfig;
-        [SerializeField] private bool _isMockPassed;
 
         private MissionConfig _missionConfig;
         private ISQLService _sqlService = new SQLService();
         private FileSystemWatcher _missionStatusFileWatcher;
         private FileSystemWatcher _chapterStatusFileWatcher;
 
-        private void StartGenerating()
+        private void _StartGenerating()
         {
-            if (_isMockConfig)
-            {
-                _MockLoadConfigFile();
-            }
-            else
-            {
-                LoadConfigFile();
-            }
+            LoadConfigFile();
 
-            if (!_missionSceneData.IsPassed)
+            if (!_missionSceneData.IsPassed && _missionConfig.MissionType != MissionType.Placement)
             {
                 InitiateMissionStatusFileWatcher();
             }
 
-            if (!_selectedChapterData.IsPassed)
+            if ((!_selectedChapterData.IsPassed && _missionConfig.MissionType == MissionType.Final) || _missionConfig.MissionType == MissionType.Placement)
             {
                 InitiateChapterStatusFileWatcher();
             }
@@ -63,10 +52,6 @@ namespace Assets.Scripts.DataPersistence
         }
 
         #region Method for StartGenerating
-        private void _MockLoadConfigFile()
-        {
-            _missionConfig = JsonUtility.FromJson<MissionConfig>(_configFile.text);
-        }
 
         private void LoadConfigFile()
         {
@@ -83,7 +68,7 @@ namespace Assets.Scripts.DataPersistence
 
         private void InitiateChapterStatusFileWatcher()
         {
-            _chapterStatusFileWatcher = new FileSystemWatcher(_missionSceneData.MissionConfigFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
+            _chapterStatusFileWatcher = new FileSystemWatcher(_selectedChapterData.ChapterFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
             InitiateFileWatcher(_chapterStatusFileWatcher);
         }
 
@@ -149,7 +134,7 @@ namespace Assets.Scripts.DataPersistence
                 // 2) Get schema from SQLService
                 Schema[] schemas = _sqlService.GetSchemas(dbConn, puzzleStepDetail.PuzzleDetail.Tables, false);
                 // 3) Create PuzzleController
-                PuzzleController.PuzzleController puzzleController = new PuzzleController.PuzzleController(dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, puzzleStepDetail.PuzzleDetail.BlankOptions, puzzleStepDetail.PuzzleDetail.PreSQL, puzzleStepDetail.PuzzleDetail.PuzzleType);
+                PuzzleController.PuzzleController puzzleController = new PuzzleController.PuzzleController(dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, puzzleStepDetail.PuzzleDetail.BlankOptions, puzzleStepDetail.PuzzleDetail.PreSQL, puzzleStepDetail.PuzzleDetail.PuzzleType, puzzleStepDetail.PassedChapterID, puzzleManager);
                 // 4) Insert PuzzleController to array.
                 allPuzzleController[i] = puzzleController;
             }
@@ -220,22 +205,37 @@ namespace Assets.Scripts.DataPersistence
         private void _InitiateMissionController()
         {
             MissionController missioncontroller = _missionControllerGameObject.GetComponent<MissionController>();
-            missioncontroller.Initiate(_missionSceneData.MissionConfigFolderFullPath, _missionConfig.MissionID, _missionConfig.MissionType, new SaveManager.SaveManager(), _missionSceneData.IsPassed);
+            missioncontroller.Initiate(_missionSceneData.MissionConfigFolderFullPath, _missionConfig.MissionID, _missionConfig.MissionType, new SaveManager.SaveManager(), _missionSceneData.IsPassed, _selectedChapterData.IsPassed);
         }
         #endregion
+
+        private void _StartGamePlay()
+        {
+            //Start gameplay after mission generated.
+            IGameplayManager gameplayManager = _gameplayManagerGameObjefct.GetComponent<IGameplayManager>();
+            if (_missionStatusFileWatcher != null && _chapterStatusFileWatcher != null)
+            {
+                gameplayManager.StartFinalGameplay(_missionStatusFileWatcher, _chapterStatusFileWatcher);
+            }
+            else if (_missionStatusFileWatcher != null && _chapterStatusFileWatcher == null)
+            {
+                gameplayManager.StartNormalGameplay(_missionStatusFileWatcher);
+            }
+            else if (_missionStatusFileWatcher == null && _chapterStatusFileWatcher != null)
+            {
+                gameplayManager.StartPlacement(_chapterStatusFileWatcher);
+            }
+            else
+            {
+                gameplayManager.StartFreeGame();
+            }
+        }
 
         // Use this for initialization
         void Start()
         {
-            StartGenerating();
-            // Ues for test change scene when mission passed.
-            if (_isMockPassed)
-            {
-                _saveAndBackToDB.Initiate(_missionStatusFileWatcher);
-                Debug.LogWarning("SaveAndBackToDB initiate. // Delete this before production");
-            }
-            //Start gameplay after mission generation.
-            _gameplayManagerGameObjefct.GetComponent<IGameplayManager>().StartGameplay(_missionStatusFileWatcher);
+            _StartGenerating();
+            _StartGamePlay();
         }
 
         // Update is called once per frame
