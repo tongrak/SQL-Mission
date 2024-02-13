@@ -4,27 +4,30 @@ using UnityEngine;
 
 namespace Gameplay.UI.PopUp
 {
-    public interface IPopUpsManager
+    public interface AbleToSoftLoad
     {
-        void DisplayGameplayMenu();
-        void DisplayCompletionMenu(bool canContinueMission);
         void DisplaySoftLoading();
+    }
+    public interface IPopUpsManager: AbleToSoftLoad
+    {
+        //void DisplayGameplayMenu();
+        void DisplayCompletionMenu(bool canContinueMission);
     }
     public class PopUpsManager : GameplayController, IPopUpsManager
     {
-        [Header("Gameobject")]
+        [Header("Gameobjects")]
         [SerializeField] private GameObject _gameplayMenuGO;
         [SerializeField] private GameObject _completionMenuGO;
         [SerializeField] private GameObject _contiueButtonGO;
-        [SerializeField] private GameObject _softLoadingGO;
-        [SerializeField] private GameObject _popUpShawdowGO;
+        [SerializeField] protected GameObject _softLoadingGO;
+        [SerializeField] protected GameObject _popUpShawdowGO;
 
         [Header("Continue button sprite")]
         [SerializeField] private Sprite _activeContinueButton;
         [SerializeField] private Sprite _inactiveContinueButton;
 
         #region AUX methods
-        private void initAllPopUp()
+        protected virtual void initAllPopUp()
         {
             //Hide all popUps
             _gameplayMenuGO.SetActive(false);
@@ -66,8 +69,6 @@ namespace Gameplay.UI.PopUp
             this.initAllPopUp();
             this._softLoadingGO.SetActive(true);
         }
-
-        
     }
 }
 
