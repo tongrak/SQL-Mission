@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DataPersistence.MissionStatusDetail;
+using Assets.Scripts.DataPersistence.StepController;
 using UnityEngine;
 
 namespace Assets.Scripts.ScriptableObjects
@@ -10,13 +11,24 @@ namespace Assets.Scripts.ScriptableObjects
         /// Path must contain 'Assets' and 'Resources' folder and must be like this 'Assets/X/Resource/X/X/MissionConfigs/ChapterX'
         /// </summary>
         public string MissionConfigFolderFullPath;
-        /// <summary>
-        /// Such as 'Mission1.txt' but insert 'Mission1' only
-        /// </summary>
-        public string MissionFileName;
-        /// <summary>
-        /// This mission have passed yet?
-        /// </summary>
-        public bool IsPassed;
+
+        public MissionConfig[] missionConfigs;
+
+        public int missionConfigIndex;
+
+        public MissionConfig GetCurrConfig()
+        {
+            return missionConfigs[missionConfigIndex];
+        }
+
+        public bool HaveNextMission()
+        {
+            return missionConfigIndex + 1 < missionConfigs.Length;
+        }
+
+        public void GoToNextMission()
+        {
+            missionConfigIndex++;
+        }
     }
 }

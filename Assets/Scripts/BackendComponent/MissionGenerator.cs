@@ -21,8 +21,9 @@ namespace Assets.Scripts.DataPersistence
         [SerializeField] private GameObject _puzzleManagerGameObject;
         [SerializeField] private GameObject _imageControllerGameObject;
         [SerializeField] private GameObject _missionControllerGameObject;
-        [SerializeField] private GameObject _gameplayManagerGameObjefct;
+        [SerializeField] private GameObject _gameplayManagerGameObject;
         [SerializeField] private MissionData _missionSceneData;
+        [SerializeField] private MissionStatusDetailsData _missionStatusDetailsData;
         [SerializeField] private SelectedChapterData _selectedChapterData;
 
         private MissionConfig _missionConfig;
@@ -34,9 +35,12 @@ namespace Assets.Scripts.DataPersistence
         {
             LoadConfigFile();
 
-            if (!_missionSceneData.IsPassed && _missionConfig.MissionType != MissionType.Placement)
+            if (_missionConfig.MissionType != MissionType.Placement)
             {
-                InitiateMissionStatusFileWatcher();
+                if (!_missionStatusDetailsData.IsPassedMission(_missionSceneData.missionConfigIndex))
+                {
+                    InitiateMissionStatusFileWatcher();
+                }
             }
 
             if ((!_selectedChapterData.IsPassed && _missionConfig.MissionType == MissionType.Final) || _missionConfig.MissionType == MissionType.Placement)
@@ -55,9 +59,7 @@ namespace Assets.Scripts.DataPersistence
 
         private void LoadConfigFile()
         {
-            string folderPathAfterResources = _missionSceneData.MissionConfigFolderFullPath.Split(new string[] { "Resources/" }, StringSplitOptions.None)[1];
-            TextAsset missionConfigFile = Resources.Load<TextAsset>(folderPathAfterResources + "/" + _missionSceneData.MissionFileName);
-            _missionConfig = JsonUtility.FromJson<MissionConfig>(missionConfigFile.text);
+            _missionConfig = _missionSceneData.GetCurrConfig();
         }
 
         private void InitiateMissionStatusFileWatcher()
@@ -205,14 +207,14 @@ namespace Assets.Scripts.DataPersistence
         private void _InitiateMissionController()
         {
             MissionController missioncontroller = _missionControllerGameObject.GetComponent<MissionController>();
-            missioncontroller.Initiate(_missionSceneData.MissionConfigFolderFullPath, _missionConfig.MissionID, _missionConfig.MissionType, new SaveManager.SaveManager(), _missionSceneData.IsPassed, _selectedChapterData.IsPassed);
+            missioncontroller.Initiate(new SaveManager.SaveManager());
         }
         #endregion
 
         private void _StartGamePlay()
         {
             //Start gameplay after mission generated.
-            IGameplayManager gameplayManager = _gameplayManagerGameObjefct.GetComponent<IGameplayManager>();
+            IGameplayManager gameplayManager = _gameplayManagerGameObject.GetComponent<IGameplayManager>();
             if (_missionStatusFileWatcher != null && _chapterStatusFileWatcher != null)
             {
                 gameplayManager.StartFinalGameplay(_missionStatusFileWatcher, _chapterStatusFileWatcher);
