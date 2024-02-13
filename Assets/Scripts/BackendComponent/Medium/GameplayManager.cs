@@ -5,6 +5,7 @@ using Assets.Scripts.DataPersistence.PuzzleController;
 using Assets.Scripts.DataPersistence.PuzzleManager;
 using Assets.Scripts.DataPersistence.StepController;
 using Gameplay.UI;
+using Gameplay.UI.PopUp;
 using Gameplay.UI.VisualFeedback;
 using System.Collections;
 using System.IO;
@@ -68,6 +69,9 @@ namespace Gameplay
         [SerializeField] private GameObject _schemaDisplayObject;
         [SerializeField] private GameObject _loadingFacadeObject;
 
+        [Header("Misc GameObject")]
+        [SerializeField] private GameObject _popUpManagerObject;
+
         //===== UI Controller =====
         private IDialogBoxController _dialogBoxController => mustGetComponent<IDialogBoxController>(_dialogBoxControllerObject);
         private IMainConsoleController _mainConsoleController => mustGetComponent<IMainConsoleController>(_mainConsoleControllerObject);
@@ -77,6 +81,8 @@ namespace Gameplay
         //===== Visual Controller =====
         private IDynamicVisualController _dynamicVisualController => mustGetComponent<IDynamicVisualController>(_dynamicVisualFeedbackObject);
         private IStaticVisualController _staticVisualController => mustGetComponent<IStaticVisualController>(_staticVisualFeedbackObject);
+        //===== Misc Controller =====
+        private IPopUpsManager _popUpsManager => mustGetComponent<IPopUpsManager>(_popUpManagerObject);
 
         //===== BE interface =====
         private IStepController _currStepCon => mustGetComponent<IStepController>(_backEndObject);
@@ -94,6 +100,7 @@ namespace Gameplay
         private bool _canAdvanceAStep = false;
         private TabType _currentTab = TabType.CONSTRUCT;
         private bool _isPlacementTest = false;
+        private bool? _canGoNextMission = null;
         // ===== save Wacther Variable ===
         private System.Tuple<string, FileSystemWatcher>[] _namedSaveFileWatchers = null;
         private System.Collections.Generic.List<string> _savedFileWatcherNames = null;
@@ -113,7 +120,8 @@ namespace Gameplay
                     _canAdvanceAStep = false;
                     _gameplayUI.SetDisplayedActionButton(ActionButtonType.INACTICE);
                     //Switch to boards scnene if appropriate
-                    StartCoroutine(switchToAnotherSceneWhenAppro(_maxLoadingSecond));
+                    // TODO: Change to displaying Completion pop-up + softer loading
+                    StartCoroutine(startLoadingThenConpletion(_maxLoadingSecond));
                     break;
                 case Step.Puzzle:
                     Debug.Log("Reaching puzzle step");
@@ -169,7 +177,6 @@ namespace Gameplay
         }
         private void handleOnConsoleType(IPuzzleController pC, PuzzleType type, string tokens)
         {
-            //TODO: Wait for BE access function
             System.Func<string, string[]> getOptions = pC.GetBlankOptions;
             switch (type)
             {
@@ -208,25 +215,27 @@ namespace Gameplay
             if (_namedSaveFileWatchers != null) 
                 foreach (var namedWatcher in _namedSaveFileWatchers) namedWatcher.Item2.Changed -= (s, e) => _savedFileWatcherNames.Add(namedWatcher.Item1);
         }
-        private IEnumerator switchToAnotherSceneWhenAppro(int maxLoadingSeconds)
+        private IEnumerator startLoadingThenConpletion(int maxLoadingSeconds)
         {
             // Wait untill game result is saved
             var startedTime = System.DateTime.Now;
             var currentTime = System.DateTime.Now;
             // Show loading facade.
-            _loadingFacadeObject.SetActive(true);
-            while (!allIsSaved && (currentTime - startedTime).Seconds < maxLoadingSeconds)
+            //_loadingFacadeObject.SetActive(true);
+            _popUpManagerObject.SetActive(true);
+            _popUpsManager.DisplaySoftLoading();
+            // While all file isnot saved and canGoNextMission flag have been raise;
+            while (!(allIsSaved && _canGoNextMission != null) &&
+                    (currentTime - startedTime).Seconds < maxLoadingSeconds)
             {
                 currentTime = System.DateTime.Now;
                 yield return null;
             }
-            //TODO: check loading status;
-            _loadingFacadeObject.SetActive(false);
-            //UnsubThen switch back to Boards Scene
+
             unsubAllSaveFileWatcher();
-            //Go to appro scene
-            if (_isPlacementTest) _scenesManager.LoadSelectChapterScene();
-            else _scenesManager.LoadSelectMissionScene();
+
+            if (_isPlacementTest)_scenesManager.LoadSelectChapterScene();
+            else _popUpsManager.DisplayCompletionMenu(_canGoNextMission ?? false);
         }
         #endregion
 
@@ -328,11 +337,9 @@ namespace Gameplay
             var namedSaveFileWatcher = new System.Tuple<string, FileSystemWatcher>("ChapterSave", ChapterFileWatcher);
             startGameplayScene(new System.Tuple<string, FileSystemWatcher>[] { namedSaveFileWatcher });
             this._isPlacementTest = true;
+            this._canGoNextMission = false;
         }
-        public void EndGameplay(bool canGoToNextMission)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void EndGameplay(bool canGoToNextMission) => this._canGoNextMission = canGoToNextMission;
         #endregion
 
         #region Unity Basic
@@ -340,6 +347,7 @@ namespace Gameplay
         {
             //Hide loading facade;
             _loadingFacadeObject.SetActive(false);
+            _popUpManagerObject.SetActive(false);
             SelectConstructionTab();
         }
         private void OnDisable() => unsubAllSaveFileWatcher();
