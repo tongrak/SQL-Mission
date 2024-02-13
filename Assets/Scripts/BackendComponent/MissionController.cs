@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.DataPersistence.SaveManager;
 using Assets.Scripts.DataPersistence.StepController;
 using Assets.Scripts.ScriptableObjects;
+using Gameplay;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,10 +11,12 @@ namespace Assets.Scripts.DataPersistence
     public class MissionController : MonoBehaviour
     {
         [SerializeField] private GameObject _stepControllerGameObject;
+        [SerializeField] private GameObject _gameplayManagerGameObject;
+        [SerializeField] private MissionData _missionSceneData;
         [SerializeField] private MissionStatusDetailsData _missionStatusDetailsData;
         [SerializeField] private ChapterStatusDetailsData _chapterStatusDetailsData;
         [SerializeField] private SelectedChapterData _selectedChapterData;
-        
+
         private MissionType _missionType;
         private int _missionID;
         /// <summary>
@@ -33,14 +36,15 @@ namespace Assets.Scripts.DataPersistence
         /// <param name="missionDependTos"></param>
         /// <param name="missionType"></param>
         /// <param name="saveManager"></param>
-        public void Initiate(string missionConfigFolderFullPath, int missionID, MissionType missionType, ISaveManager saveManager, int missionConfigIndex, bool isChapterPassed)
+        public void Initiate(ISaveManager saveManager)
         {
-            _missionFolderFullPath = missionConfigFolderFullPath;
-            _missionID = missionID;
-            _missionType = missionType;
+            MissionConfig config = _missionSceneData.GetCurrConfig();
+            _missionFolderFullPath = _missionSceneData.MissionConfigFolderFullPath;
+            _missionID = config.MissionID;
+            _missionType = config.MissionType;
             _saveManager = saveManager;
-            _missionConfigIndex = missionConfigIndex;
-            _isChapterPassed = isChapterPassed;
+            _missionConfigIndex = _missionSceneData.missionConfigIndex;
+            _isChapterPassed = _selectedChapterData.IsPassed;
             _passedChapterIDs = new List<int>();
         }
 
@@ -58,10 +62,26 @@ namespace Assets.Scripts.DataPersistence
                         _chapterStatusDetailsData.Changed = true;
                     }
                 }
+
+                // Tell gameplay if "Go" button can be clicked or not
+                InitiateEndGameplay();
             }
             else
             {
                 SavePlacementResult();
+            }
+        }
+
+        public void InitiateEndGameplay()
+        {
+            IGameplayManager gameplayManager = _gameplayManagerGameObject.GetComponent<IGameplayManager>();
+            if (_missionSceneData.HaveNextMission())
+            {
+                gameplayManager.EndGameplay(_missionStatusDetailsData.IsPassedMission(_missionConfigIndex + 1));
+            }
+            else
+            {
+                gameplayManager.EndGameplay(false);
             }
         }
 
@@ -85,6 +105,11 @@ namespace Assets.Scripts.DataPersistence
                     _chapterStatusDetailsData.ChapterStatusDetails = _saveManager.UpdateChapterStatus(_selectedChapterData.ChapterFolderFullPath, _chapterStatusDetailsData.ChapterStatusDetails, chapterID, false);
                 }
             }
+        }
+
+        public void GoToNextMissionClicked()
+        {
+            _missionSceneData.GoToNextMission();
         }
 
         private void Start()

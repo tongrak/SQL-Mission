@@ -9,7 +9,7 @@
         {
             "MissionID": 2,
             "IsUnlock": true,
-            "IsPass": true,
+            "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionID": 1,
@@ -19,34 +19,34 @@
         },
         {
             "MissionID": 3,
-            "IsUnlock": true,
+            "IsUnlock": false,
             "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionID": 2,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "MissionID": 4,
-            "IsUnlock": true,
+            "IsUnlock": false,
             "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionID": 2,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "MissionID": 5,
-            "IsUnlock": true,
+            "IsUnlock": false,
             "IsPass": false,
             "MissionDependenciesUnlockDetail": [
                 {
                     "MissionID": 2,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },

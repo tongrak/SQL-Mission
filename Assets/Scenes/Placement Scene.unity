@@ -4004,7 +4004,7 @@ MonoBehaviour:
   _puzzleManagerGameObject: {fileID: 1034289771}
   _imageControllerGameObject: {fileID: 1034289771}
   _missionControllerGameObject: {fileID: 1034289771}
-  _gameplayManagerGameObjefct: {fileID: 1575723517}
+  _gameplayManagerGameObject: {fileID: 1575723517}
   _missionSceneData: {fileID: 11400000, guid: f20acfc1b1a3dfc49bd917b2c1b0d812, type: 2}
   _missionStatusDetailsData: {fileID: 11400000, guid: 3990d4d3c137b8b40946a3036f66bd2d, type: 2}
   _selectedChapterData: {fileID: 11400000, guid: 9c72d1850969993448b1cd463510f918, type: 2}
@@ -4033,6 +4033,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stepControllerGameObject: {fileID: 1034289771}
+  _gameplayManagerGameObject: {fileID: 1575723517}
+  _missionSceneData: {fileID: 11400000, guid: f20acfc1b1a3dfc49bd917b2c1b0d812, type: 2}
   _missionStatusDetailsData: {fileID: 11400000, guid: 3990d4d3c137b8b40946a3036f66bd2d, type: 2}
   _chapterStatusDetailsData: {fileID: 11400000, guid: 2a0848a45d61be146aee5e2398bf1e41, type: 2}
   _selectedChapterData: {fileID: 11400000, guid: 9c72d1850969993448b1cd463510f918, type: 2}

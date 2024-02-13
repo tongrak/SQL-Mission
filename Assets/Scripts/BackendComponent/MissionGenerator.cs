@@ -21,7 +21,7 @@ namespace Assets.Scripts.DataPersistence
         [SerializeField] private GameObject _puzzleManagerGameObject;
         [SerializeField] private GameObject _imageControllerGameObject;
         [SerializeField] private GameObject _missionControllerGameObject;
-        [SerializeField] private GameObject _gameplayManagerGameObjefct;
+        [SerializeField] private GameObject _gameplayManagerGameObject;
         [SerializeField] private MissionData _missionSceneData;
         [SerializeField] private MissionStatusDetailsData _missionStatusDetailsData;
         [SerializeField] private SelectedChapterData _selectedChapterData;
@@ -207,14 +207,14 @@ namespace Assets.Scripts.DataPersistence
         private void _InitiateMissionController()
         {
             MissionController missioncontroller = _missionControllerGameObject.GetComponent<MissionController>();
-            missioncontroller.Initiate(_missionSceneData.MissionConfigFolderFullPath, _missionConfig.MissionID, _missionConfig.MissionType, new SaveManager.SaveManager(), _missionSceneData.missionConfigIndex, _selectedChapterData.IsPassed);
+            missioncontroller.Initiate(new SaveManager.SaveManager());
         }
         #endregion
 
         private void _StartGamePlay()
         {
             //Start gameplay after mission generated.
-            IGameplayManager gameplayManager = _gameplayManagerGameObjefct.GetComponent<IGameplayManager>();
+            IGameplayManager gameplayManager = _gameplayManagerGameObject.GetComponent<IGameplayManager>();
             if (_missionStatusFileWatcher != null && _chapterStatusFileWatcher != null)
             {
                 gameplayManager.StartFinalGameplay(_missionStatusFileWatcher, _chapterStatusFileWatcher);
