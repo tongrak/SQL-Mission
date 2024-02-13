@@ -1,8 +1,6 @@
 ﻿using Assets.Scripts.DataPersistence.SaveManager;
 using Assets.Scripts.DataPersistence.StepController;
-using Assets.Scripts.Helper;
 using Assets.Scripts.ScriptableObjects;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -23,7 +21,7 @@ namespace Assets.Scripts.DataPersistence
         /// </summary>
         private string _missionFolderFullPath;
         private ISaveManager _saveManager;
-        private bool _isMissionPassed;
+        private int _missionConfigIndex;
         private bool _isChapterPassed;
         private List<int> _passedChapterIDs;
 
@@ -35,13 +33,13 @@ namespace Assets.Scripts.DataPersistence
         /// <param name="missionDependTos"></param>
         /// <param name="missionType"></param>
         /// <param name="saveManager"></param>
-        public void Initiate(string missionConfigFolderFullPath, int missionID, MissionType missionType, ISaveManager saveManager, bool isMissionPassed, bool isChapterPassed)
+        public void Initiate(string missionConfigFolderFullPath, int missionID, MissionType missionType, ISaveManager saveManager, int missionConfigIndex, bool isChapterPassed)
         {
             _missionFolderFullPath = missionConfigFolderFullPath;
             _missionID = missionID;
             _missionType = missionType;
             _saveManager = saveManager;
-            _isMissionPassed = isMissionPassed;
+            _missionConfigIndex = missionConfigIndex;
             _isChapterPassed = isChapterPassed;
             _passedChapterIDs = new List<int>();
         }
@@ -50,7 +48,7 @@ namespace Assets.Scripts.DataPersistence
         {
             if (_missionType != MissionType.Placement)
             {
-                if (!_isMissionPassed)
+                if (!_missionStatusDetailsData.IsPassedMission(_missionConfigIndex))
                 {
                     _missionStatusDetailsData.MissionStatusDetails = _saveManager.UpdateMissionStatus(_missionFolderFullPath, _missionStatusDetailsData.MissionStatusDetails, _missionID);
                     _missionStatusDetailsData.Changed = true;

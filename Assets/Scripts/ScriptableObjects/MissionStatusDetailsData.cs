@@ -8,5 +8,10 @@ namespace Assets.Scripts.ScriptableObjects
     {
         public bool Changed = false;
         public MissionUnlockDetails MissionStatusDetails;
+
+        public bool IsPassedMission(int missionIndex)
+        {
+            return MissionStatusDetails.MissionUnlockDetailList[missionIndex].IsPass;
+        }
     }
 }
