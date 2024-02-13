@@ -186,7 +186,7 @@ namespace Gameplay
                     break;
             }
         }
-        private bool allIsSaved => _namedSaveFileWatchers.Count() == _savedFileWatcherNames?.Count();
+        private bool allIsSaved => (_namedSaveFileWatchers == null) ? true : _namedSaveFileWatchers.Count() == _savedFileWatcherNames?.Count();
         private void unsubAllSaveFileWatcher()
         {
             if (_namedSaveFileWatchers != null) 
@@ -287,7 +287,8 @@ namespace Gameplay
             _gameplayIsStarted = true;
             _actionButtonController.Activivity = true;
             //Collection and subscribe every given saveFileWatcher;
-            foreach (var namedWatcher in namedSaveFileWatchers) namedWatcher.Item2.Changed += (s, e) => _savedFileWatcherNames.Add(namedWatcher.Item1);
+            if (namedSaveFileWatchers != null)
+                foreach (var namedWatcher in namedSaveFileWatchers) namedWatcher.Item2.Changed += (s, e) => _savedFileWatcherNames.Add(namedWatcher.Item1);
             _namedSaveFileWatchers = namedSaveFileWatchers;
             //Begin gameplay
             actAccordingToStep(_currStepCon.GetCurrentStep());
