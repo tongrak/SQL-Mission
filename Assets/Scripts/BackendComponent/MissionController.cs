@@ -77,7 +77,7 @@ namespace Assets.Scripts.DataPersistence
             IGameplayManager gameplayManager = _gameplayManagerGameObject.GetComponent<IGameplayManager>();
             if (_missionSceneData.HaveNextMission())
             {
-                gameplayManager.EndGameplay(_missionStatusDetailsData.IsPassedMission(_missionConfigIndex + 1));
+                gameplayManager.EndGameplay(_missionStatusDetailsData.IsUnlockedMission(_missionConfigIndex + 1));
             }
             else
             {

@@ -13,5 +13,7 @@ namespace Assets.Scripts.ScriptableObjects
         {
             return MissionStatusDetails.MissionUnlockDetailList[missionIndex].IsPass;
         }
+
+        public bool IsUnlockedMission(int missionIndex) => MissionStatusDetails.MissionUnlockDetailList[missionIndex].IsUnlock;
     }
 }
