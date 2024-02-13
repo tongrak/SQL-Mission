@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.DataPersistence.Chapter;
 using Assets.Scripts.DataPersistence.ChapterStatusDetail;
+using Assets.Scripts.DataPersistence.StepController;
 using Assets.Scripts.Helper;
 using Assets.Scripts.ScriptableObjects;
 using System.IO;
@@ -187,9 +188,16 @@ namespace Assets.Scripts.MainMenuLayer
 
         private void _GoToPlacementTest()
         {
-            _missionSceneData.MissionConfigFolderFullPath = Application.dataPath + "/" + EnvironmentData.Instance.ResourcesFolder + "/" + EnvironmentData.Instance.PlacementConfigRootFolder;
-            _missionSceneData.MissionFileName = EnvironmentData.Instance.PlacementFileName;
+            TextAsset placementConfigFile = Resources.Load<TextAsset>(EnvironmentData.Instance.PlacementConfigRootFolder + "/" + EnvironmentData.Instance.PlacementFileName);
+            MissionConfig placementConfig = JsonUtility.FromJson<MissionConfig>(placementConfigFile.text);
+            MissionConfig[] missionConfigs = new MissionConfig[1] { placementConfig };
 
+            // Set mission data
+            _missionSceneData.missionConfigs = missionConfigs;
+            _missionSceneData.missionConfigIndex = 0;
+            _missionSceneData.MissionConfigFolderFullPath = Application.dataPath + "/" + EnvironmentData.Instance.ResourcesFolder + "/" + EnvironmentData.Instance.PlacementConfigRootFolder;
+
+            // Set selected chapter data
             _selectedChapterData.ChapterFolderFullPath = Application.dataPath + "/" + EnvironmentData.Instance.ResourcesFolder + "/" + EnvironmentData.Instance.ChapterConfigRootFolder;
 
             ScenesManager.Instance.LoadPlacementScene();

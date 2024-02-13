@@ -29,11 +29,13 @@ public class MissionManager : MonoBehaviour
     private MissionUnlockDetails _missionStatusDetails;
     private bool _haveStatusDetailFile;
 
-    public void MissionPaperClicked(string missionClickedFilename, bool isPassed)
+    public void MissionPaperClicked(int configIndex, bool isPassed)
     {
+        //_missionSceneData.MissionFileName = missionClickedFilename;
         _missionSceneData.MissionConfigFolderFullPath = _allmissionConfigFolderFullPath;
-        _missionSceneData.MissionFileName = missionClickedFilename;
-        _missionSceneData.IsPassed = isPassed;
+        _missionSceneData.missionConfigIndex = configIndex;
+
+        //_missionSceneData.IsPassed = isPassed;
         _missionStatusDetailsData.MissionStatusDetails = _missionStatusDetails;
         ScenesManager.Instance.LoadMissionScene();
     }
@@ -114,6 +116,7 @@ public class MissionManager : MonoBehaviour
             }
         }
 
+        _SaveConfigsToSO(missionConfigs);
         _GenerateAllMissionObject(missionConfigs, _missionStatusDetails);
     }
 
@@ -213,7 +216,7 @@ public class MissionManager : MonoBehaviour
 
             // Injected MissionPaperController to mission paper.
             MissionPaperController missionPaperController = missionPaper.AddComponent<MissionPaperController>();
-            missionPaperController.Construct(this, _missionConfigFiles[i], missionUnlockDetail.IsPass);
+            missionPaperController.Construct(this, i, missionUnlockDetail.IsPass);
             missionPaper.GetComponent<Button>().onClick.AddListener(() => missionPaperController.MissionClicked());
         }
     }
@@ -233,6 +236,11 @@ public class MissionManager : MonoBehaviour
     private void _InitiateMissionBoardUI()
     {
         _missionBoardUI.Initiate(_fileWatcher);
+    }
+
+    private void _SaveConfigsToSO(MissionConfig[] missionConfigs)
+    {
+        _missionSceneData.missionConfigs = missionConfigs;
     }
 
     // Start is called before the first frame update
