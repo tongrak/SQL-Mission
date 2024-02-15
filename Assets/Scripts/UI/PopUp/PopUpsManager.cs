@@ -29,6 +29,7 @@ namespace Gameplay.UI.PopUp
         #region AUX methods
         protected virtual void initAllPopUp()
         {
+            this.gameObject.SetActive(true);
             //Hide all popUps
             _gameplayMenuGO.SetActive(false);
             _completionMenuGO.SetActive(false);

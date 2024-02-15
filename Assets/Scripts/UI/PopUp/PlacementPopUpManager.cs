@@ -19,6 +19,7 @@ namespace Assets.Scripts.UI.PopUp
 
         public void initPopUp()
         {
+            this.gameObject.SetActive(true);
             _giveUpMenuGO.SetActive(false);
             _softLoadingGO.SetActive(false);
 
@@ -27,7 +28,6 @@ namespace Assets.Scripts.UI.PopUp
 
         public void DisplayGiveUpMenu()
         {
-            this.gameObject.SetActive(true);
             this.initPopUp();
             _giveUpMenuGO.SetActive(true);
             _popUpShadowGO.GetComponent<UnityEngine.UI.Button>().interactable = true;
