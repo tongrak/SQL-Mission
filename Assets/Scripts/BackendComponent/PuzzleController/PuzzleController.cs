@@ -97,9 +97,10 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
                 {
                     for (int i = 0; i < answerResult.Length; i++)
                     {
-                        if (answerResult[i].Length != playerResult[i].Length)
+                        string[] currPlayerColumn = playerResult[i];
+                        if (answerResult[i].Length != currPlayerColumn.Length)
                         {
-                            if (answerResult[i].Length < playerResult[i].Length)
+                            if (answerResult[i].Length < currPlayerColumn.Length)
                             {
                                 // Return result that tell player record is more than answer
                                 reason = "The query's number of row is more than expected.";
@@ -113,12 +114,26 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
                         }
                         else
                         {
-                            // Check number of record from each column.
-                            if (!answerResult[i].SequenceEqual(playerResult[i]))
+                            // 1) หา column ของ answer ที่ตรงกับ column ของ player ที่กำลังดูอยู่
+                            int associateColumnIndex = Array.FindIndex(answerResult, (x => x[0] == currPlayerColumn[0]));
+
+                            // 2) วนลูป check ทีละ tuple เพื่อดูว่าผลลัพธ์ที่ query ณ column ที่กำลังดูอยู่นั้นมานั้นถูกต้องหรือไม่
+                            if (associateColumnIndex == -1)
                             {
-                                // Return result that tell player record is less than answer
-                                reason = "Incorrect query.";
+                                reason = $"Column \"{currPlayerColumn[0]}\" is not in the expected result.";
                                 return new PuzzleResult(false, reason);
+                            }
+                            else
+                            {
+                                // Check each tuple
+                                for (int j = 0; j < answerResult[associateColumnIndex].Length; j++)
+                                {
+                                    if (!answerResult[associateColumnIndex][j].Equals(currPlayerColumn[j]))
+                                    {
+                                        reason = $"Incorrect query.";
+                                        return new PuzzleResult(false, reason);
+                                    }
+                                }
                             }
                         }
                     }
