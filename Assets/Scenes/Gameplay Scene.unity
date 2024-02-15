@@ -4600,7 +4600,7 @@ MonoBehaviour:
   m_InputType: 0
   m_AsteriskChar: 42
   m_KeyboardType: 0
-  m_LineType: 0
+  m_LineType: 2
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
   m_CharacterValidation: 0
@@ -4657,7 +4657,7 @@ MonoBehaviour:
   m_ResetOnDeActivation: 1
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 0
-  m_LineLimit: 0
+  m_LineLimit: 7
   m_InputValidator: {fileID: 0}
 --- !u!114 &1090128497
 MonoBehaviour:
@@ -6887,7 +6887,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 2
+  m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -6908,8 +6908,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cellPrefab: {fileID: 2191912406389507693, guid: 55f8c418567c2424aa937abac2a1d4e5, type: 3}
-  _defualtCellHeight: 30
-  _cellFontSize: 16
+  _defualtCellHeight: 31
+  _cellFontSize: 18
+  _tableHeader: {fileID: 21300000, guid: 06b65029ee7ba1945894959dcc8f179f, type: 3}
 --- !u!1 &1831675318
 GameObject:
   m_ObjectHideFlags: 0
@@ -8446,7 +8447,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
