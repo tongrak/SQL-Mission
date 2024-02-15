@@ -17,6 +17,10 @@ namespace Gameplay.UI.Table
         [SerializeField] protected GameObject _cellPrefab;
         [SerializeField] private int _defualtCellHeight = 30;
         [SerializeField] private int _cellFontSize = 16;
+
+        [Header("Sprite")]
+        [SerializeField] private Sprite _tableHeader;
+
         private int _cellHeight = 0;
 
         private float _columnWidth = 0f;
@@ -37,12 +41,20 @@ namespace Gameplay.UI.Table
 
         public void setColumnDisplay(string[] data)
         {
+            bool isHeader = true;
             foreach (var cellText in data)
             {
                 GameObject cellRef = Instantiate(_cellPrefab, this.transform);
                 setCell(cellRef, cellText);
+                //Set the first first to Column cell
+                if (isHeader)
+                {
+                    cellRef.GetComponent<UnityEngine.UI.Image>().sprite = _tableHeader;
+                    isHeader = false;
+                }
             }
             //set column height
+           
             var columnRect = this.GetComponent<RectTransform>();
             columnRect.sizeDelta = new Vector2(columnRect.sizeDelta.x, cellHeight * data.Length);
         }

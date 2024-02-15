@@ -13,7 +13,7 @@ namespace Gameplay.UI.Table
     {
         [Header("Column Configuration")]
         [SerializeField] private GameObject _columnPrefab;
-        [SerializeField] private string[][] _tempData;
+
         private void deleteExistedChilds()
         {
             foreach (Transform child in this.transform) { Destroy(child.gameObject); }
