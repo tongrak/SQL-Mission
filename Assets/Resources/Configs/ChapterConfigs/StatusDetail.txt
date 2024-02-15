@@ -3,28 +3,28 @@
         {
             "ChatperID": 1,
             "IsUnlock": true,
-            "IsPass": true,
+            "IsPass": false,
             "ChapterDependenciesStatusDetail": []
         },
         {
             "ChatperID": 2,
-            "IsUnlock": true,
-            "IsPass": true,
+            "IsUnlock": false,
+            "IsPass": false,
             "ChapterDependenciesStatusDetail": [
                 {
                     "ChapterID": 1,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "ChatperID": 3,
-            "IsUnlock": true,
+            "IsUnlock": false,
             "IsPass": false,
             "ChapterDependenciesStatusDetail": [
                 {
                     "ChapterID": 2,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         }
