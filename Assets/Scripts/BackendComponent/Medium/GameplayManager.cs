@@ -272,9 +272,8 @@ namespace Gameplay
                         string[] imagePaths = rawImagePaths.Select(x => x.Split('.')[0]).ToArray();
                         if (imagePaths.Length > 0) _dynamicVisualController.ShowUpGivenItem(imagePaths);
                     }
-                    _canAdvanceAStep = _currPC.GetPuzzleResult();
-                    ExecuteResultDTO executeResultDTO = new ExecuteResultDTO((result.IsError, result.ErrorMessage), result.TableResult);
-                    _mainConsoleController.setResultDisplay(_currPC.GetPuzzleResult(), executeResultDTO);
+                    _canAdvanceAStep = _currPC.GetPuzzleResult().IsCorrect;
+                    _mainConsoleController.setResultDisplay(result, _currPC.GetPuzzleResult());
                     SelectResultTab();
                     break;
                 case TabType.RESULT:
