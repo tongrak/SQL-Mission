@@ -125,27 +125,6 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
                                     return new PuzzleResult(false, reason);
                                 }
                             }
-                            // 1) หา column ของ answer ที่ตรงกับ column ของ player ที่กำลังดูอยู่
-                            //int associateColumnIndex = Array.FindIndex(answerResult, (x => x[0] == currPlayerColumn[0]));
-
-                            // 2) วนลูป check ทีละ tuple เพื่อดูว่าผลลัพธ์ที่ query ณ column ที่กำลังดูอยู่นั้นมานั้นถูกต้องหรือไม่
-                            //if (associateColumnIndex == -1)
-                            //{
-                            //    reason = $"Column \"{currPlayerColumn[0]}\" is not in the expected result.";
-                            //    return new PuzzleResult(false, reason);
-                            //}
-                            //else
-                            //{
-                            //    // Check each tuple
-                            //    for (int j = 0; j < answerResult[i].Length; j++)
-                            //    {
-                            //        if (!answerResult[associateColumnIndex][j].Equals(currPlayerColumn[j]))
-                            //        {
-                            //            reason = $"Incorrect query.";
-                            //            return new PuzzleResult(false, reason);
-                            //        }
-                            //    }
-                            //}
                         }
                     }
                     return new PuzzleResult(true, reason);
