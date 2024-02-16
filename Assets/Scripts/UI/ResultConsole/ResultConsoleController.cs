@@ -9,7 +9,7 @@ namespace Gameplay.UI
 {
     public interface IResultTabController
     {
-        void setDisplayResult(ExecuteResult executeResult, PuzzleResult puzzleResult);
+        void setDisplayResult(ExecuteResult executeResult, PuzzleResult puzzleResult, string[][] expectedTable);
     }
 
     public class ResultConsoleController : GameplayController, IResultTabController
@@ -66,7 +66,7 @@ namespace Gameplay.UI
             _expectedTableGeneratorGO.SetActive(false);
         }
 
-        public void setDisplayResult(ExecuteResult executeResult, PuzzleResult puzzleResult)
+        public void setDisplayResult(ExecuteResult executeResult, PuzzleResult puzzleResult, string[][] expectedTable)
         {
             //init the console
             _queriedTableGeneratorGO.SetActive(false);
@@ -90,8 +90,8 @@ namespace Gameplay.UI
                 _hintButtonGO.SetActive(true);
                 _hintButtonController.SetToInitState();
             }
-            //TODO: request expected table
-            generateAllTable(executeResult.TableResult, executeResult.TableResult);
+
+            generateAllTable(executeResult.TableResult, expectedTable);
         }
 
         public void OnClickHint()
