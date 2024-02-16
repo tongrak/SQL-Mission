@@ -69,7 +69,8 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
         private PuzzleResult IsEqualQueryResult(string[][] answerResult, string[][] playerResult)
         {
             string reason = String.Empty;
-
+            string[][] sortedAnswerResult = answerResult.OrderBy(x => x[0]).ToArray();
+            string[][] sortedPlayerResult = playerResult.OrderBy(x => x[0]).ToArray();
             if (playerResult == null)
             {
                 reason = "The query does not produce a result.";
@@ -77,10 +78,10 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
             }
             else
             {
-                if (answerResult.Length != playerResult.Length)
+                if (sortedAnswerResult.Length != sortedPlayerResult.Length)
                 {
                     // Column is not equal
-                    if (playerResult.Length > answerResult.Length)
+                    if (sortedPlayerResult.Length > sortedAnswerResult.Length)
                     {
                         // Return result that tell player's column is more than answer
                         reason = "The query's number of column is more than expected.";
@@ -95,12 +96,13 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
                 // Check each column
                 else
                 {
-                    for (int i = 0; i < answerResult.Length; i++)
+                    for (int i = 0; i < sortedAnswerResult.Length; i++)
                     {
-                        string[] currPlayerColumn = playerResult[i];
-                        if (answerResult[i].Length != currPlayerColumn.Length)
+                        string[] currPlayerColumn = sortedPlayerResult[i];
+                        string[] currAnswerColumn = sortedAnswerResult[i];
+                        if (currAnswerColumn.Length != currPlayerColumn.Length)
                         {
-                            if (answerResult[i].Length < currPlayerColumn.Length)
+                            if (currAnswerColumn.Length < currPlayerColumn.Length)
                             {
                                 // Return result that tell player record is more than answer
                                 reason = "The query's number of row is more than expected.";
@@ -114,27 +116,36 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
                         }
                         else
                         {
-                            // 1) หา column ของ answer ที่ตรงกับ column ของ player ที่กำลังดูอยู่
-                            int associateColumnIndex = Array.FindIndex(answerResult, (x => x[0] == currPlayerColumn[0]));
-
-                            // 2) วนลูป check ทีละ tuple เพื่อดูว่าผลลัพธ์ที่ query ณ column ที่กำลังดูอยู่นั้นมานั้นถูกต้องหรือไม่
-                            if (associateColumnIndex == -1)
+                            // Check each tuple
+                            for (int j = 0; j < currAnswerColumn.Length; j++)
                             {
-                                reason = $"Column \"{currPlayerColumn[0]}\" is not in the expected result.";
-                                return new PuzzleResult(false, reason);
-                            }
-                            else
-                            {
-                                // Check each tuple
-                                for (int j = 0; j < answerResult[associateColumnIndex].Length; j++)
+                                if (!currAnswerColumn[j].Equals(currPlayerColumn[j]))
                                 {
-                                    if (!answerResult[associateColumnIndex][j].Equals(currPlayerColumn[j]))
-                                    {
-                                        reason = $"Incorrect query.";
-                                        return new PuzzleResult(false, reason);
-                                    }
+                                    reason = $"Incorrect query.";
+                                    return new PuzzleResult(false, reason);
                                 }
                             }
+                            // 1) หา column ของ answer ที่ตรงกับ column ของ player ที่กำลังดูอยู่
+                            //int associateColumnIndex = Array.FindIndex(answerResult, (x => x[0] == currPlayerColumn[0]));
+
+                            // 2) วนลูป check ทีละ tuple เพื่อดูว่าผลลัพธ์ที่ query ณ column ที่กำลังดูอยู่นั้นมานั้นถูกต้องหรือไม่
+                            //if (associateColumnIndex == -1)
+                            //{
+                            //    reason = $"Column \"{currPlayerColumn[0]}\" is not in the expected result.";
+                            //    return new PuzzleResult(false, reason);
+                            //}
+                            //else
+                            //{
+                            //    // Check each tuple
+                            //    for (int j = 0; j < answerResult[i].Length; j++)
+                            //    {
+                            //        if (!answerResult[associateColumnIndex][j].Equals(currPlayerColumn[j]))
+                            //        {
+                            //            reason = $"Incorrect query.";
+                            //            return new PuzzleResult(false, reason);
+                            //        }
+                            //    }
+                            //}
                         }
                     }
                     return new PuzzleResult(true, reason);
