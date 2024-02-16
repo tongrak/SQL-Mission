@@ -56,13 +56,11 @@ public class MissionManager : MonoBehaviour
     /// </summary>
     private void _InstantiateWatcher()
     {
-        _fileWatcher = new FileSystemWatcher(_allmissionConfigFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType + ".meta");
+        _fileWatcher = new FileSystemWatcher(_allmissionConfigFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
 
         _fileWatcher.NotifyFilter = NotifyFilters.CreationTime
                              | NotifyFilters.LastWrite
                              | NotifyFilters.Size;
-
-        _fileWatcher.Created += TestCreatedEvent;
 
         _fileWatcher.EnableRaisingEvents = true;
     }
@@ -170,11 +168,6 @@ public class MissionManager : MonoBehaviour
         return missionUnlockDetails;
     }
 
-    private void TestCreatedEvent(object sender, FileSystemEventArgs e)
-    {
-        Debug.Log("Created mission status meta file complete. // Please remove this function before production.");
-    }
-
     /// <summary>
     /// Generate all mission paper to scene.
     /// </summary>
@@ -264,8 +257,6 @@ public class MissionManager : MonoBehaviour
     {
         if (_fileWatcher != null)
         {
-            _fileWatcher.Changed -= TestCreatedEvent;
-
             _fileWatcher.Dispose();
         }
     }
