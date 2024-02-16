@@ -273,7 +273,7 @@ namespace Gameplay
                         if (imagePaths.Length > 0) _dynamicVisualController.ShowUpGivenItem(imagePaths);
                     }
                     _canAdvanceAStep = _currPC.GetPuzzleResult().IsCorrect;
-                    _mainConsoleController.setResultDisplay(result, _currPC.GetPuzzleResult());
+                    _mainConsoleController.setResultDisplay(result, _currPC.GetPuzzleResult(), _currPC.AnswerTableResult);
                     SelectResultTab();
                     break;
                 case TabType.RESULT:

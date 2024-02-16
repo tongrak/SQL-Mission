@@ -5,13 +5,14 @@ using UnityEngine;
 
 namespace Gameplay.UI.Table
 {
-    interface IColumnController
+    interface ICellsGenerator
     {
         int cellHeight { get; set; }
-        void setColumnDisplay(string[] data);
+        void setCellsDisplay(string[] data);
+        void destroyAllCells();
     }
 
-    public class ColumnController : GameplayController, IColumnController
+    public class CellsGenerator : GenericGenerator, ICellsGenerator
     {
         [Header("Cell configuration")]
         [SerializeField] protected GameObject _cellPrefab;
@@ -19,7 +20,8 @@ namespace Gameplay.UI.Table
         [SerializeField] private int _cellFontSize = 16;
 
         [Header("Sprite")]
-        [SerializeField] private Sprite _tableHeader;
+        [SerializeField] protected Sprite _columnHeaderSprite;
+        [SerializeField] protected Sprite _columnBodySprite;
 
         private int _cellHeight = 0;
 
@@ -39,26 +41,25 @@ namespace Gameplay.UI.Table
             }
         }
 
-        public void setColumnDisplay(string[] data)
+        public void setCellsDisplay(string[] data)
         {
+            detroyExistedChilds();
+
             bool isHeader = true;
             foreach (var cellText in data)
             {
                 GameObject cellRef = Instantiate(_cellPrefab, this.transform);
                 setCell(cellRef, cellText);
-                //Set the first first to Column cell
-                if (isHeader)
-                {
-                    cellRef.GetComponent<UnityEngine.UI.Image>().sprite = _tableHeader;
-                    isHeader = false;
-                }
+                //Set cell sprite
+                cellRef.GetComponent<UnityEngine.UI.Image>().sprite = isHeader ? _columnHeaderSprite : _columnBodySprite;
+                if (isHeader) isHeader = false;
             }
             //set column height
            
             var columnRect = this.GetComponent<RectTransform>();
             columnRect.sizeDelta = new Vector2(columnRect.sizeDelta.x, cellHeight * data.Length);
         }
-
+        public void destroyAllCells() => base.detroyExistedChilds();
         private void setCell(GameObject cellObj, string cellText)
         {
             var cellCon = cellObj.GetComponent<ICellController>();
@@ -76,6 +77,7 @@ namespace Gameplay.UI.Table
             var rect = cellObj.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2(_columnWidth, cellHeight);
         }
+
     }
 }
 

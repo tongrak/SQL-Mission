@@ -1,3 +1,4 @@
+using Gameplay.UI.Table;
 using TMPro;
 //using Unity.Plastic.Newtonsoft.Json.Serialization;
 using UnityEngine;
@@ -9,14 +10,14 @@ namespace Gameplay.UI
     {
         void SetUpDisplay(SchemaDTO[] schemas);
     }
-    public class SchemaDisplayController : GameplayController, ISchemaDisplayController
+    public class SchemaDisplayController : Table.GenericGenerator, ISchemaDisplayController
     {
         [Header("Configuration")]
         [SerializeField] private GameObject _clickableCellPrefab;
         [SerializeField] private GameObject _selectionListGO;
         [SerializeField] private GameObject _displayListGO;
 
-        private ISchemaAttributesController _schemaAttrCon => mustGetComponent<ISchemaAttributesController>(_displayListGO);
+        private ICellsGenerator _schemaAttrCon => mustGetComponent<ICellsGenerator>(_displayListGO);
 
         public void SetUpDisplay(SchemaDTO[] schemas)
         {
@@ -34,21 +35,17 @@ namespace Gameplay.UI
                 createdButton.onClick.AddListener(getOnClickAction(schemas[i].attribuites));
             }
             //Display first schema
-            _schemaAttrCon.SetDisplayAttribute(schemas[0].attribuites);
+            _schemaAttrCon.setCellsDisplay(schemas[0].attribuites);
         }
         private UnityAction getOnClickAction(string[] attribute)
         {
-            return () => _schemaAttrCon.SetDisplayAttribute(attribute);
+            return () => _schemaAttrCon.setCellsDisplay(attribute);
         }
         private void removePastSchema()
         {
             //Remove past selection list
-            foreach (Transform child in _selectionListGO.transform)
-            {
-              if(child.gameObject != null)   Destroy(child.gameObject);
-            }
-
-            _schemaAttrCon.RemoveDisplayAttribute();
+            foreach (Transform child in _selectionListGO.transform) Destroy(child.gameObject);
+            _schemaAttrCon.destroyAllCells();
         }
     }
 }
