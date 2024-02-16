@@ -1,0 +1,45 @@
+{
+  "MissionID": 6,
+  "MissionTitle": "Mission 6",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลทั้งหมดของ PeopleOccupation โดยเลือกเพียง Sex, Occupation",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/PeopleOccupation",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "PeopleOccupation"
+        ],
+        "PreSQL": "SELECT Sex, Occupation/nFROM PeopleOccupation",
+        "AnswerSQL": "SELECT Sex, Occupation FROM PeopleOccupation",
+        "VisualType": 0,
+        "PuzzleType": 0,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "จาก puzzle ทำให้เห็นว่าเราสามารถเลือก column ได้มากกว่า 1 column",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter2/Mission6",
+        "ImgList": [
+          "Mission6_1.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    3,
+    4,
+    5
+  ]
+}

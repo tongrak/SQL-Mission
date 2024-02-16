@@ -1,0 +1,43 @@
+{
+  "MissionID": 7,
+  "MissionTitle": "Mission 7",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "จงแสดงข้อมูลของ AdditionalShirt โดยที่ Brand เป็น Bow หรือ Size เป็น M โดยเลือกแสดงเพียง Color กับ Brand",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/AdditionalShirt",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "AdditionalShirt"
+        ],
+        "PreSQL": "SELECT Color, Brand/n<<Type>> AdditionalShirt/n<<Type>> Brand = 'Bow' <<OperatorsWord>> Size = 'M'",
+        "AnswerSQL": "SELECT Color, Brand FROM AdditionalShirt WHERE Brand = 'Bow' OR Size = 'M'",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "OperatorsWord",
+            "OptionContext": [
+              "AND",
+              "NOT",
+              "BETWEEN",
+              "OR"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    2,
+    3,
+    4
+  ]
+}

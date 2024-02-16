@@ -1,0 +1,44 @@
+{
+  "MissionID": 10,
+  "MissionTitle": "Mission 10",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "จงแสดงข้อมูลของ Shirt โดยที่ Color นั้นไม่ใช่ Green โดยเลือกแสดงเพียง Price กับ IsLongSleeve ตามลำดับ",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Shirt",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Shirt"
+        ],
+        "PreSQL": "<<Type>> Price, IsLongSleeve/n<<Type>> Shirt/n<<Type>> <<OperatorsWord>> Color <<Type>> <<Type>>",
+        "AnswerSQL": "SELECT Price, IsLongSleeve FROM Shirt WHERE NOT Color = 'Green'",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "OperatorsWord",
+            "OptionContext": [
+              "BETWEEN",
+              "AND",
+              "NOT",
+              "OR"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    5,
+    6,
+    7,
+    8
+  ]
+}

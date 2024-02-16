@@ -1,0 +1,46 @@
+{
+  "MissionID": 13,
+  "MissionTitle": "Mission 13",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลทั้งหมดของ FruitPile โดยที่ NumInPile นั้นมากกว่า 6 และ Name เป็น Apple หรือไม่ก็มี Name เป็น Orange",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/FruitPile",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "FruitPile"
+        ],
+        "PreSQL": "SELECT */nFROM FruitPile/nWHERE NumInPile > 6 AND Name = 'Apple' OR Name = 'Orange'",
+        "AnswerSQL": "SELECT * FROM FruitPile WHERE NumInPile > 6 AND Name = 'Apple' OR Name = 'Orange'",
+        "VisualType": 0,
+        "PuzzleType": 0,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "จาก puzzle ที่ผ่านมา จะเห็นว่าเราสามารถใช้ AND และ OR ร่วมกันได้ โดยจะตรวจสอบเงื่อนไขของ AND ก่อนแล้วตามด้วย OR ทีหลัง",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter4/Mission13",
+        "ImgList": [
+          "Mission13_1.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    9,
+    10,
+    11,
+    12
+  ]
+}

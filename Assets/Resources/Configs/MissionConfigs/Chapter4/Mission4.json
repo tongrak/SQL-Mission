@@ -1,0 +1,63 @@
+{
+  "MissionID": 4,
+  "MissionTitle": "Mission 4",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ FruitPile โดยที่ NumInPile นั้นอยู่ระหว่าง 4 กับ 5",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/FruitPile",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "FruitPile"
+        ],
+        "PreSQL": "SELECT */nFROM FruitPile/nWHERE <<TypeLong>>",
+        "AnswerSQL": "SELECT * FROM FruitPile WHERE NumInPile >= 4 AND NumInPile <= 5",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ FruitPile โดยที่ NumInPile นั้นอยู่ระหว่าง 4 กับ 5",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/FruitPile",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "FruitPile"
+        ],
+        "PreSQL": "SELECT */nFROM FruitPile/nWHERE NumInPile BETWEEN 4 AND 5",
+        "AnswerSQL": "SELECT * FROM FruitPile WHERE NumInPile BETWEEN 4 AND 5",
+        "VisualType": 0,
+        "PuzzleType": 0,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "จาก puzzle จะเห็นได้ว่า BETWEEN นั้นจะเลือกสิ่งที่มี NumInPile ระหว่าง 4 กับ 5 และสามารถเขียนแทนคำสั่งใน puzzle แรกได้",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter4/Mission4",
+        "ImgList": [
+          "Mission4_1.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    1
+  ]
+}

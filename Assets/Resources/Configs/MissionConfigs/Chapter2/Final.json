@@ -1,0 +1,32 @@
+{
+  "MissionID": 99,
+  "MissionTitle": "Final",
+  "MissionType": 2,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Flower โดยเลือกแสดงเพียง PollenColor, Petal",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Flower",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Flower"
+        ],
+        "PreSQL": null,
+        "AnswerSQL": "SELECT PollenColor, Petal FROM Flower",
+        "VisualType": 0,
+        "PuzzleType": 2,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    8,
+    9
+  ]
+}

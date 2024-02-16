@@ -1,0 +1,33 @@
+{
+  "MissionID": 2,
+  "MissionTitle": "Mission 2",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลของ jobs โดยเลือกแสดงเพียง job_title, job_id และ max_salary",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Chapter5/Mission2",
+        "ImgList": [
+          "Mission2_1.png"
+        ]
+      },
+      "PuzzleDetail": {
+        "DB": "HR.db",
+        "Tables": [
+          "jobs"
+        ],
+        "PreSQL": null,
+        "AnswerSQL": "SELECT job_title, job_id, max_salary FROM jobs",
+        "VisualType": 1,
+        "PuzzleType": 2,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    1
+  ]
+}

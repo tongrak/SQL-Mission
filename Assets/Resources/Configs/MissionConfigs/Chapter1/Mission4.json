@@ -1,0 +1,40 @@
+{
+  "MissionID": 4,
+  "MissionTitle": "Mission 4",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ PeopleOccupation",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/PeopleOccupation",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "PeopleOccupation"
+        ],
+        "PreSQL": "SELECT */nFROM <<Tables>>",
+        "AnswerSQL": "SELECT * FROM PeopleOccupation",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "optionTitle": "Tables",
+            "optionContext": [
+              "PeopleOccupation",
+              "Animal",
+              "Flower"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    2
+  ]
+}

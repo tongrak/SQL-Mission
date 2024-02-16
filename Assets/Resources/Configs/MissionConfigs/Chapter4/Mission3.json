@@ -1,0 +1,41 @@
+{
+  "MissionID": 3,
+  "MissionTitle": "Mission 3",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ AdditionalPeopleOccupation โดยที่ Occupation นั้นไม่เป็น Police",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/AdditionalPeopleOccupation",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "AdditionalPeopleOccupation"
+        ],
+        "PreSQL": "SELECT */nFROM AdditionalPeopleOccupation/nWHERE NOT Occupation = 'Police'",
+        "AnswerSQL": "SELECT * FROM AdditionalPeopleOccupation WHERE NOT Occupation = 'Police'",
+        "VisualType": 0,
+        "PuzzleType": 0,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "จาก puzzle จะเห็นว่า NOT จะเลือกสิ่งที่ตรงข้ามกับเงื่อนไขที่เขียนไว้",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter4/Mission3",
+        "ImgList": [
+          "Mission3_1.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": null
+}

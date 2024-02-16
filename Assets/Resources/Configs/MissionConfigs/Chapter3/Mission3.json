@@ -1,0 +1,75 @@
+{
+  "MissionID": 3,
+  "MissionTitle": "Mission 3",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Sock โดยเลือก Size เท่ากับ M",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Sock",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Sock"
+        ],
+        "PreSQL": "SELECT */nFROM Sock/nWHERE Size = 'M'",
+        "AnswerSQL": "SELECT * FROM Sock WHERE Size = 'M'",
+        "VisualType": 0,
+        "PuzzleType": 0,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "จาก puzzle นี้แสดงให้เห็นถึงการใช้งานตัวอักษร(literals) ที่เป็น string ซึ่งการที่ใช้ string ในการเปรียบเทียบนั้นจะต้องมี ' ' หรือ \" \" ครอบด้วย",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter3/Mission3",
+        "ImgList": [
+          "Mission3_1.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Sock โดยเลือก Size เท่ากับ m",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Sock",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Sock"
+        ],
+        "PreSQL": "SELECT */nFROM Sock/nWHERE Size = 'm'",
+        "AnswerSQL": "SELECT * FROM Sock WHERE Size = 'm'",
+        "VisualType": 0,
+        "PuzzleType": 0,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "จาก puzzle แสดงให้เห็นว่าเพียงเปลี่ยนจาก 'M' เป็น 'm' ผลลัพธ์ที่ได้ก็ต่างกัน ดังนั้นการเปรียบเทียบกับ string นั้นจะเป็น case sensitive ไม่เหมือนกับการพิมพ์คำสั่งซึ่งเป็น case insensitive",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter3/Mission3",
+        "ImgList": [
+          "Mission3_2.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    1
+  ]
+}

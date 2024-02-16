@@ -1,0 +1,55 @@
+{
+  "MissionID": 12,
+  "MissionTitle": "Mission 12",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "จงแสดงข้อมูลของ AdditionalPeopleOccupation โดยที่ Occupation คือ Police โดยเลือกแสดงเพียง Sex กับ SkinColor",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/AdditionalPeopleOccupation",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "AdditionalPeopleOccupation"
+        ],
+        "PreSQL": "<<Type>> Sex, SkinColor/n<<Type>> AdditionalPeopleOccupation/n<<Type>> <<Type>> <<OperatorsSymbol>> <<Word>>",
+        "AnswerSQL": "SELECT Sex, SkinColor FROM AdditionalPeopleOccupation WHERE Occupation = 'Police'",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "OperatorsSymbol",
+            "OptionContext": [
+              ">",
+              ">=",
+              "=",
+              "<=",
+              "<"
+            ]
+          },
+          {
+            "OptionTitle": "Word",
+            "OptionContext": [
+              "Police",
+              "Police'",
+              "'Police'",
+              "police",
+              "police'",
+              "'police'"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    8,
+    9,
+    10
+  ]
+}

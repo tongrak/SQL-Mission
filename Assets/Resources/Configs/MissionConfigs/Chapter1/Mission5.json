@@ -1,0 +1,40 @@
+{
+  "MissionID": 5,
+  "MissionTitle": "Mission 5",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Book",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Book",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Book"
+        ],
+        "PreSQL": "SELECT */nFROM <<Tables>>",
+        "AnswerSQL": "SELECT * FROM Book",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "optionTitle": "Tables",
+            "optionContext": [
+              "Book",
+              "Shirt",
+              "Flower"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    2
+  ]
+}

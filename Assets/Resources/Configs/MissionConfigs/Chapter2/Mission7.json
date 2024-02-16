@@ -1,0 +1,40 @@
+{
+  "MissionID": 7,
+  "MissionTitle": "Mission 7",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "จงแสดงข้อมูลของ Book โดยเลือกแสดงเพียง Title, Price",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Book",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Book"
+        ],
+        "PreSQL": "<<Type>> <<Columns>>, Price/nFROM Book",
+        "AnswerSQL": "SELECT Title, Price FROM Book",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "Columns",
+            "OptionContext": [
+              "Color",
+              "Price",
+              "Title"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    6
+  ]
+}

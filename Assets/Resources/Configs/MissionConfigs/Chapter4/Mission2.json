@@ -1,0 +1,41 @@
+{
+  "MissionID": 2,
+  "MissionTitle": "Mission 2",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Book โดยที่ Title นั้นเป็น A หรือ B",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Book",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Book"
+        ],
+        "PreSQL": "SELECT */nFROM Book/nWHERE Tiltle = 'A' OR Title = 'B'",
+        "AnswerSQL": "SELECT * FROM Book WHERE Tiltle = 'A' OR Title = 'B'",
+        "VisualType": 0,
+        "PuzzleType": 0,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "จาก puzzle แสดงให้เห็นว่า OR นั้นจะเลือกข้อมูลที่ตรงกับเงื่อนไขที่ 1 หรือ 2",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter4/Mission2",
+        "ImgList": [
+          "Mission2_1.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": null
+}

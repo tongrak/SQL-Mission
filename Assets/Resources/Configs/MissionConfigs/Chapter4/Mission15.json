@@ -1,0 +1,63 @@
+{
+  "MissionID": 15,
+  "MissionTitle": "Mission 15",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงทั้งหมดข้อมูลของ UHTMilk โดยที่ Flavor เป็น Chocolate หรือ Brand เป็น G&O โดยที่ทุกอันนั้น Volume ต้องน้อยกว่า 400",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/UHTMilk",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "UHTMilk"
+        ],
+        "PreSQL": "SELECT Quantity, Brand/nFROM UHTMilk/nWHERE <<TypeLong>>",
+        "AnswerSQL": "SELECT * FROM UHTMilk WHERE Volume < 400 AND (Flavor = 'Chocolate' OR Brand = 'G&O')",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "จาก puzzle นั้นเราสามารถใช้วงเล็บในการกำหนดลำดับของเงื่อนไขที่ต้องการให้ทำก่อนได้",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter4/Mission15",
+        "ImgList": [
+          "Mission15_1.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "แสดงทั้งหมดข้อมูลของ UHTMilk โดยที่ Flavor เป็น Chocolate หรือ Brand เป็น G&O โดยที่ทุกอันนั้น Volume ต้องน้อยกว่า 400",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/UHTMilk",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "UHTMilk"
+        ],
+        "PreSQL": "SELECT Quantity, Brand/nFROM UHTMilk/nWHERE Volume < 400 AND (Flavor = 'Chocolate' OR Brand = 'G&O')",
+        "AnswerSQL": "SELECT Quantity, Brand FROM UHTMilk WHERE Volume < 400 AND (Flavor = 'Chocolate' OR Brand = 'G&O')",
+        "VisualType": 0,
+        "PuzzleType": 0,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    14
+  ]
+}

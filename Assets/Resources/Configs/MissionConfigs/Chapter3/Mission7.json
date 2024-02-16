@@ -1,0 +1,60 @@
+{
+  "MissionID": 7,
+  "MissionTitle": "Mission 7",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Shirt โดยที่เลือกอันที่ IsLongSleeve ไม่เป็นจริง(false)",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Shirt",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Shirt"
+        ],
+        "PreSQL": "SELECT */nFROM Shirt/nWHERE <<Attributes>> <<OperatorsSymbol>> <<Boolean>>",
+        "AnswerSQL": "SELECT * FROM Shirt WHERE IsLongSleeve = FALSE",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "Attributes",
+            "OptionContext": [
+              "IsLongSleeve",
+              "Price",
+              "Color"
+            ]
+          },
+          {
+            "OptionTitle": "OperatorsSymbol",
+            "OptionContext": [
+              ">",
+              ">=",
+              "<",
+              "<=",
+              "="
+            ]
+          },
+          {
+            "OptionTitle": "Boolean",
+            "OptionContext": [
+              "False",
+              3,
+              "True",
+              4,
+              5
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    4
+  ]
+}

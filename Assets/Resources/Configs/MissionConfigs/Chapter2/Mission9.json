@@ -1,0 +1,40 @@
+{
+  "MissionID": 9,
+  "MissionTitle": "Mission 9",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลทั้งหมดของ PeopleOccupation โดยแสดงเพียง SkinColor, Occupation",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/PeopleOccupation",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "PeopleOccupation"
+        ],
+        "PreSQL": "<<Type>> <<Columns>>, <<Columns>>/n<<Type>> PeopleOccupation",
+        "AnswerSQL": "SELECT SkinColor, Occupation FROM PeopleOccupation",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "Columns",
+            "OptionContext": [
+              "Sex",
+              "Occupation",
+              "SkinColor"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    7
+  ]
+}

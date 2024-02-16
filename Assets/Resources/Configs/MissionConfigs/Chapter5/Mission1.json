@@ -1,0 +1,38 @@
+{
+  "MissionID": 1,
+  "MissionTitle": "Mission 1",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "puzzle นี้นั้นจะไม่มีรูปลอยได้เพื่อให้ผู้เล่นเริ่มปรับตัว เพราะในชีวิตจริงเวลาใช้ SQL คงไม่มีรูปที่ลอยได้หรอกนะ",
+      "Step": 0,
+      "ImgDetail": null,
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "แสดงข้อมูลของ customer โดยที่ store_id นั้นเป็น 2 โดยเลือกแสดงเพียง first_name กับ last_name กับ email",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Chapter5/Mission1",
+        "ImgList": [
+          "Mission1_1.png"
+        ]
+      },
+      "PuzzleDetail": {
+        "DB": "sakila.db",
+        "Tables": [
+          "customer"
+        ],
+        "PreSQL": "SELECT <<Type>>, last_name, email/n<<Type>> <<Type>>/nWHERE store_id <<Type>> 2",
+        "AnswerSQL": "SELECT * FROM UHTMilk WHERE Flavor = 'Chocolate' AND Brand = 'Fuji'",
+        "VisualType": 1,
+        "PuzzleType": 1,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": null
+}

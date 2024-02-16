@@ -1,0 +1,35 @@
+{
+  "MissionID": 99,
+  "MissionTitle": "Final",
+  "MissionType": 2,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลทั้งหมดของ Flower",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Flower",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Flower"
+        ],
+        "PreSQL": "<<Type>> <<Type>>/nFROM <<Tables>>",
+        "AnswerSQL": "SELECT * FROM Flower",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          "Animal",
+          "PeopleDress",
+          "Flower"
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    6
+  ]
+}

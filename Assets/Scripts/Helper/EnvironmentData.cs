@@ -7,7 +7,7 @@ namespace Assets.Scripts.Helper
         public readonly string MissionConfigRootFolder = "Configs/MissionConfigs";
         public readonly string DatabaseRootFolder = "Database";
         public readonly string PuzzleImagesRootFolder = "PuzzleImages";
-        public readonly string ConfigFileType = ".txt"; // Must be ".txt" of ".json"
+        public readonly string ConfigFileType = ".json"; // Must be ".txt" or ".json"
         public readonly string ImageColumn = "Image";
         public readonly string ChapterConfigRootFolder = "Configs/ChapterConfigs";
         public readonly string ChpaterFileIndexFileName = "ChapterFileIndex";

@@ -1,0 +1,33 @@
+{
+  "MissionID": 3,
+  "MissionTitle": "Mission 3",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลของ employees โดยเลือกแสดงเพียง last_name, first_name และ phone_number",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Chapter5/Mission3",
+        "ImgList": [
+          "Mission3_1.png"
+        ]
+      },
+      "PuzzleDetail": {
+        "DB": "HR.db",
+        "Tables": [
+          "employees"
+        ],
+        "PreSQL": null,
+        "AnswerSQL": "SELECT last_name, first_name, phone_number FROM employees",
+        "VisualType": 1,
+        "PuzzleType": 2,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    1
+  ]
+}

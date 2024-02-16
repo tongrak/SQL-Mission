@@ -1,0 +1,74 @@
+{
+  "MissionID": 1,
+  "MissionTitle": "Mission 1",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลทั้งหมดของ Animal",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Animal",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Animal"
+        ],
+        "PreSQL": "SELECT */nFROM Animal",
+        "AnswerSQL": "SELECT * FROM Animal",
+        "VisualType": 0,
+        "PuzzleType": 0,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "แสดงเฉพาะ Name ของ Animal",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Animal",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Animal"
+        ],
+        "PreSQL": "SELECT Name/nFROM Animal",
+        "AnswerSQL": "SELECT Name FROM Animal",
+        "VisualType": 0,
+        "PuzzleType": 0,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "จาก Puzzle ที่ผ่านมาจะเห็นได้ว่าถ้าหากเปลี่ยนจาก “*” เป็น “Name” นั้นจะทำให้ข้อมูลที่ได้นั้นเปลี่ยนไป และจำนวน attribute ลง",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter2/Mission1",
+        "ImgList": [
+          "Mission1_1.png",
+          "Mission1_2.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "ซึ่งเป็นผลมาจากการที่เลือกคอลัมน์(Column) ซึ่งจะเป็นการเลือกเฉพาะในส่วนที่เราอยากรู้จาก table เท่านั้น เช่น ชื่อ, เบอร์โทร เป็นต้น และเราสามารถเรียกชื่อ Column ว่า Attribute ได้เช่นเดียวกัน",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter2/Mission1",
+        "ImgList": [
+          "Mission1_3.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": null
+}

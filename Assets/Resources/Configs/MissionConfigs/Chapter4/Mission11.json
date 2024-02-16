@@ -1,0 +1,44 @@
+{
+  "MissionID": 11,
+  "MissionTitle": "Mission 11",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "จงแสดงข้อมูลของ Animal โดยที่ Color เป็น Blue และ LegsNum เป็น 2 โดยเลือกแสดงเพียง Name กับ  Color ตามลำดับ",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Animal",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Animal"
+        ],
+        "PreSQL": "<<Type>> Name, Color/n<<Type>> Animal/n<<Type>> <<Type>> = 'Blue' <<OperatorsWord>> LegsNum <<Type>> 2",
+        "AnswerSQL": "SELECT Name, Color FROM Animal WHERE Color = 'Blue' AND LegsNum = 2",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "OperatorsWord",
+            "OptionContext": [
+              "AND",
+              "BETWEEN",
+              "NOT",
+              "OR"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    5,
+    6,
+    7,
+    8
+  ]
+}

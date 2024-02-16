@@ -1,0 +1,43 @@
+{
+  "MissionID": 5,
+  "MissionTitle": "Mission 5",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "จงแสดงข้อมูลของ Flower โดยที่ Petal เป็น 6 และมี PollenColor เป็น Red โดยแสดงเพียง PetalColor กับ PollenColor",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Flower",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Flower"
+        ],
+        "PreSQL": "SELECT PetalColor, PollenColor/n<<Type>> Flower/n<<Type>> Petal = 6 <<OperatorsWord>> PollenColor = 'Red'",
+        "AnswerSQL": "SELECT PetalColor, PollenColor FROM Flower WHERE Petal = 6 AND PollenColor = 'Red'",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "OperatorsWord",
+            "OptionContext": [
+              "AND",
+              "OR",
+              "NOT",
+              "BETWEEN"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    2,
+    3,
+    4
+  ]
+}

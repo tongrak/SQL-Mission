@@ -1,0 +1,44 @@
+{
+  "MissionID": 9,
+  "MissionTitle": "Mission 9",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "จงแสดงข้อมูลของ Sock โดยที่ IsLong นั้น true หรือ Size เป็น S โดยเลือกแสดงเพียง Price กับ Size ตามลำดับ",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Sock",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Sock"
+        ],
+        "PreSQL": "<<Type>> Price, Size/n<<Type>> Sock/n<<Type>> IsLong = True <<OperatorsWord>> <<Type>> = <<Type>>",
+        "AnswerSQL": "SELECT Price, Size FROM Sock WHERE IsLong = TRUE OR Size = 'S'",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "OperatorsWord",
+            "OptionContext": [
+              "AND",
+              "BETWEEN",
+              "OR",
+              "NOT"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    5,
+    6,
+    7,
+    8
+  ]
+}
