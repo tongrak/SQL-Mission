@@ -16,5 +16,6 @@ namespace Assets.Scripts.DataPersistence.StepController
         /// </summary>
         GameStep GetNextStep();
         GameStep GetCurrentStep();
+        public void GoBackPreviousStep();
     }
 }
