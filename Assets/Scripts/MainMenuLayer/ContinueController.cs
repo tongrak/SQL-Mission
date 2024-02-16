@@ -8,9 +8,11 @@ namespace Assets.Scripts.MainMenuLayer
 {
     public class ContinueController : MonoBehaviour
     {
+        [SerializeField] private MainMenuButtonManager _mainMenuButtonManager;
+
         public void ContinueButtonClicked()
         {
-            ScenesManager.Instance.LoadSelectChapterScene();
+            _mainMenuButtonManager.ContinueButtonClicked();
         }
 
         public void Start()

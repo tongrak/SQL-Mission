@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2606650666613460439}
   - component: {fileID: 5035045324732258597}
-  - component: {fileID: 662721452245018658}
+  - component: {fileID: 8787958263208296441}
   m_Layer: 5
   m_Name: Column
   m_TagString: Untagged
@@ -64,7 +64,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
---- !u!114 &662721452245018658
+--- !u!114 &8787958263208296441
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,10 +73,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8694233108670136197}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3474e8f6f1050244b9fb4e83fc5e6fc5, type: 3}
+  m_Script: {fileID: 11500000, guid: 260d016015ac6aa4483a23ae0f4696cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cellPrefab: {fileID: 2191912406389507693, guid: 55f8c418567c2424aa937abac2a1d4e5, type: 3}
+  _cellPrefab: {fileID: 0}
   _defualtCellHeight: 30
   _cellFontSize: 16
-  _tempData: []
+  _columnHeaderSprite: {fileID: 0}
+  _columnBodySprite: {fileID: 0}

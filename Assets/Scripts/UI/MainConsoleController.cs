@@ -1,3 +1,5 @@
+using Assets.Scripts.BackendComponent.Model;
+using Assets.Scripts.DataPersistence.MissionStatusDetail;
 using Gameplay.UI.Construction;
 using System;
 using UnityEngine;
@@ -61,7 +63,7 @@ namespace Gameplay.UI
         /// Set the result tab display according to given result
         /// </summary>
         /// <param name="result">interested result to be displayed</param>
-        void setResultDisplay(bool isPass, ExecuteResultDTO result);
+        void setResultDisplay(ExecuteResult executeResult, PuzzleResult puzzleResult, string[][] expectedTable);
         /// <summary>
         /// Get 
         /// </summary>
@@ -96,14 +98,15 @@ namespace Gameplay.UI
         #endregion
 
         public string getCurrentQueryString() => _constrCon.queryString;
-        public void setResultDisplay(bool isPass, ExecuteResultDTO result)
+        public void setResultDisplay(ExecuteResult executeResult, PuzzleResult puzzleResult, string[][] expectedTable)
         {
             setDisplayTab(TabType.RESULT);
             //if (isPass) _constrCon.clearQueryString(); 
-            _resultCon.setDisplayResult(isPass, result);
+            _resultCon.setDisplayResult(executeResult, puzzleResult, expectedTable);
         }
         public void setConstructionDisplay(Func<string, string[]> getOptionFunction, ConstructionType constructionType, string givenTokens)
         {
+            setDisplayTab(TabType.CONSTRUCT);
             switch (constructionType)
             {
                 case ConstructionType.FILL_THE_BLANK: _constrCon.SetUpTokenizeConsole(getOptionFunction, givenTokens); break;

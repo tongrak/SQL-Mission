@@ -14,15 +14,4 @@ namespace Gameplay.UI
             this.attribuites = attribuites;
         }
     }
-    public readonly struct ExecuteResultDTO
-    {
-        public readonly (bool isError, string errorMessage) errorModel;
-        public readonly string[][] tableResult;
-        public ExecuteResultDTO((bool isError, string errorMessage) errorModel, string[][] tableResult)
-        {
-            this.errorModel = errorModel;
-            this.tableResult = tableResult;
-        }
-    }
-
 }

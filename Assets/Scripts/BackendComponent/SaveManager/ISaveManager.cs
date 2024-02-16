@@ -17,6 +17,6 @@ namespace Assets.Scripts.DataPersistence.SaveManager
         /// </summary>
         /// <param name="chapterFolderFullPath">Inside path must contain 'Resources/' folder such as "D:X/X/X/Resources/X/X/Chapter1"</param>
         /// <param name="passedChapterID">Chapter ID that passed.</param>
-        ChapterStatusDetails UpdateChapterStatus(string chapterFolderFullPath, ChapterStatusDetails chapterStatusDetails, int passedChapterID);
+        ChapterStatusDetails UpdateChapterStatus(string chapterFolderFullPath, ChapterStatusDetails chapterStatusDetails, int passedChapterID, bool saveToFile);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.DataPersistence.MissionStatusDetail;
+﻿using Assets.Scripts.BackendComponent.Model;
+using Assets.Scripts.DataPersistence.MissionStatusDetail;
 
 namespace Assets.Scripts.DataPersistence.PuzzleController
 {
@@ -10,8 +11,9 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
         PuzzleType PuzzleType { get; }
         VisualType VisualType { get; }
         string PreSQL { get; }
+        string[][] AnswerTableResult { get; }
         ExecuteResult GetExecuteResult(string sql);
-        bool GetPuzzleResult();
+        PuzzleResult GetPuzzleResult();
         string[] GetBlankOptions(string optionTitle);
     }
 }

@@ -21,36 +21,29 @@ namespace Assets.Scripts.DataPersistence
         [SerializeField] private GameObject _puzzleManagerGameObject;
         [SerializeField] private GameObject _imageControllerGameObject;
         [SerializeField] private GameObject _missionControllerGameObject;
-        [SerializeField] private GameObject _gameplayManagerGameObjefct;
+        [SerializeField] private GameObject _gameplayManagerGameObject;
         [SerializeField] private MissionData _missionSceneData;
+        [SerializeField] private MissionStatusDetailsData _missionStatusDetailsData;
         [SerializeField] private SelectedChapterData _selectedChapterData;
-        [SerializeField] private TextAsset _configFile;
-        [SerializeField] private SaveAndBackToMB _saveAndBackToDB;
-        [SerializeField] private bool _isMockConfig;
-        [SerializeField] private bool _isMockPassed;
 
         private MissionConfig _missionConfig;
         private ISQLService _sqlService = new SQLService();
         private FileSystemWatcher _missionStatusFileWatcher;
         private FileSystemWatcher _chapterStatusFileWatcher;
 
-        private void StartGenerating()
+        private void _StartGenerating()
         {
-            if (_isMockConfig)
+            LoadConfigFile();
+
+            if (_missionConfig.MissionType != MissionType.Placement)
             {
-                _MockLoadConfigFile();
-            }
-            else
-            {
-                LoadConfigFile();
+                if (!_missionStatusDetailsData.IsPassedMission(_missionSceneData.missionConfigIndex))
+                {
+                    InitiateMissionStatusFileWatcher();
+                }
             }
 
-            if (!_missionSceneData.IsPassed)
-            {
-                InitiateMissionStatusFileWatcher();
-            }
-
-            if (!_selectedChapterData.IsPassed)
+            if ((!_selectedChapterData.IsPassed && _missionConfig.MissionType == MissionType.Final) || _missionConfig.MissionType == MissionType.Placement)
             {
                 InitiateChapterStatusFileWatcher();
             }
@@ -63,16 +56,10 @@ namespace Assets.Scripts.DataPersistence
         }
 
         #region Method for StartGenerating
-        private void _MockLoadConfigFile()
-        {
-            _missionConfig = JsonUtility.FromJson<MissionConfig>(_configFile.text);
-        }
 
         private void LoadConfigFile()
         {
-            string folderPathAfterResources = _missionSceneData.MissionConfigFolderFullPath.Split(new string[] { "Resources/" }, StringSplitOptions.None)[1];
-            TextAsset missionConfigFile = Resources.Load<TextAsset>(folderPathAfterResources + "/" + _missionSceneData.MissionFileName);
-            _missionConfig = JsonUtility.FromJson<MissionConfig>(missionConfigFile.text);
+            _missionConfig = _missionSceneData.GetCurrConfig();
         }
 
         private void InitiateMissionStatusFileWatcher()
@@ -83,7 +70,7 @@ namespace Assets.Scripts.DataPersistence
 
         private void InitiateChapterStatusFileWatcher()
         {
-            _chapterStatusFileWatcher = new FileSystemWatcher(_missionSceneData.MissionConfigFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
+            _chapterStatusFileWatcher = new FileSystemWatcher(_selectedChapterData.ChapterFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
             InitiateFileWatcher(_chapterStatusFileWatcher);
         }
 
@@ -149,7 +136,7 @@ namespace Assets.Scripts.DataPersistence
                 // 2) Get schema from SQLService
                 Schema[] schemas = _sqlService.GetSchemas(dbConn, puzzleStepDetail.PuzzleDetail.Tables, false);
                 // 3) Create PuzzleController
-                PuzzleController.PuzzleController puzzleController = new PuzzleController.PuzzleController(dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, puzzleStepDetail.PuzzleDetail.BlankOptions, puzzleStepDetail.PuzzleDetail.PreSQL, puzzleStepDetail.PuzzleDetail.PuzzleType);
+                PuzzleController.PuzzleController puzzleController = new PuzzleController.PuzzleController(dbConn, puzzleStepDetail.PuzzleDetail.AnswerSQL, puzzleStepDetail.Dialog, schemas, _sqlService, puzzleStepDetail.PuzzleDetail.VisualType, puzzleStepDetail.PuzzleDetail.BlankOptions, puzzleStepDetail.PuzzleDetail.PreSQL, puzzleStepDetail.PuzzleDetail.PuzzleType, puzzleStepDetail.PassedChapterID, puzzleManager);
                 // 4) Insert PuzzleController to array.
                 allPuzzleController[i] = puzzleController;
             }
@@ -167,14 +154,14 @@ namespace Assets.Scripts.DataPersistence
             for (int i = 0; i < _missionConfig.MissionDetail.Length; i++)
 
             {
-                StepDetail stepDetail = _missionConfig.MissionDetail[i];
+                StepDetail currStepDetail = _missionConfig.MissionDetail[i];
+                string imgDir = Application.dataPath + rootImgFolderPath + currStepDetail.ImgDetail.ImgFolder;
+                DirectoryInfo di = new DirectoryInfo(imgDir);
 
-                if(stepDetail.ImgDetail != null)
+                if (currStepDetail.ImgDetail != null)
                 {
-                    if (stepDetail.ImgDetail.ImgList.Length == 0)
+                    if (currStepDetail.ImgDetail.ImgList.Length == 0)
                     {
-                        DirectoryInfo di = new DirectoryInfo(Application.dataPath + rootImgFolderPath + stepDetail.ImgDetail.ImgFolder);
-
                         // Check if image path is correct.
                         try {
                             if (di.Exists)
@@ -194,19 +181,25 @@ namespace Assets.Scripts.DataPersistence
                     }
                     else
                     {
-                        string[] imagePaths = stepDetail.ImgDetail.ImgList.Select(x => Application.dataPath + rootImgFolderPath + stepDetail.ImgDetail.ImgFolder + "\\" + x).ToArray();
-                        imagePathLists[i] = new string[imagePaths.Length];
-                        for (int j = 0; j < imagePaths.Length; j++) 
+                        imagePathLists[i] = new string[currStepDetail.ImgDetail.ImgList.Length];
+
+                        // Check each image from current step.
+                        for (int j = 0; j < currStepDetail.ImgDetail.ImgList.Length; j++) 
                         {
-                            string imagePath = imagePaths[j];
-                            if (!File.Exists(imagePath))
+                            try
                             {
-                                Debug.LogWarning("Image path is not correct.");
-                                Debug.LogWarning("Image path: " + imagePath);
+                                if (di.Exists)
+                                {
+                                    FileInfo[] images = di.GetFiles(currStepDetail.ImgDetail.ImgList[j]);
+                                    imagePathLists[i][j] = images.Select(x => x.FullName).First();
+
+                                }
                             }
-                            else
+                            catch (Exception e)
                             {
-                                imagePathLists[i][0] = imagePath;
+                                Debug.LogWarning("Image folder path is not correct.");
+                                Debug.LogWarning("Image folder path: " + di.FullName);
+                                Debug.LogWarning("Because: " + e.Message);
                             }
                         }
                     }
@@ -220,22 +213,37 @@ namespace Assets.Scripts.DataPersistence
         private void _InitiateMissionController()
         {
             MissionController missioncontroller = _missionControllerGameObject.GetComponent<MissionController>();
-            missioncontroller.Initiate(_missionSceneData.MissionConfigFolderFullPath, _missionConfig.MissionID, _missionConfig.MissionType, new SaveManager.SaveManager(), _missionSceneData.IsPassed);
+            missioncontroller.Initiate(new SaveManager.SaveManager());
         }
         #endregion
+
+        private void _StartGamePlay()
+        {
+            //Start gameplay after mission generated.
+            IGameplayManager gameplayManager = _gameplayManagerGameObject.GetComponent<IGameplayManager>();
+            if (_missionStatusFileWatcher != null && _chapterStatusFileWatcher != null)
+            {
+                gameplayManager.StartFinalGameplay(_missionStatusFileWatcher, _chapterStatusFileWatcher);
+            }
+            else if (_missionStatusFileWatcher != null && _chapterStatusFileWatcher == null)
+            {
+                gameplayManager.StartNormalGameplay(_missionStatusFileWatcher);
+            }
+            else if (_missionStatusFileWatcher == null && _chapterStatusFileWatcher != null)
+            {
+                gameplayManager.StartPlacement(_chapterStatusFileWatcher);
+            }
+            else
+            {
+                gameplayManager.StartFreeGame();
+            }
+        }
 
         // Use this for initialization
         void Start()
         {
-            StartGenerating();
-            // Ues for test change scene when mission passed.
-            if (_isMockPassed)
-            {
-                _saveAndBackToDB.Initiate(_missionStatusFileWatcher);
-                Debug.LogWarning("SaveAndBackToDB initiate. // Delete this before production");
-            }
-            //Start gameplay after mission generation.
-            _gameplayManagerGameObjefct.GetComponent<IGameplayManager>().StartGameplay(_missionStatusFileWatcher);
+            _StartGenerating();
+            _StartGamePlay();
         }
 
         // Update is called once per frame
