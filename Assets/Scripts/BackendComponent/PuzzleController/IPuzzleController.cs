@@ -11,6 +11,7 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
         PuzzleType PuzzleType { get; }
         VisualType VisualType { get; }
         string PreSQL { get; }
+        string[][] AnswerTableResult { get; }
         ExecuteResult GetExecuteResult(string sql);
         PuzzleResult GetPuzzleResult();
         string[] GetBlankOptions(string optionTitle);

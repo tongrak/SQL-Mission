@@ -13,7 +13,6 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
     {
         private string _dbConn;
         private ISQLService _sqlService;
-        private string[][] _answerTableResult;
         private readonly BlankOption[] _blankOptions;
         private int _passedChapterID;
         private IPuzzleManager _puzzleManager;
@@ -24,6 +23,7 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
         public PuzzleType PuzzleType { get; private set; }
         public VisualType VisualType { get; private set; }
         public string PreSQL { get; private set; }
+        public string[][] AnswerTableResult { get; private set; }
 
         public PuzzleController(string dbConn, string answerSQL, string brief, Schema[] schemas, ISQLService sqlService, VisualType imgType, BlankOption[] blankOptions, string preSQL, PuzzleType puzzleType, int passedChapterID, IPuzzleManager puzzleManager)
         {
@@ -32,7 +32,7 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
             Schemas = schemas;
             _sqlService = sqlService;
             VisualType = imgType;
-            _answerTableResult = _sqlService.GetTableResult(dbConn, answerSQL, imgType);
+            AnswerTableResult = _sqlService.GetTableResult(dbConn, answerSQL, imgType);
             _blankOptions = blankOptions;
             PreSQL = preSQL;
             PuzzleType = puzzleType;
@@ -55,7 +55,7 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
 
         public PuzzleResult GetPuzzleResult()
         {
-            PuzzleResult puzzleResult = IsEqualQueryResult(_answerTableResult, PlayerTableResult);
+            PuzzleResult puzzleResult = IsEqualQueryResult(AnswerTableResult, PlayerTableResult);
 
             if(_passedChapterID > 0 && puzzleResult.IsCorrect)
             {
