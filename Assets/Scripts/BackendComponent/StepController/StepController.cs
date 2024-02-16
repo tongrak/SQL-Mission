@@ -15,7 +15,7 @@ namespace Assets.Scripts.DataPersistence.StepController
             if (AllGameStep[_gameStepIndex].CurrStep == Step.EndStep) { OnAllStepPassed?.Invoke(); }
         }
 
-        public void BackWardStep()
+        public void GoBackStep()
         {
             if (_gameStepIndex > 0) _gameStepIndex--;
         }
