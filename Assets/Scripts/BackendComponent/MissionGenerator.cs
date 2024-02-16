@@ -154,14 +154,14 @@ namespace Assets.Scripts.DataPersistence
             for (int i = 0; i < _missionConfig.MissionDetail.Length; i++)
 
             {
-                StepDetail stepDetail = _missionConfig.MissionDetail[i];
+                StepDetail currStepDetail = _missionConfig.MissionDetail[i];
+                string imgDir = Application.dataPath + rootImgFolderPath + currStepDetail.ImgDetail.ImgFolder;
+                DirectoryInfo di = new DirectoryInfo(imgDir);
 
-                if(stepDetail.ImgDetail != null)
+                if (currStepDetail.ImgDetail != null)
                 {
-                    if (stepDetail.ImgDetail.ImgList.Length == 0)
+                    if (currStepDetail.ImgDetail.ImgList.Length == 0)
                     {
-                        DirectoryInfo di = new DirectoryInfo(Application.dataPath + rootImgFolderPath + stepDetail.ImgDetail.ImgFolder);
-
                         // Check if image path is correct.
                         try {
                             if (di.Exists)
@@ -181,19 +181,25 @@ namespace Assets.Scripts.DataPersistence
                     }
                     else
                     {
-                        string[] imagePaths = stepDetail.ImgDetail.ImgList.Select(x => Application.dataPath + rootImgFolderPath + stepDetail.ImgDetail.ImgFolder + "\\" + x).ToArray();
-                        imagePathLists[i] = new string[imagePaths.Length];
-                        for (int j = 0; j < imagePaths.Length; j++) 
+                        imagePathLists[i] = new string[currStepDetail.ImgDetail.ImgList.Length];
+
+                        // Check each image from current step.
+                        for (int j = 0; j < currStepDetail.ImgDetail.ImgList.Length; j++) 
                         {
-                            string imagePath = imagePaths[j];
-                            if (!File.Exists(imagePath))
+                            try
                             {
-                                Debug.LogWarning("Image path is not correct.");
-                                Debug.LogWarning("Image path: " + imagePath);
+                                if (di.Exists)
+                                {
+                                    FileInfo[] images = di.GetFiles(currStepDetail.ImgDetail.ImgList[j]);
+                                    imagePathLists[i][j] = images.Select(x => x.FullName).First();
+
+                                }
                             }
-                            else
+                            catch (Exception e)
                             {
-                                imagePathLists[i][0] = imagePath;
+                                Debug.LogWarning("Image folder path is not correct.");
+                                Debug.LogWarning("Image folder path: " + di.FullName);
+                                Debug.LogWarning("Because: " + e.Message);
                             }
                         }
                     }
