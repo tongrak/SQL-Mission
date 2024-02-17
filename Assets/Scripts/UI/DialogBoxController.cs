@@ -17,11 +17,14 @@ namespace Gameplay.UI {
 
     public class DialogBoxController : MonoBehaviour, IDialogBoxController
     {
+        [Header("Display text configures")]
         [SerializeField] private bool _displayDefaultText = false;
         [SerializeField] private string _defeatText = "Simple text";
-        private string _currText = string.Empty;
         [SerializeField] private int _maxCharsDisplay = 1000;
         [SerializeField] private TextMeshProUGUI _textComponent;
+        private string _currText = string.Empty;
+
+        [Header("Transfrom Object")]
         [SerializeField] private RectTransform _displayedZoneRect;
         [SerializeField] private RectTransform _currRectTransform;
 
