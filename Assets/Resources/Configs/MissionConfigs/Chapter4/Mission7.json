@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลของ AdditionalShirt โดยที่ Brand เป็น Bow หรือ Size เป็น M โดยเลือกแสดงเพียง Color กับ Brand",
+      "Dialog": "แสดงข้อมูลของ AdditionalShirt โดยที่ Brand เป็น Bow หรือ Size เป็น M โดยเลือกแสดงเพียง Color กับ Brand",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/AdditionalShirt",

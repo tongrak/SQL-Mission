@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลของ Flower โดยที่ Petal เป็น 6 และมี PollenColor เป็น Red โดยแสดงเพียง PetalColor กับ PollenColor",
+      "Dialog": "แสดงข้อมูลของ Flower โดยที่ Petal เป็น 6 และมี PollenColor เป็น Red โดยแสดงเพียง PetalColor กับ PollenColor",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Flower",

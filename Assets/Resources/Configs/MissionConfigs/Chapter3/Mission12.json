@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลของ AdditionalPeopleOccupation โดยที่ Occupation คือ Police โดยเลือกแสดงเพียง Sex กับ SkinColor",
+      "Dialog": "แสดงข้อมูลของ AdditionalPeopleOccupation โดยที่ Occupation คือ Police โดยเลือกแสดงเพียง Sex กับ SkinColor",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/AdditionalPeopleOccupation",

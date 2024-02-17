@@ -25,8 +25,8 @@
         "Tables": [
           "customer"
         ],
-        "PreSQL": "SELECT <<Type>>, last_name, email/n<<Type>> <<Type>>/nWHERE store_id <<Type>> 2",
-        "AnswerSQL": "SELECT * FROM UHTMilk WHERE Flavor = 'Chocolate' AND Brand = 'Fuji'",
+        "PreSQL": "SELECT <<Type>> , last_name, email/n<<Type>> <<Type>>/nWHERE store_id <<Type>> 2",
+        "AnswerSQL": "SELECT first_name, last_name, email FROM customer WHERE store_id = 2",
         "VisualType": 1,
         "PuzzleType": 1,
         "BlankOptions": null

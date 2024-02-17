@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Shirt ที่มี Price น้อยกว่า 1400",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ Shirt ที่มี Price น้อยกว่า 1400",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Shirt",

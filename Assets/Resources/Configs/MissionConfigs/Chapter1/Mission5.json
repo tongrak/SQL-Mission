@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Book",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ Book",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Book",
@@ -22,8 +22,8 @@
         "PuzzleType": 1,
         "BlankOptions": [
           {
-            "optionTitle": "Tables",
-            "optionContext": [
+            "OptionTitle": "Tables",
+            "OptionContext": [
               "Book",
               "Shirt",
               "Flower"

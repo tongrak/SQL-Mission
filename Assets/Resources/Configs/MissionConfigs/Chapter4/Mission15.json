@@ -16,7 +16,7 @@
         "Tables": [
           "UHTMilk"
         ],
-        "PreSQL": "SELECT Quantity, Brand/nFROM UHTMilk/nWHERE <<TypeLong>>",
+        "PreSQL": "SELECT */nFROM UHTMilk/nWHERE <<TypeLong>>",
         "AnswerSQL": "SELECT * FROM UHTMilk WHERE Volume < 400 AND (Flavor = 'Chocolate' OR Brand = 'G&O')",
         "VisualType": 0,
         "PuzzleType": 1,
@@ -48,8 +48,8 @@
         "Tables": [
           "UHTMilk"
         ],
-        "PreSQL": "SELECT Quantity, Brand/nFROM UHTMilk/nWHERE Volume < 400 AND (Flavor = 'Chocolate' OR Brand = 'G&O')",
-        "AnswerSQL": "SELECT Quantity, Brand FROM UHTMilk WHERE Volume < 400 AND (Flavor = 'Chocolate' OR Brand = 'G&O')",
+        "PreSQL": "SELECT */nFROM UHTMilk/nWHERE Volume < 400 AND (Flavor = 'Chocolate' OR Brand = 'G&O')",
+        "AnswerSQL": "SELECT * FROM UHTMilk WHERE Volume < 400 AND (Flavor = 'Chocolate' OR Brand = 'G&O')",
         "VisualType": 0,
         "PuzzleType": 0,
         "BlankOptions": null

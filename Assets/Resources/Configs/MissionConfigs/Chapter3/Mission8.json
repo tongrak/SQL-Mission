@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลของ Shirt โดยที่ IsLongSleeve นั้นเป็นเท็จ(False) โดยแสดงเพียง Price กับ Color",
+      "Dialog": "แสดงข้อมูลของ Shirt โดยที่ IsLongSleeve นั้นเป็นเท็จ(False) โดยแสดงเพียง Price กับ Color",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Shirt",

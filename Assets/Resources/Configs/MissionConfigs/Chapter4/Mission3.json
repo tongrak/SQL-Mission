@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ AdditionalPeopleOccupation โดยที่ Occupation นั้นไม่เป็น Police",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ AdditionalPeopleOccupation โดยที่ Occupation นั้นไม่เป็น Police",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/AdditionalPeopleOccupation",

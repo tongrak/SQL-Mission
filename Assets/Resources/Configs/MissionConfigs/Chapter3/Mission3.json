@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Sock โดยเลือก Size เท่ากับ M",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ Sock โดยเลือก Size เท่ากับ M",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Sock",
@@ -37,7 +37,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Sock โดยเลือก Size เท่ากับ m",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ Sock โดยเลือก Size เท่ากับ m",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Sock",

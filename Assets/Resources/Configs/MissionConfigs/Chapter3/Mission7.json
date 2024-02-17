@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Shirt โดยที่เลือกอันที่ IsLongSleeve ไม่เป็นจริง(false)",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ Shirt โดยที่เลือกอันที่ IsLongSleeve ไม่เป็นจริง(false)",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Shirt",

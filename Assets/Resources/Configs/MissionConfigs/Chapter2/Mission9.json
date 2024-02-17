@@ -16,7 +16,7 @@
         "Tables": [
           "PeopleOccupation"
         ],
-        "PreSQL": "<<Type>> <<Columns>>, <<Columns>>/n<<Type>> PeopleOccupation",
+        "PreSQL": "<<Type>> <<Columns>> , <<Columns>>/n<<Type>> PeopleOccupation",
         "AnswerSQL": "SELECT SkinColor, Occupation FROM PeopleOccupation",
         "VisualType": 0,
         "PuzzleType": 1,

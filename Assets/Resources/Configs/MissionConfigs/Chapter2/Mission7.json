@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลของ Book โดยเลือกแสดงเพียง Title, Price",
+      "Dialog": "แสดงข้อมูลของ Book โดยเลือกแสดงเพียง Title, Price",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Book",
@@ -16,7 +16,7 @@
         "Tables": [
           "Book"
         ],
-        "PreSQL": "<<Type>> <<Columns>>, Price/nFROM Book",
+        "PreSQL": "<<Type>> <<Columns>> , Price/nFROM Book",
         "AnswerSQL": "SELECT Title, Price FROM Book",
         "VisualType": 0,
         "PuzzleType": 1,

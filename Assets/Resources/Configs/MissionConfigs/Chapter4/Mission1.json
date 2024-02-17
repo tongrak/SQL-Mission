@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ UHTMilk โดยที่ Flavor นั้นเป็น Chocolate และ Brand เป็น Fuji",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ UHTMilk โดยที่ Flavor นั้นเป็น Chocolate และ Brand เป็น Fuji",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/UHTMilk",

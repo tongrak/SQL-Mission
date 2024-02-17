@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Sock โดยที่ IsLong นั้นเป็นจริง(True)",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ Sock โดยที่ IsLong นั้นเป็นจริง(True)",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Sock",

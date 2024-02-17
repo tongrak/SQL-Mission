@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ FruitPile โดยที่เลือกเพียงแค่ NumInPile น้อยกว่า 4",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ FruitPile โดยที่เลือกเพียงแค่ NumInPile น้อยกว่า 5",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/FruitPile",
@@ -17,7 +17,7 @@
           "FruitPile"
         ],
         "PreSQL": "SELECT */nFROM FruitPile/nWHERE <<Attributes>> <<OperatorsSymbol>> <<Number>>",
-        "AnswerSQL": "SELECT * FROM FruitPile WHERE NumInPile < 4",
+        "AnswerSQL": "SELECT * FROM FruitPile WHERE NumInPile < 5",
         "VisualType": 0,
         "PuzzleType": 1,
         "BlankOptions": [

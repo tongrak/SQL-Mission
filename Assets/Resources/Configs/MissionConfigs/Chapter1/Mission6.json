@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Book",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ Book",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Book",
@@ -16,7 +16,7 @@
         "Tables": [
           "Book"
         ],
-        "PreSQL": "SelEcT */nFRoM BooK",
+        "PreSQL": "SelEcT */nFRoM Book",
         "AnswerSQL": "SELECT * FROM Book",
         "VisualType": 0,
         "PuzzleType": 0,

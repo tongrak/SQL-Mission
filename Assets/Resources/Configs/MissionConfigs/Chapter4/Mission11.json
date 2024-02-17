@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลของ Animal โดยที่ Color เป็น Blue และ LegsNum เป็น 2 โดยเลือกแสดงเพียง Name กับ  Color ตามลำดับ",
+      "Dialog": "แสดงข้อมูลของ Animal โดยที่ Color เป็น Black และ LegsNum เป็น 4 โดยเลือกแสดงเพียง Name กับ  Color ตามลำดับ",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Animal",
@@ -16,8 +16,8 @@
         "Tables": [
           "Animal"
         ],
-        "PreSQL": "<<Type>> Name, Color/n<<Type>> Animal/n<<Type>> <<Type>> = 'Blue' <<OperatorsWord>> LegsNum <<Type>> 2",
-        "AnswerSQL": "SELECT Name, Color FROM Animal WHERE Color = 'Blue' AND LegsNum = 2",
+        "PreSQL": "<<Type>> Name, Color/n<<Type>> Animal/n<<Type>> <<Type>> = 'Black' <<OperatorsWord>>/nLegsNum <<Type>> 4",
+        "AnswerSQL": "SELECT Name, Color FROM Animal WHERE Color = 'Black' AND LegsNum = 4",
         "VisualType": 0,
         "PuzzleType": 1,
         "BlankOptions": [

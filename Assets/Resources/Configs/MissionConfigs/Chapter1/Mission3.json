@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Animal",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ Animal",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Animal",

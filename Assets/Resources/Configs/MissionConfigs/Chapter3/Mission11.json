@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลของ UHTMilk ที่มี Volume น้อยกว่า 300 โดยเลือกแสดงเพียง Brand และ Flavor",
+      "Dialog": "แสดงข้อมูลของ UHTMilk ที่มี Volume น้อยกว่า 300 โดยเลือกแสดงเพียง Brand และ Flavor",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/UHTMilk",
@@ -35,8 +35,9 @@
             "OptionTitle": "Attributes",
             "OptionContext": [
               "Volume",
-              "'Volume'",
-              "'Volume"
+              "Brand",
+              "UHTMilk",
+              "Flavor"
             ]
           }
         ]

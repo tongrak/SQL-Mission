@@ -1,7 +1,7 @@
 {
   "MissionID": 99,
   "MissionTitle": "Final",
-  "MissionType": 0,
+  "MissionType": 2,
   "MissionDescription": null,
   "MissionDetail": [
     {
@@ -45,19 +45,19 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "แสดงข้อมูลของ AdditionalShirt โดยที่ Price นั้นอยู่ระหว่าง 1200 และ 1350 โดยเลือกแสดงเพียง IsLongSleeve กับ Price ตามลำดับ",
+      "Dialog": "แสดงข้อมูลของ Shirt โดยที่ Price นั้นอยู่ระหว่าง 1200 และ 1350 โดยเลือกแสดงเพียง IsLongSleeve กับ Price ตามลำดับ",
       "Step": 1,
       "ImgDetail": {
-        "ImgFolder": "Starter/AdditionalShirt",
+        "ImgFolder": "Starter/Shirt",
         "ImgList": null
       },
       "PuzzleDetail": {
         "DB": "Starter.db",
         "Tables": [
-          "AdditionalShirt"
+          "Shirt"
         ],
         "PreSQL": null,
-        "AnswerSQL": "SELECT IsLongSleeve, Price FROM AdditionalShirt WHERE Price BETWEEN 1200 AND 1350",
+        "AnswerSQL": "SELECT IsLongSleeve, Price FROM Shirt WHERE Price BETWEEN 1200 AND 1350",
         "VisualType": 0,
         "PuzzleType": 2,
         "BlankOptions": null

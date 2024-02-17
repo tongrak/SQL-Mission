@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ PeopleOccupation",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ PeopleOccupation",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/PeopleOccupation",
@@ -22,8 +22,8 @@
         "PuzzleType": 1,
         "BlankOptions": [
           {
-            "optionTitle": "Tables",
-            "optionContext": [
+            "OptionTitle": "Tables",
+            "OptionContext": [
               "PeopleOccupation",
               "Animal",
               "Flower"

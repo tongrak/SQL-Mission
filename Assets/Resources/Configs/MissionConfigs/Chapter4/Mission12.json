@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลของ UHTMilk โดยที่ Volume นั้นอยู่ระหว่าง 200 และ 350 โดยเลือกแสดงเพียง Volume กับ Brand ตามลำดับ",
+      "Dialog": "แสดงข้อมูลของ UHTMilk โดยที่ Volume นั้นอยู่ระหว่าง 250 และ 300 โดยเลือกแสดงเพียง Volume กับ Brand",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/UHTMilk",
@@ -16,8 +16,8 @@
         "Tables": [
           "UHTMilk"
         ],
-        "PreSQL": "<<Type>> Quantity, Brand/n<<Type>> UHTMilk/n<<Type>> Volume <<OperatorsWord1>> <<Type>> <<OperatorsWord2>> <<Type>>",
-        "AnswerSQL": "SELECT Quantity, Brand FROM UHTMilk WHERE Volume BETWEEN 200 AND 350",
+        "PreSQL": "<<Type>> Volume, Brand/n<<Type>> UHTMilk/n<<Type>> Volume <<OperatorsWord1>>/n<<Type>> <<OperatorsWord2>> <<Type>>",
+        "AnswerSQL": "SELECT Volume, Brand FROM UHTMilk WHERE Volume BETWEEN 250 AND 300",
         "VisualType": 0,
         "PuzzleType": 1,
         "BlankOptions": [

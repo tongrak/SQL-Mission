@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลของ PeopleDress โดยเลือกเพียง UndershirtColor เท่านั้น",
+      "Dialog": "แสดงข้อมูลของ PeopleDress โดยเลือกเพียง UndershirtColor เท่านั้น",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/PeopleDress",

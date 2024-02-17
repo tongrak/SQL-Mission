@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลของ Animal โดยที่ Name นั้นเป็น Cat โดยเลือก column เพียง LegsNum และ Color",
+      "Dialog": "แสดงข้อมูลของ Animal โดยที่ Name นั้นเป็น Cat โดยเลือก column เพียง LegsNum และ Color",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Animal",
@@ -16,7 +16,7 @@
         "Tables": [
           "Animal"
         ],
-        "PreSQL": "<<Type>> LegsNum, Color/n<<Type>> Animal/nWHERE Name <<OperatorSymbol>> <<Word>>",
+        "PreSQL": "<<Type>> LegsNum, Color/n<<Type>> Animal/nWHERE Name <<OperatorsSymbol>> <<Word>>",
         "AnswerSQL": "SELECT LegsNum, Color FROM Animal WHERE Name = 'Cat'",
         "VisualType": 0,
         "PuzzleType": 1,

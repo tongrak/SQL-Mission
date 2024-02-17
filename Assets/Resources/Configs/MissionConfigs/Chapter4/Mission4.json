@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ FruitPile โดยที่ NumInPile นั้นอยู่ระหว่าง 4 กับ 5",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ FruitPile โดยที่ NumInPile นั้นอยู่ระหว่าง 4 กับ 5",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/FruitPile",
@@ -25,7 +25,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ FruitPile โดยที่ NumInPile นั้นอยู่ระหว่าง 4 กับ 5",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ FruitPile โดยที่ NumInPile นั้นอยู่ระหว่าง 4 กับ 5",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/FruitPile",

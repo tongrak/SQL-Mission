@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Flower โดยเลือกเฉพาะ Flower ที่มี Petal มากกว่า 5",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ Flower โดยเลือกเฉพาะ Flower ที่มี Petal มากกว่า 5",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Flower",

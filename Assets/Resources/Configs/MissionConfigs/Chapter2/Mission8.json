@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ PeopleDress โดยเลือกแสดงเพียง UndershirtColor, OuterwearColor",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ PeopleDress โดยเลือกแสดงเพียง UndershirtColor, OuterwearColor",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/PeopleDress",
@@ -16,7 +16,7 @@
         "Tables": [
           "PeopleDress"
         ],
-        "PreSQL": "<<Type>> <<Columns>>, <<Columns>>/n<<Type>> PeopleDress",
+        "PreSQL": "<<Type>> <<Columns>> , <<Columns>>/n<<Type>> PeopleDress",
         "AnswerSQL": "SELECT UndershirtColor, OuterwearColor FROM PeopleDress",
         "VisualType": 0,
         "PuzzleType": 1,

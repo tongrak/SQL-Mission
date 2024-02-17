@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลทั้งหมดของ Book โดยที่ Title นั้นเป็น A หรือ B",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ Book โดยที่ Title นั้นเป็น A หรือ B",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Book",
@@ -16,8 +16,8 @@
         "Tables": [
           "Book"
         ],
-        "PreSQL": "SELECT */nFROM Book/nWHERE Tiltle = 'A' OR Title = 'B'",
-        "AnswerSQL": "SELECT * FROM Book WHERE Tiltle = 'A' OR Title = 'B'",
+        "PreSQL": "SELECT */nFROM Book/nWHERE Title = 'A' OR Title = 'B'",
+        "AnswerSQL": "SELECT * FROM Book WHERE Title = 'A' OR Title = 'B'",
         "VisualType": 0,
         "PuzzleType": 0,
         "BlankOptions": null

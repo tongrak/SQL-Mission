@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลของ Book โดยที่ Price นั้นอยู่ระหว่าง 300 และ 400 โดยเลือกแสดงเพียง Title กับ Color",
+      "Dialog": "แสดงข้อมูลของ Book โดยที่ Price นั้นอยู่ระหว่าง 300 และ 400 โดยเลือกแสดงเพียง Title กับ Color",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Book",

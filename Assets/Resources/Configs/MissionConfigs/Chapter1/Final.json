@@ -21,9 +21,14 @@
         "VisualType": 0,
         "PuzzleType": 1,
         "BlankOptions": [
-          "Animal",
-          "PeopleDress",
-          "Flower"
+          {
+            "OptionTitle": "Tables",
+            "OptionContext": [
+              "Animal",
+              "PeopleDress",
+              "Flower"
+            ]
+          }
         ]
       },
       "PassedChapterID": null

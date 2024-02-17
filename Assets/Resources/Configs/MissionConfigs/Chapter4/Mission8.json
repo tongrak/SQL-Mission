@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลของ PeopleDress โดยที่ OuterwearColor ไม่เป็น Black โดยเลือกแสดงเพียง TrousersColor กับ UndershirtColor ตามลำดับ",
+      "Dialog": "แสดงข้อมูลของ PeopleDress โดยที่ OuterwearColor ไม่เป็น Black โดยเลือกแสดงเพียง TrousersColor กับ UndershirtColor ตามลำดับ",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/PeopleDress",
@@ -16,7 +16,7 @@
         "Tables": [
           "PeopleDress"
         ],
-        "PreSQL": "SELECT OuterwearColor, UndershirtColor/n<<Type>> PeopleDress/n<<Type>> <<OperatorsWord>> OuterwearColor = 'Black'",
+        "PreSQL": "SELECT TrousersColor, UndershirtColor/n<<Type>> PeopleDress/n<<Type>> <<OperatorsWord>> OuterwearColor = 'Black'",
         "AnswerSQL": "SELECT TrousersColor, UndershirtColor FROM PeopleDress WHERE NOT OuterwearColor = 'Black'",
         "VisualType": 0,
         "PuzzleType": 1,

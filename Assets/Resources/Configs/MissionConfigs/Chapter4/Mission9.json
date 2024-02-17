@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "จงแสดงข้อมูลของ Sock โดยที่ IsLong นั้น true หรือ Size เป็น S โดยเลือกแสดงเพียง Price กับ Size ตามลำดับ",
+      "Dialog": "แสดงข้อมูลของ Sock โดยที่ IsLong นั้น true หรือ Size เป็น S โดยเลือกแสดงเพียง Price กับ Size ตามลำดับ",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Sock",
@@ -16,7 +16,7 @@
         "Tables": [
           "Sock"
         ],
-        "PreSQL": "<<Type>> Price, Size/n<<Type>> Sock/n<<Type>> IsLong = True <<OperatorsWord>> <<Type>> = <<Type>>",
+        "PreSQL": "<<Type>> Price, Size/n<<Type>> Sock/n<<Type>> IsLong = True <<OperatorsWord>>/n<<Type>> = <<Type>>",
         "AnswerSQL": "SELECT Price, Size FROM Sock WHERE IsLong = TRUE OR Size = 'S'",
         "VisualType": 0,
         "PuzzleType": 1,
