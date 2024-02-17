@@ -9,24 +9,20 @@ namespace Gameplay.UI
         void SetToInitState();
     }
 
-    public class HintButtonScript : MonoBehaviour, IHintButtonController
+    public class HintButtonScript : InactivableButtonScript, IHintButtonController
     {
-        [Header("Sprite")]
-        [SerializeField] private Sprite _activeHintSprite;
-        [SerializeField] private Sprite _deactiveHintSprite;
-
-        private bool _isActiveHint = false;
+        private bool _isHintActive = false;
 
         public void OnClickUpdateButton()
         {
-            this.GetComponent<UnityEngine.UI.Image>().sprite = _isActiveHint ? _activeHintSprite : _deactiveHintSprite;
-            _isActiveHint = !_isActiveHint;
+            this.SetButtonActive(_isHintActive, true);
+            _isHintActive = !_isHintActive;
         }
 
         public void SetToInitState()
         {
-            this.GetComponent<UnityEngine.UI.Image>().sprite = _activeHintSprite;
-            _isActiveHint = false;
+            this.SetButtonActive(true, true);
+            _isHintActive = false;
         }
     }
 }
