@@ -67,7 +67,7 @@ namespace Gameplay
         [SerializeField] private GameObject _consoleTabsObject;
         [SerializeField] private GameObject _actionButtonObject;
         [SerializeField] private GameObject _schemaDisplayObject;
-        [SerializeField] private GameObject _loadingFacadeObject;
+        [SerializeField] private GameObject _stepTraverseObject;
 
         [Header("Misc GameObject")]
         [SerializeField] private GameObject _popUpManagerObject;
@@ -78,6 +78,7 @@ namespace Gameplay
         private IConsoleTabsController _consoleTabsController => mustGetComponent<IConsoleTabsController>(_consoleTabsObject);
         private IActionButtonController _actionButtonController => mustGetComponent<IActionButtonController>(_actionButtonObject);
         private ISchemaDisplayController _schemaDisplayController => mustGetComponent<ISchemaDisplayController>(_schemaDisplayObject);
+        private IGameplayStepDisplayController _stepTraversesController => mustGetComponent<IGameplayStepDisplayController>(_stepTraverseObject);
         //===== Visual Controller =====
         private IDynamicVisualController _dynamicVisualController => mustGetComponent<IDynamicVisualController>(_dynamicVisualFeedbackObject);
         private IStaticVisualController _staticVisualController => mustGetComponent<IStaticVisualController>(_staticVisualFeedbackObject);
@@ -94,6 +95,7 @@ namespace Gameplay
         private IGameplayUILogic _gameplayUI => new BasicUILogic(_consoleTabsController, _actionButtonController);
 
         //===== Runtime Variables =====
+        private int _totalStepCount = 0;
         private int _currStepIndex = 0;
         private IPuzzleController _currPC;
         private bool _gameplayIsStarted = false;
@@ -146,9 +148,10 @@ namespace Gameplay
                     _gameplayUI.SetDisplayedActionButton(ActionButtonType.PROCEED);
                     break;
             }
+            
         }
 
-       
+
 
         #region Aux methods
         /// <summary>
@@ -221,7 +224,6 @@ namespace Gameplay
             var startedTime = System.DateTime.Now;
             var currentTime = System.DateTime.Now;
             // Show loading facade.
-            //_loadingFacadeObject.SetActive(true);
             _popUpManagerObject.SetActive(true);
             _popUpsManager.DisplaySoftLoading();
             // While all file isnot saved and canGoNextMission flag have been raise;
@@ -273,6 +275,8 @@ namespace Gameplay
                         if (imagePaths.Length > 0) _dynamicVisualController.ShowUpGivenItem(imagePaths);
                     }
                     _canAdvanceAStep = _currPC.GetPuzzleResult().IsCorrect;
+                    _stepTraversesController.UpdateStepTraverseState(_canAdvanceAStep, _currStepIndex > 1);
+
                     _mainConsoleController.setResultDisplay(result, _currPC.GetPuzzleResult(), _currPC.AnswerTableResult);
                     SelectResultTab();
                     break;
@@ -282,16 +286,29 @@ namespace Gameplay
                     break;
             }
         }
-        public void AdvanceAStep()
+        private void handleChangeStepAction(System.Action stepChangingAction)
         {
             _dynamicVisualController.DiscontinueItemObjects();
+            //_staticVisualController.
 
-            _currStepCon.ChangeStep();
-            _currStepIndex++;
+            stepChangingAction();
 
             SelectConstructionTab();
             actAccordingToStep(_currStepCon.GetCurrentStep());
+            //Update step traverse button state
+            _stepTraversesController.UpdateStepTextDisplay(_currStepIndex, _totalStepCount);
+            _stepTraversesController.UpdateStepTraverseState(_canAdvanceAStep, _currStepIndex > 1);
         }
+        public void AdvanceAStep() => handleChangeStepAction(() =>
+        {
+            _currStepCon.ChangeStep();
+            _currStepIndex++;
+        });
+        public void RetreatAStep() => handleChangeStepAction(() =>
+        {
+            _currStepCon.GoBackPreviousStep();
+            _currStepIndex--;
+        });
         private void setToGivenTab(TabType tab)
         {
             _gameplayUI.UpdateUIDisplay(tab, _canAdvanceAStep);
@@ -314,8 +331,15 @@ namespace Gameplay
             if (namedSaveFileWatchers != null)
                 foreach (var namedWatcher in namedSaveFileWatchers) namedWatcher.Item2.Changed += (s, e) => _savedFileWatcherNames.Add(namedWatcher.Item1);
             _namedSaveFileWatchers = namedSaveFileWatchers;
+            //Set up display
+            _currStepIndex = 1;
+            _totalStepCount = _currStepCon.AllGameStep.Length;
+            _stepTraversesController.UpdateStepTextDisplay(_currStepIndex, _totalStepCount);
+            _stepTraversesController.UpdateStepTraverseState(_canAdvanceAStep, _currStepIndex > 1);
+
             //Begin gameplay
             actAccordingToStep(_currStepCon.GetCurrentStep());
+            //Update step traverse control
         }
         public void StartFreeGame() => startGameplayScene(null);
         public void StartNormalGameplay(FileSystemWatcher MissionFileWatcher)
@@ -345,7 +369,6 @@ namespace Gameplay
         private void Start()
         {
             //Hide loading facade;
-            _loadingFacadeObject.SetActive(false);
             _popUpManagerObject.SetActive(false);
             SelectConstructionTab();
         }
