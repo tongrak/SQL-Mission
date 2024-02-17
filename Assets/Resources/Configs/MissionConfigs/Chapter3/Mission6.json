@@ -1,0 +1,60 @@
+{
+  "MissionID": 6,
+  "MissionTitle": "Mission 6",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลทั้งหมดของ FruitPile โดยที่เลือกเพียงแค่ NumInPile น้อยกว่า 5",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/FruitPile",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "FruitPile"
+        ],
+        "PreSQL": "SELECT */nFROM FruitPile/nWHERE <<Attributes>> <<OperatorsSymbol>> <<Number>>",
+        "AnswerSQL": "SELECT * FROM FruitPile WHERE NumInPile < 5",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "Attributes",
+            "OptionContext": [
+              "Name",
+              "NumInPile",
+              "Price"
+            ]
+          },
+          {
+            "OptionTitle": "OperatorsSymbol",
+            "OptionContext": [
+              ">",
+              ">=",
+              "<",
+              "<=",
+              "="
+            ]
+          },
+          {
+            "OptionTitle": "Number",
+            "OptionContext": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    4
+  ]
+}

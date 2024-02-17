@@ -1,0 +1,40 @@
+{
+  "MissionID": 3,
+  "MissionTitle": "Mission 3",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลทั้งหมดของ Animal",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Animal",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Animal"
+        ],
+        "PreSQL": "SELECT */nFROM <<Tables>>",
+        "AnswerSQL": "SELECT * FROM Animal",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "Tables",
+            "OptionContext": [
+              "Book",
+              "Animal",
+              "Shirt"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    2
+  ]
+}

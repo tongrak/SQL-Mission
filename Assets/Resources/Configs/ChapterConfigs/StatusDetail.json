@@ -1,0 +1,54 @@
+{
+    "ChapterStatusDetailList": [
+        {
+            "ChatperID": 1,
+            "IsUnlock": true,
+            "IsPass": true,
+            "ChapterDependenciesStatusDetail": []
+        },
+        {
+            "ChatperID": 2,
+            "IsUnlock": true,
+            "IsPass": true,
+            "ChapterDependenciesStatusDetail": [
+                {
+                    "ChapterID": 1,
+                    "IsPass": true
+                }
+            ]
+        },
+        {
+            "ChatperID": 3,
+            "IsUnlock": true,
+            "IsPass": true,
+            "ChapterDependenciesStatusDetail": [
+                {
+                    "ChapterID": 2,
+                    "IsPass": true
+                }
+            ]
+        },
+        {
+            "ChatperID": 4,
+            "IsUnlock": true,
+            "IsPass": true,
+            "ChapterDependenciesStatusDetail": [
+                {
+                    "ChapterID": 3,
+                    "IsPass": true
+                }
+            ]
+        },
+        {
+            "ChatperID": 5,
+            "IsUnlock": true,
+            "IsPass": true,
+            "ChapterDependenciesStatusDetail": [
+                {
+                    "ChapterID": 4,
+                    "IsPass": true
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,67 @@
+{
+  "MissionID": 2,
+  "MissionTitle": "Mission 2",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลทั้งหมดของ PeopleDress",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/PeopleDress",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "PeopleDress"
+        ],
+        "PreSQL": "SELECT */nFROM PeopleDress",
+        "AnswerSQL": "SELECT * FROM PeopleDress",
+        "VisualType": 0,
+        "PuzzleType": 0,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "จาก puzzle ที่ผ่านมาทำให้เราเห็นว่าเมื่อทำการเปลี่ยน Table แล้วข้อมูลที่ได้ก็เปลี่ยนตามเช่นเดียวกัน",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter1/Mission2",
+        "ImgList": [
+          "Mission2_1.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "ซึ่ง Table นี้อยู่ใน database เดียวกับ Table จาก puzzle ก่อนหน้านี้",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter1/Mission2",
+        "ImgList": [
+          "Mission2_2.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "ดังนั้น database สามารถมี Table ได้มากกว่า 1 Table",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter1/Mission2",
+        "ImgList": [
+          "Mission2_3.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    1
+  ]
+}

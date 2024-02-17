@@ -1,0 +1,59 @@
+{
+  "MissionID": 5,
+  "MissionTitle": "Mission 5",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลทั้งหมดของ AdditionalPeopleOccupation โดยที่  SkinColor เป็น White",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/AdditionalPeopleOccupation",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "AdditionalPeopleOccupation"
+        ],
+        "PreSQL": "SELECT */nFROM AdditionalPeopleOccupation/nWHERE <<Attributes>> <<OperatorsSymbol>> <<Word>>",
+        "AnswerSQL": "SELECT * FROM AdditionalPeopleOccupation WHERE SkinColor = 'White'",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "Attributes",
+            "OptionContext": [
+              "Sex",
+              "Occupation",
+              "SkinColor"
+            ]
+          },
+          {
+            "OptionTitle": "OperatorsSymbol",
+            "OptionContext": [
+              ">",
+              ">=",
+              "<",
+              "<=",
+              "="
+            ]
+          },
+          {
+            "OptionTitle": "Word",
+            "OptionContext": [
+              "'White",
+              "White",
+              "'White'",
+              "White'"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    4
+  ]
+}

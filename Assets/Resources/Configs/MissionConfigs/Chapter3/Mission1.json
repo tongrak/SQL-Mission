@@ -1,0 +1,53 @@
+{
+  "MissionID": 1,
+  "MissionTitle": "Mission 1",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลทั้งหมดของ Flower โดยเลือกเฉพาะ Flower ที่มี Petal มากกว่า 5",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Flower",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Flower"
+        ],
+        "PreSQL": "SELECT */nFROM Flower/nWHERE Petal > 5",
+        "AnswerSQL": "SELECT * FROM Flower WHERE Petal > 5",
+        "VisualType": 0,
+        "PuzzleType": 0,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "จาก puzzle จะเห็นว่ามี คำสั่งใหม่เพิ่มเข้ามาคือ WHERE ซึ่งเป็นคำสั่งที่เอาไว้ใส่เงื่อนไข(condition)เพื่อให้ได้ข้อมูลตรงกับเงื่อนไขที่เรากำหนดไป",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter3/Mission1",
+        "ImgList": [
+          "Mission1_1.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "ซึ่ง Petal > 5 นั้นก็คือเงื่อนไข(condition) ซึ่งจะหมายถึงเราต้องการหาดอกไม้ที่มีจำนวนกลีบมากกว่า 5 กลีบ",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter3/Mission1",
+        "ImgList": [
+          "Mission1_2.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": null
+}

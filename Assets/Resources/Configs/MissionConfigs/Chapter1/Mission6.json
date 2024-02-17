@@ -1,0 +1,45 @@
+{
+  "MissionID": 6,
+  "MissionTitle": "Mission 6",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลทั้งหมดของ Book",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Book",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Book"
+        ],
+        "PreSQL": "SelEcT */nFRoM Book",
+        "AnswerSQL": "SELECT * FROM Book",
+        "VisualType": 0,
+        "PuzzleType": 0,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "ในการเขียนคำสั่งของ SQL นั้นจะเป็นการเขียนแบบ case insensitive ดังนั้นไม่ว่าจะเขียน SELECT หรือ select หรือ SeLecT ก็ให้ผลลัพธ์เดียวกัน",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter1/Mission6",
+        "ImgList": [
+          "Mission6_1.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    3,
+    4,
+    5
+  ]
+}

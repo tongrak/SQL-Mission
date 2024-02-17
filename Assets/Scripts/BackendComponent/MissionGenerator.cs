@@ -11,6 +11,7 @@ using Assets.Scripts.DataPersistence.PuzzleManager;
 using Assets.Scripts.DataPersistence.MissionStatusDetail;
 using System;
 using Gameplay;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.DataPersistence
 {
@@ -152,62 +153,57 @@ namespace Assets.Scripts.DataPersistence
             string[][] imagePathLists = new string[_missionConfig.MissionDetail.Length][];
 
             for (int i = 0; i < _missionConfig.MissionDetail.Length; i++)
-
             {
                 StepDetail currStepDetail = _missionConfig.MissionDetail[i];
                 string imgDir = Application.dataPath + rootImgFolderPath + currStepDetail.ImgDetail.ImgFolder;
                 DirectoryInfo di = new DirectoryInfo(imgDir);
 
-                if (currStepDetail.ImgDetail != null)
+                if (currStepDetail.ImgDetail?.ImgFolder != null)
                 {
-                    if (currStepDetail.ImgDetail.ImgList.Length == 0)
+                    if (currStepDetail.ImgDetail.ImgList?.Length == 0)
                     {
-                        // Check if image path is correct.
-                        try {
-                            if (di.Exists)
-                            {
-                                FileInfo[] images = di.GetFiles("*.png");
-                                imagePathLists[i] = images.Select(x => x.FullName).ToArray();
-
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.LogWarning("Image folder path is not correct.");
-                            Debug.LogWarning("Image folder path: " + di.FullName);
-                            Debug.LogWarning("Because: " + e.Message);
-                        }
-                        
+                        imagePathLists[i] = _GetImgPathsFromFileNameExpr(di, "*.png");
                     }
                     else
                     {
-                        imagePathLists[i] = new string[currStepDetail.ImgDetail.ImgList.Length];
-
+                        List<string> imagePathList = new List<string>();
                         // Check each image from current step.
                         for (int j = 0; j < currStepDetail.ImgDetail.ImgList.Length; j++) 
                         {
-                            try
-                            {
-                                if (di.Exists)
-                                {
-                                    FileInfo[] images = di.GetFiles(currStepDetail.ImgDetail.ImgList[j]);
-                                    imagePathLists[i][j] = images.Select(x => x.FullName).First();
-
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                Debug.LogWarning("Image folder path is not correct.");
-                                Debug.LogWarning("Image folder path: " + di.FullName);
-                                Debug.LogWarning("Because: " + e.Message);
-                            }
+                            string[] imagePaths = _GetImgPathsFromFileNameExpr(di, currStepDetail.ImgDetail.ImgList[j]);
+                            if (imagePaths?.Length > 0) imagePathList.Add(imagePaths[0]);
                         }
+                        imagePathLists[i] = imagePathList.Count == 0 ? null : imagePathList.ToArray();
                     }
 
                 }
             }
 
             imageController.SetImagesList(imagePathLists);
+        }
+
+        private string[] _GetImgPathsFromFileNameExpr(DirectoryInfo di, string fileNameExpr)
+        {
+            // Check if image path is correct.
+            try
+            {
+                if (di.Exists)
+                {
+                    FileInfo[] images = di.GetFiles(fileNameExpr);
+                    return images.Select(x => x.FullName).ToArray();
+                }
+                else
+                {
+                    throw new Exception("Path is not exists.");
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning("Image folder path is not correct.");
+                Debug.LogWarning("Image folder path: " + di.FullName);
+                Debug.LogWarning("Because: " + e.Message);
+                return null;
+            }
         }
 
         private void _InitiateMissionController()

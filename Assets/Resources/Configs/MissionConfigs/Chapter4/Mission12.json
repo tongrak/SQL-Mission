@@ -1,0 +1,53 @@
+{
+  "MissionID": 12,
+  "MissionTitle": "Mission 12",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลของ UHTMilk โดยที่ Volume นั้นอยู่ระหว่าง 250 และ 300 โดยเลือกแสดงเพียง Volume กับ Brand",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/UHTMilk",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "UHTMilk"
+        ],
+        "PreSQL": "<<Type>> Volume, Brand/n<<Type>> UHTMilk/n<<Type>> Volume <<OperatorsWord1>>/n<<Type>> <<OperatorsWord2>> <<Type>>",
+        "AnswerSQL": "SELECT Volume, Brand FROM UHTMilk WHERE Volume BETWEEN 250 AND 300",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "OperatorsWord1",
+            "OptionContext": [
+              "AND",
+              "BETWEEN",
+              "OR",
+              "NOT"
+            ]
+          },
+          {
+            "OptionTitle": "OperatorsWord2",
+            "OptionContext": [
+              "NOT",  
+              "BETWEEN",
+              "OR",
+              "AND"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    5,
+    6,
+    7,
+    8
+  ]
+}

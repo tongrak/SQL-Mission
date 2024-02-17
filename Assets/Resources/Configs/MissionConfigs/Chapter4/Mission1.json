@@ -1,0 +1,41 @@
+{
+  "MissionID": 1,
+  "MissionTitle": "Mission 1",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลทั้งหมดของ UHTMilk โดยที่ Flavor นั้นเป็น Chocolate และ Brand เป็น Fuji",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/UHTMilk",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "UHTMilk"
+        ],
+        "PreSQL": "SELECT */nFROM UHTMilk/nWHERE Flavor = 'Chocolate' AND Brand = 'Fuji'",
+        "AnswerSQL": "SELECT * FROM UHTMilk WHERE Flavor = 'Chocolate' AND Brand = 'Fuji'",
+        "VisualType": 0,
+        "PuzzleType": 0,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "จาก puzzle ทำให้เห็นว่า AND  นั้นจะบังคับให้ต้องเลือกสิ่งที่ตรงตามเงื่อนไขทั้ง 2 อย่าง ซึ่งคือ Flavor ที่เป็น Chocolate และ Brand ที่เป็น Fuji",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter4/Mission1",
+        "ImgList": [
+          "Mission1_1.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": null
+}

@@ -69,8 +69,6 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
         private PuzzleResult IsEqualQueryResult(string[][] answerResult, string[][] playerResult)
         {
             string reason = String.Empty;
-            string[][] sortedAnswerResult = answerResult.OrderBy(x => x[0]).ToArray();
-            string[][] sortedPlayerResult = playerResult.OrderBy(x => x[0]).ToArray();
             if (playerResult == null)
             {
                 reason = "The query does not produce a result.";
@@ -78,6 +76,8 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
             }
             else
             {
+                string[][] sortedAnswerResult = answerResult.OrderBy(x => x[0]).ToArray();
+                string[][] sortedPlayerResult = playerResult.OrderBy(x => x[0]).ToArray();
                 if (sortedAnswerResult.Length != sortedPlayerResult.Length)
                 {
                     // Column is not equal

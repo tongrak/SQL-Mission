@@ -1,0 +1,26 @@
+{
+  "ChapterID": 4,
+  "ChapterTitle": "Chapter4: AND OR NOT BETWEEN",
+  "MissionConfigFolder": "Chapter4",
+  "MissionFilesIndex": [
+    "Mission1",
+    "Mission2",
+    "Mission3",
+    "Mission4",
+    "Mission5",
+    "Mission6",
+    "Mission7",
+    "Mission8",
+    "Mission9",
+    "Mission10",
+    "Mission11",
+    "Mission12",
+    "Mission13",
+    "Mission14",
+    "Mission15",
+    "Final"
+  ],
+  "ChapterDependencies": [
+    3
+  ]
+}

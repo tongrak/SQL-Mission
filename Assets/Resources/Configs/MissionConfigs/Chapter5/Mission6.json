@@ -1,0 +1,34 @@
+{
+  "MissionID": 6,
+  "MissionTitle": "Mission 6",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลของ customer โดยที่ store_id นั้นเป็น 2 และ address_id นั้นน้อยกว่า 50 โดยเลือกแสดงเพียง last_name กับ first_name กับ customer_id",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Chapter5/Mission6",
+        "ImgList": [
+          "Mission6_1.png"
+        ]
+      },
+      "PuzzleDetail": {
+        "DB": "sakila.db",
+        "Tables": [
+          "customer"
+        ],
+        "PreSQL": null,
+        "AnswerSQL": "SELECT last_name, first_name, customer_id FROM customer WHERE store_id = 2 AND address_id < 50",
+        "VisualType": 1,
+        "PuzzleType": 2,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    4,
+    5
+  ]
+}

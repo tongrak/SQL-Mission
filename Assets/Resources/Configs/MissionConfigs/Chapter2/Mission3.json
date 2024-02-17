@@ -1,0 +1,40 @@
+{
+  "MissionID": 3,
+  "MissionTitle": "Mission 3",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลของ Flower โดยเลือกเพียง Petal อย่างเดียว",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Flower",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Flower"
+        ],
+        "PreSQL": "SELECT <<Attributes>>/nFROM Flower",
+        "AnswerSQL": "SELECT Petal FROM Flower",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "Attributes",
+            "OptionContext": [
+              "Petal",
+              "PollenColor",
+              "PetalColor"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    2
+  ]
+}

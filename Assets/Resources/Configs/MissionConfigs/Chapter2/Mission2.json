@@ -1,0 +1,50 @@
+{
+  "MissionID": 2,
+  "MissionTitle": "Mission 2",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลของ Animal โดยแสดงเพียงแค่ Color",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Animal",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Animal"
+        ],
+        "PreSQL": "SELECT Color/nFROM Animal",
+        "AnswerSQL": "SELECT Color FROM Animal",
+        "VisualType": 0,
+        "PuzzleType": 0,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "จาก puzzle แสดงให้เห็นว่าเพียงแค่เราเปลี่ยน column ข้อมูลที่จะได้ก็จะเปลี่ยนตาม ถ้าหากเทียบกับ Mission 1",
+      "Step": 0,
+      "ImgDetail": null,
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "ซึ่งเราสามารถดูชื่อ column ทั้งหมดของ table ของ puzzle ที่กำลังทำได้ที่ตรงนี้",
+      "Step": 0,
+      "ImgDetail": {
+        "ImgFolder": "Chapter2/Mission2",
+        "ImgList": [
+          "Mission2_1.png"
+        ]
+      },
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    1
+  ]
+}

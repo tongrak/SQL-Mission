@@ -1,0 +1,40 @@
+{
+  "MissionID": 5,
+  "MissionTitle": "Mission 5",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลของ PeopleDress โดยเลือกเพียง UndershirtColor เท่านั้น",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/PeopleDress",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "PeopleDress"
+        ],
+        "PreSQL": "SELECT <<Attributes>>/nFROM PeopleDress",
+        "AnswerSQL": "SELECT UndershirtColor FROM PeopleDress",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "Attributes",
+            "OptionContext": [
+              "UndershirtColor",
+              "OuterwearColor",
+              "TrousersColor"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    2
+  ]
+}

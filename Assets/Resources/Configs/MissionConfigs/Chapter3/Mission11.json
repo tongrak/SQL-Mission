@@ -1,0 +1,53 @@
+{
+  "MissionID": 11,
+  "MissionTitle": "Mission 11",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลของ UHTMilk ที่มี Volume น้อยกว่า 300 โดยเลือกแสดงเพียง Brand และ Flavor",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/UHTMilk",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "UHTMilk"
+        ],
+        "PreSQL": "<<Type>> Brand, Flavor/n<<Type>> UHTMilk/n<<Type>> <<Attributes>> <<OperatorsSymbol>> <<Type>>",
+        "AnswerSQL": "SELECT Brand, Flavor FROM UHTMilk WHERE Volume < 300",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "OperatorsSymbol",
+            "OptionContext": [
+              ">",
+              ">=",
+              "=",
+              "<=",
+              "<"
+            ]
+          },
+          {
+            "OptionTitle": "Attributes",
+            "OptionContext": [
+              "Volume",
+              "Brand",
+              "UHTMilk",
+              "Flavor"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    8,
+    9,
+    10
+  ]
+}

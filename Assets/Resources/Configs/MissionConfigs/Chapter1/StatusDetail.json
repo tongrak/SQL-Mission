@@ -1,0 +1,84 @@
+{
+    "MissionUnlockDetailList": [
+        {
+            "MissionID": 1,
+            "IsUnlock": true,
+            "IsPass": true,
+            "MissionDependenciesUnlockDetail": []
+        },
+        {
+            "MissionID": 2,
+            "IsUnlock": true,
+            "IsPass": true,
+            "MissionDependenciesUnlockDetail": [
+                {
+                    "MissionID": 1,
+                    "IsPass": true
+                }
+            ]
+        },
+        {
+            "MissionID": 3,
+            "IsUnlock": true,
+            "IsPass": true,
+            "MissionDependenciesUnlockDetail": [
+                {
+                    "MissionID": 2,
+                    "IsPass": true
+                }
+            ]
+        },
+        {
+            "MissionID": 4,
+            "IsUnlock": true,
+            "IsPass": true,
+            "MissionDependenciesUnlockDetail": [
+                {
+                    "MissionID": 2,
+                    "IsPass": true
+                }
+            ]
+        },
+        {
+            "MissionID": 5,
+            "IsUnlock": true,
+            "IsPass": true,
+            "MissionDependenciesUnlockDetail": [
+                {
+                    "MissionID": 2,
+                    "IsPass": true
+                }
+            ]
+        },
+        {
+            "MissionID": 6,
+            "IsUnlock": true,
+            "IsPass": true,
+            "MissionDependenciesUnlockDetail": [
+                {
+                    "MissionID": 3,
+                    "IsPass": true
+                },
+                {
+                    "MissionID": 4,
+                    "IsPass": true
+                },
+                {
+                    "MissionID": 5,
+                    "IsPass": true
+                }
+            ]
+        },
+        {
+            "MissionID": 99,
+            "IsUnlock": true,
+            "IsPass": true,
+            "MissionDependenciesUnlockDetail": [
+                {
+                    "MissionID": 6,
+                    "IsPass": true
+                }
+            ]
+        }
+    ]
+}

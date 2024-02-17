@@ -1,0 +1,40 @@
+{
+  "MissionID": 4,
+  "MissionTitle": "Mission 4",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลของ Book โดยเลือกเพียงแค่ Price อย่างเดียว",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Book",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Book"
+        ],
+        "PreSQL": "SELECT <<Attributes>>/nFROM Book",
+        "AnswerSQL": "SELECT Price FROM Book",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "Attributes",
+            "OptionContext": [
+              "Title",
+              "Color",
+              "Price"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    2
+  ]
+}

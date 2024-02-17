@@ -1,0 +1,53 @@
+{
+  "MissionID": 10,
+  "MissionTitle": "Mission 10",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลของ FruitPile โดยที่ Price นั้นมากกว่าหรือเท่ากับ 60 โดยเลือกแสดงเพียง NumInPile กับ Name",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/FruitPile",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "FruitPile"
+        ],
+        "PreSQL": "SELECT NumInPile, Name/n<<Type>> <<Type>>/nWHERE <<Attributes>> <<OperatorsSymbol>> 60",
+        "AnswerSQL": "SELECT NumInPile, Name FROM FruitPile WHERE Price >= 60",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "OperatorsSymbol",
+            "OptionContext": [
+              ">",
+              ">=",
+              "=",
+              "<=",
+              "<"
+            ]
+          },
+          {
+            "OptionTitle": "Attributes",
+            "OptionContext": [
+              "Name",
+              "NumInPile",
+              "Price",
+              "FruitPile"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    5,
+    6,
+    7
+  ]
+}

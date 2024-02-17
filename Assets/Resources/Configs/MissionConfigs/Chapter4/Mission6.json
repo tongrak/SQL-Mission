@@ -1,0 +1,52 @@
+{
+  "MissionID": 6,
+  "MissionTitle": "Mission 6",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลของ Book โดยที่ Price นั้นอยู่ระหว่าง 300 และ 400 โดยเลือกแสดงเพียง Title กับ Color",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Book",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Book"
+        ],
+        "PreSQL": "<<Type>> Title, Color/nFROM Book/n<<Type>> Price <<OperatorsWord1>> 300 <<OperatorsWord2>> 400",
+        "AnswerSQL": "SELECT Title, Color FROM Book WHERE Price BETWEEN 300 AND 400",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "OperatorsWord1",
+            "OptionContext": [
+              "OR",
+              "AND",
+              "BETWEEN",
+              "NOT"
+            ]
+          },
+          {
+            "OptionTitle": "OperatorsWord2",
+            "OptionContext": [
+              "AND",
+              "NOT",
+              "OR",
+              "BETWEEN"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    2,
+    3,
+    4
+  ]
+}

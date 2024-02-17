@@ -1,0 +1,54 @@
+{
+  "MissionID": 8,
+  "MissionTitle": "Mission 8",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลของ Shirt โดยที่ IsLongSleeve นั้นเป็นเท็จ(False) โดยแสดงเพียง Price กับ Color",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Shirt",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Shirt"
+        ],
+        "PreSQL": "SELECT Price, Color/n<<Type>> Shirt/n<<Type>> IsLongSleeve <<OperatorsSymbol>> <<Word>>",
+        "AnswerSQL": "SELECT Price, Color FROM Shirt WHERE IsLongSleeve = FALSE",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "OperatorsSymbol",
+            "OptionContext": [
+              ">",
+              ">=",
+              "<",
+              "<=",
+              "="
+            ]
+          },
+          {
+            "OptionTitle": "Word",
+            "OptionContext": [
+              2,
+              "False",
+              "True",
+              5,
+              7
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    5,
+    6,
+    7
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "MissionID": 9,
+  "MissionTitle": "Mission 9",
+  "MissionType": 0,
+  "MissionDescription": null,
+  "MissionDetail": [
+    {
+      "Dialog": "แสดงข้อมูลของ Animal โดยที่ Name นั้นเป็น Cat โดยเลือก column เพียง LegsNum และ Color",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Animal",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Animal"
+        ],
+        "PreSQL": "<<Type>> LegsNum, Color/n<<Type>> Animal/nWHERE Name <<OperatorsSymbol>> <<Word>>",
+        "AnswerSQL": "SELECT LegsNum, Color FROM Animal WHERE Name = 'Cat'",
+        "VisualType": 0,
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "OperatorsSymbol",
+            "OptionContext": [
+              ">",
+              ">=",
+              "=",
+              "<=",
+              "<"
+            ]
+          },
+          {
+            "OptionTitle": "Word",
+            "OptionContext": [
+              "'cat'",
+              "'cat",
+              "cat",
+              "'Cat'",
+              "'Cat",
+              "Cat"
+            ]
+          }
+        ]
+      },
+      "PassedChapterID": null
+    }
+  ],
+  "MissionDependencies": [
+    5,
+    6,
+    7
+  ]
+}
