@@ -158,9 +158,9 @@ namespace Assets.Scripts.DataPersistence
                 string imgDir = Application.dataPath + rootImgFolderPath + currStepDetail.ImgDetail.ImgFolder;
                 DirectoryInfo di = new DirectoryInfo(imgDir);
 
-                if (currStepDetail.ImgDetail != null)
+                if (currStepDetail.ImgDetail?.ImgFolder != null)
                 {
-                    if (currStepDetail.ImgDetail.ImgList.Length == 0)
+                    if (currStepDetail.ImgDetail.ImgList?.Length == 0)
                     {
                         // Check if image path is correct.
                         try {
