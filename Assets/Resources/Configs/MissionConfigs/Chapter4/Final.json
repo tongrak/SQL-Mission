@@ -45,7 +45,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "แสดงข้อมูลของ Shirt โดยที่ Price นั้นอยู่ระหว่าง 1200 และ 1350 โดยเลือกแสดงเพียง IsLongSleeve กับ Price ตามลำดับ",
+      "Dialog": "แสดงข้อมูลของ Shirt โดยที่ Price นั้นอยู่ระหว่าง 1200 และ 1350 โดยเลือกแสดงเพียง IsLongSleeve กับ Price",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Shirt",
@@ -65,7 +65,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "แสดงข้อมูลของ FruitPile โดยที่ Name เป็น Apple หรือ Rose apple โดยเลือกแสดงเพียง Price กับ NumInPile ตามลำดับ",
+      "Dialog": "แสดงข้อมูลของ FruitPile โดยที่ Name เป็น Apple หรือ Rose apple โดยเลือกแสดงเพียง Price กับ NumInPile",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/FruitPile",

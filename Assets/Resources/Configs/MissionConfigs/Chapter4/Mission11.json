@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูลของ Animal โดยที่ Color เป็น Black และ LegsNum เป็น 4 โดยเลือกแสดงเพียง Name กับ  Color ตามลำดับ",
+      "Dialog": "แสดงข้อมูลของ Animal โดยที่ Color เป็น Black และ LegsNum เป็น 4 โดยเลือกแสดงเพียง Name กับ  Color",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Animal",
