@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูลของ Shirt โดยที่ Color นั้นไม่ใช่ Green โดยเลือกแสดงเพียง Price กับ IsLongSleeve ตามลำดับ",
+      "Dialog": "แสดงข้อมูลของ Shirt โดยที่ Color นั้นไม่ใช่ Green โดยเลือกแสดงเพียง Price กับ IsLongSleeve",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Shirt",
