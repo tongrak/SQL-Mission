@@ -74,7 +74,7 @@ public class ChapterGenerator : MonoBehaviour
 
             // Init ChapterButtonUI
             string[] chapterDependencyTitles = _MapChapterIDToTitle(chapterConfig.ChapterDependencies, chapterDict);
-            chapterButton.GetComponent<ChapterButtonUI>().Initiate(chapterConfig.ChapterTitle, chapterStatusDetail.IsUnlock, chapterStatusDetail.IsPass, chapterDependencyTitles);
+            chapterButton.GetComponent<ChapterButtonUI>().Initiate(chapterConfig.ChapterTitle, chapterStatusDetail.IsUnlock, i+1, chapterStatusDetail.IsPass, chapterDependencyTitles);
 
             // Init ChapterButtonController
             chapterButton.GetComponent<ChapterButtonController>().Construct(_chapterManager, chapterConfig.ChapterID, chapterConfig.MissionConfigFolder, chapterStatusDetail.IsPass, chapterConfig.MissionFilesIndex);
