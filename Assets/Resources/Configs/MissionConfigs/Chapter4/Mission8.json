@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูลของ PeopleDress โดยที่ OuterwearColor ไม่เป็น Black โดยเลือกแสดงเพียง TrousersColor กับ UndershirtColor ตามลำดับ",
+      "Dialog": "แสดงข้อมูลของ PeopleDress โดยที่ OuterwearColor ไม่เป็น Black โดยเลือกแสดงเพียง TrousersColor กับ UndershirtColor",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/PeopleDress",

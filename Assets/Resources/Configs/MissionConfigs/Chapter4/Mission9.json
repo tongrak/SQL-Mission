@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูลของ Sock โดยที่ IsLong นั้น true หรือ Size เป็น S โดยเลือกแสดงเพียง Price กับ Size ตามลำดับ",
+      "Dialog": "แสดงข้อมูลของ Sock โดยที่ IsLong นั้น true หรือ Size เป็น S โดยเลือกแสดงเพียง Price กับ Size",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Sock",
