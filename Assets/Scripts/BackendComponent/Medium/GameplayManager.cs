@@ -127,6 +127,8 @@ namespace Gameplay
                     _gameplayIsStarted = false;
                     _canAdvanceAStep = false;
                     _gameplayUI.SetDisplayedActionButton(ActionButtonType.INACTICE);
+                    
+                    _currStepIndex--;
                     //Switch to boards scnene if appropriate
                     StartCoroutine(startLoadingThenConpletion(_maxLoadingSecond));
                     break;

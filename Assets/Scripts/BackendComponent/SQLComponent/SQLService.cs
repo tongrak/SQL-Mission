@@ -18,12 +18,14 @@ namespace Assets.Scripts.DataPersistence.SQLComponent
         /// <param name="sql">SQL command</param>
         /// <param name="visualType">Type of puzzle that want to execute.</param>
         /// <exception cref="SqliteException">If sql have banned word, it will throw exception</exception>
+        /// <exception cref="ArgumentException">If sql command is null</exception>
         /// <returns>Result after execute SQL and first row is attribute. If puzzle type is "A" then first column must be image column</returns>
         public string[][] GetTableResult(string dbConn, string sql, VisualType visualType)
         {
             // 2) If puzzle type is float image, insert img column to sql command.
             if (visualType == VisualType.A)
             {
+                _ValidateQuery(dbConn, sql);
                 sql = _InsertImgColumn(sql);
             }
 
@@ -45,6 +47,30 @@ namespace Assets.Scripts.DataPersistence.SQLComponent
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Will throw exception if query is invalid.
+        /// </summary>
+        /// <param name="dbConn"></param>
+        /// <param name="sql"></param>
+        /// <exception cref="ArgumentException">If sql command is null</exception>
+        private void _ValidateQuery(string dbConn, string sql)
+        {
+            using (SqliteConnection connection = new SqliteConnection(dbConn))
+            {
+                connection.Open();
+                // Query to database
+                using (SqliteCommand command = new SqliteCommand(sql, connection))
+                {
+                    // Read data from query
+                    using (IDataReader reader = command.ExecuteReader())
+                    {
+                        
+                    }
+                }
+                connection.Close();
+            }
         }
 
         /// <summary>

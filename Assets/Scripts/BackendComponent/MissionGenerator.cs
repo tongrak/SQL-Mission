@@ -162,7 +162,8 @@ namespace Assets.Scripts.DataPersistence
                 {
                     if (currStepDetail.ImgDetail.ImgList?.Length == 0)
                     {
-                        imagePathLists[i] = _GetImgPathsFromFileNameExpr(di, "*.png");
+                        string[] imagePathList = _GetImgPathsFromFileNameExpr(di, "*.png");
+                        imagePathLists[i] = imagePathList?.Length == 0 ? null : imagePathList;
                     }
                     else
                     {
