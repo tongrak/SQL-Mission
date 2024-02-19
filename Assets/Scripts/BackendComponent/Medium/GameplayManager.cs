@@ -110,10 +110,16 @@ namespace Gameplay
 
         private void actAccordingToStep(GameStep gStep)
         {
+            //Prep given image path
             string[] rawImagePaths = null;
             string[] imagePaths = null;
-            try { rawImagePaths = _currIC.GetImages(_currStepIndex); } catch (System.Exception e) { Debug.LogWarning(e.ToString()); }
-            if (rawImagePaths != null) imagePaths = rawImagePaths.Select(rawImagePathConversion).ToArray();
+            //Check if given raw images paths is accessable
+            try
+            { 
+                rawImagePaths = _currIC.GetImages(_currStepIndex);
+                if (rawImagePaths != null && rawImagePaths[0] != null) imagePaths = rawImagePaths.Select(rawImagePathConversion).ToArray();
+            } catch (System.Exception e) { Debug.LogWarning(e.ToString()); }
+
             switch (gStep.CurrStep)
             {
                 case Step.EndStep:
@@ -122,7 +128,6 @@ namespace Gameplay
                     _canAdvanceAStep = false;
                     _gameplayUI.SetDisplayedActionButton(ActionButtonType.INACTICE);
                     //Switch to boards scnene if appropriate
-                    // TODO: Change to displaying Completion pop-up + softer loading
                     StartCoroutine(startLoadingThenConpletion(_maxLoadingSecond));
                     break;
                 case Step.Puzzle:
@@ -146,6 +151,9 @@ namespace Gameplay
                     _dialogBoxController.displayedText = dialog;
                     _canAdvanceAStep = true;
                     _gameplayUI.SetDisplayedActionButton(ActionButtonType.PROCEED);
+
+                    if (imagePaths != null) handleOnVisualType(VisualType.B, imagePaths);
+
                     break;
             }
             
@@ -239,9 +247,13 @@ namespace Gameplay
             if (_isPlacementTest)_scenesManager.LoadSelectChapterScene();
             else _popUpsManager.DisplayCompletionMenu(_canGoNextMission ?? false);
         }
+        private void updateGameplayStepController()
+        {
+            _stepTraversesController.UpdateStepTextDisplay(_currStepIndex + 1, _totalStepCount);
+            _stepTraversesController.UpdateStepTraverseState(_canAdvanceAStep, _currStepIndex > 0);
+        }        
         #endregion
 
-        //TODO: Add gameplay action logic
         #region Player actions
         public void ClickExecution()
         {
@@ -275,7 +287,8 @@ namespace Gameplay
                         if (imagePaths.Length > 0) _dynamicVisualController.ShowUpGivenItem(imagePaths);
                     }
                     _canAdvanceAStep = _currPC.GetPuzzleResult().IsCorrect;
-                    _stepTraversesController.UpdateStepTraverseState(_canAdvanceAStep, _currStepIndex > 1);
+                    //Update Next button if player answer correctly
+                    _stepTraversesController.UpdateStepTraverseState(_canAdvanceAStep, _currStepIndex > 0);
 
                     _mainConsoleController.setResultDisplay(result, _currPC.GetPuzzleResult(), _currPC.AnswerTableResult);
                     SelectResultTab();
@@ -296,8 +309,7 @@ namespace Gameplay
             SelectConstructionTab();
             actAccordingToStep(_currStepCon.GetCurrentStep());
             //Update step traverse button state
-            _stepTraversesController.UpdateStepTextDisplay(_currStepIndex, _totalStepCount);
-            _stepTraversesController.UpdateStepTraverseState(_canAdvanceAStep, _currStepIndex > 1);
+            updateGameplayStepController();
         }
         public void AdvanceAStep() => handleChangeStepAction(() =>
         {
@@ -332,11 +344,9 @@ namespace Gameplay
                 foreach (var namedWatcher in namedSaveFileWatchers) namedWatcher.Item2.Changed += (s, e) => _savedFileWatcherNames.Add(namedWatcher.Item1);
             _namedSaveFileWatchers = namedSaveFileWatchers;
             //Set up display
-            _currStepIndex = 1;
+            _currStepIndex = 0;
             _totalStepCount = _currStepCon.AllGameStep.Length;
-            _stepTraversesController.UpdateStepTextDisplay(_currStepIndex, _totalStepCount);
-            _stepTraversesController.UpdateStepTraverseState(_canAdvanceAStep, _currStepIndex > 1);
-
+            updateGameplayStepController();
             //Begin gameplay
             actAccordingToStep(_currStepCon.GetCurrentStep());
             //Update step traverse control
@@ -347,14 +357,12 @@ namespace Gameplay
             var namedSaveFileWatcher = new System.Tuple<string, FileSystemWatcher>("MissionSave", MissionFileWatcher);
             startGameplayScene(new System.Tuple<string, FileSystemWatcher>[] { namedSaveFileWatcher });
         }
-
         public void StartFinalGameplay(FileSystemWatcher MissionFileWatcher, FileSystemWatcher ChapterFileWatcher)
         {
             var missionFileWatcher = new System.Tuple<string, FileSystemWatcher>("MissionSave", MissionFileWatcher);
             var chapterFileWatcher = new System.Tuple<string, FileSystemWatcher>("ChapterSave", ChapterFileWatcher);
             startGameplayScene(new System.Tuple<string, FileSystemWatcher>[] { missionFileWatcher, chapterFileWatcher });
         }
-
         public void StartPlacement(FileSystemWatcher ChapterFileWatcher)
         {
             var namedSaveFileWatcher = new System.Tuple<string, FileSystemWatcher>("ChapterSave", ChapterFileWatcher);
