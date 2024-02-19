@@ -15,6 +15,9 @@ namespace Gameplay.UI.Construction.FTB
         [SerializeField] private GameObject _stringTokenPrefab;
         [SerializeField] private GameObject _InputTokenPrefab;
 
+        [Header("Token configure")]
+        [SerializeField] private int tokenHeight = 40;
+
         public void SetUpLineToken((string, FillTheBlankToken)[] tokens)
         {
             foreach (var token in tokens)
@@ -36,7 +39,7 @@ namespace Gameplay.UI.Construction.FTB
                     TMP.text = token.Item1;
                     //Auto adjust text rect;
                     TMP.autoSizeTextContainer = true;
-                    rect.sizeDelta = new Vector2(TMP.preferredWidth, TMP.preferredHeight);
+                    rect.sizeDelta = new Vector2(TMP.preferredWidth, tokenHeight);
                 }
             }
         }

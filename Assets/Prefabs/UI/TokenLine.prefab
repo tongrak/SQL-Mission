@@ -53,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stringTokenPrefab: {fileID: 6073627268900693524, guid: c6ded220f2a672041886c0c27a107ce1, type: 3}
   _InputTokenPrefab: {fileID: 8325774294161498429, guid: d03f260987d7e2b4c863bc7affe8648c, type: 3}
+  tokenHeight: 40
 --- !u!114 &7544704503738377322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,8 +77,8 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
+  m_ChildScaleWidth: 1
+  m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
 --- !u!114 &7862690515391377359
 MonoBehaviour:
