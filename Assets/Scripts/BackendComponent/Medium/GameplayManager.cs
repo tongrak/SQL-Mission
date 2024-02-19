@@ -249,7 +249,7 @@ namespace Gameplay
         }
         private void updateGameplayStepController()
         {
-            _stepTraversesController.UpdateStepTextDisplay(_currStepIndex + 1, _totalStepCount);
+            _stepTraversesController.UpdateStepTextDisplay(_currStepIndex + 1, _totalStepCount - 1);
             _stepTraversesController.UpdateStepTraverseState(_canAdvanceAStep, _currStepIndex > 0);
         }        
         #endregion

@@ -16,6 +16,7 @@ namespace Gameplay.UI
         [SerializeField] private GameObject _clickableCellPrefab;
         [SerializeField] private GameObject _selectionListGO;
         [SerializeField] private GameObject _displayListGO;
+        [SerializeField] private float _widthMargin = 4;
 
         private ICellsGenerator _schemaAttrCon => mustGetComponent<ICellsGenerator>(_displayListGO);
 
@@ -33,6 +34,9 @@ namespace Gameplay.UI
 
                 createdTMP.text = schemas[i].tableName;
                 createdButton.onClick.AddListener(getOnClickAction(schemas[i].attribuites));
+
+                var cellRect = created.GetComponent<RectTransform>();
+                cellRect.sizeDelta = new Vector2(createdTMP.preferredWidth + _widthMargin, cellRect.sizeDelta.y);
             }
             //Display first schema
             _schemaAttrCon.setCellsDisplay(schemas[0].attribuites);
