@@ -65,7 +65,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "แสดงข้อมูลของ FruitPile โดยที่ Name เป็น Apple หรือ Rose apple โดยเลือกแสดงเพียง Price กับ NumInPile",
+      "Dialog": "แสดงข้อมูลของ FruitPile โดยที่ Name เป็น Apple หรือ Strawberry โดยเลือกแสดงเพียง Price กับ NumInPile",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/FruitPile",
