@@ -59,9 +59,9 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 0
-  m_ChildScaleWidth: 1
+  m_ChildScaleWidth: 0
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
 --- !u!114 &4382993375926871385
@@ -78,6 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cellPrefab: {fileID: 2191912406389507693, guid: 55f8c418567c2424aa937abac2a1d4e5, type: 3}
   _defualtCellHeight: 30
+  _widthBuffer: 4
   _cellFontSize: 16
   _columnHeaderSprite: {fileID: 21300000, guid: 3a31f366e3ea8e1438031f8160c8aff5, type: 3}
   _columnBodySprite: {fileID: 21300000, guid: 90b6ca259e60b1348ae354f97d48a0d2, type: 3}
