@@ -2,7 +2,7 @@
   "MissionID": 3,
   "MissionTitle": "Mission 3",
   "MissionType": 0,
-  "MissionDescription": null,
+  "MissionDescription": "สอนการใช้งาน string",
   "MissionDetail": [
     {
       "Dialog": "แสดงข้อมูลทั้งหมดของ Sock โดยเลือก Size เท่ากับ M",
