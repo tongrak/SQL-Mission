@@ -265,7 +265,7 @@ MonoBehaviour:
   _loadingFacade: {fileID: 1017320391}
   _chapterStatusDetailsData: {fileID: 11400000, guid: 2a0848a45d61be146aee5e2398bf1e41, type: 2}
   _selectedChapterData: {fileID: 11400000, guid: 9c72d1850969993448b1cd463510f918, type: 2}
-  _goToPlacement: 0
+  _goToPlacement: 1
   _missionSceneData: {fileID: 11400000, guid: f20acfc1b1a3dfc49bd917b2c1b0d812, type: 2}
 --- !u!1 &585230283
 GameObject:
@@ -1781,6 +1781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _confirmationPopUp: {fileID: 285966996}
+  _continueButton: {fileID: 987711452}
   _mainMenuButtonManager: {fileID: 374317097}
 --- !u!114 &2088552799
 MonoBehaviour:
