@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูล employees โดยที่ first_name นั้นเป็น Alexander  หรือไม่ก็มี job_id เป็น 9 และมี salary ตั้งแต่ 4000 ขึ้นไป โดยเลือกแสดงเพียง employee_id, first_name, last_name, job_id และ salary",
+      "Dialog": "แสดงข้อมูล employees โดยที่ first_name นั้นเป็น Alexander หรือเป็น employees ที่มี job_id เป็น 9 และมี salary ตั้งแต่ 4000 ขึ้นไป โดยเลือกแสดงเพียง employee_id, first_name, last_name, job_id และ salary",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Chapter5/Final",

@@ -2,7 +2,7 @@
   "MissionID": 6,
   "MissionTitle": "Mission 6",
   "MissionType": 0,
-  "MissionDescription": null,
+  "MissionDescription": "Case insensitive ใน SQL",
   "MissionDetail": [
     {
       "Dialog": "แสดงข้อมูลทั้งหมดของ Book",

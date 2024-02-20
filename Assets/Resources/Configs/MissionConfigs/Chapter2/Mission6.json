@@ -2,7 +2,7 @@
   "MissionID": 6,
   "MissionTitle": "Mission 6",
   "MissionType": 0,
-  "MissionDescription": null,
+  "MissionDescription": "สอนการใช้ column มากกว่า 1 column",
   "MissionDetail": [
     {
       "Dialog": "แสดงข้อมูลของ PeopleOccupation โดยเลือกเพียง Sex, Occupation",

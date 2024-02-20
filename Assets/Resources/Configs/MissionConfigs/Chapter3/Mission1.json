@@ -2,7 +2,7 @@
   "MissionID": 1,
   "MissionTitle": "Mission 1",
   "MissionType": 0,
-  "MissionDescription": null,
+  "MissionDescription": "สอนการนำ Condition มาใช้งาน",
   "MissionDetail": [
     {
       "Dialog": "จงแสดงข้อมูลทั้งหมดของ TeddyBear โดยเลือกเฉพาะ TeddyBear ที่มี Price มากกว่า 40",

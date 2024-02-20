@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "แสดงทั้งหมดข้อมูลของ UHTMilk โดยที่ Volume นั้นน้อยกว่า 500 และ Flavor เป็น Original หรือไม่ก็มี Brand เป็น G&O",
+      "Dialog": "แสดงทั้งหมดข้อมูลของ UHTMilk โดยที่ Volume นั้นน้อยกว่า 500 และ Flavor เป็น Original หรือเป็น UHTMilk ที่มี Brand เป็น G&O",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/UHTMilk",

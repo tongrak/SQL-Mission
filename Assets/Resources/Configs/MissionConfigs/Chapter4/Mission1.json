@@ -2,7 +2,7 @@
   "MissionID": 1,
   "MissionTitle": "Mission 1",
   "MissionType": 0,
-  "MissionDescription": null,
+  "MissionDescription": "สอนการใช้งาน AND",
   "MissionDetail": [
     {
       "Dialog": "แสดงข้อมูลทั้งหมดของ UHTMilk โดยที่ Flavor นั้นเป็น Chocolate และ Brand เป็น Fuji",
