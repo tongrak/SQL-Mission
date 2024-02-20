@@ -71,6 +71,7 @@ namespace Gameplay.UI
             //init the console
             _queriedTableGeneratorGO.SetActive(false);
             _expectedTableGeneratorGO.SetActive(false);
+            _bannerGO.SetActive(false);
             _hintButtonGO.SetActive(false);
             _errorText.SetActive(false);
             _feedbackGO.SetActive(true);
@@ -82,6 +83,9 @@ namespace Gameplay.UI
                 _feedbackController.DisplayErrorFeedback();
                 return;
             }
+
+            _bannerGO.SetActive(true);
+            _bannerGO.GetComponent<UnityEngine.UI.Image>().sprite = _queriedBannerSprite;
 
             if (puzzleResult.IsCorrect) _feedbackController.DisplayCorrectFeedback();
             else
