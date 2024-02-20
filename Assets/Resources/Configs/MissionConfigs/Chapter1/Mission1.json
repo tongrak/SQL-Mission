@@ -37,7 +37,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "โดยที่ Table เหล่านี้นั้นจะถูกเก็บอยู่ใน database อีกทีนึง",
+      "Dialog": "โดยที่ Table เหล่านี้นั้นจะถูกเก็บอยู่ใน Database อีกทีนึง",
       "Step": 0,
       "ImgDetail": {
         "ImgFolder": "Chapter1/Mission1",

@@ -25,14 +25,14 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "จาก puzzle แสดงให้เห็นว่าเพียงแค่เราเปลี่ยน column ข้อมูลที่จะได้ก็จะเปลี่ยนตาม ถ้าหากเทียบกับ Mission 1",
+      "Dialog": "จาก puzzle แสดงให้เห็นว่าเพียงแค่เราเปลี่ยน Column ข้อมูลที่จะได้ก็จะเปลี่ยนตาม ถ้าหากเทียบกับ Mission 1",
       "Step": 0,
       "ImgDetail": null,
       "PuzzleDetail": null,
       "PassedChapterID": null
     },
     {
-      "Dialog": "ซึ่งเราสามารถดูชื่อ column ทั้งหมดของ table ของ puzzle ที่กำลังทำได้ที่ตรงนี้",
+      "Dialog": "ซึ่งเราสามารถดูชื่อ Column ทั้งหมดของ Table ของ puzzle ที่กำลังทำได้ที่ตรงนี้",
       "Step": 0,
       "ImgDetail": {
         "ImgFolder": "Chapter2/Mission2",

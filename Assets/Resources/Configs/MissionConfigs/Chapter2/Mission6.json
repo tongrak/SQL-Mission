@@ -25,7 +25,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "จาก puzzle ทำให้เห็นว่าเราสามารถเลือก column ได้มากกว่า 1 column",
+      "Dialog": "จาก puzzle ทำให้เห็นว่าเราสามารถเลือก Column ได้มากกว่า 1 Column",
       "Step": 0,
       "ImgDetail": {
         "ImgFolder": "Chapter2/Mission6",
