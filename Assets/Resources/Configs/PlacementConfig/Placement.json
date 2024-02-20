@@ -5,44 +5,187 @@
   "MissionDescription": "",
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูลทั้งหมดของ Flower",
+      "Dialog": "ในส่วนนี้จะเป็น Placement test เพื่อทดสอบความรู้",
+      "Step": 0,
+      "ImgDetail": null,
+      "PuzzleDetail": null,
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "แสดงข้อมูลทั้งหมดของ TeddyBear",
       "Step": 1,
       "ImgDetail": {
-        "ImgFolder": "Starter/Flower",
+        "ImgFolder": "Starter/TeddyBear",
         "ImgList": null
       },
       "PuzzleDetail": {
         "DB": "Starter.db",
         "Tables": [
-          "Flower"
+          "TeddyBear"
         ],
-        "PreSQL": "SELECT * \n FROM Flower",
-        "AnswerSQL": "SELECT * FROM Flower",
+        "PreSQL": "<<Type>> <<Type>>/nFROM <<Tables>>",
+        "AnswerSQL": "SELECT * FROM TeddyBear",
         "VisualType": 0,
-        "PuzzleType": 0,
-        "BlankOptions": null
+        "PuzzleType": 1,
+        "BlankOptions": [
+          {
+            "OptionTitle": "Tables",
+            "OptionContext": [
+              "Animal",
+              "PeopleDress",
+              "TeddyBear"
+            ]
+          }
+        ]
       },
       "PassedChapterID": 1
     },
     {
-      "Dialog": "แสดงข้อมูลทั้งหมดของ Flower",
+      "Dialog": "จงแสดงข้อมูลของ TeddyBear โดยเลือกแสดงเพียง Size, Price",
       "Step": 1,
       "ImgDetail": {
-        "ImgFolder": "Starter/Flower",
+        "ImgFolder": "Starter/TeddyBear",
         "ImgList": null
       },
       "PuzzleDetail": {
         "DB": "Starter.db",
         "Tables": [
-          "Flower"
+          "TeddyBear"
         ],
-        "PreSQL": "SELECT * \n FROM Flower",
-        "AnswerSQL": "SELECT * FROM Flower",
+        "PreSQL": null,
+        "AnswerSQL": "SELECT Size, Price FROM TeddyBear",
         "VisualType": 0,
-        "PuzzleType": 0,
+        "PuzzleType": 2,
         "BlankOptions": null
       },
       "PassedChapterID": 2
+    },
+    {
+      "Dialog": "แสดงข้อมูลของ AdditionalShirt โดยที่ Color นั้นเป็น Pink โดยแสดงเพียง Size กับ Brand",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/AdditionalShirt",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "AdditionalShirt"
+        ],
+        "PreSQL": null,
+        "AnswerSQL": "SELECT Size, Brand FROM AdditionalShirt WHERE Color = 'Pink'",
+        "VisualType": 0,
+        "PuzzleType": 2,
+        "BlankOptions": null
+      },
+      "PassedChapterID": 3
+    },
+    {
+      "Dialog": "แสดงข้อมูลของ AdditionalPeopleOccupation ที่มี Occupation เป็น Singer และมี Sex เป็น Female โดยเลือกแสดงเพียง SkinColor กับ Sex",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/AdditionalPeopleOccupation",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "AdditionalPeopleOccupation"
+        ],
+        "PreSQL": null,
+        "AnswerSQL": "SELECT SkinColor, Sex FROM AdditionalPeopleOccupation WHERE Occupation = 'Singer' AND Sex = 'Female'",
+        "VisualType": 0,
+        "PuzzleType": 2,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "แสดงข้อมูลของ Animal ที่ Name ไม่ใช่ Chicken โดยเลือกแสดงเพียง Name กับ Color",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Animal",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Animal"
+        ],
+        "PreSQL": null,
+        "AnswerSQL": "SELECT Name, Color FROM Animal WHERE NOT Name = 'Chicken'",
+        "VisualType": 0,
+        "PuzzleType": 2,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "แสดงข้อมูลของ Shirt โดยที่ Price นั้นอยู่ระหว่าง 1200 และ 1350 โดยเลือกแสดงเพียง IsLongSleeve กับ Price",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/Shirt",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "Shirt"
+        ],
+        "PreSQL": null,
+        "AnswerSQL": "SELECT IsLongSleeve, Price FROM Shirt WHERE Price BETWEEN 1200 AND 1350",
+        "VisualType": 0,
+        "PuzzleType": 2,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "แสดงข้อมูลของ FruitPile โดยที่ Name เป็น Apple หรือ Strawberry โดยเลือกแสดงเพียง Price กับ NumInPile",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/FruitPile",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "FruitPile"
+        ],
+        "PreSQL": null,
+        "AnswerSQL": "SELECT Price, NumInPile FROM FruitPile WHERE Name = 'Apple' OR Name = 'Strawberry'",
+        "VisualType": 0,
+        "PuzzleType": 2,
+        "BlankOptions": null
+      },
+      "PassedChapterID": null
+    },
+    {
+      "Dialog": "แสดงข้อมูลทั้งหมดของ AdditionalShirt โดยที่ Color นั้นเป็น Blue และ Brand เป็น BlueBerry หรือเป็น AdditionalShirt ที่ Color นั้นเป็น White",
+      "Step": 1,
+      "ImgDetail": {
+        "ImgFolder": "Starter/AdditionalShirt",
+        "ImgList": null
+      },
+      "PuzzleDetail": {
+        "DB": "Starter.db",
+        "Tables": [
+          "AdditionalShirt"
+        ],
+        "PreSQL": null,
+        "AnswerSQL": "SELECT * FROM AdditionalShirt WHERE Color = 'Blue' AND Brand = 'BlueBerry' OR Color = 'White'",
+        "VisualType": 0,
+        "PuzzleType": 2,
+        "BlankOptions": null
+      },
+      "PassedChapterID": 4
+    },
+    {
+      "Dialog": "เก่งมากที่สามารถผ่านได้ทุกบททดสอบ",
+      "Step": 0,
+      "ImgDetail": null,
+      "PuzzleDetail": null,
+      "PassedChapterID": null
     }
   ],
   "MissionDependencies": null
