@@ -77,7 +77,7 @@
           "FruitPile"
         ],
         "PreSQL": null,
-        "AnswerSQL": "SELECT Price, NumInPile FROM FruitPile WHERE Name = 'Apple' OR Name = 'Rose apple'",
+        "AnswerSQL": "SELECT Price, NumInPile FROM FruitPile WHERE Name = 'Apple' OR Name = 'Strawberry'",
         "VisualType": 0,
         "PuzzleType": 2,
         "BlankOptions": null

@@ -37,7 +37,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "ซึ่ง Table นี้อยู่ใน database เดียวกับ Table จาก puzzle ก่อนหน้านี้",
+      "Dialog": "ซึ่ง Table นี้อยู่ใน Database เดียวกับ Table จาก puzzle ก่อนหน้านี้",
       "Step": 0,
       "ImgDetail": {
         "ImgFolder": "Chapter1/Mission2",
@@ -49,7 +49,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "ดังนั้น database สามารถมี Table ได้มากกว่า 1 Table",
+      "Dialog": "ดังนั้น Database สามารถมี Table ได้มากกว่า 1 Table",
       "Step": 0,
       "ImgDetail": {
         "ImgFolder": "Chapter1/Mission2",

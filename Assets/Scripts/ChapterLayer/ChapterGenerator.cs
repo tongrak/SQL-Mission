@@ -37,12 +37,12 @@ public class ChapterGenerator : MonoBehaviour
 
     private void _SetFields()
     {
-        _chapterConfigsFolderFullPath = Application.dataPath + "/Resources/" + EnvironmentData.Instance.ChapterConfigRootFolder; ;
+        _chapterConfigsFolderFullPath = Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.ChapterConfigRootFolder);
     }
 
     private ChapterIndex _LoadChapterIndexFromFile()
     {
-        string chapterIndexData = File.ReadAllText(_chapterConfigsFolderFullPath + "/" + EnvironmentData.Instance.ChpaterFileIndexFileName + EnvironmentData.Instance.ConfigFileType);
+        string chapterIndexData = File.ReadAllText(Path.Combine(_chapterConfigsFolderFullPath, EnvironmentData.Instance.ChpaterFileIndexFileName + EnvironmentData.Instance.ConfigFileType));
         ChapterIndex chapterIndex = JsonUtility.FromJson<ChapterIndex>(chapterIndexData);
         return chapterIndex;
     }
@@ -53,7 +53,7 @@ public class ChapterGenerator : MonoBehaviour
         for (int i = 0; i < chapterConfigs.Length; i++)
         {
             string chapterFileName = chapterIndex.ChapterFileIndex[i];
-            string chapterConfigData = File.ReadAllText(_chapterConfigsFolderFullPath + "/" + chapterFileName + EnvironmentData.Instance.ConfigFileType);
+            string chapterConfigData = File.ReadAllText(Path.Combine(_chapterConfigsFolderFullPath, chapterFileName + EnvironmentData.Instance.ConfigFileType));
             chapterConfigs[i] = JsonUtility.FromJson<ChapterConfig>(chapterConfigData);
         }
 

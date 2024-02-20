@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูลของ AdditionalShirt โดยที่ Color นั้นเป็น Red โดยแสดงเพียง Size กับ Brand",
+      "Dialog": "แสดงข้อมูลของ AdditionalShirt โดยที่ Color นั้นเป็น Pink โดยแสดงเพียง Size กับ Brand",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/AdditionalShirt",
@@ -17,7 +17,7 @@
           "AdditionalShirt"
         ],
         "PreSQL": null,
-        "AnswerSQL": "SELECT Size, Brand FROM AdditionalShirt WHERE Color = 'Red'",
+        "AnswerSQL": "SELECT Size, Brand FROM AdditionalShirt WHERE Color = 'Pink'",
         "VisualType": 0,
         "PuzzleType": 2,
         "BlankOptions": null

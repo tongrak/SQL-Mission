@@ -25,7 +25,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "จาก puzzle ทำให้เห็นว่าสามารถใส่คำว่า true ให้เป็นตัวแทนของเลข 1 ได้",
+      "Dialog": "จาก puzzle ทำให้เห็นว่าสามารถใส่คำว่า True ให้เป็นตัวแทนของเลข 1 ได้",
       "Step": 0,
       "ImgDetail": {
         "ImgFolder": "Chapter3/Mission4",
@@ -37,7 +37,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "ซึ่งในทางตรงกันข้ามคำว่า false นั้นก็เป็นตัวแทนของเลข 0 ได้เช่นเดียวกัน",
+      "Dialog": "ซึ่งในทางตรงกันข้ามคำว่า False นั้นก็เป็นตัวแทนของเลข 0 ได้เช่นเดียวกัน",
       "Step": 0,
       "ImgDetail": {
         "ImgFolder": "Chapter3/Mission4",
@@ -49,7 +49,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "ซึ่งทั้ง true และ false นั้นเวลาที่ใช้จะเป็น case insensitive",
+      "Dialog": "ซึ่งทั้ง True และ False นั้นเวลาที่ใช้จะเป็น case insensitive",
       "Step": 0,
       "ImgDetail": {
         "ImgFolder": "Chapter3/Mission4",

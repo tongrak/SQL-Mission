@@ -16,7 +16,7 @@
         "Tables": [
           "UHTMilk"
         ],
-        "PreSQL": "<<Type>> Volume, Brand/n<<Type>> UHTMilk/n<<Type>> Volume <<OperatorsWord1>>/n<<Type>> <<OperatorsWord2>> <<Type>>",
+        "PreSQL": "<<Type>> Volume, Brand/n<<Type>> UHTMilk/n<<Type>> Volume <<OperatorsWord1>> <<Type>> <<OperatorsWord2>> <<Type>>",
         "AnswerSQL": "SELECT Volume, Brand FROM UHTMilk WHERE Volume BETWEEN 250 AND 300",
         "VisualType": 0,
         "PuzzleType": 1,

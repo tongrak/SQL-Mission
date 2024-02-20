@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูลของ Animal โดยที่ Name นั้นเป็น Cat โดยเลือก column เพียง LegsNum และ Color",
+      "Dialog": "แสดงข้อมูลของ Animal โดยที่ Name นั้นเป็น Cat โดยเลือกแสดงเพียง LegsNum และ Color",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Animal",
