@@ -2,10 +2,10 @@
   "MissionID": 13,
   "MissionTitle": "Mission 13",
   "MissionType": 0,
-  "MissionDescription": null,
+  "MissionDescription": "Precedence ของ AND กับ OR",
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูลทั้งหมดของ FruitPile โดยที่ NumInPile นั้นมากกว่า 6 และ Name เป็น Apple หรือไม่ก็มี Name เป็น Orange",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ FruitPile โดยที่ NumInPile นั้นมากกว่า 6 และ Name เป็น Apple หรือเป็น FruitPile ที่มี Name เป็น Orange",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/FruitPile",

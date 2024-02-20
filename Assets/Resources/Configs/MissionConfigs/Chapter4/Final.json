@@ -85,7 +85,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "แสดงข้อมูลทั้งหมดของ AdditionalShirt โดยที่ Color นั้นเป็น Blue และ Brand เป็น BlueBerry หรือไม่ก็ Color นั้นเป็น White",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ AdditionalShirt โดยที่ Color นั้นเป็น Blue และ Brand เป็น BlueBerry หรือเป็น AdditionalShirt ที่ Color นั้นเป็น White",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/AdditionalShirt",
