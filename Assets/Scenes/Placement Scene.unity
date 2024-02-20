@@ -3546,8 +3546,8 @@ RectTransform:
   - {fileID: 697589808}
   - {fileID: 8036326967790826434}
   - {fileID: 8036326967863193666}
-  - {fileID: 902760574}
   - {fileID: 1756358702}
+  - {fileID: 902760574}
   m_Father: {fileID: 1575723518}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6033,6 +6033,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1575723518}
+  - component: {fileID: 1575723520}
   - component: {fileID: 1575723519}
   m_Layer: 0
   m_Name: Frontend
@@ -6083,6 +6084,18 @@ MonoBehaviour:
   _schemaDisplayObject: {fileID: 996041754}
   _stepTraverseObject: {fileID: 957630300}
   _popUpManagerObject: {fileID: 8036326967863193677}
+--- !u!114 &1575723520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575723517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee17bdd8dfb29f459e87ac6e3857f89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1599931658
 GameObject:
   m_ObjectHideFlags: 0
@@ -6859,7 +6872,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 939566412}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -9302,7 +9315,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1034289778}
         m_TargetAssemblyTypeName: Assets.Scripts.DataPersistence.MissionController,
           Backend_Comp
         m_MethodName: SavePlacementResult
@@ -9315,7 +9328,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1034289779}
         m_TargetAssemblyTypeName: ScenesManager, Helper
         m_MethodName: LoadSelectChapterScene
         m_Mode: 1

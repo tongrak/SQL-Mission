@@ -4541,6 +4541,7 @@ MonoBehaviour:
   _clickableCellPrefab: {fileID: 1248663101967459460, guid: 6622dff10799ee9478f1f803b8898d2f, type: 3}
   _selectionListGO: {fileID: 1012179495}
   _displayListGO: {fileID: 1817657282}
+  _widthMargin: 4
 --- !u!1 &1012179495
 GameObject:
   m_ObjectHideFlags: 0
@@ -6879,6 +6880,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1575723518}
+  - component: {fileID: 1575723520}
   - component: {fileID: 1575723519}
   m_Layer: 0
   m_Name: Frontend
@@ -6929,6 +6931,18 @@ MonoBehaviour:
   _schemaDisplayObject: {fileID: 996041754}
   _stepTraverseObject: {fileID: 957630300}
   _popUpManagerObject: {fileID: 1363892791}
+--- !u!114 &1575723520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575723517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee17bdd8dfb29f459e87ac6e3857f89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1599931658
 GameObject:
   m_ObjectHideFlags: 0
@@ -7977,6 +7991,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cellPrefab: {fileID: 2191912406389507693, guid: 55f8c418567c2424aa937abac2a1d4e5, type: 3}
   _defualtCellHeight: 30
+  _widthBuffer: 4
   _cellFontSize: 16
   _columnHeaderSprite: {fileID: 21300000, guid: 06b65029ee7ba1945894959dcc8f179f, type: 3}
   _columnBodySprite: {fileID: 21300000, guid: 06b65029ee7ba1945894959dcc8f179f, type: 3}
