@@ -16,7 +16,7 @@
         "Tables": [
           "Shirt"
         ],
-        "PreSQL": "<<Type>> Price, IsLongSleeve/n<<Type>> Shirt/n<<Type>> <<OperatorsWord>>/nColor <<Type>> <<Type>>",
+        "PreSQL": "<<Type>> Price, IsLongSleeve/n<<Type>> Shirt/n<<Type>> <<OperatorsWord>> Color <<Type>> <<Type>>",
         "AnswerSQL": "SELECT Price, IsLongSleeve FROM Shirt WHERE NOT Color = 'Green'",
         "VisualType": 0,
         "PuzzleType": 1,

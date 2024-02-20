@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูลทั้งหมดของ PeopleOccupation โดยเลือกเพียง Sex, Occupation",
+      "Dialog": "แสดงข้อมูลของ PeopleOccupation โดยเลือกเพียง Sex, Occupation",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/PeopleOccupation",
