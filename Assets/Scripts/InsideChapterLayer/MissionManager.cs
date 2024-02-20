@@ -72,15 +72,14 @@ public class MissionManager : MonoBehaviour
     {
         _missionConfigFiles = _missionBoardData.MissionFilesIndex;
         _allmissionConfigFolderFullPath = _missionBoardData.MissionConfigFolderFullPath;
-        _haveStatusDetailFile = File.Exists(_allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
+        _haveStatusDetailFile = File.Exists(Path.Combine(_allmissionConfigFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType));
     }
 
     private void _GenMissionPaperFromConfigFiles()
     {
         // Set variable
-        string missionConfigFolderPathAfterResources = _allmissionConfigFolderFullPath.Split(new string[] { "Resources/" }, System.StringSplitOptions.None)[1] + '/';
-        string unLockDetailFilePathFromAssets = _allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.StatusFileName; // Such as 'Assets/Resources/X/X/<FileName>'
-        string missionStatusFileType = EnvironmentData.Instance.ConfigFileType; // Can use '.txt' or '.json'. Up to you.
+        string unLockDetailFileFullPath = Path.Combine(_allmissionConfigFolderFullPath, EnvironmentData.Instance.StatusFileName);
+        string missionStatusFileType = EnvironmentData.Instance.ConfigFileType;
 
         MissionConfig[] missionConfigs = new MissionConfig[_missionConfigFiles.Length];
 
@@ -88,11 +87,11 @@ public class MissionManager : MonoBehaviour
         for (int i = 0; i < _missionConfigFiles.Length; i++)
         {
             // Set config file path
-            string missionConfigFilePathAfterResources = missionConfigFolderPathAfterResources + _missionConfigFiles[i];
+            string missionConfigFileFullPathWithFormat = Path.Combine(_allmissionConfigFolderFullPath, _missionConfigFiles[i] + EnvironmentData.Instance.ConfigFileType);
 
             // Load config file.
-            TextAsset configFiles = Resources.Load<TextAsset>(missionConfigFilePathAfterResources);
-            missionConfigs[i] = JsonUtility.FromJson<MissionConfig>(configFiles.text);
+            string configData = File.ReadAllText(missionConfigFileFullPathWithFormat);
+            missionConfigs[i] = JsonUtility.FromJson<MissionConfig>(configData);
         }
 
         // Load all mission status detail.
@@ -105,11 +104,11 @@ public class MissionManager : MonoBehaviour
         {
             if (!_haveStatusDetailFile)
             {
-                _missionStatusDetails = _WriteMissionUnlockDetails(missionConfigs, unLockDetailFilePathFromAssets, missionStatusFileType);
+                _missionStatusDetails = _WriteMissionUnlockDetails(missionConfigs, unLockDetailFileFullPath, missionStatusFileType);
             }
             else
             {
-                string missionStatusTxt = File.ReadAllText(_allmissionConfigFolderFullPath + "/" + EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
+                string missionStatusTxt = File.ReadAllText(Path.Combine(_allmissionConfigFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType));
                 _missionStatusDetails = JsonUtility.FromJson<MissionUnlockDetails>(missionStatusTxt);
             }
         }
@@ -122,10 +121,10 @@ public class MissionManager : MonoBehaviour
     /// 
     /// </summary>
     /// <param name="missionConfigs"></param>
-    /// <param name="unLockDetailFilePathFromAssets">Example "Assets/Resources/X/X/ChapterX"</param>
+    /// <param name="unLockDetailFileFullPath">Example "D:/Assets/Resources/X/X/ChapterX"</param>
     /// <param name="fileType">Must be ".txt" or ".json"</param>
     /// <returns></returns>
-    private MissionUnlockDetails _WriteMissionUnlockDetails(MissionConfig[] missionConfigs, string unLockDetailFilePathFromAssets, string fileType)
+    private MissionUnlockDetails _WriteMissionUnlockDetails(MissionConfig[] missionConfigs, string unLockDetailFileFullPath, string fileType)
     {
         MissionUnlockDetails missionUnlockDetails = new MissionUnlockDetails(missionConfigs.Length);
 
@@ -163,7 +162,7 @@ public class MissionManager : MonoBehaviour
         // Save to 'UnlockDetail.txt'
         string data = JsonUtility.ToJson(missionUnlockDetails, true);
 
-        File.WriteAllText(unLockDetailFilePathFromAssets+fileType, data);
+        File.WriteAllText(unLockDetailFileFullPath+fileType, data);
 
         return missionUnlockDetails;
     }
