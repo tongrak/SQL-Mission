@@ -5,19 +5,19 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูลทั้งหมดของ Flower",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ TeddyBear",
       "Step": 1,
       "ImgDetail": {
-        "ImgFolder": "Starter/Flower",
+        "ImgFolder": "Starter/TeddyBear",
         "ImgList": null
       },
       "PuzzleDetail": {
         "DB": "Starter.db",
         "Tables": [
-          "Flower"
+          "TeddyBear"
         ],
         "PreSQL": "<<Type>> <<Type>>/nFROM <<Tables>>",
-        "AnswerSQL": "SELECT * FROM Flower",
+        "AnswerSQL": "SELECT * FROM TeddyBear",
         "VisualType": 0,
         "PuzzleType": 1,
         "BlankOptions": [
@@ -26,7 +26,7 @@
             "OptionContext": [
               "Animal",
               "PeopleDress",
-              "Flower"
+              "TeddyBear"
             ]
           }
         ]

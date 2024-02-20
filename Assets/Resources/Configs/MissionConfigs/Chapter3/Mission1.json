@@ -5,19 +5,19 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูลทั้งหมดของ Flower โดยเลือกเฉพาะ Flower ที่มี Petal มากกว่า 5",
+      "Dialog": "จงแสดงข้อมูลทั้งหมดของ TeddyBear โดยเลือกเฉพาะ TeddyBear ที่มี Price มากกว่า 40",
       "Step": 1,
       "ImgDetail": {
-        "ImgFolder": "Starter/Flower",
+        "ImgFolder": "Starter/TeddyBear",
         "ImgList": null
       },
       "PuzzleDetail": {
         "DB": "Starter.db",
         "Tables": [
-          "Flower"
+          "TeddyBear"
         ],
-        "PreSQL": "SELECT */nFROM Flower/nWHERE Petal > 5",
-        "AnswerSQL": "SELECT * FROM Flower WHERE Petal > 5",
+        "PreSQL": "SELECT */nFROM TeddyBear/nWHERE Price > 40",
+        "AnswerSQL": "SELECT * FROM TeddyBear WHERE Price > 40",
         "VisualType": 0,
         "PuzzleType": 0,
         "BlankOptions": null
@@ -37,7 +37,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "ซึ่ง Petal > 5 นั้นก็คือ Condition ที่บอกว่าต้องการหาดอกไม้ที่มีจำนวนกลีบมากกว่า 5 กลีบ",
+      "Dialog": "ซึ่ง Price > 40 นั้นก็คือ Condition ที่บอกว่าต้องการหาตุ๊กตาหมีที่มีราคามากกว่า 40",
       "Step": 0,
       "ImgDetail": {
         "ImgFolder": "Chapter3/Mission1",

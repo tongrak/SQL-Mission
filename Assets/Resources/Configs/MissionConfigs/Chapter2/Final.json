@@ -5,19 +5,19 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูลของ Flower โดยเลือกแสดงเพียง PollenColor, Petal",
+      "Dialog": "จงแสดงข้อมูลของ TeddyBear โดยเลือกแสดงเพียง Size, Price",
       "Step": 1,
       "ImgDetail": {
-        "ImgFolder": "Starter/Flower",
+        "ImgFolder": "Starter/TeddyBear",
         "ImgList": null
       },
       "PuzzleDetail": {
         "DB": "Starter.db",
         "Tables": [
-          "Flower"
+          "TeddyBear"
         ],
         "PreSQL": null,
-        "AnswerSQL": "SELECT PollenColor, Petal FROM Flower",
+        "AnswerSQL": "SELECT Size, Price FROM TeddyBear",
         "VisualType": 0,
         "PuzzleType": 2,
         "BlankOptions": null
