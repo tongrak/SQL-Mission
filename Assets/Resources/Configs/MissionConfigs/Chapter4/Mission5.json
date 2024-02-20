@@ -5,19 +5,19 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูลของ Flower โดยที่ Petal เป็น 6 และมี PollenColor เป็น Red โดยแสดงเพียง PetalColor กับ PollenColor",
+      "Dialog": "จงแสดงข้อมูลของ TeddyBear โดยที่ Price เป็น 35 และมี Color เป็น Pink โดยแสดงเพียง Size กับ Color",
       "Step": 1,
       "ImgDetail": {
-        "ImgFolder": "Starter/Flower",
+        "ImgFolder": "Starter/TeddyBear",
         "ImgList": null
       },
       "PuzzleDetail": {
         "DB": "Starter.db",
         "Tables": [
-          "Flower"
+          "TeddyBear"
         ],
-        "PreSQL": "SELECT PetalColor, PollenColor/n<<Type>> Flower/n<<Type>> Petal = 6 <<OperatorsWord>> PollenColor = 'Red'",
-        "AnswerSQL": "SELECT PetalColor, PollenColor FROM Flower WHERE Petal = 6 AND PollenColor = 'Red'",
+        "PreSQL": "SELECT Size, Color/n<<Type>> TeddyBear/n<<Type>> Price = 35 <<OperatorsWord>> Color = 'Pink'",
+        "AnswerSQL": "SELECT Size, Color FROM TeddyBear WHERE Price = 35 AND Color = 'Pink'",
         "VisualType": 0,
         "PuzzleType": 1,
         "BlankOptions": [

@@ -5,19 +5,19 @@
   "MissionDescription": "สอนการใช้ SQL เบื้องต้น",
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูลทั้งหมดของ Flower (กดปุ่มสีน้ำเงินที่อยู่ตรงขวาล่าง)",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ TeddyBear (กดปุ่มสีน้ำเงินที่อยู่ตรงขวาล่าง)",
       "Step": 1,
       "ImgDetail": {
-        "ImgFolder": "Starter/Flower",
+        "ImgFolder": "Starter/TeddyBear",
         "ImgList": null
       },
       "PuzzleDetail": {
         "DB": "Starter.db",
         "Tables": [
-          "Flower"
+          "TeddyBear"
         ],
-        "PreSQL": "SELECT */nFROM Flower",
-        "AnswerSQL": "SELECT * FROM Flower",
+        "PreSQL": "SELECT */nFROM TeddyBear",
+        "AnswerSQL": "SELECT * FROM TeddyBear",
         "VisualType": 0,
         "PuzzleType": 0,
         "BlankOptions": null
@@ -25,7 +25,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "จาก puzzle ก่อนหน้านี้คือการใช้คำสั่งเบื้องต้นของ SQL ในการดึงข้อมูลทั้งหมดจากตาราง(Table)ที่เลือก ซึ่งข้อมูลนั้นมาจาก Table ที่ชื่อว่า Flower",
+      "Dialog": "จาก puzzle ก่อนหน้านี้คือการใช้คำสั่งเบื้องต้นของ SQL ในการดึงข้อมูลทั้งหมดจากตาราง(Table)ที่เลือก ซึ่งข้อมูลนั้นมาจาก Table ที่ชื่อว่า TeddyBear",
       "Step": 0,
       "ImgDetail": {
         "ImgFolder": "Chapter1/Mission1",
