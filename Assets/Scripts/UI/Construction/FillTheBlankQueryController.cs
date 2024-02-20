@@ -13,6 +13,7 @@ namespace Gameplay.UI.Construction
     {
         protected string _optionName;
         protected string _selectString;
+        public bool isLong = false;
 
         public string selectToken { get => _selectString; }
         public void SetSelectedString(string selected) => this._selectString = selected;
@@ -31,14 +32,16 @@ namespace Gameplay.UI.Construction
     class TypingFTBToken : FillTheBlankToken
     {
         public override string[] GetContextOptions() => null;
+        public TypingFTBToken(bool isLong) => base.isLong = isLong;
     }
-
+    
     public class FillTheBlankQueryController : GameplayController, IFillTheBlankQuery
     {
         [Header("Tokenize configuration")]
         [SerializeField] private string _newlineSplitPoint = "\n";
         [SerializeField] private string _FTBTokenReg = @"<<(.*?)>>";
         [SerializeField] private string _typeFTBTokenReg = @"Type";
+        [SerializeField] private string _typeLongFTBTokenReg = @"TypeLong";
         //[SerializeField] private string _specialFTBTokenReg = @"[A-Za-z0-9]+:[A-Za-z0-9]+";
 
         [Header("UI component")]
@@ -101,9 +104,13 @@ namespace Gameplay.UI.Construction
         }
         private FillTheBlankToken FTBTokenGenetion(Func<string, string[]> getOptionFunction, string token)
         {
-            if (Regex.IsMatch(token, _typeFTBTokenReg)) return new TypingFTBToken();
+            if (Regex.IsMatch(token, _typeFTBTokenReg))
+            {
+                if (Regex.IsMatch(token, _typeLongFTBTokenReg)) return new TypingFTBToken(true);
+                else return new TypingFTBToken(false);
+            }
             else return new ChoiceFTBToken(getOptionFunction, token);
         }
         #endregion
     }
-}
+}   

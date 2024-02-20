@@ -27,7 +27,7 @@ namespace Gameplay.UI.Construction.FTB
                 if (token.Item1 == string.Empty)
                 {
                     var specialTokenCon = mustGetComponent<IInputTokenController>(generated);
-                    FTBInputType currType = token.Item2.GetType().Equals(typeof(TypingFTBToken)) ? FTBInputType.TYPING : FTBInputType.CHOICE;
+                    FTBInputType currType = getFTBofGiven(token.Item2);
                     specialTokenCon.SetUpToken(token.Item2, currType);
                 }
                 else
@@ -42,6 +42,11 @@ namespace Gameplay.UI.Construction.FTB
                     rect.sizeDelta = new Vector2(TMP.preferredWidth, tokenHeight);
                 }
             }
+        }
+        private FTBInputType getFTBofGiven(FillTheBlankToken theToken)
+        {
+            if (theToken.GetType().Equals(typeof(TypingFTBToken))) return theToken.isLong ? FTBInputType.LONG_TYPING : FTBInputType.TYPING;
+            else return FTBInputType.CHOICE;
         }
     }
 }
