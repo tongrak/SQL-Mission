@@ -65,7 +65,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "แสดงข้อมูลของ FruitPile โดยที่ Name เป็น Apple หรือ Rose apple โดยเลือกแสดงเพียง Price กับ NumInPile",
+      "Dialog": "แสดงข้อมูลของ FruitPile โดยที่ Name เป็น Apple หรือ Strawberry โดยเลือกแสดงเพียง Price กับ NumInPile",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/FruitPile",
@@ -77,7 +77,7 @@
           "FruitPile"
         ],
         "PreSQL": null,
-        "AnswerSQL": "SELECT Price, NumInPile FROM FruitPile WHERE Name = 'Apple' OR Name = 'Rose apple'",
+        "AnswerSQL": "SELECT Price, NumInPile FROM FruitPile WHERE Name = 'Apple' OR Name = 'Strawberry'",
         "VisualType": 0,
         "PuzzleType": 2,
         "BlankOptions": null

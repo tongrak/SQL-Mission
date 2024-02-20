@@ -16,7 +16,7 @@
         "Tables": [
           "Animal"
         ],
-        "PreSQL": "<<Type>> Name, Color/n<<Type>> Animal/n<<Type>> <<Type>> = 'Black' <<OperatorsWord>>/nLegsNum <<Type>> 4",
+        "PreSQL": "<<Type>> Name, Color/n<<Type>> Animal/n<<Type>> <<Type>> = 'Black' <<OperatorsWord>> LegsNum <<Type>> 4",
         "AnswerSQL": "SELECT Name, Color FROM Animal WHERE Color = 'Black' AND LegsNum = 4",
         "VisualType": 0,
         "PuzzleType": 1,

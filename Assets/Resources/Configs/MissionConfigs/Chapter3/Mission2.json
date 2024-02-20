@@ -25,7 +25,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "จาก puzzle นี้แสดงให้เห็นถึงการใช้งานตัวอักษร(literals) ที่เป็นตัวเลข(numeric) โดย operator พื้นฐานที่ใช้ในการเปรียบเทียบมีดังนี้ >, <, >=, <=, =",
+      "Dialog": "จาก puzzle นี้แสดงให้เห็นถึงการใช้งานตัวอักษร(literals) ที่เป็นตัวเลข(numeric) โดย Operator พื้นฐานที่ใช้ในการเปรียบเทียบมีดังนี้ >, <, >=, <=, =",
       "Step": 0,
       "ImgDetail": {
         "ImgFolder": "Chapter3/Mission2",

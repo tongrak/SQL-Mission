@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูลทั้งหมดของ Flower โดยเลือกแสดงเพียง PollenColor, Petal",
+      "Dialog": "แสดงข้อมูลของ Flower โดยเลือกแสดงเพียง PollenColor, Petal",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Flower",

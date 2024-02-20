@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "แสดงทั้งหมดข้อมูลของ UHTMilk โดยที่ Flavor เป็น Chocolate หรือ Brand เป็น G&O โดยที่ทุกอันนั้น Volume ต้องน้อยกว่า 400",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ UHTMilk โดยที่ Flavor เป็น Chocolate หรือ Brand เป็น G&O โดยที่ทุกอันนั้น Volume ต้องน้อยกว่า 400",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/UHTMilk",
@@ -37,7 +37,7 @@
       "PassedChapterID": null
     },
     {
-      "Dialog": "แสดงทั้งหมดข้อมูลของ UHTMilk โดยที่ Flavor เป็น Chocolate หรือ Brand เป็น G&O โดยที่ทุกอันนั้น Volume ต้องน้อยกว่า 400",
+      "Dialog": "แสดงข้อมูลทั้งหมดของ UHTMilk โดยที่ Flavor เป็น Chocolate หรือ Brand เป็น G&O โดยที่ทุกอันนั้น Volume ต้องน้อยกว่า 400",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/UHTMilk",
@@ -48,8 +48,8 @@
         "Tables": [
           "UHTMilk"
         ],
-        "PreSQL": "SELECT */nFROM UHTMilk/nWHERE Volume < 400 AND (Flavor = 'Chocolate' OR Brand = 'G&O')",
-        "AnswerSQL": "SELECT * FROM UHTMilk WHERE Volume < 400 AND (Flavor = 'Chocolate' OR Brand = 'G&O')",
+        "PreSQL": "SELECT */nFROM UHTMilk/nWHERE (Flavor = 'Chocolate' OR Brand = 'G&O') AND Volume < 400",
+        "AnswerSQL": "SELECT * FROM UHTMilk WHERE (Flavor = 'Chocolate' OR Brand = 'G&O') AND Volume < 400",
         "VisualType": 0,
         "PuzzleType": 0,
         "BlankOptions": null

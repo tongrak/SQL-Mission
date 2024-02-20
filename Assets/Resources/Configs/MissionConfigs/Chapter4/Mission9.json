@@ -16,7 +16,7 @@
         "Tables": [
           "Sock"
         ],
-        "PreSQL": "<<Type>> Price, Size/n<<Type>> Sock/n<<Type>> IsLong = True <<OperatorsWord>>/n<<Type>> = <<Type>>",
+        "PreSQL": "<<Type>> Price, Size/n<<Type>> Sock/n<<Type>> IsLong = True <<OperatorsWord>> <<Type>> = <<Type>>",
         "AnswerSQL": "SELECT Price, Size FROM Sock WHERE IsLong = TRUE OR Size = 'S'",
         "VisualType": 0,
         "PuzzleType": 1,

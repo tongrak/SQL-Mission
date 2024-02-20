@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูลทั้งหมดของ PeopleOccupation โดยแสดงเพียง SkinColor, Occupation",
+      "Dialog": "แสดงข้อมูลของ PeopleOccupation โดยแสดงเพียง SkinColor, Occupation",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/PeopleOccupation",

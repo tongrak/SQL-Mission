@@ -5,7 +5,7 @@
   "MissionDescription": null,
   "MissionDetail": [
     {
-      "Dialog": "แสดงข้อมูลของ Shirt โดยที่ IsLongSleeve นั้นเป็นเท็จ(False) โดยแสดงเพียง Price กับ Color",
+      "Dialog": "แสดงข้อมูลของ Shirt โดยที่ IsLongSleeve นั้นเป็นจริง(True) โดยแสดงเพียง Price กับ Color",
       "Step": 1,
       "ImgDetail": {
         "ImgFolder": "Starter/Shirt",
@@ -17,7 +17,7 @@
           "Shirt"
         ],
         "PreSQL": "SELECT Price, Color/n<<Type>> Shirt/n<<Type>> IsLongSleeve <<OperatorsSymbol>> <<Word>>",
-        "AnswerSQL": "SELECT Price, Color FROM Shirt WHERE IsLongSleeve = FALSE",
+        "AnswerSQL": "SELECT Price, Color FROM Shirt WHERE IsLongSleeve = TRUE",
         "VisualType": 0,
         "PuzzleType": 1,
         "BlankOptions": [

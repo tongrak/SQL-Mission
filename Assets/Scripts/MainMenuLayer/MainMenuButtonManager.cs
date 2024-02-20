@@ -33,8 +33,8 @@ namespace Assets.Scripts.MainMenuLayer
             _totalStatusFile = 0;
             _totalDeletedStatusFile = 0;
             _deleteCompleted = false;
-            _chapterConfigsFolderFullPath = Application.dataPath + "/" + EnvironmentData.Instance.ResourcesFolder + "/" + EnvironmentData.Instance.ChapterConfigRootFolder;
-            _chapterStatusFileFullPath = _chapterConfigsFolderFullPath + "/" + EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType;
+            _chapterConfigsFolderFullPath = Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.ChapterConfigRootFolder);
+            _chapterStatusFileFullPath = Path.Combine(_chapterConfigsFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
         }
 
         public void ContinueButtonClicked()
@@ -102,7 +102,7 @@ namespace Assets.Scripts.MainMenuLayer
 
         private ChapterIndex _LoadChapterIndexFromFile()
         {
-            string chapterIndexData = File.ReadAllText(_chapterConfigsFolderFullPath + "/" + EnvironmentData.Instance.ChpaterFileIndexFileName + EnvironmentData.Instance.ConfigFileType);
+            string chapterIndexData = File.ReadAllText(Path.Combine(_chapterConfigsFolderFullPath, EnvironmentData.Instance.ChpaterFileIndexFileName + EnvironmentData.Instance.ConfigFileType));
             ChapterIndex chapterIndex = JsonUtility.FromJson<ChapterIndex>(chapterIndexData);
             return chapterIndex;
         }
@@ -113,7 +113,7 @@ namespace Assets.Scripts.MainMenuLayer
             for (int i = 0; i < chapterConfigs.Length; i++)
             {
                 string chapterFileName = chapterIndex.ChapterFileIndex[i];
-                string chapterConfigData = File.ReadAllText(_chapterConfigsFolderFullPath + "/" + chapterFileName + EnvironmentData.Instance.ConfigFileType);
+                string chapterConfigData = File.ReadAllText(Path.Combine(_chapterConfigsFolderFullPath, chapterFileName + EnvironmentData.Instance.ConfigFileType));
                 chapterConfigs[i] = JsonUtility.FromJson<ChapterConfig>(chapterConfigData);
             }
 
@@ -188,17 +188,17 @@ namespace Assets.Scripts.MainMenuLayer
 
         private void _GoToPlacementTest()
         {
-            TextAsset placementConfigFile = Resources.Load<TextAsset>(EnvironmentData.Instance.PlacementConfigRootFolder + "/" + EnvironmentData.Instance.PlacementFileName);
-            MissionConfig placementConfig = JsonUtility.FromJson<MissionConfig>(placementConfigFile.text);
+            string placementConfigData = File.ReadAllText(Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.PlacementConfigRootFolder, EnvironmentData.Instance.PlacementFileName + EnvironmentData.Instance.ConfigFileType));
+            MissionConfig placementConfig = JsonUtility.FromJson<MissionConfig>(placementConfigData);
             MissionConfig[] missionConfigs = new MissionConfig[1] { placementConfig };
 
             // Set mission data
             _missionSceneData.missionConfigs = missionConfigs;
             _missionSceneData.missionConfigIndex = 0;
-            _missionSceneData.MissionConfigFolderFullPath = Application.dataPath + "/" + EnvironmentData.Instance.ResourcesFolder + "/" + EnvironmentData.Instance.PlacementConfigRootFolder;
+            _missionSceneData.MissionConfigFolderFullPath = Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.PlacementConfigRootFolder);
 
             // Set selected chapter data
-            _selectedChapterData.ChapterFolderFullPath = Application.dataPath + "/" + EnvironmentData.Instance.ResourcesFolder + "/" + EnvironmentData.Instance.ChapterConfigRootFolder;
+            _selectedChapterData.ChapterFolderFullPath = Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.ChapterConfigRootFolder);
 
             ScenesManager.Instance.LoadPlacementScene();
         }
