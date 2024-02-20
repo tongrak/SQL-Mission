@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Gameplay.UI.Construction.FTB
 {
-    public enum FTBInputType { CHOICE, TYPING }
+    public enum FTBInputType { CHOICE, TYPING, LONG_TYPING }
     public interface IInputTokenController
     {
         void SetUpToken(FillTheBlankToken FTB, FTBInputType type);
@@ -14,6 +14,10 @@ namespace Gameplay.UI.Construction.FTB
         [Header("Input configure")]
         [SerializeField] private GameObject _selectInputGO;
         [SerializeField] private GameObject _typingInputGO;
+
+        [Header("Width configure")]
+        //[SerializeField] private int _normalWidth = 300;
+        [SerializeField] private int _longWidth = 460;
 
         private string[] _currContextOptions;
 
@@ -37,6 +41,11 @@ namespace Gameplay.UI.Construction.FTB
                 case FTBInputType.TYPING:
                     _typingInputGO.SetActive(true);
                     break;
+                case FTBInputType.LONG_TYPING:
+                    _typingInputGO.SetActive(true);
+                    var theRect = this.GetComponent<RectTransform>();
+                    theRect.sizeDelta = new Vector2(_longWidth, theRect.sizeDelta.y);
+                    break;
                 default: throw new System.Exception(type.ToString() + " is not implemented");
             }
         }
@@ -54,10 +63,6 @@ namespace Gameplay.UI.Construction.FTB
                 }
             );
         }
-        #endregion
-
-        #region Unity Basic
-        
         #endregion
     }
 }
