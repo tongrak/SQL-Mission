@@ -148,14 +148,14 @@ namespace Assets.Scripts.DataPersistence
         private void LoadImageController()
         {
             IImageController imageController = _imageControllerGameObject.GetComponent<IImageController>();
-            string rootImgFolderPath = $"\\Resources\\{EnvironmentData.Instance.PuzzleImagesRootFolder}/";
+            string rootImgFolderPath = Path.Combine(EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.PuzzleImagesRootFolder);
             // Each index mean each step. Example imagePathLists[0] mean image for Step[0].
             string[][] imagePathLists = new string[_missionConfig.MissionDetail.Length][];
 
             for (int i = 0; i < _missionConfig.MissionDetail.Length; i++)
             {
                 StepDetail currStepDetail = _missionConfig.MissionDetail[i];
-                string imgDir = Application.dataPath + rootImgFolderPath + currStepDetail.ImgDetail.ImgFolder;
+                string imgDir = Path.Combine(Application.dataPath, rootImgFolderPath, currStepDetail.ImgDetail.ImgFolder);
                 DirectoryInfo di = new DirectoryInfo(imgDir);
 
                 if (currStepDetail.ImgDetail?.ImgFolder != null)
