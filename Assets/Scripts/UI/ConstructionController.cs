@@ -42,6 +42,9 @@ namespace Gameplay.UI
         }
         private void SetContructionType(ConstructionType type)
         {
+            _fillTheBlankGameobject.SetActive(false);
+            _typedQueryGameobject.SetActive(false);
+
             _currentDisplayType = type;
             switch (_currentDisplayType)
             {
