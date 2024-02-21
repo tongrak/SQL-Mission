@@ -46,7 +46,7 @@ namespace Assets.Scripts.MainMenuLayer
         public void NewGameButtonClicked()
         {
             _loadingFacade.SetActive(true);
-            if (_fileWatcher != null)
+            if (File.Exists(Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.ChapterConfigRootFolder, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType)))
             {
                 _DeleteAllStatusFile();
                 // Will change scene after delete all status file and create chapter status file.
@@ -207,10 +207,7 @@ namespace Assets.Scripts.MainMenuLayer
         {
             _SetFields();
 
-            if (File.Exists(Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.ChapterConfigRootFolder, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType)))
-            {
-                _InitiateFileWatcher();
-            }
+            _InitiateFileWatcher();
         }
 
         private void Update()
