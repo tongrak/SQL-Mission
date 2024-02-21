@@ -24,17 +24,5 @@ namespace Assets.Scripts.ChapterLayer
         {
             _chapterButtonManager.ChapterButtonClicked(_chapterID, _missionConfigsRelativeFolder, _isPassed, _missionFilesIndex);
         }
-
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
 }
