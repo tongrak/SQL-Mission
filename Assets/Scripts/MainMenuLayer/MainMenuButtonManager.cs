@@ -180,7 +180,7 @@ namespace Assets.Scripts.MainMenuLayer
              | NotifyFilters.Size;
 
             _fileWatcher.Deleted += _StatusFileDeleted;
-            _fileWatcher.Created += _ChapterStatusFileCreated;
+            //_fileWatcher.Created += _ChapterStatusFileCreated;
 
             _fileWatcher.IncludeSubdirectories = true;
             _fileWatcher.EnableRaisingEvents = true;
@@ -219,10 +219,6 @@ namespace Assets.Scripts.MainMenuLayer
             {
                 _deleteCompleted = false;
                 _CreateChapterStatusFile();
-            }
-            if (_createChapterStatusCompleted)
-            {
-                _createChapterStatusCompleted = false;
                 if (_goToPlacement)
                 {
                     _GoToPlacementTest();
@@ -232,6 +228,18 @@ namespace Assets.Scripts.MainMenuLayer
                     ScenesManager.Instance.LoadSelectChapterScene();
                 }
             }
+            //if (_createChapterStatusCompleted)
+            //{
+            //    _createChapterStatusCompleted = false;
+            //    if (_goToPlacement)
+            //    {
+            //        _GoToPlacementTest();
+            //    }
+            //    else
+            //    {
+            //        ScenesManager.Instance.LoadSelectChapterScene();
+            //    }
+            //}
         }
 
         private void OnDestroy()
