@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.DataPersistence.ChapterStatusDetail;
-using Assets.Scripts.Helper;
+﻿using Assets.Scripts.Helper;
 using Assets.Scripts.ScriptableObjects;
 using System.IO;
 using UnityEngine;
