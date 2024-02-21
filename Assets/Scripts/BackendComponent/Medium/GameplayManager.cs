@@ -171,7 +171,7 @@ namespace Gameplay
         /// <returns>Resource path based on given full path</returns>
         private string rawImagePathConversion(string rawImagePath)
         {
-            string[] pathTokens = rawImagePath.Split('\\');
+            string[] pathTokens = rawImagePath.Split('/');
             bool foundResources = false;
             //remove all leading folder included resources
             //replace backslash with normal one
