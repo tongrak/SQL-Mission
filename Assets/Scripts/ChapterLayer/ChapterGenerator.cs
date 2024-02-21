@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChapterGenerator : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class ChapterGenerator : MonoBehaviour
     [SerializeField] private MissionBoardData _missionBoardData;
     [SerializeField] private ChapterButtonManager _chapterManager;
     [SerializeField] private ChapterStatusDetailsData _chapterStatusDetailsData;
+    [SerializeField] private bool _HaveURLButton;
+    [SerializeField] private GameObject _urlChapterPrefab;
+    [SerializeField] private string _urlTitle;
 
     private string _chapterConfigsFolderFullPath; 
 
@@ -78,6 +82,13 @@ public class ChapterGenerator : MonoBehaviour
 
             // Init ChapterButtonController
             chapterButton.GetComponent<ChapterButtonController>().Construct(_chapterManager, chapterConfig.ChapterID, chapterConfig.MissionConfigFolder, chapterStatusDetail.IsPass, chapterConfig.MissionFilesIndex);
+        }
+
+        // Gen URL button
+        if (_HaveURLButton)
+        {
+            GameObject urlChapterButton = Instantiate(_urlChapterPrefab, _chaptersContainer);
+            urlChapterButton.GetComponent<URLChapterController>().Initiate(chapterConfigs.Length + 1, _urlTitle, _chapterStatusDetailsData.ChapterStatusDetails.ChapterStatusDetailList[chapterConfigs.Length - 1].IsPass, _chapterManager);
         }
     }
 

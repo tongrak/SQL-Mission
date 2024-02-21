@@ -10,6 +10,8 @@ namespace Assets.Scripts.ChapterLayer
     {
         [SerializeField] private MissionBoardData _missionBoardData;
         [SerializeField] private SelectedChapterData _selectedChapterData;
+        [SerializeField] private GameObject _popup;
+        [SerializeField] private string _url;
 
         private string _chapterConfigsFolderFullPath;
 
@@ -32,16 +34,20 @@ namespace Assets.Scripts.ChapterLayer
             _chapterConfigsFolderFullPath = chapterConfigsFolderFullPath;
         }
 
-        // Use this for initialization
-        void Start()
+        public void URLButtonClicked()
         {
-
+            _popup?.SetActive(true);
         }
 
-        // Update is called once per frame
-        void Update()
+        public void ConfirmURLButtonClicked()
         {
+            Application.OpenURL(_url);
+            Application.Quit();
+        }
 
+        public void CancelURLButtonClicked()
+        {
+            _popup?.SetActive(false);
         }
     }
 }
