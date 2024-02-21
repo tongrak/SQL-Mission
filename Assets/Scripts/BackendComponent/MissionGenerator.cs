@@ -155,7 +155,7 @@ namespace Assets.Scripts.DataPersistence
             for (int i = 0; i < _missionConfig.MissionDetail.Length; i++)
             {
                 StepDetail currStepDetail = _missionConfig.MissionDetail[i];
-                string imgDir = Path.Combine(Application.dataPath, rootImgFolderPath, currStepDetail.ImgDetail.ImgFolder);
+                string imgDir = Path.Combine(Application.dataPath, rootImgFolderPath, currStepDetail.ImgDetail?.ImgFolder ?? "");
                 DirectoryInfo di = new DirectoryInfo(imgDir);
 
                 if (currStepDetail.ImgDetail?.ImgFolder != null)
