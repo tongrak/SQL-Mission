@@ -7,12 +7,15 @@ using UnityEngine.UI;
 
 namespace Gameplay.UI.VisualFeedback
 {
-    public interface IDynamicVisualController
+    public interface IGeneralVisualController
+    {
+        void DiscontinueVisualItemObjects();
+    }
+    public interface IDynamicVisualController: IGeneralVisualController
     {
         void InitItemObjects(string[] imagePaths);
         void ShowUpGivenItem(string[] imagePaths);
         void ShowDownAll();
-        void DiscontinueItemObjects();
     }
 
     public class DynamicVisualFeedbackController : GameplayController, IDynamicVisualController
@@ -56,7 +59,7 @@ namespace Gameplay.UI.VisualFeedback
             }
         }
 
-        public void DiscontinueItemObjects()
+        public void DiscontinueVisualItemObjects()
         {
             for (int i = 0; i < _ImageObjects.Length; i++)
             {

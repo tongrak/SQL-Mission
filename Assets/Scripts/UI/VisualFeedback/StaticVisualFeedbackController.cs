@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Gameplay.UI.VisualFeedback
 {
-    public interface IStaticVisualController
+    public interface IStaticVisualController: IGeneralVisualController
     {
         void InitItemObjects(string[] imagePaths);
     }
@@ -16,7 +16,10 @@ namespace Gameplay.UI.VisualFeedback
         [Header("ImageObjects Config")]
         [SerializeField] private GameObject[] _ImageObjects;
         [SerializeField] private readonly int _maxImageNumber = 3;
-
+        public void DiscontinueVisualItemObjects()
+        {
+            foreach (var item in _ImageObjects) item.SetActive(false);
+        }
         public void InitItemObjects(string[] imagePaths)
         {
             if (imagePaths.Length > 3) Debug.LogWarning("Static visual can only display " + _maxImageNumber + " images");
