@@ -351,7 +351,6 @@ namespace Gameplay
             updateGameplayStepController();
             //Begin gameplay
             actAccordingToStep(_currStepCon.GetCurrentStep());
-            //Update step traverse control
         }
         public void StartFreeGame() => startGameplayScene(null);
         public void StartNormalGameplay(FileSystemWatcher MissionFileWatcher)
@@ -380,7 +379,6 @@ namespace Gameplay
         {
             //Hide loading facade;
             _popUpManagerObject.SetActive(false);
-            SelectConstructionTab();
         }
         private void OnDisable() => unsubAllSaveFileWatcher();
         private void OnDestroy() => unsubAllSaveFileWatcher();
