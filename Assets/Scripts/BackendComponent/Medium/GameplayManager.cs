@@ -143,6 +143,7 @@ namespace Gameplay
                     SchemaDTO[] schemaDTOs = _currPC.Schemas.Select(x => { return new SchemaDTO(x.TableName, x.Attributes); }).ToArray();
                     _schemaDisplayController.SetUpDisplay(schemaDTOs);
 
+                    SelectConstructionTab();
                     if (imagePaths != null) handleOnVisualType(_currPC.VisualType, imagePaths);
 
                     _canAdvanceAStep = false;
@@ -303,8 +304,8 @@ namespace Gameplay
         }
         private void handleChangeStepAction(System.Action stepChangingAction)
         {
-            _dynamicVisualController.DiscontinueItemObjects();
-            //_staticVisualController.
+            _dynamicVisualController.DiscontinueVisualItemObjects();
+            _staticVisualController.DiscontinueVisualItemObjects();
 
             stepChangingAction();
 
