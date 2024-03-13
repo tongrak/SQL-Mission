@@ -4,6 +4,7 @@ using Gameplay.UI.Table;
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Gameplay.UI
 {
@@ -15,6 +16,7 @@ namespace Gameplay.UI
     public class ResultConsoleController : GameplayController, IResultTabController
     {
         [Header("Table generator")]
+        [SerializeField] private GameObject _displayZoneGO;
         [SerializeField] private GameObject _queriedTableGeneratorGO;
         [SerializeField] private GameObject _expectedTableGeneratorGO;
 
@@ -101,12 +103,20 @@ namespace Gameplay.UI
         public void OnClickHint()
         {
             _isDisplayQueriedTable = !_isDisplayQueriedTable;
+            updateTableDisplayZone();
 
             _queriedTableGeneratorGO.SetActive(_isDisplayQueriedTable);
             _expectedTableGeneratorGO.SetActive(!_isDisplayQueriedTable);
             _bannerGO.GetComponent<UnityEngine.UI.Image>().sprite = _isDisplayQueriedTable ? _queriedBannerSprite : _expectedBannerSprite;
         }
 
+        //Aux methods
+        private void updateTableDisplayZone()
+        {
+            //Note: default scroll zone in setted in Unity editor.
+            //update scroll zone to displayed table
+            _displayZoneGO.GetComponent<ScrollRect>().content = _isDisplayQueriedTable ? _queriedTableGeneratorGO.GetComponent<RectTransform>() : _expectedTableGeneratorGO.GetComponent<RectTransform>();
+        }
     }
 }
 
