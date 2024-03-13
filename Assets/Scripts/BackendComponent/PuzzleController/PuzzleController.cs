@@ -89,7 +89,7 @@ namespace Assets.Scripts.DataPersistence.PuzzleController
                     else
                     {
                         // Return result that tell player's column is less than answer
-                        reason = "The query's number of column is more than expected.";
+                        reason = "The query's number of column is less than expected.";
                     }
                     return new PuzzleResult(false, reason);
                 }
