@@ -9,7 +9,7 @@
         {
             "ChatperID": 2,
             "IsUnlock": true,
-            "IsPass": true,
+            "IsPass": false,
             "ChapterDependenciesStatusDetail": [
                 {
                     "ChapterID": 1,
@@ -19,34 +19,34 @@
         },
         {
             "ChatperID": 3,
-            "IsUnlock": true,
-            "IsPass": true,
+            "IsUnlock": false,
+            "IsPass": false,
             "ChapterDependenciesStatusDetail": [
                 {
                     "ChapterID": 2,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "ChatperID": 4,
-            "IsUnlock": true,
-            "IsPass": true,
+            "IsUnlock": false,
+            "IsPass": false,
             "ChapterDependenciesStatusDetail": [
                 {
                     "ChapterID": 3,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "ChatperID": 5,
-            "IsUnlock": true,
-            "IsPass": true,
+            "IsUnlock": false,
+            "IsPass": false,
             "ChapterDependenciesStatusDetail": [
                 {
                     "ChapterID": 4,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         }
