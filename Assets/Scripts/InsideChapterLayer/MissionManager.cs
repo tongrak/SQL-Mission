@@ -14,7 +14,6 @@ using Assets.Scripts.InsideChapterLayer.UI;
 public class MissionManager : MonoBehaviour
 {
     [SerializeField] private GameObject _normalMission;
-    [SerializeField] private GameObject _optionalMission;
     [SerializeField] private GameObject _finalMission;
     [SerializeField] private MissionData _missionSceneData;
     [SerializeField] private MissionStatusDetailsData _missionStatusDetailsData;
@@ -191,9 +190,6 @@ public class MissionManager : MonoBehaviour
             {
                 case MissionType.Normal:
                     missionPaper = Instantiate(_normalMission, misionGroupTransform);
-                    break;
-                case MissionType.Optional:
-                    missionPaper = Instantiate(_optionalMission, misionGroupTransform);
                     break;
                 case MissionType.Final:
                     missionPaper = Instantiate(_finalMission, misionGroupTransform);
