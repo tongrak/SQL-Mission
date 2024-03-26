@@ -162,7 +162,7 @@ namespace Assets.Scripts.DataPersistence
                 DirectoryInfo di = new DirectoryInfo(imgDir);
                     if (currStepDetail.ImgDetail?.ImgList?.Length == 0 || currStepDetail.ImgDetail?.ImgList == null)
                     {
-                        string[] imagePathList = _GetImgPathsFromFileNameExpr(di, "*.png");
+                        string[] imagePathList = _GetImgPathsFromFileNameExpr(di, "*" + EnvironmentData.Instance.ImageFileFormat);
                         imagePathLists[i] = imagePathList?.Length == 0 ? null : imagePathList;
                     }
                     else
