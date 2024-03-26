@@ -68,14 +68,14 @@ namespace Assets.Scripts.MainMenuLayer
         {
             foreach (ChapterConfig chapterConfig in chapterConfigs)
             {
-                string statusDetailFileFullPathWithFormat = Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.MissionConfigRootFolder, chapterConfig.MissionConfigFolder, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
+                string statusDetailFileFullPathWithFormat = Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.MissionConfigRootFolder, chapterConfig.MissionConfigFolder ?? "", EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
 
                 // 1) Get every mission config for current chapter.
                 MissionConfig[] missionConfigs = new MissionConfig[chapterConfig.MissionFilesIndex.Length];
                 for (int i = 0; i < chapterConfig.MissionFilesIndex.Length; i++)
                 {
                     string missionConfigFileName = chapterConfig.MissionFilesIndex[i];
-                    string configFileFullPath = Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.MissionConfigRootFolder, chapterConfig.MissionConfigFolder, missionConfigFileName + EnvironmentData.Instance.ConfigFileType);
+                    string configFileFullPath = Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.MissionConfigRootFolder, chapterConfig.MissionConfigFolder ?? "", missionConfigFileName + EnvironmentData.Instance.ConfigFileType);
                     string configData = File.ReadAllText(configFileFullPath);
                     missionConfigs[i] = JsonUtility.FromJson<MissionConfig>(configData);
                 }

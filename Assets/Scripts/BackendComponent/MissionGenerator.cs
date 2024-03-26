@@ -132,7 +132,7 @@ namespace Assets.Scripts.DataPersistence
             {
                 StepDetail puzzleStepDetail = allPuzzleStepDetail[i];
                 // 1) Create database path
-                string dbFolder = $"/Resources/{EnvironmentData.Instance.DatabaseRootFolder}/";
+                string dbFolder = $"/{EnvironmentData.Instance.ResourcesFolder}/{EnvironmentData.Instance.DatabaseRootFolder}/";
                 string dbConn = "URI=file:" + Application.dataPath + dbFolder + puzzleStepDetail.PuzzleDetail.DB;
                 // 2) Get schema from SQLService
                 Schema[] schemas = _sqlService.GetSchemas(dbConn, puzzleStepDetail.PuzzleDetail.Tables, false);
@@ -148,19 +148,19 @@ namespace Assets.Scripts.DataPersistence
         private void LoadImageController()
         {
             IImageController imageController = _imageControllerGameObject.GetComponent<IImageController>();
-            string rootImgFolderPath = $"\\Resources\\{EnvironmentData.Instance.PuzzleImagesRootFolder}/";
+            string rootImgFolderPath = Path.Combine(EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.PuzzleImagesRootFolder);
             // Each index mean each step. Example imagePathLists[0] mean image for Step[0].
             string[][] imagePathLists = new string[_missionConfig.MissionDetail.Length][];
 
             for (int i = 0; i < _missionConfig.MissionDetail.Length; i++)
             {
                 StepDetail currStepDetail = _missionConfig.MissionDetail[i];
-                string imgDir = Application.dataPath + rootImgFolderPath + currStepDetail.ImgDetail.ImgFolder;
-                DirectoryInfo di = new DirectoryInfo(imgDir);
 
                 if (currStepDetail.ImgDetail?.ImgFolder != null)
                 {
-                    if (currStepDetail.ImgDetail.ImgList?.Length == 0)
+                string imgDir = Path.Combine(Application.dataPath, rootImgFolderPath, currStepDetail.ImgDetail.ImgFolder);
+                DirectoryInfo di = new DirectoryInfo(imgDir);
+                    if (currStepDetail.ImgDetail?.ImgList?.Length == 0 || currStepDetail.ImgDetail?.ImgList == null)
                     {
                         string[] imagePathList = _GetImgPathsFromFileNameExpr(di, "*.png");
                         imagePathLists[i] = imagePathList?.Length == 0 ? null : imagePathList;
@@ -169,7 +169,7 @@ namespace Assets.Scripts.DataPersistence
                     {
                         List<string> imagePathList = new List<string>();
                         // Check each image from current step.
-                        for (int j = 0; j < currStepDetail.ImgDetail.ImgList.Length; j++) 
+                        for (int j = 0; j < currStepDetail.ImgDetail?.ImgList?.Length; j++) 
                         {
                             string[] imagePaths = _GetImgPathsFromFileNameExpr(di, currStepDetail.ImgDetail.ImgList[j]);
                             if (imagePaths?.Length > 0) imagePathList.Add(imagePaths[0]);
