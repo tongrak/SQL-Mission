@@ -22,15 +22,28 @@ namespace Assets.Scripts.DataPersistence.SQLComponent
         /// <returns>Result after execute SQL and first row is attribute. If puzzle type is "A" then first column must be image column</returns>
         public string[][] GetTableResult(string dbConn, string sql, VisualType visualType)
         {
-            // 2) If puzzle type is float image, insert img column to sql command.
-            if (visualType == VisualType.A)
+            switch (visualType)
             {
-                _ValidateQuery(dbConn, sql);
-                sql = _InsertImgColumn(sql);
+                case VisualType.Dynamic:
+                    // 1) Validate sql before insert 'Image' column.
+                    _ValidateQuery(dbConn, sql);
+                    // 2) Insert 'Image' column to sql command.
+                    string sqlWithImg = _InsertImgColumn(sql);
+                    try
+                    {
+                        // 3) If after insert 'Image' column have an exception, then return with original sql result.
+                        _ValidateQuery(dbConn, sqlWithImg);
+                        return _GetQueryResult(dbConn, sqlWithImg);
+                    }
+                    catch (Exception)
+                    {
+                        return _GetQueryResult(dbConn, sql);
+                    }
+                case VisualType.Static:
+                    return _GetQueryResult(dbConn, sql);
+                default:
+                    return null;
             }
-
-            // 3) Execute & return result
-            return _GetQueryResult(dbConn, sql);
         }
 
         #region For validate method

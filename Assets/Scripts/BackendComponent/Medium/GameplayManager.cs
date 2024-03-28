@@ -154,7 +154,7 @@ namespace Gameplay
                     _canAdvanceAStep = true;
                     _gameplayUI.SetDisplayedActionButton(ActionButtonType.PROCEED);
 
-                    if (imagePaths != null) handleOnVisualType(VisualType.B, imagePaths);
+                    if (imagePaths != null) handleOnVisualType(VisualType.Static, imagePaths);
 
                     break;
             }
@@ -212,11 +212,11 @@ namespace Gameplay
 
             switch (type)
             {
-                case VisualType.A: 
+                case VisualType.Dynamic: 
                     _dynamicVisualFeedbackObject.SetActive(true);
                     _dynamicVisualController.InitItemObjects(imagePaths); 
                     break;
-                case VisualType.B:
+                case VisualType.Static:
                     _staticVisualFeedbackObject.SetActive(true);
                     _staticVisualController.InitItemObjects(imagePaths); 
                     break;

@@ -3,7 +3,7 @@
     [System.Serializable]
     public enum VisualType
     {
-        A,
-        B
+        Dynamic,
+        Static
     }
 }
