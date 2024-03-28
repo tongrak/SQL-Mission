@@ -54,22 +54,30 @@ namespace Assets.Scripts.DataPersistence.SQLComponent
         /// </summary>
         /// <param name="dbConn"></param>
         /// <param name="sql"></param>
+        /// <exception cref="SqliteException">If sql have banned word, it will throw exception</exception>
         /// <exception cref="ArgumentException">If sql command is null</exception>
         private void _ValidateQuery(string dbConn, string sql)
         {
-            using (SqliteConnection connection = new SqliteConnection(dbConn))
+            if (_HaveBannedWord(sql))
             {
-                connection.Open();
-                // Query to database
-                using (SqliteCommand command = new SqliteCommand(sql, connection))
+                throw new SqliteException(_GetWarningWord_BannedWord());
+            }
+            else
+            {
+                using (SqliteConnection connection = new SqliteConnection(dbConn))
                 {
-                    // Read data from query
-                    using (IDataReader reader = command.ExecuteReader())
+                    connection.Open();
+                    // Query to database
+                    using (SqliteCommand command = new SqliteCommand(sql, connection))
                     {
+                        // Read data from query
+                        using (IDataReader reader = command.ExecuteReader())
+                        {
                         
+                        }
                     }
+                    connection.Close();
                 }
-                connection.Close();
             }
         }
 
@@ -100,62 +108,54 @@ namespace Assets.Scripts.DataPersistence.SQLComponent
         /// <param name="dbConn">Must be full path for connecting to Database example "URI=file:folder/database.db"</param>
         /// <param name="sql">SQL command</param>
         /// <returns>Result from execute sql command and first row is attributes.</returns>
-        /// <exception cref="SqliteException">If sql have banned word, it will throw exception</exception>
         /// <exception cref="ArgumentException">If sql command is null</exception>
         private string[][] _GetQueryResult(string dbConn, string sql)
         {
             string[][] queryResult;
             int numOfRecord = 0;
 
-            if (_HaveBannedWord(sql))
+            // Connect to database
+            using (SqliteConnection connection = new SqliteConnection(dbConn))
             {
-                throw new SqliteException(_GetWarningWord_BannedWord());
-            }
-            else
-            {
-                // Connect to database
-                using (SqliteConnection connection = new SqliteConnection(dbConn))
+                connection.Open();
+                // Query to database
+                using (SqliteCommand command = new SqliteCommand(sql, connection))
                 {
-                    connection.Open();
-                    // Query to database
-                    using (SqliteCommand command = new SqliteCommand(sql, connection))
+                    // Count number of record
+                    using (IDataReader forCountReader = command.ExecuteReader())
                     {
-                        // Count number of record
-                        using (IDataReader forCountReader = command.ExecuteReader())
+                        while (forCountReader.Read())
                         {
-                            while (forCountReader.Read())
-                            {
-                                numOfRecord += 1;
-                            }
-                        }
-                        // Read data from query
-                        using (IDataReader reader = command.ExecuteReader())
-                        {
-                            queryResult = new string[reader.FieldCount][];
-
-                            // set attribute in result
-                            for (int i = 0; i < reader.FieldCount; i++)
-                            {
-                                queryResult[i] = new string[numOfRecord + 1];
-                                queryResult[i][0] = reader.GetName(i);
-                            }
-                            // fill value for each header from each row in table
-                            int record_index = 1;
-                            while (reader.Read())
-                            {
-                                for (int j = 0; j < reader.FieldCount; j++)
-                                {
-                                    queryResult[j][record_index] = reader.GetValue(j).ToString();
-                                }
-                                record_index++;
-                            }
+                            numOfRecord += 1;
                         }
                     }
-                    connection.Close();
-                }
+                    // Read data from query
+                    using (IDataReader reader = command.ExecuteReader())
+                    {
+                        queryResult = new string[reader.FieldCount][];
 
-                return queryResult;
+                        // set attribute in result
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            queryResult[i] = new string[numOfRecord + 1];
+                            queryResult[i][0] = reader.GetName(i);
+                        }
+                        // fill value for each header from each row in table
+                        int record_index = 1;
+                        while (reader.Read())
+                        {
+                            for (int j = 0; j < reader.FieldCount; j++)
+                            {
+                                queryResult[j][record_index] = reader.GetValue(j).ToString();
+                            }
+                            record_index++;
+                        }
+                    }
+                }
+                connection.Close();
             }
+
+            return queryResult;
         }
 
         /// <summary>
