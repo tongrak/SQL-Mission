@@ -3433,6 +3433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc0d815c90ab158428566be219adc6e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _displayZoneGO: {fileID: 340119880}
   _queriedTableGeneratorGO: {fileID: 425001768}
   _expectedTableGeneratorGO: {fileID: 832601355}
   _feedbackGO: {fileID: 1983549002}
@@ -9887,6 +9888,7 @@ MonoBehaviour:
   _newlineSplitPoint: /n
   _FTBTokenReg: <<(.*?)>>
   _typeFTBTokenReg: Type
+  _typeLongFTBTokenReg: TypeLong
   _lineTokenPrefab: {fileID: 5275808292119630103, guid: f27afb3c528faed46a86e049b103c34f, type: 3}
 --- !u!114 &2109683532
 MonoBehaviour:
