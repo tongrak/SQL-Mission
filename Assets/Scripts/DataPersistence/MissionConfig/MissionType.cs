@@ -5,7 +5,6 @@
     public enum MissionType
     {
         Normal,
-        Optional,
         Final,
         Placement
     }

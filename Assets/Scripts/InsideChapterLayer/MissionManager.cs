@@ -14,7 +14,6 @@ using Assets.Scripts.InsideChapterLayer.UI;
 public class MissionManager : MonoBehaviour
 {
     [SerializeField] private GameObject _normalMission;
-    [SerializeField] private GameObject _optionalMission;
     [SerializeField] private GameObject _finalMission;
     [SerializeField] private MissionData _missionSceneData;
     [SerializeField] private MissionStatusDetailsData _missionStatusDetailsData;
@@ -26,7 +25,7 @@ public class MissionManager : MonoBehaviour
     private string _allmissionConfigFolderFullPath; // Insert path after root path. If relative path is './MissionConfig/Chapter1' then insert 'Chapter1'
     private string[] _missionConfigFiles; // list of mission config file. Example [mission1, mission2]
     private FileSystemWatcher _fileWatcher;
-    private MissionUnlockDetails _missionStatusDetails;
+    private MissionStatusDetails _missionStatusDetails;
     private bool _haveStatusDetailFile;
 
     public void MissionPaperClicked(int configIndex, bool isPassed)
@@ -109,7 +108,7 @@ public class MissionManager : MonoBehaviour
             else
             {
                 string missionStatusTxt = File.ReadAllText(Path.Combine(_allmissionConfigFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType));
-                _missionStatusDetails = JsonUtility.FromJson<MissionUnlockDetails>(missionStatusTxt);
+                _missionStatusDetails = JsonUtility.FromJson<MissionStatusDetails>(missionStatusTxt);
             }
         }
 
@@ -124,9 +123,9 @@ public class MissionManager : MonoBehaviour
     /// <param name="unLockDetailFileFullPath">Example "D:/Assets/Resources/X/X/ChapterX"</param>
     /// <param name="fileType">Must be ".txt" or ".json"</param>
     /// <returns></returns>
-    private MissionUnlockDetails _WriteMissionUnlockDetails(MissionConfig[] missionConfigs, string unLockDetailFileFullPath, string fileType)
+    private MissionStatusDetails _WriteMissionUnlockDetails(MissionConfig[] missionConfigs, string unLockDetailFileFullPath, string fileType)
     {
-        MissionUnlockDetails missionUnlockDetails = new MissionUnlockDetails(missionConfigs.Length);
+        MissionStatusDetails missionUnlockDetails = new MissionStatusDetails(missionConfigs.Length);
 
         // Create unlock detail for each mission.
         for (int i = 0; i < missionConfigs.Length; i++)
@@ -135,13 +134,13 @@ public class MissionManager : MonoBehaviour
             int missionDependencyNum = missionConfig.MissionDependencies.Length;
             bool isMissionUnlocked = missionDependencyNum <= 0;
 
-            MissionDependencyUnlockDetail[] missionDependenciesUnlockDetail = null;
+            MissionDependencyStatusDetail[] missionDependenciesUnlockDetail = null;
             if (!isMissionUnlocked)
             {
-                missionDependenciesUnlockDetail = new MissionDependencyUnlockDetail[missionDependencyNum];
+                missionDependenciesUnlockDetail = new MissionDependencyStatusDetail[missionDependencyNum];
                 for (int k = 0; k < missionDependencyNum; k++)
                 {
-                    missionDependenciesUnlockDetail[k] = new MissionDependencyUnlockDetail
+                    missionDependenciesUnlockDetail[k] = new MissionDependencyStatusDetail
                     {
                         MissionID = missionConfig.MissionDependencies[k],
                         IsPass = false
@@ -150,12 +149,12 @@ public class MissionManager : MonoBehaviour
             }
 
             // Create unlock detail
-            missionUnlockDetails.MissionUnlockDetailList[i] = new MissionUnlockDetail
+            missionUnlockDetails.MissionStatusDetailList[i] = new MissionStatusDetail
             {
                 MissionID = missionConfig.MissionID,
                 IsUnlock = isMissionUnlocked,
                 IsPass = false,
-                MissionDependenciesUnlockDetail = missionDependenciesUnlockDetail
+                MissionDependenciesStatusDetail = missionDependenciesUnlockDetail
             };
         }
 
@@ -172,7 +171,7 @@ public class MissionManager : MonoBehaviour
     /// </summary>
     /// <param name="missionConfigs"></param>
     /// <param name="missionUnlockDetails"></param>
-    private void _GenerateAllMissionObject(MissionConfig[] missionConfigs, MissionUnlockDetails missionUnlockDetails)
+    private void _GenerateAllMissionObject(MissionConfig[] missionConfigs, MissionStatusDetails missionUnlockDetails)
     {
         // Find parent's transform
         Transform misionGroupTransform = GameObject.Find("Content").transform;
@@ -184,16 +183,13 @@ public class MissionManager : MonoBehaviour
         for (int i = 0; i < missionConfigs.Length; i++)
         {
             MissionConfig missionConfig = missionConfigs[i];
-            MissionUnlockDetail missionUnlockDetail = missionUnlockDetails.MissionUnlockDetailList[i];
+            MissionStatusDetail missionUnlockDetail = missionUnlockDetails.MissionStatusDetailList[i];
             GameObject missionPaper = null;
 
             switch (missionConfig.MissionType)
             {
                 case MissionType.Normal:
                     missionPaper = Instantiate(_normalMission, misionGroupTransform);
-                    break;
-                case MissionType.Optional:
-                    missionPaper = Instantiate(_optionalMission, misionGroupTransform);
                     break;
                 case MissionType.Final:
                     missionPaper = Instantiate(_finalMission, misionGroupTransform);

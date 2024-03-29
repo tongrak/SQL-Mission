@@ -18,7 +18,7 @@ namespace Assets.Scripts.ChapterLayer
         public void ChapterButtonClicked(int chapterID, string missionConfigsRelativeFolder, bool isPassed, string[] missionFilesIndex)
         {
             // Insert mission board data
-            _missionBoardData.MissionConfigFolderFullPath = Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.MissionConfigRootFolder, missionConfigsRelativeFolder);
+            _missionBoardData.MissionConfigFolderFullPath = Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.MissionConfigRootFolder, missionConfigsRelativeFolder ?? "");
             _missionBoardData.MissionFilesIndex = missionFilesIndex;
 
             // Insert chapter data

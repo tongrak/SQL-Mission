@@ -7,13 +7,13 @@ namespace Assets.Scripts.ScriptableObjects
     public class MissionStatusDetailsData : ScriptableObject
     {
         public bool Changed = false;
-        public MissionUnlockDetails MissionStatusDetails;
+        public MissionStatusDetails MissionStatusDetails;
 
         public bool IsPassedMission(int missionIndex)
         {
-            return MissionStatusDetails.MissionUnlockDetailList[missionIndex].IsPass;
+            return MissionStatusDetails.MissionStatusDetailList[missionIndex].IsPass;
         }
 
-        public bool IsUnlockedMission(int missionIndex) => MissionStatusDetails.MissionUnlockDetailList[missionIndex].IsUnlock;
+        public bool IsUnlockedMission(int missionIndex) => MissionStatusDetails.MissionStatusDetailList[missionIndex].IsUnlock;
     }
 }

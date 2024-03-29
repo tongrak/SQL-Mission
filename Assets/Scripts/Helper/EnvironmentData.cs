@@ -16,6 +16,7 @@ namespace Assets.Scripts.Helper
         public readonly string ResourcesFolder = "Resources";
         public readonly string PlacementConfigRootFolder = Path.Combine("Configs", "PlacementConfig");
         public readonly string PlacementFileName = "Placement";
+        public readonly string ImageFileFormat = ".png";
 
         private static readonly EnvironmentData instance = new EnvironmentData();
 

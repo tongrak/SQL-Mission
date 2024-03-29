@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.DataPersistence.Chapter;
 using Assets.Scripts.DataPersistence.ChapterStatusDetail;
+using Assets.Scripts.DataPersistence.MissionStatusDetail;
 using Assets.Scripts.DataPersistence.StepController;
 using Assets.Scripts.Helper;
 using Assets.Scripts.ScriptableObjects;
@@ -16,23 +17,11 @@ namespace Assets.Scripts.MainMenuLayer
         [SerializeField] private bool _goToPlacement;
         [SerializeField] private MissionData _missionSceneData;
 
-        private FileSystemWatcher _fileWatcher;
-        private string _configsFolderPath;
-        private string _statusFile;
-        private int _totalStatusFile;
-        private int _totalDeletedStatusFile;
-        private bool _deleteCompleted;
-        private bool _createChapterStatusCompleted;
         private string _chapterConfigsFolderFullPath;
         private string _chapterStatusFileFullPath;
 
         private void _SetFields()
         {
-            _configsFolderPath = Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, "Configs");
-            _statusFile = EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType;
-            _totalStatusFile = 0;
-            _totalDeletedStatusFile = 0;
-            _deleteCompleted = false;
             _chapterConfigsFolderFullPath = Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.ChapterConfigRootFolder);
             _chapterStatusFileFullPath = Path.Combine(_chapterConfigsFolderFullPath, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
         }
@@ -46,40 +35,17 @@ namespace Assets.Scripts.MainMenuLayer
         public void NewGameButtonClicked()
         {
             _loadingFacade.SetActive(true);
-            if (_fileWatcher != null)
+
+            _CreateChapterStatusFile();
+            if (_goToPlacement)
             {
-                _DeleteAllStatusFile();
-                // Will change scene after delete all status file and create chapter status file.
+                _GoToPlacementTest();
             }
             else
             {
-                _CreateChapterStatusFile();
+                ScenesManager.Instance.LoadSelectChapterScene();
             }
         }
-
-        #region Delete status file
-        private void _DeleteAllStatusFile()
-        {
-            string[] statusfileList = Directory.GetFiles(_configsFolderPath, _statusFile + "*", SearchOption.AllDirectories);
-            _totalStatusFile = statusfileList.Length;
-
-            foreach (string statusfile in statusfileList)
-            {
-                File.Delete(statusfile);
-            }
-        }
-
-        private void _StatusFileDeleted(object sender, FileSystemEventArgs e)
-        {
-            _totalDeletedStatusFile++;
-            Debug.LogWarning("Deleted file: " + e.FullPath);
-
-            if (_totalDeletedStatusFile == _totalStatusFile)
-            {
-                _deleteCompleted = true;
-            }
-        }
-        #endregion
 
         #region Create chapter status file
         private void _CreateChapterStatusFile()
@@ -93,11 +59,72 @@ namespace Assets.Scripts.MainMenuLayer
 
             // 3) Inject status object to SO
             _chapterStatusDetailsData.ChapterStatusDetails = chapterStatusDetails;
+
+            // 4) Create or overwrite mission status detail
+            _CreateAllMissionStatusFile(chapterConfigs);
         }
 
-        private void _ChapterStatusFileCreated(object sender, FileSystemEventArgs e)
+        private void _CreateAllMissionStatusFile(ChapterConfig[] chapterConfigs)
         {
-            _createChapterStatusCompleted = true;
+            foreach (ChapterConfig chapterConfig in chapterConfigs)
+            {
+                string statusDetailFileFullPathWithFormat = Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.MissionConfigRootFolder, chapterConfig.MissionConfigFolder ?? "", EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType);
+
+                // 1) Get every mission config for current chapter.
+                MissionConfig[] missionConfigs = new MissionConfig[chapterConfig.MissionFilesIndex.Length];
+                for (int i = 0; i < chapterConfig.MissionFilesIndex.Length; i++)
+                {
+                    string missionConfigFileName = chapterConfig.MissionFilesIndex[i];
+                    string configFileFullPath = Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.MissionConfigRootFolder, chapterConfig.MissionConfigFolder ?? "", missionConfigFileName + EnvironmentData.Instance.ConfigFileType);
+                    string configData = File.ReadAllText(configFileFullPath);
+                    missionConfigs[i] = JsonUtility.FromJson<MissionConfig>(configData);
+                }
+
+                // 2) Create mission status detail.
+                _WriteMissionStatusDetails(missionConfigs, statusDetailFileFullPathWithFormat);
+            }
+        }
+
+        private MissionStatusDetails _WriteMissionStatusDetails(MissionConfig[] missionConfigs, string statusDetailFileFullPath)
+        {
+            MissionStatusDetails missionStatusDetails = new MissionStatusDetails(missionConfigs.Length);
+
+            // Create status detail for each mission.
+            for (int i = 0; i < missionConfigs.Length; i++)
+            {
+                MissionConfig missionConfig = missionConfigs[i];
+                int missionDependencyNum = missionConfig.MissionDependencies.Length;
+                bool isMissionUnlocked = missionDependencyNum <= 0;
+
+                MissionDependencyStatusDetail[] missionDependenciesUnlockDetail = null;
+                if (!isMissionUnlocked)
+                {
+                    missionDependenciesUnlockDetail = new MissionDependencyStatusDetail[missionDependencyNum];
+                    for (int k = 0; k < missionDependencyNum; k++)
+                    {
+                        missionDependenciesUnlockDetail[k] = new MissionDependencyStatusDetail
+                        {
+                            MissionID = missionConfig.MissionDependencies[k],
+                            IsPass = false
+                        };
+                    }
+                }
+
+                // Create unlock detail
+                missionStatusDetails.MissionStatusDetailList[i] = new MissionStatusDetail
+                {
+                    MissionID = missionConfig.MissionID,
+                    IsUnlock = isMissionUnlocked,
+                    IsPass = false,
+                    MissionDependenciesStatusDetail = missionDependenciesUnlockDetail
+                };
+            }
+
+            // Save to 'StatusDetail.txt'
+            string data = JsonUtility.ToJson(missionStatusDetails, true);
+            File.WriteAllText(statusDetailFileFullPath, data);
+
+            return missionStatusDetails;
         }
 
         private ChapterIndex _LoadChapterIndexFromFile()
@@ -172,20 +199,6 @@ namespace Assets.Scripts.MainMenuLayer
             return chapterStatusDetails;
         }
 
-        private void _InitiateFileWatcher()
-        {
-            _fileWatcher = new FileSystemWatcher(_configsFolderPath, _statusFile + "*");
-            _fileWatcher.NotifyFilter = NotifyFilters.CreationTime
-             | NotifyFilters.LastWrite
-             | NotifyFilters.Size;
-
-            _fileWatcher.Deleted += _StatusFileDeleted;
-            _fileWatcher.Created += _ChapterStatusFileCreated;
-
-            _fileWatcher.IncludeSubdirectories = true;
-            _fileWatcher.EnableRaisingEvents = true;
-        }
-
         private void _GoToPlacementTest()
         {
             string placementConfigData = File.ReadAllText(Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.PlacementConfigRootFolder, EnvironmentData.Instance.PlacementFileName + EnvironmentData.Instance.ConfigFileType));
@@ -206,41 +219,6 @@ namespace Assets.Scripts.MainMenuLayer
         private void Awake()
         {
             _SetFields();
-
-            if (File.Exists(Path.Combine(Application.dataPath, EnvironmentData.Instance.ResourcesFolder, EnvironmentData.Instance.ChapterConfigRootFolder, EnvironmentData.Instance.StatusFileName + EnvironmentData.Instance.ConfigFileType)))
-            {
-                _InitiateFileWatcher();
-            }
-        }
-
-        private void Update()
-        {
-            if (_deleteCompleted)
-            {
-                _deleteCompleted = false;
-                _CreateChapterStatusFile();
-            }
-            if (_createChapterStatusCompleted)
-            {
-                _createChapterStatusCompleted = false;
-                if (_goToPlacement)
-                {
-                    _GoToPlacementTest();
-                }
-                else
-                {
-                    ScenesManager.Instance.LoadSelectChapterScene();
-                }
-            }
-        }
-
-        private void OnDestroy()
-        {
-            if (_fileWatcher != null)
-            {
-                _fileWatcher.Deleted -= _StatusFileDeleted;
-                _fileWatcher.Created -= _ChapterStatusFileCreated;
-            }
         }
     }
 }
