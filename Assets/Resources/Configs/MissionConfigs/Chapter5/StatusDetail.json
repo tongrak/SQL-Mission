@@ -1,16 +1,16 @@
 {
-    "MissionUnlockDetailList": [
+    "MissionStatusDetailList": [
         {
             "MissionID": 1,
             "IsUnlock": true,
             "IsPass": false,
-            "MissionDependenciesUnlockDetail": []
+            "MissionDependenciesStatusDetail": []
         },
         {
             "MissionID": 2,
             "IsUnlock": false,
             "IsPass": false,
-            "MissionDependenciesUnlockDetail": [
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 1,
                     "IsPass": false
@@ -21,7 +21,7 @@
             "MissionID": 3,
             "IsUnlock": false,
             "IsPass": false,
-            "MissionDependenciesUnlockDetail": [
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 1,
                     "IsPass": false
@@ -32,7 +32,7 @@
             "MissionID": 4,
             "IsUnlock": false,
             "IsPass": false,
-            "MissionDependenciesUnlockDetail": [
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 2,
                     "IsPass": false
@@ -47,7 +47,7 @@
             "MissionID": 5,
             "IsUnlock": false,
             "IsPass": false,
-            "MissionDependenciesUnlockDetail": [
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 2,
                     "IsPass": false
@@ -62,7 +62,7 @@
             "MissionID": 6,
             "IsUnlock": false,
             "IsPass": false,
-            "MissionDependenciesUnlockDetail": [
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 4,
                     "IsPass": false
@@ -77,7 +77,7 @@
             "MissionID": 99,
             "IsUnlock": false,
             "IsPass": false,
-            "MissionDependenciesUnlockDetail": [
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 6,
                     "IsPass": false

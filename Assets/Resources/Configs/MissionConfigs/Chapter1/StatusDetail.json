@@ -1,16 +1,16 @@
 {
-    "MissionUnlockDetailList": [
+    "MissionStatusDetailList": [
         {
             "MissionID": 1,
             "IsUnlock": true,
             "IsPass": true,
-            "MissionDependenciesUnlockDetail": []
+            "MissionDependenciesStatusDetail": []
         },
         {
             "MissionID": 2,
             "IsUnlock": true,
             "IsPass": true,
-            "MissionDependenciesUnlockDetail": [
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 1,
                     "IsPass": true
@@ -21,7 +21,7 @@
             "MissionID": 3,
             "IsUnlock": true,
             "IsPass": true,
-            "MissionDependenciesUnlockDetail": [
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 2,
                     "IsPass": true
@@ -32,7 +32,7 @@
             "MissionID": 4,
             "IsUnlock": true,
             "IsPass": true,
-            "MissionDependenciesUnlockDetail": [
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 2,
                     "IsPass": true
@@ -43,7 +43,7 @@
             "MissionID": 5,
             "IsUnlock": true,
             "IsPass": true,
-            "MissionDependenciesUnlockDetail": [
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 2,
                     "IsPass": true
@@ -54,7 +54,7 @@
             "MissionID": 6,
             "IsUnlock": true,
             "IsPass": true,
-            "MissionDependenciesUnlockDetail": [
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 3,
                     "IsPass": true
@@ -73,7 +73,7 @@
             "MissionID": 99,
             "IsUnlock": true,
             "IsPass": true,
-            "MissionDependenciesUnlockDetail": [
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 6,
                     "IsPass": true

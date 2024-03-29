@@ -1,119 +1,119 @@
 {
-    "MissionUnlockDetailList": [
+    "MissionStatusDetailList": [
         {
             "MissionID": 1,
             "IsUnlock": true,
-            "IsPass": true,
-            "MissionDependenciesUnlockDetail": []
+            "IsPass": false,
+            "MissionDependenciesStatusDetail": []
         },
         {
             "MissionID": 2,
-            "IsUnlock": true,
-            "IsPass": true,
-            "MissionDependenciesUnlockDetail": [
+            "IsUnlock": false,
+            "IsPass": false,
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 1,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "MissionID": 3,
-            "IsUnlock": true,
-            "IsPass": true,
-            "MissionDependenciesUnlockDetail": [
+            "IsUnlock": false,
+            "IsPass": false,
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 2,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "MissionID": 4,
-            "IsUnlock": true,
-            "IsPass": true,
-            "MissionDependenciesUnlockDetail": [
+            "IsUnlock": false,
+            "IsPass": false,
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 2,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "MissionID": 5,
-            "IsUnlock": true,
-            "IsPass": true,
-            "MissionDependenciesUnlockDetail": [
+            "IsUnlock": false,
+            "IsPass": false,
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 2,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "MissionID": 6,
-            "IsUnlock": true,
-            "IsPass": true,
-            "MissionDependenciesUnlockDetail": [
+            "IsUnlock": false,
+            "IsPass": false,
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 3,
-                    "IsPass": true
+                    "IsPass": false
                 },
                 {
                     "MissionID": 4,
-                    "IsPass": true
+                    "IsPass": false
                 },
                 {
                     "MissionID": 5,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "MissionID": 7,
-            "IsUnlock": true,
-            "IsPass": true,
-            "MissionDependenciesUnlockDetail": [
+            "IsUnlock": false,
+            "IsPass": false,
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 6,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "MissionID": 8,
-            "IsUnlock": true,
-            "IsPass": true,
-            "MissionDependenciesUnlockDetail": [
+            "IsUnlock": false,
+            "IsPass": false,
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 7,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "MissionID": 9,
-            "IsUnlock": true,
-            "IsPass": true,
-            "MissionDependenciesUnlockDetail": [
+            "IsUnlock": false,
+            "IsPass": false,
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 7,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         },
         {
             "MissionID": 99,
-            "IsUnlock": true,
+            "IsUnlock": false,
             "IsPass": false,
-            "MissionDependenciesUnlockDetail": [
+            "MissionDependenciesStatusDetail": [
                 {
                     "MissionID": 8,
-                    "IsPass": true
+                    "IsPass": false
                 },
                 {
                     "MissionID": 9,
-                    "IsPass": true
+                    "IsPass": false
                 }
             ]
         }

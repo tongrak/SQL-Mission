@@ -85,9 +85,9 @@ namespace Assets.Scripts.MainMenuLayer
             }
         }
 
-        private MissionUnlockDetails _WriteMissionStatusDetails(MissionConfig[] missionConfigs, string statusDetailFileFullPath)
+        private MissionStatusDetails _WriteMissionStatusDetails(MissionConfig[] missionConfigs, string statusDetailFileFullPath)
         {
-            MissionUnlockDetails missionStatusDetails = new MissionUnlockDetails(missionConfigs.Length);
+            MissionStatusDetails missionStatusDetails = new MissionStatusDetails(missionConfigs.Length);
 
             // Create status detail for each mission.
             for (int i = 0; i < missionConfigs.Length; i++)
@@ -96,13 +96,13 @@ namespace Assets.Scripts.MainMenuLayer
                 int missionDependencyNum = missionConfig.MissionDependencies.Length;
                 bool isMissionUnlocked = missionDependencyNum <= 0;
 
-                MissionDependencyUnlockDetail[] missionDependenciesUnlockDetail = null;
+                MissionDependencyStatusDetail[] missionDependenciesUnlockDetail = null;
                 if (!isMissionUnlocked)
                 {
-                    missionDependenciesUnlockDetail = new MissionDependencyUnlockDetail[missionDependencyNum];
+                    missionDependenciesUnlockDetail = new MissionDependencyStatusDetail[missionDependencyNum];
                     for (int k = 0; k < missionDependencyNum; k++)
                     {
-                        missionDependenciesUnlockDetail[k] = new MissionDependencyUnlockDetail
+                        missionDependenciesUnlockDetail[k] = new MissionDependencyStatusDetail
                         {
                             MissionID = missionConfig.MissionDependencies[k],
                             IsPass = false
@@ -111,12 +111,12 @@ namespace Assets.Scripts.MainMenuLayer
                 }
 
                 // Create unlock detail
-                missionStatusDetails.MissionUnlockDetailList[i] = new MissionUnlockDetail
+                missionStatusDetails.MissionStatusDetailList[i] = new MissionStatusDetail
                 {
                     MissionID = missionConfig.MissionID,
                     IsUnlock = isMissionUnlocked,
                     IsPass = false,
-                    MissionDependenciesUnlockDetail = missionDependenciesUnlockDetail
+                    MissionDependenciesStatusDetail = missionDependenciesUnlockDetail
                 };
             }
 

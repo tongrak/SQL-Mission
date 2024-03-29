@@ -13,10 +13,10 @@ namespace Assets.Scripts.DataPersistence.SaveManager
         /// </summary>
         /// <param name="missionFolderFullPath">Folder path for mission config file in seleted chapter and must be after 'Resources' folder sush as 'MissionConfigs/ChapterX'</param>
         /// <param name="passedMissionID">Mission ID that passed.</param>
-        public MissionUnlockDetails UpdateMissionStatus(string missionFolderFullPath, MissionUnlockDetails missionStatusDetails, int passedMissionID)
+        public MissionStatusDetails UpdateMissionStatus(string missionFolderFullPath, MissionStatusDetails missionStatusDetails, int passedMissionID)
         {
             // 1) Loop for update status
-            foreach (MissionUnlockDetail missionStatusDetail in missionStatusDetails.MissionUnlockDetailList)
+            foreach (MissionStatusDetail.MissionStatusDetail missionStatusDetail in missionStatusDetails.MissionStatusDetailList)
             {
                 if (missionStatusDetail.MissionID == passedMissionID)
                 {
@@ -24,16 +24,16 @@ namespace Assets.Scripts.DataPersistence.SaveManager
                 }
             }
             // 2) Loop for unlock other mission ซึ่งถูก passed mission ล็อกไว้
-            foreach (MissionUnlockDetail missionStatusDetail in missionStatusDetails.MissionUnlockDetailList)
+            foreach (MissionStatusDetail.MissionStatusDetail missionStatusDetail in missionStatusDetails.MissionStatusDetailList)
             {
                 // Mission have dependency and not passed mission
-                if (missionStatusDetail.MissionID != passedMissionID && missionStatusDetail.MissionDependenciesUnlockDetail?.Length > 0)
+                if (missionStatusDetail.MissionID != passedMissionID && missionStatusDetail.MissionDependenciesStatusDetail?.Length > 0)
                 {
-                    int totalDependencies = missionStatusDetail.MissionDependenciesUnlockDetail.Length;
+                    int totalDependencies = missionStatusDetail.MissionDependenciesStatusDetail.Length;
                     int totalUnlockDependencies = 0;
 
                     // Update passed mission dependency's status.
-                    foreach (MissionDependencyUnlockDetail missionDependency in missionStatusDetail.MissionDependenciesUnlockDetail)
+                    foreach (MissionDependencyStatusDetail missionDependency in missionStatusDetail.MissionDependenciesStatusDetail)
                     {
                         if (missionDependency.MissionID == passedMissionID)
                         {
@@ -59,7 +59,7 @@ namespace Assets.Scripts.DataPersistence.SaveManager
             return missionStatusDetails;
         }
 
-        private void _SaveMissionStatusToFile(MissionUnlockDetails missionStatusDetails, string fullPath)
+        private void _SaveMissionStatusToFile(MissionStatusDetails missionStatusDetails, string fullPath)
         {
             string saveData = JsonUtility.ToJson(missionStatusDetails, true);
             File.WriteAllText(fullPath, saveData);
