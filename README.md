@@ -9,7 +9,7 @@ A Unity project for educational game prototype for teaching SQL language. A proj
 1. Check the latest release's note.
 2. Download executable `.zip`/`.rar` file.
 3. Extract the file.
-4. Run `SQL Mission.exe`
+4. Run `SQL Mission.exe`/`SQL Mission.app`
 
 ---
 
